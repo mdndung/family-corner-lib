@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
+
 import { BaziHelper } from '../../helper/baziHelper';
 import { BrancheHelper } from '../../helper/brancheHelper';
 import { ObjectHelper } from '../../helper/objectHelper';
+import { StringHelper } from '../../helper/stringHelper';
 import { TrunkHelper } from '../../helper/trunkHelper';
 import { Element } from '../feng-shui/element';
 
@@ -49,6 +51,17 @@ export class PilarsAttr {
     this.initEERCounters(lunar);
   }
 
+  log() {
+    let res = '';
+    res+=''+this.dayHiddenRelation;
+    //res+=' elementNEnergyForce '+this.elementNEnergyForce+'; ';
+    //res+=' elementForce '+this.elementForce+'; ';
+    //res+=' majorElement '+this.majorElement+'; ';
+    //res+=' majorElementForce '+this.majorElementForce+'; ';
+    //res+=' trunkForceArr '+this.trunkForceArr+'; ';
+    //res+=' brancheForceArr '+this.brancheForceArr+'; ';
+    return res ;
+  }
 
   static getTransformable( trunk1: Trunk, trunk2: Trunk,  checkELement: Element) {
     if (TrunkHelper.isTransformable(trunk1,trunk2)) {
@@ -1418,8 +1431,10 @@ export class PilarsAttr {
       this.sumElementForce += this.elementForce[element.ordinal()];
     });
 
+    this.majorElementForce = 0;
+
     elementValues.forEach(element  => {
-			if ( 100*this.elementForce[element.ordinal()]/this.sumElementForce>50.0 ) {
+			if ( 100*this.elementForce[element.ordinal()]/this.sumElementForce>this.majorElementForce ) {
 				this.majorElementForce = 100*this.elementForce[element.ordinal()]/this.sumElementForce;
 				this.majorElement = element as Element;
      }});
@@ -1502,7 +1517,7 @@ export class PilarsAttr {
    let relation;
    const relationArr = this.trunkRelation;
    let element;
-   for (let i = 0; i < trunkArr.length; i++) {
+   for (let i = 0; i < LunarBase.LINDEX; i++) {
        // Exclude d index (same relation) and y index (too far)
        if ((i !== LunarBase.DINDEX) && (i !== LunarBase.YINDEX)) {
            // Use the new transformable element?

@@ -366,6 +366,7 @@ export class SecondaryDeity extends EnumBaseClass {
     }
     return null;
   }
+
   isFavorable() {
     return this.ordinal() < SecondaryDeity.SAOSAT.ordinal();
   }
@@ -732,7 +733,7 @@ export class SecondaryDeity extends EnumBaseClass {
   }
 
   static voidJiaBranche = [
-    Branche.RAT,
+    Branche.RAT
   ];
 
   // See tableau at Ref9p322
@@ -847,65 +848,6 @@ export class SecondaryDeity extends EnumBaseClass {
         addIfNonNull(deitySet,SecondaryDeity.getKimThan(currLunar));
       }
       secDeityPilars[i]=deitySet;
-    /*
-        addIfNonNull(deitySet,SecondaryDeity.getThienKhoi(yearTrunk, dayTrunk, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getThienViet(yearTrunk, dayTrunk, branche));
-        if ( i<LunarBase.LINDEX ) {
-            addIfNonNull(deitySet,SecondaryDeity.getThaiCuc(dayTrunk, branche));
-        }
-
-        addIfNonNull(deitySet,SecondaryDeity.getQuocAn(yearTrunk, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getQuocAn(dayTrunk, branche));
-        secDeity = SecondaryDeity.getLocThan(dayTrunk, branche);
-        if ( secDeity!== null ) {
-          addIfNonNull(deitySet,secDeity);
-        }
-        addIfNonNull(deitySet,SecondaryDeity.getVanTinh(yearTrunk, dayTrunk, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getHocSi(yearTrunk, dayTrunk, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getThienLoc(dayBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getKimDu(dayTrunk, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getHongDiem(dayTrunk, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getLuuHa(dayTrunk, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getKinhDuong( dayTrunk, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getTuong(dayBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getTuong(yearBranche, branche));
-
-        addIfNonNull(deitySet,SecondaryDeity.getHoaCai(dayBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getHoaCai(yearBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getDaoHoa(yearBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getKiepSat(dayBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getCoThan(dayBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getQuaTu(dayBranche, branche));
-
-        addIfNonNull(deitySet,SecondaryDeity.getCachGoc(dayBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getVongThan(dayBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getDichMa(dayBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getDichMa(yearBranche, branche));
-
-        addIfNonNull(deitySet,SecondaryDeity.getLongDuc(yearBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getKimQuy(yearBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getHongLoan(yearBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getThienCau(yearBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getCauGiao(yearBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getNguQuy(yearBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getTuePha(yearBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getThienLa(yearBranche, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getThienLa(dayBranche, branche));
-
-        addIfNonNull(deitySet,SecondaryDeity.getHuyetNhan(yearBranche, branche));
-        const trunk = trunkArr[i];
-        addIfNonNull(deitySet,SecondaryDeity.getThienDuc(monthBranche, trunk, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getNguyetDuc(monthBranche, trunk));
-        addIfNonNull(deitySet,SecondaryDeity.getThienXich( season,trunk, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getTuPhe( season,trunk, branche));
-        addIfNonNull(deitySet,SecondaryDeity.getAmDuongLech(trunk,branche));
-        addIfNonNull(deitySet,SecondaryDeity.getThienY(monthBranche, branche));
-        if ( i===LunarBase.DINDEX ) {
-            addIfNonNull(deitySet,SecondaryDeity.getPhucTinh(dayTrunk, dayBranche));
-            addIfNonNull(deitySet,SecondaryDeity.getKimThan(currLunar));
-        }
-        addIfNonNull(deitySet,SecondaryDeity.getTamKy(currLunar,i));
-        */
     }
     SecondaryDeity.addVoidSecDeity(secDeityPilars,LunarBase.DINDEX,trunkArr,brancheArr,SecondaryDeity.getFirstVoidBranche(dayTrunk,dayBranche));
     SecondaryDeity.addVoidSecDeity(secDeityPilars,LunarBase.YINDEX,trunkArr,brancheArr,SecondaryDeity.getFirstVoidBranche(yearTrunk,yearBranche));

@@ -5,8 +5,9 @@ import { Season } from './season';
 import { EnumBaseClass } from '../enumBaseClass';
 import { Energy } from '../feng-shui/energy';
 import { Trunk } from './trunk';
+import { EnumBaseSymbolClass } from '../enumBaseSymbolClass';
 
-export class Branche extends EnumBaseClass {
+export class Branche extends EnumBaseSymbolClass {
 
   static  RAT= new Branche('RAT',ElementNEnergy.WATERYANG,1,6,8, Trigram.KAN, Season.WINTER,'23-01');
   static  OX= new Branche('OX',ElementNEnergy.EARTHYIN,5,10,5, Trigram.GEN, Season.WINTER,'01-03');
@@ -66,5 +67,7 @@ export class Branche extends EnumBaseClass {
     return res ;
   }
 
-
+  override getViewColorName() {
+    return this.elementNEnergy.getViewColorName();
+  }
 }

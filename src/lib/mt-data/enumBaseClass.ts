@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/member-ordering */
 
+import { ColorViewHelper } from '../helper/colorViewHelper';
 import { ObjectHelper } from '../helper/objectHelper';
 
 export class EnumBaseClass {
 
-  name: string;
-
   static ENUM_CLASS_NAME_ARR: string [] = [] ;
   static ENUM_ELEMENT_ARR: EnumBaseClass[][] = []   ;
 
+
+  name: string;
 
   constructor(name: string) {
     this.name = name;
@@ -106,11 +107,20 @@ export class EnumBaseClass {
     return this.getNextNElement(this.getValues(),n) as typeof this;
   }
 
-  getFullName() {
+  getFullName():string {
     return this.getClassName()+'.'+this.getName();
+  }
+
+  getSymbolFullName() {
+    return this.getClassName()+'.'+this.getName()+'.Symbol';
+  }
+
+  getViewColorName() {
+    return ColorViewHelper.NONE;
   }
 
   toString() {
     return this.getName();
   }
+
 }

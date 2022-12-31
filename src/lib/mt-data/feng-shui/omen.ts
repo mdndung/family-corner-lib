@@ -72,4 +72,7 @@ export class Omen extends EnumBaseClass {
 
 	}
 
+  override getViewColorName() {
+    return this.element.getViewColorName();
+  }
 }

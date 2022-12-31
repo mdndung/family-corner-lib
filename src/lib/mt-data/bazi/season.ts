@@ -38,4 +38,8 @@ export class Season extends EnumBaseClass {
     return this.minYangCount<=count && count<=this.maxYangCount;
   }
 
+  override getViewColorName() {
+    return this.element.getViewColorName();
+  }
+
 }

@@ -660,4 +660,7 @@ export class TuViStar extends EnumBaseClass {
     this.force += incforce;
   }
 
+  override getViewColorName() {
+    return this.elementNEnergy.getViewColorName();
+  }
 }

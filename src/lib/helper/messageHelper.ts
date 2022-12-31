@@ -5,6 +5,7 @@ import { ObjectHelper } from './objectHelper';
 export class MessageHelper {
 
   static tr: TranslateService= null;
+  static USE_SYMBOL_MODE = false ;
 
   constructor(translateService: TranslateService) {
     MessageHelper.tr = translateService;
@@ -12,6 +13,26 @@ export class MessageHelper {
 
   static init(translateService: TranslateService) {
     MessageHelper.tr = translateService;
+  }
+
+  static isSymbolMode() {
+    return MessageHelper.USE_SYMBOL_MODE;
+  }
+
+  static setSymbolMode(mode: boolean) {
+    MessageHelper.USE_SYMBOL_MODE = mode;
+  }
+
+  static getSymbolMessage(key: string) {
+    let keyLab = key ;
+    if ( MessageHelper.isSymbolMode() ) {
+      keyLab += '.Symbol';
+    }
+    let res = MessageHelper.getMessage(keyLab);
+    if ( res===keyLab ) {
+      res = MessageHelper.getMessage(key)
+    }
+    return res;
   }
 
   static getLabMessage(key: string) {

@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { EnumBaseClass } from '../enumBaseClass';
+import { ColorViewHelper } from '../../helper/colorViewHelper';
+import { EnumBaseSymbolClass } from '../enumBaseSymbolClass';
 
-export class Element extends EnumBaseClass {
+export class Element extends EnumBaseSymbolClass {
 
-  static WOOD = new Element('WOOD');
-  static FIRE = new Element('FIRE');
-  static EARTH = new Element('EARTH');
-  static METAL = new Element('METAL');
-  static WATER = new Element('WATER');
+  static WOOD = new Element('WOOD',ColorViewHelper.WOODYANG);
+  static FIRE = new Element('FIRE',ColorViewHelper.FIREYANG);
+  static EARTH = new Element('EARTH',ColorViewHelper.EARTHYANG);
+  static METAL = new Element('METAL',ColorViewHelper.METALYANG);
+  static WATER = new Element('WATER',ColorViewHelper.WATERYANG);
 
   static PRODUCTIVE_CYCLE = [
     Element.FIRE,
@@ -25,9 +26,11 @@ export class Element extends EnumBaseClass {
     Element.EARTH,
   ];
 
+  colorViewName: string;
 
-  constructor(name: string) {
+  constructor(name: string,colorName: string) {
     super(name);
+    this.colorViewName=colorName;
   }
 
 
@@ -43,7 +46,6 @@ export class Element extends EnumBaseClass {
   override getClassName() {
     return 'Element';
   }
-
 
   isProductive(element: Element) {
     const nextElement = this.getNextElement(Element.PRODUCTIVE_CYCLE);
@@ -94,5 +96,9 @@ export class Element extends EnumBaseClass {
       }
     }
     return res;
+  }
+
+  override getViewColorName() {
+    return this.colorViewName;
   }
 }

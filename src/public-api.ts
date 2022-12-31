@@ -11,6 +11,7 @@ export * from './lib/mt-card/mt-card.component';
 export * from './lib/helper/baziHelper';
 export * from './lib/helper/brancheHelper';
 export * from './lib/helper/calcHelper';
+export * from './lib/helper/colorViewHelper';
 export * from './lib/helper/dateHelper';
 export * from './lib/helper/fengshuiHelper';
 export * from './lib/helper/horoscopeHelper';
@@ -114,8 +115,8 @@ export * from './lib/mt-data/zodiac/zodiacObservationBase';
 export * from './lib/mt-data/zodiac/zodiacTheme';
 
 export * from './lib/mt-data/coordinateSystem';
-export * from './lib/mt-data/myEnum';
 export * from './lib/mt-data/enumBaseClass';
+export * from './lib/mt-data/enumBaseSymbolClass';
 
 export * from './lib/observations/observationBase';
 export * from './lib/observations/obsKey';

@@ -85,4 +85,7 @@ export class Zodiac extends EnumBaseClass {
     return ZodiacHelper.getZodiac((this.longitudeFrom + 185) % 360);
   }
 
+  override getViewColorName() {
+    return this.element.getViewColorName();
+  }
 }

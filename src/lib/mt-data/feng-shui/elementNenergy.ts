@@ -3,31 +3,33 @@
 import { Energy } from './energy';
 import { Element } from './element';
 import { EnumBaseClass } from '../enumBaseClass';
+import { ColorViewHelper } from '../../helper/colorViewHelper';
 
 
 export class ElementNEnergy extends EnumBaseClass {
-  static WOODYANG = new ElementNEnergy('WOODYANG', Element.WOOD, Energy.YANG);
-  static WOODYIN = new ElementNEnergy('WOODYIN', Element.WOOD, Energy.YIN);
+  static WOODYANG = new ElementNEnergy('WOODYANG', Element.WOOD, Energy.YANG,ColorViewHelper.WOODYANG);
+  static WOODYIN = new ElementNEnergy('WOODYIN', Element.WOOD, Energy.YIN,ColorViewHelper.WOODYIN);
   static WATERYANG = new ElementNEnergy(
     'WATERYANG',
     Element.WATER,
-    Energy.YANG
+    Energy.YANG,
+    ColorViewHelper.WATERYANG
   );
-  static WATERYIN = new ElementNEnergy('WATERYIN', Element.WATER, Energy.YIN);
-  static FIREYANG = new ElementNEnergy('FIREYANG', Element.FIRE, Energy.YANG);
-  static FIREYIN = new ElementNEnergy('FIREYIN', Element.FIRE, Energy.YIN);
+  static WATERYIN = new ElementNEnergy('WATERYIN', Element.WATER, Energy.YIN,ColorViewHelper.WATERYIN);
+  static FIREYANG = new ElementNEnergy('FIREYANG', Element.FIRE, Energy.YANG,ColorViewHelper.FIREYANG);
+  static FIREYIN = new ElementNEnergy('FIREYIN', Element.FIRE, Energy.YIN,ColorViewHelper.FIREYIN);
   static METALYANG = new ElementNEnergy(
     'METALYANG',
     Element.METAL,
-    Energy.YANG
+    Energy.YANG,ColorViewHelper.METALYANG
   );
-  static METALYIN = new ElementNEnergy('METALYIN', Element.METAL, Energy.YIN);
+  static METALYIN = new ElementNEnergy('METALYIN', Element.METAL, Energy.YIN,ColorViewHelper.METALYIN);
   static EARTHYANG = new ElementNEnergy(
     'EARTHYANG',
     Element.EARTH,
-    Energy.YANG
+    Energy.YANG,ColorViewHelper.EARTHYANG
   );
-  static EARTHYIN = new ElementNEnergy('EARTHYIN', Element.EARTH, Energy.YIN);
+  static EARTHYIN = new ElementNEnergy('EARTHYIN', Element.EARTH, Energy.YIN,ColorViewHelper.EARTHYIN);
 
   private static EnumIterArr = [
     ElementNEnergy.WOODYANG,
@@ -44,11 +46,13 @@ export class ElementNEnergy extends EnumBaseClass {
 
   element: Element;
   energy: Energy;
+  colorViewName: string;
 
-  constructor(name: string, element: Element, energy: Energy) {
+  constructor(name: string, element: Element, energy: Energy,colorName: string) {
     super(name);
     this.element = element;
     this.energy = energy;
+    this.colorViewName=colorName;
   }
 
   static getElementNEnergy(element: Element, energy: Energy) {
@@ -82,4 +86,7 @@ export class ElementNEnergy extends EnumBaseClass {
     return this.energy;
   }
 
+  override getViewColorName() {
+    return this.colorViewName;
+  }
 }

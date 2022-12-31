@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ElementNEnergy } from '../feng-shui/elementNenergy';
 import { Trigram } from '../feng-shui/trigram';
-import { EnumBaseClass } from '../enumBaseClass';
 import { Energy } from '../feng-shui/energy';
 import { Branche } from './branche';
+import { EnumBaseSymbolClass } from '../enumBaseSymbolClass';
 
-export class Trunk extends EnumBaseClass {
+export class Trunk extends EnumBaseSymbolClass {
 
   static  JIA= new Trunk('JIA',ElementNEnergy.WOODYANG,6, Trigram.QIAN);
   static  YI= new Trunk('YI',ElementNEnergy.WOODYIN,2, Trigram.KUN);
@@ -221,5 +221,8 @@ export class Trunk extends EnumBaseClass {
 		return Trunk.pivotBranche[this.ordinal()][branche.ordinal()];
 	}
 
+  override getViewColorName() {
+    return this.elementNEnergy.getViewColorName();
+  }
 
 }

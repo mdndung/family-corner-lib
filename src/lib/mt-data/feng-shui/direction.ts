@@ -73,4 +73,7 @@ export class Direction extends EnumBaseClass {
 
   override getClassName() {return 'Direction';}
 
+  override getViewColorName() {
+    return this.elementNEnergy.getViewColorName();
+  }
 }
