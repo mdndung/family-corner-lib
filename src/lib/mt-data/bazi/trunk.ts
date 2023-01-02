@@ -3,9 +3,9 @@ import { ElementNEnergy } from '../feng-shui/elementNenergy';
 import { Trigram } from '../feng-shui/trigram';
 import { Energy } from '../feng-shui/energy';
 import { Branche } from './branche';
-import { EnumBaseSymbolClass } from '../enumBaseSymbolClass';
+import { EnumBaseClass } from '../enumBaseClass';
 
-export class Trunk extends EnumBaseSymbolClass {
+export class Trunk extends EnumBaseClass {
 
   static  JIA= new Trunk('JIA',ElementNEnergy.WOODYANG,6, Trigram.QIAN);
   static  YI= new Trunk('YI',ElementNEnergy.WOODYIN,2, Trigram.KUN);

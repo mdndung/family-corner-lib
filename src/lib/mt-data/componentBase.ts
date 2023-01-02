@@ -1,5 +1,6 @@
 
 import { MessageHelper } from "../helper/messageHelper";
+import { StringHelper } from "../helper/stringHelper";
 import { EnumBaseClass } from "./enumBaseClass";
 
 // Base class for component
@@ -17,7 +18,13 @@ export class ComponentBase {
   }
 
   getMessage(key:string): string {
-    return MessageHelper.getSymbolMessage(key);
+    let res = "";
+    if (  typeof key === 'string' ) {
+      res = MessageHelper.getSymbolMessage(key);
+    } else {
+      res=key;
+    }
+    return res;
   }
 
   setSymbolMode(mode: boolean) {

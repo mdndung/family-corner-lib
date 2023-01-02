@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import { EnumBaseClass } from '../enumBaseClass';
 import { Direction } from './direction';
 import { ElementNEnergy } from './elementNenergy';
-import { EnumBaseSymbolClass } from '../enumBaseSymbolClass';
 
 
-export class Trigram extends EnumBaseSymbolClass  {
+export class Trigram extends EnumBaseClass  {
 
   static  KAN= new Trigram('KAN',6,1, Direction.W,Direction.N, 271, 0,ElementNEnergy.WATERYANG,'345°-30°');
   static  KUN= new Trigram('KUN',8,2, Direction.N,Direction.SW, -1, -1,ElementNEnergy.EARTHYIN,'210°-255°');

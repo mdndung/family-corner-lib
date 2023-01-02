@@ -24,13 +24,16 @@ export class MessageHelper {
   }
 
   static getSymbolMessage(key: string) {
-    let keyLab = key ;
-    if ( MessageHelper.isSymbolMode() ) {
-      keyLab += '.Symbol';
-    }
-    let res = MessageHelper.getMessage(keyLab);
-    if ( res===keyLab ) {
-      res = MessageHelper.getMessage(key)
+    let res= '';
+    if (  typeof key === 'string' )  {
+      let keyLab = key ;
+      if ( MessageHelper.isSymbolMode() ) {
+        keyLab += '.Symbol';
+      }
+      res = MessageHelper.getMessage(keyLab);
+      if ( res===keyLab ) {
+        res = MessageHelper.getMessage(key);
+      }
     }
     return res;
   }

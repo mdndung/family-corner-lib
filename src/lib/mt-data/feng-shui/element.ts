@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ColorViewHelper } from '../../helper/colorViewHelper';
-import { EnumBaseSymbolClass } from '../enumBaseSymbolClass';
+import { EnumBaseClass } from '../enumBaseClass';
 
-export class Element extends EnumBaseSymbolClass {
+export class Element extends EnumBaseClass {
 
   static WOOD = new Element('WOOD',ColorViewHelper.WOODYANG);
   static FIRE = new Element('FIRE',ColorViewHelper.FIREYANG);

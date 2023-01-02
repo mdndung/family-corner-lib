@@ -36,7 +36,9 @@ export class PilarsAttr {
   dayHiddenRelation: ElementNEnergyRelation[][] = null ;
 
   elementNEnergyForce: number[] = null ;
+  elementNEnergyForceReason: string[] = null ;
   elementForce: number[] = null ;
+  elementForceReason: string[] = null ;
   majorElement: Element = null ;
   sumElementForce: number = null ;
   averageElementForce: number = null ;
@@ -1391,6 +1393,10 @@ export class PilarsAttr {
 		}
 	}
 
+  incForceWithReason(){
+
+  }
+
   evalElementNEnergyForce(lunar: Lunar) {
 
 		const len = ElementNEnergy.getValues().length;
@@ -1402,11 +1408,13 @@ export class PilarsAttr {
 			// Trunc element's force
 			const ee = this.trunkEE[pilarIdx];
 			this.elementNEnergyForce[ee.ordinal()]+=this.trunkForceArr[pilarIdx];
+      this.elementNEnergyForceReason[ee.ordinal()]+="Trunk pilar "+pilarIdx+" force "+this.trunkForceArr[pilarIdx];
 			const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(brancheArr[pilarIdx]);
 			const hLen = hiddenTrunkArr.length;
 			// The main hidden trunk is the same as the transformed branche element
 			this.elementNEnergyForce[this.brancheEE[pilarIdx].ordinal()]+=
 					this.brancheForceArr[2][pilarIdx];
+      this.elementNEnergyForceReason[this.brancheEE[pilarIdx].ordinal()]+="Branche pilar "+pilarIdx+" force "+this.brancheForceArr[2][pilarIdx];
 			for (let i = 1; i < hLen; i++) {
 				this.elementNEnergyForce[hiddenTrunkArr[i].elementNEnergy.ordinal()]+=
 						this.brancheForceArr[2+i][pilarIdx];

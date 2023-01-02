@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { EnumBaseSymbolClass } from '../enumBaseSymbolClass';
 
+import { EnumBaseClass } from "../enumBaseClass";
 
-export class ElementNEnergyRelation extends EnumBaseSymbolClass {
+export class ElementNEnergyRelation extends EnumBaseClass {
 
   static  GC= new ElementNEnergyRelation('GC');
   static  GE= new ElementNEnergyRelation('GE');

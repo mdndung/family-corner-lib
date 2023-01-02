@@ -111,10 +111,6 @@ export class EnumBaseClass {
     return this.getClassName()+'.'+this.getName();
   }
 
-  getSymbolFullName() {
-    return this.getClassName()+'.'+this.getName()+'.Symbol';
-  }
-
   getViewColorName() {
     return ColorViewHelper.NONE;
   }
