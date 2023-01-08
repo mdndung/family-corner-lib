@@ -18,6 +18,7 @@ import { Bazi } from '../mt-data/bazi/bazi';
 import { Temporal } from 'temporal-polyfill';
 import { MyCalendar } from '../mt-data/date/mycalendar';
 import { DateHelper } from './dateHelper';
+import { DataWithLog } from '../mt-data/qi/dataWithLog';
 
 export class BaziHelper {
   static MIN_PIVOT_ELEMENT_FORCE = 80;
@@ -214,8 +215,9 @@ export class BaziHelper {
   static hasMidCombination(tArr: Trunk[], bArr: Branche[], idx: number) {
     const checkBranche = bArr[idx];
     let count = 0;
+    let detail = 'Same combination of 2 with neighbor pilar' + checkBranche;
     for (let index = 0; index < LunarBase.LINDEX; index++) {
-      // Ref343 only when two consecutive pilars
+      // Ref342 - 343 only when two consecutive pilars
       if (Math.abs(index - idx) === 1) {
         const currBranche = bArr[index];
         if (
@@ -223,8 +225,12 @@ export class BaziHelper {
           BrancheRelation.COMBINATION
         ) {
           count++;
+          detail+=' '+ currBranche;
         }
       }
+    }
+    if ( count >=1 ) {
+      DataWithLog.setCurrLog(true,DataWithLog.getBrancheHeader(idx)+detail);
     }
     return count >= 1;
   }
@@ -237,7 +243,7 @@ export class BaziHelper {
     checkTransform: boolean
   ) {
     const checkBranche = bArr[checkPilarIdx];
-    let trElement = BrancheRelation.getTransformResultElement(checkBranche);
+    let trElement = BrancheRelation.getTransformResultElement(checkBranche).getValue();
     let count = 0;
 
     for (let index = 0; index < LunarBase.LINDEX; index++) {
@@ -250,7 +256,7 @@ export class BaziHelper {
           )
         ) {
           if (checkTransform) {
-            trElement=BrancheRelation.getTransformResultElement(bArr[index]);
+            trElement=BrancheRelation.getTransformResultElement(bArr[index]).getValue();
             if (BaziHelper.getRelation(monthElement,trElement).isFavorable()) {
               count++;
             }
@@ -260,16 +266,22 @@ export class BaziHelper {
         }
       }
     }
-    // count>1 means a transforplus with concurrence
+    // count>1 means a transformplus with concurrence
     return count;
   }
 
+  // Combination of 3 (San He)
+  // Ref 3 p334
+  // Ref 9 p137
   static hasCombOf3(lunar: Lunar, idx: number) {
     const tArr = lunar.trunkArr;
     const bArr = lunar.brancheArr;
     const checkBranche = bArr[idx];
     let count = 0;
     let hasTrunkCompatibleElement = false;
+    let detail1 = 'Same combination of 3 between ' + checkBranche;
+    let detail2 = '';
+    DataWithLog.resetCurrLog();
     for (let index = 0; index < LunarBase.LINDEX; index++) {
       if (index !== idx) {
         const currBranche = bArr[index];
@@ -277,13 +289,17 @@ export class BaziHelper {
           BrancheHelper.getUniqueRelation(currBranche, checkBranche) ===
           BrancheRelation.COMBINATION
         ) {
+          detail1+=' '+currBranche;
           count++;
+          const checkElement = BrancheRelation.getCombinaisonResultElement(currBranche);
           if (
             tArr[index]
               .getElement()
-              .isEqual(BrancheRelation.getCombinaisonResultElement(currBranche))
+              .isEqual(checkElement.getValue())
           ) {
             hasTrunkCompatibleElement = true;
+            detail2=checkElement.getDetail();
+            DataWithLog.setCurrLog(true, DataWithLog.getBrancheHeader(idx)+detail1+detail2);
           }
         }
       }
@@ -319,7 +335,7 @@ export class BaziHelper {
           count++;
           if (
             trunkArr[pilarIdx].getElement() ===
-            BrancheRelation.getCombinaisonResultElement(branche)
+            BrancheRelation.getCombinaisonResultElement(branche).getValue()
           ) {
             hasTrunkElementCompatibleWithTransformedElement = true;
           }
@@ -340,36 +356,45 @@ export class BaziHelper {
       trMonthElement,
       false
     );
-    // Ref3p344 count>1 means a transforplus with concurrence
+    // Ref3p344 count>1 means a transformplus with concurrence
     return count >= 1;
   }
 
   static hasSameSeasonCombination(
     brancheArr: Branche[],
     checkPilarIdx: number
-  ) {
+  )  : boolean {
     const checkSeason = brancheArr[checkPilarIdx].season;
     let count = 0;
-
+    let detail = '';
+    DataWithLog.resetCurrLog();
     for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
       if (pilarIdx !== checkPilarIdx) {
         const branche = brancheArr[pilarIdx];
         if (branche.season === checkSeason) {
+          detail+=DataWithLog.getBrancheHeader(pilarIdx)+' '+branche+' ';
           count++;
         }
       }
     }
-    return count >= 2;
+    let res = false;
+    if ( count >= 2 ) {
+      DataWithLog.setCurrLog(true,DataWithLog.getBrancheHeader(checkPilarIdx)+ ' has same Season '+ checkSeason+ ' with '+ detail);
+      res = true ;
+    };
+    return res ;
   }
 
-  static getTransformableSeasonCombination(lunar: Lunar, pilarIdx: number) {
-    return lunar.brancheArr[pilarIdx].season.element;
+  //Ref3p255
+  static getTransformableSeasonCombination(lunar: Lunar, pilarIdx: number) : DataWithLog{
+    const name='Branche ' +  lunar.brancheArr[pilarIdx];
+    return new DataWithLog(lunar.brancheArr[pilarIdx].season.element,name+' Season element');
   }
 
   static getDayPilarForce(lunar: Lunar) {
     const pilarsAttr = lunar.pilarsAttr;
     const elementForce = pilarsAttr.elementForce;
-    const dayTrunkElement = pilarsAttr.trunkEE[LunarBase.DINDEX].element;
+    const dayTrunkElement = pilarsAttr.trunkEE[LunarBase.DINDEX].getValue().element;
     const friendElement = dayTrunkElement.getPrevProductiveElement();
     const favorablePoints =
       elementForce[dayTrunkElement.ordinal()] +

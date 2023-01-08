@@ -70,6 +70,7 @@ export * from './lib/mt-data/feng-shui/trigram';
 export * from './lib/mt-data/property/propertyAttr';
 export * from './lib/mt-data/property/propertyType';
 
+export * from './lib/mt-data/qi/dataWithLog';
 export * from './lib/mt-data/qi/qi-force';
 export * from './lib/mt-data/qi/qi-type-data-rec';
 export * from './lib/mt-data/qi/qi-type';

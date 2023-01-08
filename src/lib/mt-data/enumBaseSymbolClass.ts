@@ -7,14 +7,5 @@ export class EnumBaseSymbolClass extends EnumBaseClass {
     super(name);
   }
 
-/*
-  override getFullName(): string {
-    let res= super.getFullName();
-    if (MessageHelper.isSymbolMode()) {
-      res += '.Symbol';
-    }
-    return res ;
-  }
-*/
 
 }

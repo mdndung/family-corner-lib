@@ -704,10 +704,8 @@ export class TuViPalace {
   }
 
   evalForce(lunar: Lunar, personYiJingElement: Element, tuviElement: Element) {
-    const brElement = BrancheRelation.getCombinaisonResultElement(this.branche);
-    const yElement = BrancheRelation.getCombinaisonResultElement(
-      lunar.getyBranche()
-    );
+    const brElement = BrancheRelation.getCombinaisonResultElement(this.branche).getValue();
+    const yElement = BrancheRelation.getCombinaisonResultElement(lunar.getyBranche()).getValue();
 
     // yElement is the receiver omen
     let relation = BaziHelper.getRelation(yElement,brElement);

@@ -34,8 +34,8 @@ export class Element extends EnumBaseClass {
   }
 
 
-  static getElement(idx: number) {
-    return Element.WATER.getEnum(idx);
+  static getElement(idx: number) : Element {
+    return Element.WATER.getEnum(idx) as Element;
   }
 
 

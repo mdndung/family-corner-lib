@@ -595,7 +595,7 @@ export class QiHelper {
           )
         ) {
           if (
-            element === BrancheRelation.getCombinaisonResultElement(dayBranche)
+            element === BrancheRelation.getCombinaisonResultElement(dayBranche).getValue()
           ) {
             return element;
           }
@@ -620,7 +620,7 @@ export class QiHelper {
           )
         ) {
           if (
-            element === BrancheRelation.getCombinaisonResultElement(dayBranche)
+            element === BrancheRelation.getCombinaisonResultElement(dayBranche).getValue()
           ) {
             return element;
           }

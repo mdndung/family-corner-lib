@@ -30,4 +30,8 @@ export class Energy extends EnumBaseClass {
     return -1;
   }
 
+  getSignName() : string {
+    if ( this.isYang() ) return '+';
+    return '-';
+  }
 }

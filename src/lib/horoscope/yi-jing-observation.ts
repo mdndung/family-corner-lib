@@ -275,7 +275,7 @@ export class YiJingObservation {
     this.pivotRelationSet=[];
     // The minimum force (%) from which it is considerd as strong Ref8p460
     if ( dayPilarForce>BaziHelper.MIN_PIVOT_ELEMENT_FORCE ) {
-        this.addPivotStrongEECase(lunar,trunkPilarElement[LunarBase.DINDEX]) ;
+        this.addPivotStrongEECase(lunar,trunkPilarElement[LunarBase.DINDEX].getValue()) ;
     }
 
     if (this.existsecDeity(SecondaryDeity.KIMTHAN)) {
@@ -376,12 +376,12 @@ export class YiJingObservation {
     const trunkEEArr = pilarsAttr.trunkEE;
     const brancheEEArr = pilarsAttr.brancheEE;
     let diffDayPilarForce = 1000 ;
-    const dayPilarForce = eeForceArr[trunkEEArr[LunarBase.DINDEX].ordinal()];
+    const dayPilarForce = eeForceArr[trunkEEArr[LunarBase.DINDEX].getValue().ordinal()].getValue();
     let relation = trunkRelationArr[currPilarIdx][LunarBase.DINDEX];
     //
     let force = 0 ;
-    let currEE = trunkEEArr[currPilarIdx];
-    let currEEForce = eeForceArr[currEE.ordinal()];
+    let currEE = trunkEEArr[currPilarIdx].getValue();
+    let currEEForce = eeForceArr[currEE.ordinal()].getValue();
 
     relationSet.forEach(checkRelation => {
         let currdiffDayForce;
@@ -396,8 +396,8 @@ export class YiJingObservation {
         }
         relation = brancheTrunkRelationArr[currPilarIdx][LunarBase.DINDEX];
         if (relation === checkRelation) {
-            currEE = brancheEEArr[currPilarIdx];
-            currEEForce = eeForceArr[currEE.ordinal()];
+            currEE = brancheEEArr[currPilarIdx].getValue();
+            currEEForce = eeForceArr[currEE.ordinal()].getValue();
             currdiffDayForce = Math.abs(currEEForce-dayPilarForce);
            if ( currdiffDayForce<diffDayPilarForce) {
                 selectEE = currEE;
@@ -423,7 +423,6 @@ export class YiJingObservation {
       currPivotForce = this.evalPivotForce(lunar, LunarBase.YINDEX,this.pivotRelationSet);
     }
     if ( currPivotForce.force===0 ) {
-      console.log('pushIfNotExist ',this.pivotRelationSet);
       ObjectHelper.pushIfNotExist(this.pivotRelationSet, ElementNEnergyRelation.RDC);
       currPivotForce = this.evalPivotForce(lunar, LunarBase.MINDEX,this.pivotRelationSet);
     }

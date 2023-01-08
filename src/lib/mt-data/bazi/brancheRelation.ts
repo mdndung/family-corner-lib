@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { EnumBaseClass } from '../enumBaseClass';
 import { Element } from '../feng-shui/element';
+import { DataWithLog } from '../qi/dataWithLog';
 import { Branche } from './branche';
 
 export class BrancheRelation extends EnumBaseClass {
@@ -26,7 +27,6 @@ export class BrancheRelation extends EnumBaseClass {
   // FAVORABLE relation
   // Group of 2 with transformation
   // Luc Hop hoa
-
   static TRANSFORMPLUS = new BrancheRelation('TF');
   // Part of Group of 3 (by Season or Direction) With transformation to the related direction's element
   // Tam hoi
@@ -243,7 +243,8 @@ for (let index = 0; index < br1br2RelArr.length; index++) {
 return false;
   }
 
-  static getCombinaisonResultElement(branche: Branche) {
+  // Ref3p254
+  static getComb3Element(branche: Branche) {
     let element = Element.WATER;
     switch (branche) {
       case Branche.SNAKE:
@@ -267,9 +268,24 @@ return false;
         element = Element.WATER;
         break;
     }
-    return element as Element;
+    return element;
   }
 
+  // Ref3p254
+  //Ref9p137
+  static getCombinaisonResultElement(branche: Branche) {
+    let element = BrancheRelation.getComb3Element(branche);
+    return new DataWithLog(element,'Combination of 3 (san he)');
+  }
+
+  static getMidCombinaisonResultElement(branche: Branche) {
+    let element = BrancheRelation.getComb3Element(branche);
+    return new DataWithLog(element,'Mid Combination of 3 (san he)');
+  }
+
+
+  //REF3 P253
+  //REF9 P140
   static getTransformResultElement(branche: Branche) {
     let element = Element.WATER;
     switch (branche) {
@@ -296,7 +312,7 @@ return false;
         element = Element.WATER;
         break;
     }
-    return element;
+    return new DataWithLog(element,'Combination of 2');
   }
 
   isFavorable() {

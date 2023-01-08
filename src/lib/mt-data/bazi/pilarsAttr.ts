@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 
+import { AssocArray } from '../../data/assoc-array';
 import { BaziHelper } from '../../helper/baziHelper';
 import { BrancheHelper } from '../../helper/brancheHelper';
+import { MessageHelper } from '../../helper/messageHelper';
 import { ObjectHelper } from '../../helper/objectHelper';
-import { StringHelper } from '../../helper/stringHelper';
 import { TrunkHelper } from '../../helper/trunkHelper';
 import { Element } from '../feng-shui/element';
 
 import { ElementNEnergy } from '../feng-shui/elementNenergy';
 import { ElementNEnergyRelation } from '../feng-shui/elementNEnergyRelation';
 import { Energy } from '../feng-shui/energy';
+import { DataWithLog } from '../qi/dataWithLog';
 import { Branche } from './branche';
 import { BrancheRelation } from './brancheRelation';
 import { Lunar } from './lunar';
@@ -18,12 +20,12 @@ import { Trunk } from './trunk';
 
 export class PilarsAttr {
   comb5StatusArr?: number[][] = null ;
-  trunkEE?: ElementNEnergy[] = null ;
+  trunkEE?: DataWithLog[] = null ;
   trunkTEE?: ElementNEnergy[][] = null ;
-  brancheEE?: ElementNEnergy[] = null ;
+  brancheEE?: DataWithLog[] = null ;
   brancheTEE?: ElementNEnergy[][] = null ;
-  trunkForceArr?: number[] = null ;
-  brancheForceArr?: number[][] = null ;
+  trunkForceArr?: DataWithLog[] = null ;
+  brancheForceArr?: DataWithLog [][]= null ;
 
   brMonthElement?: Element = null ;
   rootPresent?: boolean[] = null ;
@@ -35,10 +37,8 @@ export class PilarsAttr {
   brancheTrunkRelation: ElementNEnergyRelation[][] = null ;
   dayHiddenRelation: ElementNEnergyRelation[][] = null ;
 
-  elementNEnergyForce: number[] = null ;
-  elementNEnergyForceReason: string[] = null ;
+  elementNEnergyForce: DataWithLog[] = null ;
   elementForce: number[] = null ;
-  elementForceReason: string[] = null ;
   majorElement: Element = null ;
   sumElementForce: number = null ;
   averageElementForce: number = null ;
@@ -54,15 +54,7 @@ export class PilarsAttr {
   }
 
   log() {
-    let res = '';
-    res+=''+this.dayHiddenRelation;
-    //res+=' elementNEnergyForce '+this.elementNEnergyForce+'; ';
-    //res+=' elementForce '+this.elementForce+'; ';
-    //res+=' majorElement '+this.majorElement+'; ';
-    //res+=' majorElementForce '+this.majorElementForce+'; ';
-    //res+=' trunkForceArr '+this.trunkForceArr+'; ';
-    //res+=' brancheForceArr '+this.brancheForceArr+'; ';
-    return res ;
+    console.log(this.brancheForceArr);
   }
 
   static getTransformable( trunk1: Trunk, trunk2: Trunk,  checkELement: Element) {
@@ -74,6 +66,11 @@ export class PilarsAttr {
     return null;
 }
 
+avoidZeroForce(dataForce: DataWithLog, header: string) {
+  if( dataForce.getValue()<0 ) {
+    dataForce.addValue(-dataForce.getValue(),header+"avoid negative force");
+  }
+}
   isElementInNonWeakForceHiddenTrunk(
     lunar: Lunar,
     pilarIdx: number,
@@ -85,7 +82,7 @@ export class PilarsAttr {
       const eeHtr = hiddenTrunkArr[i].getElement();
       if (eeHtr === checkElement) {
         if (!ObjectHelper.isNaN(this.brancheForceArr)) {
-          if (this.brancheForceArr[i + 2][pilarIdx] > 3) {return true;}
+          if (this.brancheForceArr[i + 2][pilarIdx].getValue() > 3) {return true;}
         } else {return true;}
       }
     }
@@ -114,7 +111,7 @@ export class PilarsAttr {
           count++;
           if (
             trunkArr[pilarIdx].getElement() ===
-            BrancheRelation.getCombinaisonResultElement(branche)
+            BrancheRelation.getCombinaisonResultElement(branche).getValue()
           ) {
             hasTrunkElementCompatibleWithTransformedElement = true;
           }
@@ -247,7 +244,7 @@ export class PilarsAttr {
       if (this.hasCombinationOf3(trunkArr, brancheArr, tranformedElement)) {
         const trBrancheElement = BrancheRelation.getCombinaisonResultElement(
           brancheArr[pilarIdx1]
-        );
+        ).getValue();
         if (BaziHelper.getRelation(trBrancheElement,tranformedElement).isFavorable()) {
           return tranformedElement===monthElement;
         }
@@ -480,11 +477,15 @@ export class PilarsAttr {
     }
   }
 
+  // Return true if check pilar is part of combination of 5 but have
+  // a concurrence status
+  // In this case the element will not be transformed
+  //
   is3Comb5ConcureenceStatusPilar(lunar: Lunar, checkPilarIdx: number): boolean {
     if (this.comb5StatusArr[0][checkPilarIdx]===0) {return false;}
     const trCheckElementord = this.comb5StatusArr[2][checkPilarIdx];
     let otherPilaridx;
-    // Central comb5 pilar havec count more than 3
+    // Central comb5 pilar have count more than 3
     // Must check if has same transformed element or not before making decision
     if (this.comb5StatusArr[1][checkPilarIdx] > 3) {
       // Central point check left and right pilar trannsformed element
@@ -520,7 +521,6 @@ export class PilarsAttr {
         }
       }
     }
-
     return false;
   }
 
@@ -532,8 +532,8 @@ export class PilarsAttr {
 
     for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
       const currTrunk = trunkArr[pilarIdx];
-      const trunkElement = currTrunk.getElement();
-      let resElement = trunkElement;
+      const trunkElement = currTrunk.elementNEnergy;
+      let resElement = new DataWithLog(trunkElement,'Trunk pilar element');
       comb5Type = this.comb5StatusArr[0][pilarIdx];
       // Root Support value
       const noRootSupporstatus = !this.isRootSupported(lunar, pilarIdx);
@@ -557,15 +557,17 @@ export class PilarsAttr {
         }
       }
       if (checkComb5) {
-        // No Root support and no comb5 type
-        if (!this.is3Comb5ConcureenceStatusPilar(lunar, pilarIdx)) {
-          resElement = Element.getElement(this.comb5StatusArr[2][pilarIdx]);
+        // No Root support and comb5 type
+        if (this.is3Comb5ConcureenceStatusPilar(lunar, pilarIdx)) {
+          //Ref3 p336
+          resElement.updateValue(
+            ElementNEnergy.getElementNEnergy(
+              Element.getElement(this.comb5StatusArr[2][pilarIdx]),
+              trunkElement.getEnergy()),
+            'No Root Support and combination of 5');
         }
       }
-      this.trunkEE.push(ElementNEnergy.getElementNEnergy(
-        resElement,
-        currTrunk.getEnergy()
-      ));
+      this.trunkEE.push(resElement);
       prevNoRootSupporstatus = noRootSupporstatus;
     }
   }
@@ -573,7 +575,7 @@ export class PilarsAttr {
   // Check the presence of element checkElement in trunk, including transformed trunk element
   isBrancheELementInTrunk(lunar: Lunar, checkElement: Element) {
     for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
-      if (this.trunkEE[pilarIdx].getElement() === checkElement) {
+      if (this.trunkEE[pilarIdx].getValue().getElement() === checkElement) {
         return true;
       }
     }
@@ -622,66 +624,70 @@ export class PilarsAttr {
     return false;
   }
 
-  getBrancheElement(lunar: Lunar, pilarIdx: number) {
+  evalBrancheEEArr(lunar: Lunar) {
     const brancheArr = lunar.brancheArr;
     const trunkArr = lunar.brancheArr;
-    // If transformed then clash will have no effect
-    // Ref 3 p344
-    const currBranche = brancheArr[pilarIdx];
-    const brancheElement = currBranche.getElement();
-    let resElement = brancheElement;
-    let hasCombinedStatus = false;
+    this.brancheEE = DataWithLog.newDataArray(LunarBase.PILARS_LEN,null);
+    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
 
-    if (BaziHelper.hasSameSeasonCombination(brancheArr, pilarIdx)) {
-      resElement = BaziHelper.getTransformableSeasonCombination(
-        lunar,
-        pilarIdx
+      // If transformed then clash will have no effect
+      // Ref 3 p344
+      const currBranche = brancheArr[pilarIdx];
+      const brancheElement = currBranche.getElement();
+      let resElement =new DataWithLog(
+        brancheElement,'Initial Branche element'
       );
-      hasCombinedStatus = true;
-    } else if (BaziHelper.hasCombOf3(lunar, pilarIdx)) {
-      resElement = BrancheRelation.getCombinaisonResultElement(
-        brancheArr[pilarIdx]
-      );
-      hasCombinedStatus = true;
-    } else {
-      if (BaziHelper.hasMidCombination(trunkArr, brancheArr, pilarIdx)) {
+      let hasCombinedStatus = false;
+
+      if (BaziHelper.hasSameSeasonCombination(brancheArr, pilarIdx)) {
         resElement = BaziHelper.getTransformableSeasonCombination(
           lunar,
           pilarIdx
         );
         hasCombinedStatus = true;
-      }
-      if (BaziHelper.hasTransformPlusWithTransform(lunar, pilarIdx)) {
-        // Ref3p344 Check compatibility principal element of month branch
-        if (!this.isConcurenceTransformPlus(brancheArr, pilarIdx)) {
-          resElement = BaziHelper.getTransformableSeasonCombination(
-            lunar,
-            pilarIdx
+      } else if (BaziHelper.hasCombOf3(lunar, pilarIdx)) {
+        resElement = BrancheRelation.getCombinaisonResultElement(
+          brancheArr[pilarIdx]
+        );
+        hasCombinedStatus = true;
+      } else {
+        if (BaziHelper.hasMidCombination(trunkArr, brancheArr, pilarIdx)) {
+          resElement = BrancheRelation.getMidCombinaisonResultElement(
+            brancheArr[pilarIdx]
           );
           hasCombinedStatus = true;
         }
+        if (BaziHelper.hasTransformPlusWithTransform(lunar, pilarIdx)) {
+          // Ref3p344 Check compatibility principal element of month branch
+          if (!this.isConcurenceTransformPlus(brancheArr, pilarIdx)) {
+            resElement = BrancheRelation.getTransformResultElement(
+              brancheArr[pilarIdx]
+            );
+            hasCombinedStatus = true;
+          }
+        }
       }
-    }
-    // Ref3p343 check transform possibility
-    if (hasCombinedStatus) {
-      // Ref3p344
+      // Ref3p343 check transform possibility
+      if (hasCombinedStatus) {
+        // Ref3p343 notice
+        if (!this.isBrancheELementInTrunk(lunar, resElement.getValue())) {
+            resElement = new DataWithLog(
+              brancheElement,
+              resElement.getDetail()+resElement.getValue()+" incompatible kind with any trunk element's kind ");
+        }
+      }
 
-      if (!this.isBrancheELementInTrunk(lunar, resElement)) {
-        resElement = brancheElement;
-      }
+      this.brancheEE[pilarIdx]=
+        new DataWithLog(
+          ElementNEnergy.getElementNEnergy(
+            resElement.getValue(),
+            currBranche.getEnergy()
+          ),
+          resElement.getDetail()
+        );
     }
-    return ElementNEnergy.getElementNEnergy(
-      resElement,
-      currBranche.getEnergy()
-    );
   }
 
-  evalBrancheEEArr(lunar: Lunar) {
-    this.brancheEE = [];
-    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
-      this.brancheEE[pilarIdx] = this.getBrancheElement(lunar, pilarIdx);
-    }
-  }
 
   evalMonthElement(lunar: Lunar) {
     let element = lunar.brancheArr[LunarBase.MINDEX].getElement();
@@ -690,12 +696,12 @@ export class PilarsAttr {
      this.brMonthElement = element;
     } ;
     if (BaziHelper.hasSameSeasonComb(lunar.brancheArr, LunarBase.MINDEX)) {
-      element = BaziHelper.getTransformableSeasonCombination(lunar, LunarBase.MINDEX);
+      element = BaziHelper.getTransformableSeasonCombination(lunar, LunarBase.MINDEX).getValue();
     } else {
       if (BaziHelper.hasCombOf3(lunar, LunarBase.MINDEX)) {
         element = BrancheRelation.getCombinaisonResultElement(
           lunar.getmBranche()
-        );
+        ).getValue();
       } else {
         if (
           BaziHelper.hasMidCombination(
@@ -706,14 +712,14 @@ export class PilarsAttr {
         ) {
           element = BrancheRelation.getCombinaisonResultElement(
             lunar.getmBranche()
-          );
+          ).getValue();
         } else if (
           BaziHelper.hasTransformPlusWithTransform(lunar, LunarBase.MINDEX)
         ) {
           if (!this.isConcurenceTransformPlus(lunar.brancheArr, LunarBase.MINDEX))
             {element = BrancheRelation.getCombinaisonResultElement(
               lunar.getmBranche()
-            );}
+            ).getValue();}
         }
       }
     }
@@ -799,7 +805,7 @@ export class PilarsAttr {
     let eeHtr;
 
     if (brancheElementArr != null) {
-      eeHtr = brancheElementArr[checkPilarIdx].getElement();
+      eeHtr = brancheElementArr[checkPilarIdx].getValue().getElement();
       if (eeHtr !== lunar.brancheArr[checkPilarIdx].getElement()) {
         // Use the transformed element
         return BaziHelper.getRelation(eeHtr,checkElement).isFavorable();
@@ -885,7 +891,7 @@ export class PilarsAttr {
         {return true;}
       const pilarTransfElement = BrancheRelation.getTransformResultElement(
         bArr[pilarIdx]
-      );
+      ).getValue();
       if (this.isHiddenTrunkFavorable(lunar, LunarBase.DINDEX, pilarTransfElement))
         {return true;}
 
@@ -897,7 +903,7 @@ export class PilarsAttr {
         if (BaziHelper.hasTransformPlusWithTransform(lunar, i)) {
           const transfElement = BrancheRelation.getTransformResultElement(
             bArr[i]
-          );
+          ).getValue();
           if (BaziHelper.getRelation(transfElement,pilarElement).isFavorable())
             {return true;}
         }
@@ -936,7 +942,7 @@ export class PilarsAttr {
     if ( ObjectHelper.isNaN(this.trunkEE[checkPilarIdx] ) ) {
       return lunar.trunkArr[checkPilarIdx].element === checkElement;
     } else {
-      return this.trunkEE[checkPilarIdx].getElement() === checkElement;
+      return this.trunkEE[checkPilarIdx].getValue().getElement() === checkElement;
     }
   }
 
@@ -961,7 +967,7 @@ export class PilarsAttr {
       const transformedElement = BaziHelper.getTransformableSeasonCombination(
         lunar,
         LunarBase.DINDEX
-      );
+      ).getValue();
       res = this.isRootSupportWithSameSeasonCombination(
         lunar,
         transformedElement,
@@ -972,7 +978,7 @@ export class PilarsAttr {
     if (BaziHelper.hasCombOf3(lunar, LunarBase.DINDEX)) {
       const transformedElement = BrancheRelation.getCombinaisonResultElement(
         lunar.brancheArr[LunarBase.DINDEX]
-      );
+      ).getValue();
       res = this.isRootSupportWithCombinationOf3(
         lunar,
         transformedElement,
@@ -987,9 +993,6 @@ export class PilarsAttr {
 
     if (BaziHelper.hasTransformPlusWithTransform(lunar, pilarIdx)) {
       if (!this.isConcurenceTransformPlus(bArr, pilarIdx)) {
-        const transformedElement = BrancheRelation.getTransformResultElement(
-          bArr[pilarIdx]
-        );
         res = this.isRootSupportWithTransformPlusRelation(lunar, pilarIdx);
         return res;
       }
@@ -998,7 +1001,7 @@ export class PilarsAttr {
     if (BaziHelper.hasMidCombination(tArr, bArr, pilarIdx)) {
       const transformedElement = BrancheRelation.getCombinaisonResultElement(
         bArr[pilarIdx]
-      );
+      ).getValue();
       const otherPilarIdx = this.getOtherMidCombinationPilar(lunar, pilarIdx);
       if (
         this.isElementAtTrunkPilar(lunar, transformedElement, pilarIdx) ||
@@ -1016,74 +1019,85 @@ export class PilarsAttr {
   }
 
   // Ref3p339
-  getTrunk1ClashForce(lunar: Lunar, pilarIdx: number, pilarForce: number[]) {
+  getTrunk1ClashForce(lunar: Lunar, pilarIdx: number, pilarForce: DataWithLog[]) : DataWithLog{
     return this.getTrunkForce(lunar, pilarIdx, pilarForce, 1, false);
   }
 
   //Ref3p340
-  getTrunk2ClashStatus(lunar: Lunar, pilarIdx: number, pilarForce: number[]) {
+  getTrunk2ClashStatus(lunar: Lunar, pilarIdx: number, pilarForce: DataWithLog[]) : DataWithLog {
     return this.getTrunkForce(lunar, pilarIdx, pilarForce, 2, false);
   }
 
   getTrunkForce(
     lunar: Lunar,
     pilarIdx: number,
-    pilarForce: number[],
+    pilarForce: DataWithLog[],
     otherIdxInc: number,
     clashedMode: boolean
-  ) {
+  ) : DataWithLog {
     const trunkElements = this.trunkEE;
-    const checkElement = trunkElements[pilarIdx].getElement();
+    const checkElement = trunkElements[pilarIdx].getValue().getElement();
     let otherIdx = pilarIdx + otherIdxInc;
     let otherElement;
     let count = 0;
     let clashForce = 0;
     let isDestructive;
-    if (otherIdx < LunarBase.PILARS_LEN - 1) {
-      otherElement = trunkElements[otherIdx].getElement();
+    const resLog = new DataWithLog(0);
+    const trunkName = DataWithLog.getTrunkHeader(pilarIdx)+' element '+checkElement;
 
+    if (otherIdx < LunarBase.PILARS_LEN - 1) {
+      otherElement = trunkElements[otherIdx].getValue().getElement();
+      const otherTrunkName = DataWithLog.getTrunkHeader(otherIdx)+' element '+otherElement;
+      let verb=' controls ';
       if (clashedMode) {
         isDestructive = checkElement.isDestructive(otherElement);
       } else {
         isDestructive = otherElement.isDestructive(checkElement);
+        verb = ' is controlled '
       }
       if (isDestructive) {
-        // Ref3p348 Thiên can hư phù nên không khắc được
-        if (this.isRootSupported(lunar, otherIdx)) {
+        // Ref3p348 Thiên can hư phù (Ref3p333) nên không khắc được
+        if (!this.isRootSupported(lunar, otherIdx)) {
           count++;
-          clashForce = pilarForce[otherIdx];
+          clashForce = pilarForce[otherIdx].getValue();
+          resLog.setValue(clashForce, trunkName+verb+otherTrunkName);
         }
       }
     }
     otherIdx = pilarIdx - otherIdxInc;
     if (otherIdx >= 0) {
-      otherElement = trunkElements[otherIdx].getElement();
+      otherElement = trunkElements[otherIdx].getValue().getElement();;
+      const otherTrunkName = DataWithLog.getTrunkHeader(otherIdx)+' element '+otherElement;
+      let verb=' controls ';
       if (clashedMode) {
         isDestructive = checkElement.isDestructive(otherElement);
       } else {
         isDestructive = otherElement.isDestructive(checkElement);
+        verb = ' is controlled '
       }
       if (isDestructive) {
-        // Ref3p348 Thiên can hư phù nên không khắc được
-        if (this.isRootSupported(lunar, otherIdx)) {
+        // Ref3p348 Thiên can hư phù  (Ref3p333) nên không khắc được
+        if (!this.isRootSupported(lunar, otherIdx)) {
           count++;
-          clashForce += pilarForce[otherIdx];
+          clashForce += pilarForce[otherIdx].getValue();;
+          resLog.addValue(clashForce, trunkName+verb+otherTrunkName);
         }
       }
     }
+
     if (otherIdxInc === 1) {
-      if (count===0) {return 0;}
-      return clashForce / count;
-    } else {
-      return count;
+      if (count>1) {
+        resLog.updateValue(clashForce/count,'Force '+count +' average ');
+      }
     }
+    return resLog;
   }
 
-  getTrunk1ClashedForce(lunar: Lunar, pilarIdx: number, pilarForce: number[]) {
+  getTrunk1ClashedForce(lunar: Lunar, pilarIdx: number, pilarForce: DataWithLog[]) : DataWithLog {
     return this.getTrunkForce(lunar, pilarIdx, pilarForce, 1, true);
   }
 
-  getTrunk2ClashedStatus(lunar: Lunar, pilarIdx: number, pilarForce: number[]) {
+  getTrunk2ClashedStatus(lunar: Lunar, pilarIdx: number, pilarForce: DataWithLog[])  : DataWithLog {
     return this.getTrunkForce(lunar, pilarIdx, pilarForce, 2, true);
   }
 
@@ -1092,7 +1106,7 @@ export class PilarsAttr {
     const comb5StatusArr = this.comb5StatusArr;
     const branchePilarElement = this.brancheEE;
 
-    const pilarForce = [];
+    const pilarForce: DataWithLog [] = DataWithLog.newDataArray(LunarBase.PILARS_LEN);
     let comb5status;
     let iComb5Status;
     let noRootSupporstatus; let nextNoRootSupporstatus;
@@ -1100,7 +1114,8 @@ export class PilarsAttr {
     const checkClashArr = [];
     for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
       // Initial points: Case 3 comb5 pilars together
-      let points = 36;
+      let pilarName= DataWithLog.getTrunkHeader(pilarIdx);
+      pilarForce[pilarIdx].setValue(36,pilarName+'initial force');
       // Comb5 Type
       iComb5Status = comb5StatusArr[0][pilarIdx];
       comb5status = iComb5Status > 0;
@@ -1116,7 +1131,7 @@ export class PilarsAttr {
           // ngủ hợp with next pilar
           if (nextNoRootSupporstatus) {
             // Current pilar has no root support and so is  the next
-            points -= (points * 3) / 4;
+            pilarForce[pilarIdx].addValue(-27,pilarName+'No root support');
             checkComb5 = false;
             checkClashCase = true;
             comb5status = false;
@@ -1126,7 +1141,7 @@ export class PilarsAttr {
           // ngủ hợp with prev pilar
           if (prevNoRootSupporstatus) {
             // Current pilar has no root support and so is  the prev
-            points -= (points * 3) / 4;
+            pilarForce[pilarIdx].addValue(-27,pilarName+'No root support');
             checkComb5 = false;
             checkClashCase = true;
             comb5status = false;
@@ -1134,69 +1149,75 @@ export class PilarsAttr {
         }
         if (checkComb5 && !comb5status) {
           // No Root support and no comb5 type
-          points -= (points * 3) / 4;
+          pilarForce[pilarIdx].addValue(-27,pilarName+'No root support and no combination of 5');
         }
       }
       if (comb5status) {
         if (this.is3Comb5ConcureenceStatusPilar(lunar, pilarIdx)) {
-          // Ref3p339 pilars with comb5 status
-          points -= points / 3;
+          // Ref3p339 pilars with concurrence status
           checkClashCase = true;
+          pilarForce[pilarIdx].addValue(-12,pilarName+'combination of 5 with no tranformation. status '+iComb5Status);
         } else {
           if (iComb5Status===7) {
             checkClashCase = true;
-            points -= points / 3; //Ref3p339
+            pilarForce[pilarIdx].addValue(-12,pilarName+'combination of 5 status '+iComb5Status);
           } else if (iComb5Status===8) {
             checkClashCase = true;
           } else {
-            points -= points / 6;
+            pilarForce[pilarIdx].addValue(-12,pilarName+'combination of 5 status '+iComb5Status);
             checkClashCase = false;
           }
         }
       }
       checkClashArr[pilarIdx] = checkClashCase;
-      const tElement = trunkPilarElement[pilarIdx].getElement();
-      const bElement = branchePilarElement[pilarIdx].getElement();
+
+      const tElement = trunkPilarElement[pilarIdx].getValue().getElement();
+      const trunkName = 'Trunk '+ lunar.trunkArr[pilarIdx] + ' element '+ tElement;
+      const bElement = branchePilarElement[pilarIdx].getValue().getElement();
+      const brancheName = 'Branche '+ lunar.brancheArr[pilarIdx]+' element '+ bElement;
+      pilarName= DataWithLog.getPilarHeader(pilarIdx);
       //Ref3p341Case3
       if (tElement.isProductive(bElement)) {
-        points -= 6;
+        pilarForce[pilarIdx].addValue(-6,pilarName+trunkName + ' creates ' + brancheName );
       }
       //Ref3p341Cas4
       if (tElement.isDestructive(bElement)) {
-        points -= 12;
+        pilarForce[pilarIdx].addValue(-12,pilarName+trunkName + ' controls ' + brancheName);
       }
       //Ref341Cas6
       if (bElement.isDestructive(tElement)) {
-        points -= 18;
+        pilarForce[pilarIdx].addValue(-18,pilarName+brancheName + ' controls '+ trunkName);
       }
-      if (points < 0) {points = 0;}
-      pilarForce[pilarIdx] = points;
+      this.avoidZeroForce(pilarForce[pilarIdx],pilarName);
+
       prevNoRootSupporstatus = noRootSupporstatus;
     }
 
     for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
+      const pilarName= DataWithLog.getTrunkHeader(pilarIdx);
       if (checkClashArr[pilarIdx]) {
         // To transmit the info to be used later in uppateTrunkClash
         let clashForce = this.getTrunk1ClashForce(lunar, pilarIdx, pilarForce);
-        if (clashForce > 0) {
-          pilarForce[pilarIdx] -= clashForce;
+        if (clashForce.getValue() > 0) {
+          pilarForce[pilarIdx].addValue(-clashForce,pilarName+clashForce.getDetail());
         }
         clashForce = this.getTrunk2ClashStatus(lunar, pilarIdx, pilarForce);
-        if (clashForce > 0) {
-          pilarForce[pilarIdx] -= clashForce / 2;
+        if (clashForce.getValue() > 0) {
+          pilarForce[pilarIdx].addValue(-clashForce/2,pilarName+clashForce.getDetail());
         }
 
         clashForce = this.getTrunk1ClashedForce(lunar, pilarIdx, pilarForce);
-        if (clashForce > 0) {
-          pilarForce[pilarIdx] -= clashForce / 4;
+        if (clashForce.getValue() > 0) {
+          pilarForce[pilarIdx].addValue( -clashForce/4,pilarName+clashForce.getDetail());
         }
 
         clashForce = this.getTrunk2ClashedStatus(lunar, pilarIdx, pilarForce);
-        if (clashForce > 0) {
-          pilarForce[pilarIdx] -= clashForce / 8;
+        if (clashForce.getValue() > 0) {
+          pilarForce[pilarIdx].addValue( -clashForce/8,pilarName+clashForce.getDetail());
         }
       }
-      if (pilarForce[pilarIdx] < 0) {pilarForce[pilarIdx] = 0;}
+      this.avoidZeroForce(pilarForce[pilarIdx],pilarName);
+
     }
     this.trunkForceArr = pilarForce;
   }
@@ -1217,13 +1238,20 @@ export class PilarsAttr {
   }
 
   setOnlyPrincipalForce(
-    brancheForce: number[][],
+    brancheForce: DataWithLog[][],
     pilarIdx: number,
-    points: number
+    points: number,
+    detail?: string
   ) {
-    brancheForce[2][pilarIdx] = points;
-    brancheForce[3][pilarIdx] = 0;
-    brancheForce[4][pilarIdx] = 0;
+    if ( typeof detail === 'undefined' ) {
+      detail = '';
+    } else {
+      detail = '<ol>'+ detail+ '</ol>';
+    }
+    const pilarName = DataWithLog.getBrancheHeader(pilarIdx);
+    brancheForce[2][pilarIdx] = new DataWithLog(points,pilarName+'No Transformation. Use only main hidden element force. '+detail);
+    brancheForce[3][pilarIdx] = new DataWithLog(0,pilarName+'No Transformation. Do not use middle hidden element force. '+detail);
+    brancheForce[4][pilarIdx] = new DataWithLog(0,pilarName+'No Transformation.  Do not use excess hidden element force. '+detail);
   }
 
   setHiddenBrancheForce(
@@ -1252,53 +1280,67 @@ export class PilarsAttr {
     const brancheArr = lunar.brancheArr;
     const trunkArr = lunar.trunkArr;
     const trunkElements = this.trunkEE;
-    // If transformed then clash will have no effect
-    // Ref 3 p344
+    const currTrunk = trunkArr[pilarIdx];
     const currBranche = brancheArr[pilarIdx];
     const brancheElement = currBranche.getElement();
-    let resElement = brancheElement;
-    const trunkResultElement = trunkElements[pilarIdx].getElement();
-    let points = 30;
+    let resElement = new DataWithLog(brancheElement,'Initial Branche element');
+    const trunkResultElement = trunkElements[pilarIdx].getValue().getElement();
+
     let hasCombinedStatus = false;
     const brancheForce = this.brancheForceArr;
-    // Distribution in hidden trunk. See Ref3p342
+    // Distribution in hidden trunk. See Ref3p342, Ref3p5p9
     const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(brancheArr[pilarIdx]);
     const hLen = hiddenTrunkArr.length;
+    const pilarName = DataWithLog.getBrancheHeader(pilarIdx);
     for (let i = 0; i < hLen; i++) {
+      brancheForce[i + 2][pilarIdx] = new DataWithLog();
+      const detail= pilarName+' Hidden Trunk '+hiddenTrunkArr[i] ;
       if (hiddenTrunkArr[i].getElement()===brancheElement) {
-        brancheForce[i + 2][pilarIdx] = this.getPrincipalForce(currBranche);
+        brancheForce[i + 2][pilarIdx].setValue(
+          this.getPrincipalForce(currBranche),
+          detail+' main force'
+        );
       } else {
-        if (hLen===3 && i===2) {
-          brancheForce[i + 2][pilarIdx] = 3;
+        if (i===2) {
+          brancheForce[i + 2][pilarIdx].setValue(
+            3,
+            detail+' excess force'
+          );
         } else {
-          brancheForce[i + 2][pilarIdx] = 9;
+          brancheForce[i + 2][pilarIdx].setValue(
+            9,
+            detail+' middle force'
+          );
         }
       }
     }
-
+    //Ref3p341
+    let points = new DataWithLog(30,'360/(12 branches)');
     if (BaziHelper.hasSameSeasonCombination(brancheArr, pilarIdx)) {
+      // Ref3p342
       resElement = BaziHelper.getTransformableSeasonCombination(
         lunar,
         pilarIdx
       );
-      points = 72 / 3;
+      points.setValue( 72 / 3, 'Same season combination');
       hasCombinedStatus = true;
     } else if (BaziHelper.hasCombOf3(lunar, pilarIdx)) {
+      // Ref3p342
       resElement = BrancheRelation.getCombinaisonResultElement(
         brancheArr[pilarIdx]
       );
-      points = 60 / 3;
+      points.setValue( 60 / 3, 'Combination of 3 (San He)');
       hasCombinedStatus = true;
     } else {
       if (BaziHelper.hasMidCombination(trunkArr, brancheArr, pilarIdx)) {
         resElement = BrancheRelation.getCombinaisonResultElement(
           brancheArr[pilarIdx]
         );
-        if (this.isBrancheELementInTrunk(lunar, resElement)) {
-          points = 40 / 3;
+        if (this.isBrancheELementInTrunk(lunar, resElement.getValue())) {
+          points.setValue( 40 / 3, "Compatible kind with some trunk element's kind ");
           hasCombinedStatus = true;
         } else {
-          resElement = brancheElement;
+          resElement =  new DataWithLog(brancheElement, resElement.getDetail()+" incompatible kind with any trunk element's kind ");
         }
       }
       if (BaziHelper.hasTransformPlusWithTransform(lunar, pilarIdx)) {
@@ -1308,67 +1350,68 @@ export class PilarsAttr {
             brancheArr[pilarIdx]
           );
           hasCombinedStatus = true;
-          points = 36 / 2;
+          points.setValue( 36 / 2, "Unique combination of 2");
         } else {
           // Ref3p344
-          points = this.getPrincipalForce(currBranche);
-          this.setOnlyPrincipalForce(brancheForce, pilarIdx, points);
+          points.setValue( this.getPrincipalForce(currBranche), "Multiple combination of 2");
+          this.setOnlyPrincipalForce(brancheForce, pilarIdx, this.getPrincipalForce(currBranche));
         }
       } else if (
         BaziHelper.hasTransformPlus(brancheArr, pilarIdx, this.brMonthElement)
       ) {
         if (this.isConcurenceTransformPlus(brancheArr, pilarIdx)) {
-          this.setOnlyPrincipalForce(brancheForce, pilarIdx, points);
+          this.setOnlyPrincipalForce(brancheForce, pilarIdx, points.getValue(), points.getDetail());
         }
       }
     }
 
     // Ref3p343 check transform possibility
     if (hasCombinedStatus) {
-      // Ref3p343, p3444 + Ref3p351
-      if (this.isBrancheELementInTrunk(lunar, resElement)) {
-        this.setOnlyPrincipalForce(brancheForce, pilarIdx, points);
+      // Ref3p343, p344 + Ref3p351
+      if (this.isBrancheELementInTrunk(lunar, resElement.getValue())) {
+        points.addValue( 0, "Compatible kind with some trunk element's kind ");
       } else {
         hasCombinedStatus = false;
-        points = this.getPrincipalForce(currBranche);
-        // Keep only the principal force. Ref3p351
-        this.setOnlyPrincipalForce(brancheForce, pilarIdx, points);
+        points.setValue( this.getPrincipalForce(currBranche), "Incompatible kind with some trunk element's kind ");
+
       }
+      // Keep only the principal force. Ref3p351
+      this.setOnlyPrincipalForce(brancheForce, pilarIdx, points.getValue(), points.getDetail());
     }
 
     // Ref3p341, 342
-    if (!hasCombinedStatus && this.trunkForceArr[pilarIdx] >= 18) {
+    if (!hasCombinedStatus && this.trunkForceArr[pilarIdx].getValue() >= 18) {
       if (BaziHelper.getRelation(trunkResultElement,brancheElement).isFavorable()) {
-        points += 6;
-        brancheForce[2][pilarIdx] += 6;
+        points.addValue( 6, "Has trunk force>18");
+        brancheForce[2][pilarIdx].addValue(6,'Has trunk force>18');
       } else if (trunkResultElement.isDestructive(brancheElement)) {
-        points -= 8;
-        brancheForce[2][pilarIdx] -= 8;
+        points.addValue( -8, 'Branch '+currBranche+' element'+ brancheElement+' controlled by trunk '+currTrunk+' element '+ trunkResultElement);
+        brancheForce[2][pilarIdx].addValue(-8,'Branch '+currBranche+' element'+ brancheElement+' controlled by trunk '+currTrunk+' element '+ trunkResultElement);
       }
     }
 
     // Ref3p344 Clash
     if (!hasCombinedStatus && this.hasClash(brancheArr, pilarIdx)) {
-      points = this.getPrincipalForce(currBranche);
+      let principalHiddenForce= this.getPrincipalForce(currBranche);
       if (
         this.hasClash(brancheArr, pilarIdx - 1) &&
         this.hasClash(brancheArr, pilarIdx + 1)
       ) {
-        points = points / 3;
+        principalHiddenForce = principalHiddenForce / 3;
       } else {
-        points -= points / 3;
+        principalHiddenForce -= principalHiddenForce / 3;
       }
-
-      this.setOnlyPrincipalForce(brancheForce, pilarIdx, points);
+      points.setValue( principalHiddenForce, "Class");
+      this.setOnlyPrincipalForce(brancheForce, pilarIdx, principalHiddenForce);
     }
+    this.avoidZeroForce(points,pilarName);
 
-    if (points < 0) {points = 0;}
     brancheForce[0][pilarIdx] = points;
 
   }
 
   evalBrancheForce(lunar: Lunar) {
-    this.brancheForceArr=ObjectHelper.newMatrix( LunarBase.PILARS_LEN, LunarBase.PILARS_LEN,0);
+    this.brancheForceArr=ObjectHelper.newMatrix( LunarBase.PILARS_LEN, LunarBase.PILARS_LEN,null);
     for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
       this.setBranchePoints(lunar, pilarIdx);
     }
@@ -1385,7 +1428,7 @@ export class PilarsAttr {
         if ( ObjectHelper.isNaN(this.trunkEE) ) {
           hasSameElement = tArr[j].elementNenergy===hiddenTrunk[i].elementNEnergy;
         } else {
-				  hasSameElement = this.trunkEE[j].getElement()===hiddenTrunk[i].getElement();
+				  hasSameElement = this.trunkEE[j].getValue().getElement()===hiddenTrunk[i].getElement();
         }
 				if ( hasSameElement ) {break ;}
 			}
@@ -1393,31 +1436,30 @@ export class PilarsAttr {
 		}
 	}
 
-  incForceWithReason(){
-
-  }
-
   evalElementNEnergyForce(lunar: Lunar) {
 
 		const len = ElementNEnergy.getValues().length;
     const brancheArr=lunar.brancheArr;
-		this.elementNEnergyForce = ObjectHelper.newArray(len,0);
-
+    this.elementNEnergyForce = DataWithLog.newDataArray(len);
 		// exclude lIndex
 		for(let pilarIdx=0;pilarIdx<LunarBase.LINDEX;pilarIdx++){
 			// Trunc element's force
-			const ee = this.trunkEE[pilarIdx];
-			this.elementNEnergyForce[ee.ordinal()]+=this.trunkForceArr[pilarIdx];
-      this.elementNEnergyForceReason[ee.ordinal()]+="Trunk pilar "+pilarIdx+" force "+this.trunkForceArr[pilarIdx];
+			const ee = this.trunkEE[pilarIdx].getValue();
+			this.elementNEnergyForce[ee.ordinal()].addData(
+        this.trunkForceArr[pilarIdx],
+        DataWithLog.getTrunkHeader(pilarIdx));
 			const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(brancheArr[pilarIdx]);
 			const hLen = hiddenTrunkArr.length;
 			// The main hidden trunk is the same as the transformed branche element
-			this.elementNEnergyForce[this.brancheEE[pilarIdx].ordinal()]+=
-					this.brancheForceArr[2][pilarIdx];
-      this.elementNEnergyForceReason[this.brancheEE[pilarIdx].ordinal()]+="Branche pilar "+pilarIdx+" force "+this.brancheForceArr[2][pilarIdx];
-			for (let i = 1; i < hLen; i++) {
-				this.elementNEnergyForce[hiddenTrunkArr[i].elementNEnergy.ordinal()]+=
-						this.brancheForceArr[2+i][pilarIdx];
+			this.elementNEnergyForce[this.brancheEE[pilarIdx].getValue().ordinal()].addData(
+					this.brancheForceArr[2][pilarIdx],
+          DataWithLog.getBrancheHeader(pilarIdx)+"'s Main Hidden Trunk "
+          );
+    	for (let i = 1; i < hLen; i++) {
+				this.elementNEnergyForce[hiddenTrunkArr[i].elementNEnergy.ordinal()].addData(
+					this.brancheForceArr[2+i][pilarIdx].getValue(),
+          DataWithLog.getBrancheHeader(pilarIdx) + "'s non Main Hidden Trunk "
+          );
 			}
 		}
 	}
@@ -1429,7 +1471,7 @@ export class PilarsAttr {
     for(let idx=0;idx<this.elementNEnergyForce.length;idx++) {
 			const ee = ElementNEnergy.WATERYANG.getEnum(idx) as ElementNEnergy;
 			this.elementForce[ee.element.ordinal()] +=
-					this.elementNEnergyForce[idx];
+					this.elementNEnergyForce[idx].getValue();
 		}
 		// initMajorElementForce();
     this.sumElementForce = 0 ;
@@ -1465,17 +1507,17 @@ export class PilarsAttr {
 
 		for (let pilarCol = 0; pilarCol < MAX_LEN; pilarCol++) {
 			for (let i = 0; i < MAX_LEN; i++) {
-				this.trunkTEE[pilarCol][i] = this.trunkEE[pilarCol];
-				this.brancheTEE[pilarCol][i] = this.brancheEE[pilarCol];
+				this.trunkTEE[pilarCol][i] = this.trunkEE[pilarCol].getValue();
+				this.brancheTEE[pilarCol][i] = this.brancheEE[pilarCol].getValue();
 			}
 		}
 		for (let pilarCol = 0; pilarCol < MAX_LEN; pilarCol++) {
 			for (let j = 0; j < MAX_LEN; j++) {
 				// j-->pilarCol: The transformed result effect is on the source
 				this.trunkRelation[j][pilarCol] =
-        BaziHelper.getEnNRelation(this.trunkEE[j],this.trunkEE[pilarCol]);
+        BaziHelper.getEnNRelation(this.trunkEE[j].getValue(),this.trunkEE[pilarCol].getValue());
 				// trunkEE already contains the transformed result
-				this.trunkTEE[j][pilarCol] = this.trunkEE[pilarCol];
+				this.trunkTEE[j][pilarCol] = this.trunkEE[pilarCol].getValue();
 			}
 		}
 
@@ -1486,23 +1528,24 @@ export class PilarsAttr {
 				const fromBranche = brancheArr[j];
 				// Use the transformed result if fitted
 				this.brancheRelation[j][pilarCol] =
-        BaziHelper.getEnNRelation( this.brancheEE[j],this.brancheEE[pilarCol]);
+        BaziHelper.getEnNRelation( this.brancheEE[j].getValue(),this.brancheEE[pilarCol].getValue());
 				this.brancheTrunkRelation[j][pilarCol] =
-        BaziHelper.getEnNRelation(this.brancheEE[j],this.trunkEE[pilarCol]);
+        BaziHelper.getEnNRelation(this.brancheEE[j].getValue(),this.trunkEE[pilarCol].getValue());
 				brancheBrRelation[j][pilarCol] = BrancheHelper.getUniqueRelation(fromBranche, toBranche);
 				if (brancheBrRelation[j][pilarCol]===BrancheRelation.TRANSFORMPLUS
           || brancheBrRelation[j][pilarCol]===BrancheRelation.TRANSFORMRESTRICT) {
 					this.brancheTEE[j][pilarCol] =
 							ElementNEnergy.getElementNEnergy(
-									BrancheRelation.getTransformResultElement(fromBranche),
+									BrancheRelation.getTransformResultElement(fromBranche).getValue(),
 									fromBranche.getEnergy());
 				}
 			}
 			const hiddenTrunk = BrancheHelper.getHiddenTrunk(toBranche);
 			// The first hidden trunk has the same element as the branche
 			// Use the trannsforned element to calculate the EER
+
 			const ee =
-      ElementNEnergy.getElementNEnergy(this.brancheEE[pilarCol].getElement(),hiddenTrunk[0].
+      ElementNEnergy.getElementNEnergy(this.brancheEE[pilarCol].getValue().getElement(),hiddenTrunk[0].
       getEnergy());
 			this.dayHiddenRelation[pilarCol][0] =
       BaziHelper.getEnNRelation(ee,dayTrunk.elementNEnergy);
@@ -1531,7 +1574,7 @@ export class PilarsAttr {
            // Use the new transformable element?
            element = PilarsAttr.getTransformable(
               trunkArr[i], trunkArr[LunarBase.DINDEX],
-              this.brancheEE[LunarBase.MINDEX].getElement());
+              this.brancheEE[LunarBase.MINDEX].getValue().getElement());
            if (element != null) {
                const ene = ElementNEnergy.getElementNEnergy(element, trunkArr[i].getEnergy());
                relation = BaziHelper.getEnNRelation(ene,trunkArr[LunarBase.DINDEX].elementNEnergy);
@@ -1568,8 +1611,7 @@ export class PilarsAttr {
 
 
     // Second pass for brMonthElement
-
-    this.brMonthElement = this.brancheEE[LunarBase.MINDEX].getElement();
+    this.brMonthElement = this.brancheEE[LunarBase.MINDEX].getValue().getElement();
     this.evalTrunkForce(lunar);
     this.evalBrancheForce(lunar);
     //Final pass
