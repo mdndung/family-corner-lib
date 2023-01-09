@@ -8,7 +8,6 @@ export class DataWithLog {
 
   static currLog: DataWithLog = new DataWithLog();
 
-
   static resetCurrLog() {
     DataWithLog.currLog.setValue(false,'');
   }
@@ -49,7 +48,7 @@ export class DataWithLog {
     if (typeof detail === "undefined") {
       detail = "";
     } else {
-      detail = '<li>'+detail+'</li>';
+      detail = '<li>'+detail+' = '+ value +'</li>';
     }
     this.init(value, detail);
   }
@@ -92,7 +91,12 @@ export class DataWithLog {
     }
   }
 
-  addValue(force: number, detail: string) {
+  addValue(force: number, detail: string, subDetail?: string) {
+    if (typeof subDetail === "undefined") {
+      subDetail = "";
+    } else {
+      subDetail = '<ol>'+subDetail+'</ol>';
+    }
     if (force !== 0) {
       if (this.value === null) this.value = 0;
       const currValue = this.getValue();
@@ -106,13 +110,19 @@ export class DataWithLog {
         force +
         " = " +
         this.value +
-        " </li>";
+        subDetail+
+        " </li>" ;
     }
   }
 
-  updateValue(value: any, detail: string) {
+  updateValue(value: any, detail: string, subDetail?: string) {
+    if (typeof subDetail === "undefined") {
+      subDetail = "";
+    } else {
+      subDetail = '<ol>'+subDetail+'</ol>';
+    }
     this.value = value;
-    this.detail += "<li>" + detail + " = " + value + " </li>";
+    this.detail += "<li>" + detail + " = " + value + subDetail+"</li>";
   }
 
   setValue(value: any, detail: string) {

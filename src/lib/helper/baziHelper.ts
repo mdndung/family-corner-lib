@@ -215,7 +215,8 @@ export class BaziHelper {
   static hasMidCombination(tArr: Trunk[], bArr: Branche[], idx: number) {
     const checkBranche = bArr[idx];
     let count = 0;
-    let detail = 'Same combination of 2 with neighbor pilar' + checkBranche;
+    let detail = checkBranche + ' has partial combination of 3 with pilar ' ;
+    DataWithLog.resetCurrLog();
     for (let index = 0; index < LunarBase.LINDEX; index++) {
       // Ref342 - 343 only when two consecutive pilars
       if (Math.abs(index - idx) === 1) {
@@ -225,7 +226,7 @@ export class BaziHelper {
           BrancheRelation.COMBINATION
         ) {
           count++;
-          detail+=' '+ currBranche;
+          detail+=DataWithLog.PILARS_NAME[index] + ' '+ currBranche;
         }
       }
     }
@@ -368,7 +369,7 @@ export class BaziHelper {
     let count = 0;
     let detail = '';
     DataWithLog.resetCurrLog();
-    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
+    for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
       if (pilarIdx !== checkPilarIdx) {
         const branche = brancheArr[pilarIdx];
         if (branche.season === checkSeason) {
