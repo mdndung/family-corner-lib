@@ -47,6 +47,10 @@ export class Element extends EnumBaseClass {
     return 'Element';
   }
 
+  isFavorable(element: Element) {
+    return this===element || this.isProductive(element);
+  }
+
   isProductive(element: Element) {
     const nextElement = this.getNextElement(Element.PRODUCTIVE_CYCLE);
     return element.isEqual(nextElement);

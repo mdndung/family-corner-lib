@@ -4,7 +4,9 @@ import { EnumBaseClass } from '../enumBaseClass';
 // Java class QiStatus and QiForce combined
 export class QiForce extends EnumBaseClass {
 
-;
+  static FORCESUPERFAVORABLETHESHHOLD = 60/100; // Me
+  static FORCEFAVORABLETHESHHOLD = 40/100; // Ref3p355
+
   static  VERYHOSTILE = new QiForce('VERYHOSTILE',-8);
   static  HOSTILE = new QiForce('HOSTILE',-2);
   static  NONE = new QiForce('NONE',0);

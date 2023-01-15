@@ -27,21 +27,30 @@ export class Lunar {
   birthDateWith23HAdaptation: MyCalendar;
   isMan: boolean ;
 
-  trunkArr =  new Array(LunarBase.PILARS_LEN);
-  brancheArr =   new Array(LunarBase.PILARS_LEN);
+  trunkArr: Trunk[] = null ;
+  brancheArr: Branche[] = null ;
 
   yinCount = 0 ;
   yangCount =  0 ;
 
   pilarsAttr: PilarsAttr;
 
-  constructor(birthDate: MyCalendar, isMan: boolean) {
+  constructor(birthDate: MyCalendar, isMan: boolean, trArr?: Trunk[], brArr?: Branche[]) {
+    if ( typeof trArr === 'undefined') {
+      trArr = null;
+    }
+    if ( typeof brArr === 'undefined') {
+      brArr = null;
+    }
+    this.trunkArr=trArr;
+    this.brancheArr=brArr;
     // Make a clone copy
     this.birthDate = birthDate.getCopy();
     this.birthDateWith23HAdaptation =
         DateHelper.getMyCalendarAfterAddDuration
           (birthDate,Temporal.Duration.from({hours:1}));
     this.isMan = isMan;
+
     this.init();
   }
 
@@ -145,20 +154,24 @@ export class Lunar {
 
 
   initTrunkBranche() {
-    let [cycle, year, month, leap, day] = this.birthDate.chineseDate.get();
-    month = Math.abs(month);
-    const cYear = cycle*60+year;
-    this.trunkArr[LunarBase.YINDEX]=TrunkHelper.getYearTrunk(cYear);
-    this.brancheArr[LunarBase.YINDEX]=BrancheHelper.getYearBranche(cYear);
+    if ( this.trunkArr===null ) {
+      this.trunkArr =  new Array(LunarBase.PILARS_LEN);
+      this.brancheArr =   new Array(LunarBase.PILARS_LEN);
 
-    this.trunkArr[LunarBase.MINDEX]=TrunkHelper.getMonthTrunk(this.trunkArr[LunarBase.YINDEX],month);
-    this.brancheArr[LunarBase.MINDEX]=BrancheHelper.getMonthBranche(month);
+      let [cycle, year, month, leap, day] = this.birthDate.chineseDate.get();
+      month = Math.abs(month);
+      const cYear = cycle*60+year;
+      this.trunkArr[LunarBase.YINDEX]=TrunkHelper.getYearTrunk(cYear);
+      this.brancheArr[LunarBase.YINDEX]=BrancheHelper.getYearBranche(cYear);
 
-    this.trunkArr[LunarBase.DINDEX]=TrunkHelper.getDayTrunk(this.birthDate);
-    this.brancheArr[LunarBase.DINDEX]=BrancheHelper.getDayBranche(this.birthDate);
+      this.trunkArr[LunarBase.MINDEX]=TrunkHelper.getMonthTrunk(this.trunkArr[LunarBase.YINDEX],month);
+      this.brancheArr[LunarBase.MINDEX]=BrancheHelper.getMonthBranche(month);
 
-    this.initHLTrunkBranche();
+      this.trunkArr[LunarBase.DINDEX]=TrunkHelper.getDayTrunk(this.birthDate);
+      this.brancheArr[LunarBase.DINDEX]=BrancheHelper.getDayBranche(this.birthDate);
 
+      this.initHLTrunkBranche();
+    }
   }
 
 

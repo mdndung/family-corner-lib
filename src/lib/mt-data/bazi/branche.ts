@@ -66,6 +66,7 @@ export class Branche extends EnumBaseClass {
     return res ;
   }
 
+
   override getViewColorName() {
     return this.elementNEnergy.getViewColorName();
   }

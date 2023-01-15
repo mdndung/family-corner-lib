@@ -369,11 +369,13 @@ export class BaziHelper {
     let count = 0;
     let detail = '';
     DataWithLog.resetCurrLog();
+    const branchesIdx: number[] = [];
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
       if (pilarIdx !== checkPilarIdx) {
         const branche = brancheArr[pilarIdx];
         if (branche.season === checkSeason) {
           detail+=DataWithLog.getBrancheHeader(pilarIdx)+' '+branche+' ';
+          branchesIdx.push(pilarIdx);
           count++;
         }
       }
@@ -381,15 +383,10 @@ export class BaziHelper {
     let res = false;
     if ( count >= 2 ) {
       DataWithLog.setCurrLog(true,DataWithLog.getBrancheHeader(checkPilarIdx)+ ' has same Season '+ checkSeason+ ' with '+ detail);
+
       res = true ;
     };
     return res ;
-  }
-
-  //Ref3p255
-  static getTransformableSeasonCombination(lunar: Lunar, pilarIdx: number) : DataWithLog{
-    const name='Branche ' +  lunar.brancheArr[pilarIdx];
-    return new DataWithLog(lunar.brancheArr[pilarIdx].season.element,name+' Season element');
   }
 
   static getDayPilarForce(lunar: Lunar) {

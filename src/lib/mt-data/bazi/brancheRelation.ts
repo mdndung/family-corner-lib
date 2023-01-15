@@ -20,7 +20,7 @@ export class BrancheRelation extends EnumBaseClass {
   static SCANDALOUS = new BrancheRelation('S');
   static AUTOPUNITION = new BrancheRelation('T');
   //
-  // DESTROY, See Re
+  // DESTROY,
   static DESTROY = new BrancheRelation('K');
 
   static TRANSFORMRESTRICT = new BrancheRelation('TS');
@@ -76,7 +76,7 @@ export class BrancheRelation extends EnumBaseClass {
       [BrancheRelation.ELEMENTFAVORABLE],
       [BrancheRelation.ELEMENTFAVORABLE],
       [BrancheRelation.ELEMENTCLASH],
-      [BrancheRelation.AGRESSIVE],
+      [BrancheRelation.INJURY, BrancheRelation.AGRESSIVE],
       [BrancheRelation.COMBINATION],
       [BrancheRelation.ELEMENTCLASH],
       [BrancheRelation.CLASH, BrancheRelation.AGRESSIVE],
@@ -274,9 +274,18 @@ return false;
   // Ref3p254
   //Ref9p137
   static getCombinaisonResultElement(branche: Branche) {
+    const name='Branche ' +  branche;
     let element = BrancheRelation.getComb3Element(branche);
-    return new DataWithLog(element,'Combination of 3 (san he)');
+    return new DataWithLog(element,name+'Combination of 3 (san he)');
   }
+
+
+  //Ref3p255
+  static getTransformableSeasonCombination(branche: Branche) : DataWithLog{
+    const name='Branche ' +  branche;
+    return new DataWithLog(branche.season.element,name+' Season element');
+  }
+
 
   static getMidCombinaisonResultElement(branche: Branche) {
     let element = BrancheRelation.getComb3Element(branche);

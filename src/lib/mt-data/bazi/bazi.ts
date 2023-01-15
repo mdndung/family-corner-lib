@@ -16,34 +16,36 @@ export class Bazi extends Lunar {
   secondaryDeityPilars: SecondaryDeity[][]= null;
   locThanTrunks: Trunk[]= null;
 
-  constructor(birthDate: MyCalendar, isMan: boolean) {
-    super(birthDate, isMan);
+  constructor(birthDate: MyCalendar, isMan: boolean, trArr?: Trunk[], brArr?: Branche[]) {
+    super(birthDate, isMan, trArr, brArr);
     this.secondaryDeityPilars=SecondaryDeity.evalSecondaryDeity(this,this);
     this.locThanTrunks=SecondaryDeity.evalLocThanTrunk(this,this);
   }
 
 
   override initTrunkBranche() {
+    if ( this.trunkArr===null ) {
+      this.trunkArr =  new Array(LunarBase.PILARS_LEN);
+      this.brancheArr =   new Array(LunarBase.PILARS_LEN);
+      const baziNb = DateHelper.getSolarYear(this.birthDate)%60;
+      const trunkNb = Math.trunc(baziNb%10)-3;
+      const brancheNb = Math.trunc( baziNb % 12) -3;
 
-    const baziNb = DateHelper.getSolarYear(this.birthDate)%60;
-    const trunkNb = Math.trunc(baziNb%10)-3;
-    const brancheNb = Math.trunc( baziNb % 12) -3;
 
+      this.trunkArr[LunarBase.YINDEX]=TrunkHelper.getYearTrunk(trunkNb);
+      this.brancheArr[LunarBase.YINDEX]=BrancheHelper.getYearBranche(brancheNb);
 
-    this.trunkArr[LunarBase.YINDEX]=TrunkHelper.getYearTrunk(trunkNb);
-    this.brancheArr[LunarBase.YINDEX]=BrancheHelper.getYearBranche(brancheNb);
+      let someIdx  = this.getMonthIdx();
 
-    let someIdx  = this.getMonthIdx();
+      this.trunkArr[LunarBase.MINDEX]=
+        this.getYearStartMonth().getEnumNextNElement(someIdx-1);
+      this.brancheArr[LunarBase.MINDEX]=BrancheHelper.getMonthBranche(someIdx);
 
-    this.trunkArr[LunarBase.MINDEX]=
-      this.getYearStartMonth().getEnumNextNElement(someIdx-1);
-    this.brancheArr[LunarBase.MINDEX]=BrancheHelper.getMonthBranche(someIdx);
-
-    someIdx = DateHelper.reference19850724JIARATDateDiff(this.birthDateWith23HAdaptation);
-    this.trunkArr[LunarBase.DINDEX]=Trunk.JIA.getEnumNextNElement(someIdx);
-    this.brancheArr[LunarBase.DINDEX]=Branche.RAT.getEnumNextNElement(someIdx);
-    this.initHLTrunkBranche();
-
+      someIdx = DateHelper.reference19850724JIARATDateDiff(this.birthDateWith23HAdaptation);
+      this.trunkArr[LunarBase.DINDEX]=Trunk.JIA.getEnumNextNElement(someIdx);
+      this.brancheArr[LunarBase.DINDEX]=Branche.RAT.getEnumNextNElement(someIdx);
+      this.initHLTrunkBranche();
+    }
   }
 
   override getPilarElement(index: number) {

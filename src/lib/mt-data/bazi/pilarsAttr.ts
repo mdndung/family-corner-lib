@@ -1,22 +1,21 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 
-import { AssocArray } from "../../data/assoc-array";
 import { BaziHelper } from "../../helper/baziHelper";
 import { BrancheHelper } from "../../helper/brancheHelper";
-import { MessageHelper } from "../../helper/messageHelper";
 import { ObjectHelper } from "../../helper/objectHelper";
 import { TrunkHelper } from "../../helper/trunkHelper";
 import { Element } from "../feng-shui/element";
 
 import { ElementNEnergy } from "../feng-shui/elementNenergy";
 import { ElementNEnergyRelation } from "../feng-shui/elementNEnergyRelation";
-import { Energy } from "../feng-shui/energy";
 import { DataWithLog } from "../qi/dataWithLog";
 import { Branche } from "./branche";
 import { BrancheRelation } from "./brancheRelation";
 import { Lunar } from "./lunar";
 import { LunarBase } from "./lunarBase";
+import { CombAttr, CombinationList } from "./combinationList";
 import { Trunk } from "./trunk";
+import { CombListHelper } from "../../helper/combListHelper";
 
 export class PilarsAttr {
   comb5StatusArr?: number[][] = null;
@@ -25,6 +24,7 @@ export class PilarsAttr {
   brancheEE?: DataWithLog[] = null;
   brancheTEE?: ElementNEnergy[][] = null;
   trunkForceArr?: DataWithLog[] = null;
+  brancheHiddenStartIdx = 1;
   brancheForceArr?: DataWithLog[][] = null;
 
   brMonthElement?: Element = null;
@@ -46,14 +46,17 @@ export class PilarsAttr {
 
   selectPivotEE: ElementNEnergy;
 
+  combList: CombinationList ;
+
   constructor(lunar: Lunar) {
+    lunar.pilarsAttr=this;
     this.initEE(lunar);
     this.evalPilarRelation(lunar);
     this.initEERCounters(lunar);
   }
 
   log() {
-   // console.log(this.brancheForceArr);
+    console.log(this.combList);
   }
 
   static getTransformable(trunk1: Trunk, trunk2: Trunk, checkELement: Element) {
@@ -78,6 +81,25 @@ export class PilarsAttr {
     return "<ol>" + DataWithLog.currLog.getDetail() + "</ol>";
   }
 
+  //Ref3p336 cas 1 with month branche
+  isElementInMonthHiddenTrunk(lunar: Lunar, checkElement: Element) {
+    if (checkElement === this.brMonthElement) return true;
+
+    const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(
+      lunar.brancheArr[LunarBase.MINDEX]
+    );
+
+    for (let i = 0; i < hiddenTrunkArr.length; i++) {
+      const eeHtr = hiddenTrunkArr[i].getElement();
+      if (eeHtr === checkElement) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  //Ref3p336 cas 1 with current branche and non weaked hidden branche force
+  //
   isElementInNonWeakForceHiddenTrunk(
     lunar: Lunar,
     pilarIdx: number,
@@ -91,11 +113,13 @@ export class PilarsAttr {
       const eeHtr = hiddenTrunkArr[i].getElement();
       if (eeHtr === checkElement) {
         if (!ObjectHelper.isNaN(this.brancheForceArr)) {
-          if (this.brancheForceArr[i + 2][pilarIdx].getValue() > 3) {
+          if (
+            this.brancheForceArr[i + this.brancheHiddenStartIdx][
+              pilarIdx
+            ].getValue() > 3
+          ) {
             return true;
           }
-        } else {
-          return true;
         }
       }
     }
@@ -132,182 +156,67 @@ export class PilarsAttr {
 
   hasCombinationOf3(
     trunkArr: Trunk[],
-    brancheArr: Branche[],
-    checkElement: Element
+    brancheArr: Branche[]
   ) {
-    let count = 0;
-    for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
-      if (this.hasBaseCombOf3(trunkArr, brancheArr, pilarIdx)) {
-        count++;
-      }
-    }
-    return count >= 3;
+    const res =
+    this.combList.existRelationType(CombAttr.BRANCHECOMB3TYPE) ;
+    return res ;
   }
 
-  hasComb5ElementsType0(
-    trunkArr: Trunk[],
-    pilarIdx1: number,
-    pilarIdx2: number,
-    eTrMonthElement: Element
-  ) {
-    const trunk1 = trunkArr[pilarIdx1];
-    const trunk2 = trunkArr[pilarIdx2];
-    return TrunkHelper.isTransformable(trunk1, trunk2);
+    // Ref3p336
+  //
+  hasComb5ElementsType0(lunar: Lunar, pilarIdx1: number, pilarIdx2: number) {
+    const res =
+    this.combList.existTrunkRelationType(CombAttr.TRUNKCOMB5TYPE0,pilarIdx1)&&
+    this.combList.existTrunkRelationType(CombAttr.TRUNKCOMB5TYPE0,pilarIdx2);
+    return res ;
   }
 
-  // Ref3p336
+  // Ref3p336 ???
+  //
+  hasComb5ElementsType1(lunar: Lunar, pilarIdx1: number, pilarIdx2: number) {
+    const res =
+    this.combList.existTrunkRelationType(CombAttr.TRUNKCOMB5TYPE1,pilarIdx1)&&
+    this.combList.existTrunkRelationType(CombAttr.TRUNKCOMB5TYPE1,pilarIdx2);
+    return res ;
+  }
+
+  // Ref3p337 Cas2
+  //
+  hasComb5ElementsType2(lunar: Lunar, pilarIdx1: number, pilarIdx2: number) {
+    const res =
+    this.combList.existTrunkRelationType(CombAttr.TRUNKCOMB5TYPE2,pilarIdx1)&&
+    this.combList.existTrunkRelationType(CombAttr.TRUNKCOMB5TYPE2,pilarIdx2);
+    return res;
+  }
+
+  // Ref3p337Cas 3
+  //
+  hasComb5ElementsType3(lunar: Lunar, pilarIdx1: number, pilarIdx2: number) {
+    const res =
+    this.combList.existTrunkRelationType(CombAttr.TRUNKCOMB5TYPE3,pilarIdx1)&&
+    this.combList.existTrunkRelationType(CombAttr.TRUNKCOMB5TYPE3,pilarIdx2);
+    return res ;
+  }
+
+  // Ref3p337 Cas 4
+  hasComb5ElementsType4(lunar: Lunar, pilarIdx1: number, pilarIdx2: number) {
+    const res =
+    this.combList.existTrunkRelationType(CombAttr.TRUNKCOMB5TYPE4,pilarIdx1)&&
+    this.combList.existTrunkRelationType(CombAttr.TRUNKCOMB5TYPE4,pilarIdx2);
+    return res ;
+  }
+
+  // Ref3p337 Cas5 or 6
   // DeityHelper
-  hasComb5ElementsType1(
-    lunar: Lunar,
-    pilarIdx1: number,
-    pilarIdx2: number,
-    eTrMonthElement: Element
-  ) {
-    const trunkArr = lunar.trunkArr;
-    const trunk1 = trunkArr[pilarIdx1];
-    const trunk2 = trunkArr[pilarIdx2];
-    if (TrunkHelper.isTransformable(trunk1, trunk2)) {
-      const trElement = TrunkHelper.getTransformElement(trunk1);
-      if (eTrMonthElement === trElement) {
-        return true;
-      }
-      // Not true with example 6 Ref3page350
-      // Check the force of the hidden trunks
-      // if ( hasNoSecondaryHiddenForce(bazi,Bazi.mIndex,eTrMonthElement) ) return false ;
-      // Return true if the transformed element is present with some non weak force in hidden trunk
-      // See Ref Ref3p349ex5
-      if (
-        this.isElementInNonWeakForceHiddenTrunk(
-          lunar,
-          LunarBase.MINDEX,
-          trElement
-        )
-      ) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  // Ref3p339Cas2N3
-  // DeityHelper
-  hasComb5ElementsType2(
-    trunkArr: Trunk[],
-    brancheArr: Branche[],
-    pilarIdx1: number,
-    pilarIdx2: number,
-    eTrMonthElement: Element
-  ) {
-    const trunk1 = trunkArr[pilarIdx1];
-    const trunk2 = trunkArr[pilarIdx2];
-    if (TrunkHelper.isTransformable(trunk1, trunk2)) {
-      const tranformedElement = TrunkHelper.getTransformElement(trunk1);
-      const pilar1BrElement = brancheArr[pilarIdx1].getElement();
-      const pilar2BrElement = brancheArr[pilarIdx2].getElement();
-      if (
-        pilar1BrElement === tranformedElement &&
-        pilar2BrElement === tranformedElement &&
-        eTrMonthElement === tranformedElement
-      ) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  hasComb5ElementsType3(
-    trunkArr: Trunk[],
-    brancheArr: Branche[],
-    pilarIdx1: number,
-    pilarIdx2: number,
-    monthElement: Element
-  ) {
-    const trunk1 = trunkArr[pilarIdx1];
-    const trunk2 = trunkArr[pilarIdx2];
-    if (TrunkHelper.isTransformable(trunk1, trunk2)) {
-      const tranformedElement = TrunkHelper.getTransformElement(trunk1);
-      const pilar1BrElement = brancheArr[pilarIdx1].getElement();
-      const pilar2BrElement = brancheArr[pilarIdx2].getElement();
-      if (
-        BaziHelper.getRelation(
-          pilar1BrElement,
-          tranformedElement
-        ).isFavorable() &&
-        BaziHelper.getRelation(pilar2BrElement, tranformedElement).isFavorable()
-      ) {
-        return tranformedElement === monthElement;
-      }
-    }
-    return false;
-  }
-
-  // Ref3p337Cas4
-  // DeityHelper
-  hasComb5ElementsType4(
-    trunkArr: Trunk[],
-    brancheArr: Branche[],
-    pilarIdx1: number,
-    pilarIdx2: number,
-    monthElement: Element
-  ) {
-    const trunk1 = trunkArr[pilarIdx1];
-    const trunk2 = trunkArr[pilarIdx2];
-    if (TrunkHelper.isTransformable(trunk1, trunk2)) {
-      const tranformedElement = TrunkHelper.getTransformElement(trunk1);
-      if (this.hasCombinationOf3(trunkArr, brancheArr, tranformedElement)) {
-        const trBrancheElement = BrancheRelation.getCombinaisonResultElement(
-          brancheArr[pilarIdx1]
-        ).getValue();
-        if (
-          BaziHelper.getRelation(
-            trBrancheElement,
-            tranformedElement
-          ).isFavorable()
-        ) {
-          return tranformedElement === monthElement;
-        }
-      }
-    }
-    return false;
-  }
-
-  // Ref3p337Cas5 or 6
-  // DeityHelper
-  hasComb5ElementsType5Or6(
-    trunkArr: Trunk[],
-    brancheArr: Branche[],
-    pilarIdx1: number,
-    pilarIdx2: number,
-    monthElement: Element,
-    checkEnergy: Energy
-  ) {
-    if (pilarIdx1 !== LunarBase.MINDEX) {
-      if (pilarIdx2 !== LunarBase.MINDEX) {
-        return false;
-      }
-      pilarIdx2 = pilarIdx1;
-      pilarIdx1 = LunarBase.MINDEX;
-    }
-    // pilarIdx1 is now Bazi.mIndex
-    const trunk2 = trunkArr[pilarIdx2];
-    const trunk2Element = trunk2.getElement();
-
-    if (trunk2Element === monthElement) {
-      const branche2 = brancheArr[pilarIdx2];
-      const brElement2 = branche2.getElement();
-      if (BaziHelper.getRelation(brElement2, monthElement).isFavorable()) {
-        return true;
-      }
-      if (
-        BaziHelper.getRelation(
-          brancheArr[pilarIdx2].getElement(),
-          monthElement
-        ).isFavorable()
-      ) {
-        return true;
-      }
-    }
-    return false;
+  hasComb5ElementsType5Or6(lunar: Lunar, pilarIdx1: number, pilarIdx2: number) {
+    const res =
+      (this.combList.existTrunkRelationType(CombAttr.TRUNKCOMB5TYPE5,pilarIdx1) ||
+      this.combList.existTrunkRelationType(CombAttr.TRUNKCOMB5TYPE6,pilarIdx1))
+      &&
+      (this.combList.existTrunkRelationType(CombAttr.TRUNKCOMB5TYPE5,pilarIdx2) ||
+      this.combList.existTrunkRelationType(CombAttr.TRUNKCOMB5TYPE6,pilarIdx2));
+    return res ;
   }
 
   // Ref3p339
@@ -332,14 +241,7 @@ export class PilarsAttr {
 
       const isClashed = otherElement.isDestructive(checkElement);
 
-      if (
-        this.hasComb5ElementsType0(
-          trunkArr,
-          pilarIdx1,
-          pilarIdx2,
-          eTrMonthElement
-        )
-      ) {
+      if (this.hasComb5ElementsType0(lunar, pilarIdx1, pilarIdx2)) {
         if (isClashed) {
           res = 7;
         } else {
@@ -348,9 +250,7 @@ export class PilarsAttr {
         resElement = checkElement;
       }
 
-      if (
-        this.hasComb5ElementsType1(lunar, pilarIdx1, pilarIdx2, eTrMonthElement)
-      ) {
+      if (this.hasComb5ElementsType1(lunar, pilarIdx1, pilarIdx2)) {
         if (isClashed) {
           res = 10;
         } else {
@@ -358,15 +258,8 @@ export class PilarsAttr {
         }
         resElement = TrunkHelper.getTransformElement(trunk);
       }
-      if (
-        this.hasComb5ElementsType2(
-          trunkArr,
-          brancheArr,
-          pilarIdx1,
-          pilarIdx2,
-          eTrMonthElement
-        )
-      ) {
+
+      if (this.hasComb5ElementsType2(lunar, pilarIdx1, pilarIdx2)) {
         if (isClashed) {
           res = 20;
         } else {
@@ -375,15 +268,7 @@ export class PilarsAttr {
         resElement = TrunkHelper.getTransformElement(trunk);
       }
 
-      if (
-        this.hasComb5ElementsType3(
-          trunkArr,
-          brancheArr,
-          pilarIdx1,
-          pilarIdx2,
-          eTrMonthElement
-        )
-      ) {
+      if (this.hasComb5ElementsType3(lunar, pilarIdx1, pilarIdx2)) {
         if (isClashed) {
           res = 30;
         } else {
@@ -392,15 +277,7 @@ export class PilarsAttr {
         resElement = TrunkHelper.getTransformElement(trunk);
       }
 
-      if (
-        this.hasComb5ElementsType4(
-          trunkArr,
-          brancheArr,
-          pilarIdx1,
-          pilarIdx2,
-          eTrMonthElement
-        )
-      ) {
+      if (this.hasComb5ElementsType4(lunar, pilarIdx1, pilarIdx2)) {
         if (isClashed) {
           res = 40;
         } else {
@@ -408,16 +285,7 @@ export class PilarsAttr {
         }
         resElement = TrunkHelper.getTransformElement(trunk);
       }
-      if (
-        this.hasComb5ElementsType5Or6(
-          trunkArr,
-          brancheArr,
-          pilarIdx1,
-          pilarIdx2,
-          eTrMonthElement,
-          Energy.YIN
-        )
-      ) {
+      if (this.hasComb5ElementsType5Or6(lunar, pilarIdx1, pilarIdx2)) {
         if (isClashed) {
           res = 50;
         } else {
@@ -426,16 +294,7 @@ export class PilarsAttr {
         resElement = eTrMonthElement;
       }
 
-      if (
-        this.hasComb5ElementsType5Or6(
-          trunkArr,
-          brancheArr,
-          pilarIdx1,
-          pilarIdx2,
-          eTrMonthElement,
-          Energy.YANG
-        )
-      ) {
+      if (this.hasComb5ElementsType5Or6(lunar, pilarIdx1, pilarIdx2)) {
         if (isClashed) {
           res = 60;
         } else {
@@ -551,14 +410,12 @@ export class PilarsAttr {
     this.trunkEE = [];
     const trunkArr = lunar.trunkArr;
     let prevNoRootSupporstatus = true;
-    let comb5Type = 0;
 
-    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
+    for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
       const currTrunk = trunkArr[pilarIdx];
       const trunkElement = currTrunk.elementNEnergy;
       let resElement = new DataWithLog(trunkElement, "Trunk pilar element");
-      comb5Type = this.comb5StatusArr[0][pilarIdx];
-      // Root Support value
+      // Root Support value. Ref3p333
       const noRootSupporstatus = !this.isRootSupported(lunar, pilarIdx);
       const nextNoRootSupporstatus = !this.isRootSupported(lunar, pilarIdx + 1);
       // Ref339:
@@ -665,7 +522,7 @@ export class PilarsAttr {
 
   evalBrancheEEArr(lunar: Lunar) {
     const brancheArr = lunar.brancheArr;
-    const trunkArr = lunar.brancheArr;
+    const trunkArr = lunar.trunkArr;
     this.brancheEE = DataWithLog.newDataArray(LunarBase.PILARS_LEN, null);
     for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
       // If transformed then clash will have no effect
@@ -679,10 +536,10 @@ export class PilarsAttr {
       let hasCombinedStatus = false;
 
       if (BaziHelper.hasSameSeasonCombination(brancheArr, pilarIdx)) {
-        resElement = BaziHelper.getTransformableSeasonCombination(
-          lunar,
-          pilarIdx
+        resElement = BrancheRelation.getTransformableSeasonCombination(
+          brancheArr[pilarIdx]
         );
+
         hasCombinedStatus = true;
       } else if (BaziHelper.hasCombOf3(lunar, pilarIdx)) {
         resElement = BrancheRelation.getCombinaisonResultElement(
@@ -736,9 +593,8 @@ export class PilarsAttr {
       this.brMonthElement = element;
     }
     if (BaziHelper.hasSameSeasonComb(lunar.brancheArr, LunarBase.MINDEX)) {
-      element = BaziHelper.getTransformableSeasonCombination(
-        lunar,
-        LunarBase.MINDEX
+      element = BrancheRelation.getTransformableSeasonCombination(
+        lunar.getmBranche()
       ).getValue();
     } else {
       if (BaziHelper.hasCombOf3(lunar, LunarBase.MINDEX)) {
@@ -840,7 +696,7 @@ export class PilarsAttr {
       res = true;
     } else {
       // Ref3p344 Clash
-      if (this.hasClash(lunar.trunkArr, pilarIdx)) {
+      if (this.hasClash(lunar.brancheArr, pilarIdx)) {
         res = true;
       }
     }
@@ -856,10 +712,12 @@ export class PilarsAttr {
     let eeHtr;
 
     if (brancheElementArr != null) {
-      eeHtr = brancheElementArr[checkPilarIdx].getValue().getElement();
-      if (eeHtr !== lunar.brancheArr[checkPilarIdx].getElement()) {
-        // Use the transformed element
-        return BaziHelper.getRelation(eeHtr, checkElement).isFavorable();
+      if ( !ObjectHelper.isNaN(brancheElementArr[checkPilarIdx])) {
+          eeHtr = brancheElementArr[checkPilarIdx].getValue().getElement();
+          if (eeHtr !== lunar.brancheArr[checkPilarIdx].getElement()) {
+            // Use the transformed element
+            return BaziHelper.getRelation(eeHtr, checkElement).isFavorable();
+          }
       }
     }
     if (this.hasNoSecondaryHiddenForce(lunar, checkPilarIdx)) {
@@ -924,6 +782,7 @@ export class PilarsAttr {
     return false;
   }
 
+
   isRootSupportCombinationOf3WithoutTransform(lunar: Lunar, pilarIdx: number) {
     const bArr = lunar.brancheArr;
     const tArr = lunar.trunkArr;
@@ -934,7 +793,7 @@ export class PilarsAttr {
         return true;
       }
       for (let i = 0; i < LunarBase.PILARS_LEN - 1; i++) {
-        if (bArr[i].getElement().getRelation(pilarElement).isFavorable()) {
+        if (bArr[i].getElement().isProductive(pilarElement)) {
           return true;
         }
       }
@@ -1036,7 +895,7 @@ export class PilarsAttr {
     checkPilarIdx: number
   ) {
     if (ObjectHelper.isNaN(this.trunkEE[checkPilarIdx])) {
-      return lunar.trunkArr[checkPilarIdx].element === checkElement;
+      return lunar.trunkArr[checkPilarIdx].getElement() === checkElement;
     } else {
       return (
         this.trunkEE[checkPilarIdx].getValue().getElement() === checkElement
@@ -1057,19 +916,16 @@ export class PilarsAttr {
   }
 
   isRootSupported(lunar: Lunar, pilarIdx: number): boolean {
+    if ( pilarIdx>=LunarBase.LINDEX ) return false ;
     const bArr = lunar.brancheArr;
     const tArr = lunar.trunkArr;
-    if (pilarIdx >= LunarBase.PILARS_LEN) {
-      return false;
-    }
     let res = false;
     let checked = false;
     if (
       BaziHelper.hasSameSeasonCombination(lunar.brancheArr, LunarBase.DINDEX)
     ) {
-      const transformedElement = BaziHelper.getTransformableSeasonCombination(
-        lunar,
-        LunarBase.DINDEX
+      const transformedElement = BrancheRelation.getTransformableSeasonCombination(
+        lunar.brancheArr[LunarBase.DINDEX]
       ).getValue();
       res = this.isRootSupportWithSameSeasonCombination(
         lunar,
@@ -1087,7 +943,7 @@ export class PilarsAttr {
         pilarIdx
       );
       checked = true;
-    } else if (BaziHelper.hasCombOf3(lunar, LunarBase.DINDEX)) {
+    } else if (BaziHelper.hasCombinationOf3WithoutTransform(tArr,bArr, LunarBase.DINDEX)) {
       res = this.isRootSupportCombinationOf3WithoutTransform(lunar, pilarIdx);
       checked = true;
     } else if (BaziHelper.hasTransformPlusWithTransform(lunar, pilarIdx)) {
@@ -1237,10 +1093,13 @@ export class PilarsAttr {
     let nextNoRootSupporstatus;
     let prevNoRootSupporstatus = true;
     const checkClashArr = [];
-    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
+    for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
       // Initial points: Case 3 comb5 pilars together
       let pilarName = DataWithLog.getTrunkHeader(pilarIdx);
-      pilarForce[pilarIdx].setValue(36, pilarName + "initial force ( 360 / (10 Trunks) ");
+      pilarForce[pilarIdx].setValue(
+        36,
+        pilarName + "initial force ( 360 / (10 Trunks) "
+      );
       // Comb5 Type
       iComb5Status = comb5StatusArr[0][pilarIdx];
       comb5status = iComb5Status > 0;
@@ -1346,17 +1205,6 @@ export class PilarsAttr {
     for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
       const pilarName = DataWithLog.getTrunkHeader(pilarIdx);
       if (checkClashArr[pilarIdx]) {
-        /*
-        if (this.isTrunkNearClash(lunar, pilarIdx)){
-          //Ref3p339
-          pilarForce[pilarIdx].addValue(-12,pilarName,this.getCurrLog());
-        }
-
-        if (this.isTrunkFarClash(lunar, pilarIdx)) {
-          //Ref3p340
-          pilarForce[pilarIdx].addValue(-6,pilarName,this.getCurrLog());
-        }
-        */
         //Ref3p339
         if (this.isTrunkNearClashed(lunar, pilarIdx)) {
           pilarForce[pilarIdx].addValue(
@@ -1416,19 +1264,22 @@ export class PilarsAttr {
       detail = "<ol>" + detail + "</ol>";
     }
     const pilarName = DataWithLog.getBrancheHeader(pilarIdx);
-    brancheForce[2][pilarIdx] = new DataWithLog(
+    let currIdx = this.brancheHiddenStartIdx;
+    brancheForce[currIdx][pilarIdx] = new DataWithLog(
       points,
       pilarName +
         "No Transformation. Use only main hidden element force. " +
         detail
     );
-    brancheForce[3][pilarIdx] = new DataWithLog(
+    currIdx++;
+    brancheForce[currIdx][pilarIdx] = new DataWithLog(
       0,
       pilarName +
         "No Transformation. Do not use middle hidden element force. " +
         detail
     );
-    brancheForce[4][pilarIdx] = new DataWithLog(
+    currIdx++;
+    brancheForce[currIdx][pilarIdx] = new DataWithLog(
       0,
       pilarName +
         "No Transformation.  Do not use excess hidden element force. " +
@@ -1442,27 +1293,30 @@ export class PilarsAttr {
     multFactor: number,
     ddivFactor: number
   ) {
-    brancheForce[2][pilarIdx] += Math.round(
-      (brancheForce[2][pilarIdx] * multFactor) / ddivFactor
+    let currHiddenIdx = this.brancheHiddenStartIdx;
+    brancheForce[currHiddenIdx][pilarIdx] += Math.round(
+      (brancheForce[currHiddenIdx][pilarIdx] * multFactor) / ddivFactor
     );
-    brancheForce[3][pilarIdx] += Math.floor(
-      (brancheForce[3][pilarIdx] * multFactor) / ddivFactor
+    currHiddenIdx++;
+    brancheForce[currHiddenIdx][pilarIdx] += Math.floor(
+      (brancheForce[currHiddenIdx][pilarIdx] * multFactor) / ddivFactor
     );
-    brancheForce[4][pilarIdx] += Math.floor(
-      (brancheForce[4][pilarIdx] * multFactor) / ddivFactor
+    currHiddenIdx++;
+    brancheForce[currHiddenIdx][pilarIdx] += Math.floor(
+      (brancheForce[currHiddenIdx][pilarIdx] * multFactor) / ddivFactor
     );
     return (
-      brancheForce[2][pilarIdx] +
-      brancheForce[3][pilarIdx] +
-      brancheForce[4][pilarIdx]
+      brancheForce[this.brancheHiddenStartIdx][pilarIdx] +
+      brancheForce[this.brancheHiddenStartIdx + 1][pilarIdx] +
+      brancheForce[this.brancheHiddenStartIdx + 2][pilarIdx]
     );
   }
 
   getMainHiddenForceData(pilarIdx: number) {
-    const dataLog = this.brancheForceArr[2][pilarIdx];
+    const dataLog = this.brancheForceArr[this.brancheHiddenStartIdx][pilarIdx];
     return new DataWithLog(
       dataLog.getValue(),
-      DataWithLog.getBrancheHeader(pilarIdx)+' main Hidden Force '
+      DataWithLog.getBrancheHeader(pilarIdx) + " main Hidden Force "
     );
   }
 
@@ -1476,18 +1330,25 @@ export class PilarsAttr {
       const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(brancheArr[pilarIdx]);
       const hLen = hiddenTrunkArr.length;
       for (let i = 0; i < hLen; i++) {
-        this.brancheForceArr[i + 2][pilarIdx] = new DataWithLog();
+        this.brancheForceArr[i + this.brancheHiddenStartIdx][pilarIdx] =
+          new DataWithLog();
         const detail = sourceName + " Hidden Trunk " + hiddenTrunkArr[i];
         if (hiddenTrunkArr[i].getElement() === brancheElement) {
-          this.brancheForceArr[i + 2][pilarIdx].setValue(
+          this.brancheForceArr[i + this.brancheHiddenStartIdx][
+            pilarIdx
+          ].setValue(
             this.getPrincipalForce(currBranche),
             detail + " main force"
           );
         } else {
           if (i === 2) {
-            this.brancheForceArr[i + 2][pilarIdx].setValue(3, detail + " excess force");
+            this.brancheForceArr[i + this.brancheHiddenStartIdx][
+              pilarIdx
+            ].setValue(3, detail + " excess force");
           } else {
-            this.brancheForceArr[i + 2][pilarIdx].setValue(9, detail + " middle force");
+            this.brancheForceArr[i + this.brancheHiddenStartIdx][
+              pilarIdx
+            ].setValue(9, detail + " middle force");
           }
         }
       }
@@ -1515,9 +1376,8 @@ export class PilarsAttr {
     );
     if (BaziHelper.hasSameSeasonCombination(brancheArr, pilarIdx)) {
       // Ref3p342
-      resElement = BaziHelper.getTransformableSeasonCombination(
-        lunar,
-        pilarIdx
+      resElement = BrancheRelation.getTransformableSeasonCombination(
+        brancheArr[pilarIdx]
       );
       points.addData(
         -6,
@@ -1580,7 +1440,7 @@ export class PilarsAttr {
           points.getValue(),
           points.getDetail()
         );
-        const hiddenForce = this.getMainHiddenForceData( pilarIdx);
+        const hiddenForce = this.getMainHiddenForceData(pilarIdx);
         points.updateValue(
           hiddenForce.getValue(),
           sourceName + "Combination of 2 without transform ",
@@ -1679,7 +1539,7 @@ export class PilarsAttr {
       for (let i = 0; i < hiddenTrunk.length; i++) {
         if (ObjectHelper.isNaN(this.trunkEE)) {
           hasSameElement =
-            tArr[j].elementNenergy === hiddenTrunk[i].elementNEnergy;
+            tArr[j].elementNEnergy === hiddenTrunk[i].elementNEnergy;
         } else {
           hasSameElement =
             this.trunkEE[j].getValue().getElement() ===
@@ -1711,14 +1571,16 @@ export class PilarsAttr {
       this.elementNEnergyForce[
         this.brancheEE[pilarIdx].getValue().ordinal()
       ].addData(
-        this.brancheForceArr[2][pilarIdx],
+        this.brancheForceArr[this.brancheHiddenStartIdx][pilarIdx],
         DataWithLog.getBrancheHeader(pilarIdx) + "'s Main Hidden Trunk "
       );
       for (let i = 1; i < hLen; i++) {
         this.elementNEnergyForce[
           hiddenTrunkArr[i].elementNEnergy.ordinal()
         ].addData(
-          this.brancheForceArr[2 + i][pilarIdx].getValue(),
+          this.brancheForceArr[this.brancheHiddenStartIdx + i][
+            pilarIdx
+          ].getValue(),
           DataWithLog.getBrancheHeader(pilarIdx) + "'s non Main Hidden Trunk "
         );
       }
@@ -1891,6 +1753,8 @@ export class PilarsAttr {
 
   initEE(lunar: Lunar) {
     // First pass for brMonthElement
+    this.brMonthElement = lunar.brancheArr[LunarBase.MINDEX].getElement();
+    CombListHelper.setupAllCombinations(lunar);
     this.evalMonthElement(lunar);
     this.evalComb5(lunar);
     this.evalRootPresentStatus(lunar);
@@ -1901,6 +1765,7 @@ export class PilarsAttr {
     this.brMonthElement = this.brancheEE[LunarBase.MINDEX]
       .getValue()
       .getElement();
+    CombListHelper.setupAllCombinations(lunar);
     this.evalTrunkForce(lunar);
     this.evalBrancheForce(lunar);
     //Final pass
@@ -1909,6 +1774,7 @@ export class PilarsAttr {
     this.evalTrunkEEArr(lunar);
     this.evalBrancheEEArr(lunar);
     this.evalRootPresentStatus(lunar);
+
   }
 
   getGeneratedDeityCase() {

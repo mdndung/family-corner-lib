@@ -68,4 +68,26 @@ export class ObjectHelper {
     }
   }
 
+  static sortNumber(arr: any[],asc: boolean) {
+    let sortResult = -1;
+    if ( !asc ) sortResult = 1 ;
+    arr.sort((a , b) => {
+        if (a<b ) {
+          return sortResult;
+        }
+        return 0;
+    });
+  }
+
+
+  static sortWithCompareTo(arr: any[],asc: boolean) {
+    let sortResult = -1;
+    if ( !asc ) sortResult = 1 ;
+    arr.sort((a , b) => {
+        if ( a.compareTo(b)==-1 ) {
+          return sortResult;
+        }
+        return 0;
+    });
+  }
 }

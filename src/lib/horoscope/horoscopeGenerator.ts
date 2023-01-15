@@ -121,6 +121,7 @@ export class HoroscopeGenerator {
 
   generateTo(toPeriod: ObsPeriod, debugMode:number) {
     HoroscopeHelper.debug=debugMode;
+    console.log('debugMode',debugMode);
     this.init();
     const toIdx = toPeriod.ordinal();
     if (toIdx >= ObsPeriod.BIRTHTHEME.ordinal()) {
