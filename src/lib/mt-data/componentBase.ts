@@ -42,6 +42,7 @@ export class ComponentBase {
   }
 
   getItemNameValue(item: any) {
+    if ( item===null ) return this.getMessage("Label.NA")
     let key = item;
     if ( this.isEnum(item) ) {
       if ( item.getClassName()==='ElementNEnergy' ) {
@@ -53,6 +54,7 @@ export class ComponentBase {
   }
 
   getItemNameWithSymbolValue(item: any) {
+    if ( item===null ) return this.getMessage("Label.NA")
     let key = item;
     if ( this.isEnum(item) ) {
       key = item.getFullName()+".Symbol";

@@ -74,21 +74,18 @@ export class DataWithLog {
       const currValue = this.getValue();
       let prefix = detail;
       this.value += force;
-      this.detail += "<li>" + prefix;
-      if (currValue !== 0) {
-        if (force !== 0) {
-          this.detail += currValue;
-        }
-      }
-      if (force !== 0) {
-        this.detail += " + " + force;
-      }
-      this.detail += " = " + this.value;
+      this.detail += "<li>" + currValue + " + ("+ prefix + ": "+this.getForceWithSign(force)+") = " + this.value;
       if (tempDetail.length > 0) {
         this.detail += "<ol>" + tempDetail + "</ol>";
       }
       this.detail += "</li>";
     }
+  }
+
+  getForceWithSign(force:number) {
+    let sign ='+';
+    if ( force<0 ) sign='';
+    return sign+force;
   }
 
   addValue(force: number, detail: string, subDetail?: string) {
@@ -101,14 +98,12 @@ export class DataWithLog {
       if (this.value === null) this.value = 0;
       const currValue = this.getValue();
       this.value += force;
+
       this.detail +=
-        "<li>" +
+        "<li>" + currValue + " + (" +
         detail +
-        ": " +
-        currValue +
-        " + " +
-        force +
-        " = " +
+        ": " + this.getForceWithSign(force)+
+        ") = " +
         this.value +
         subDetail+
         " </li>" ;

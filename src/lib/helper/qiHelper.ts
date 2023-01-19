@@ -17,6 +17,7 @@ import { PilarsAttr } from '../mt-data/bazi/pilarsAttr';
 import { TrunkHelper } from './trunkHelper';
 import { BrancheRelation } from '../mt-data/bazi/brancheRelation';
 import { LunarBase } from '../mt-data/bazi/lunarBase';
+import { CombListHelper } from './combListHelper';
 
 export class QiHelper {
   // YiJing.month in java
@@ -601,8 +602,8 @@ export class QiHelper {
           }
         }
         if (
-          BaziHelper.hasSameSeasonCombination(
-            lunar.brancheArr,
+          CombListHelper.hasSameSeasonCombination(
+            lunar,
             LunarBase.DINDEX
           )
         ) {
@@ -626,8 +627,8 @@ export class QiHelper {
           }
         }
         if (
-          BaziHelper.hasSameSeasonCombination(
-            lunar.brancheArr,
+          CombListHelper.hasSameSeasonCombination(
+            lunar,
             LunarBase.DINDEX
           )
         ) {
