@@ -115,7 +115,7 @@ export class EnumBaseClass {
     return ColorViewHelper.NONE;
   }
 
-  toString() {
+  toString(): string {
     return this.getName();
   }
 

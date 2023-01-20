@@ -29,9 +29,11 @@ export class MessageHelper {
       let keyLab = key ;
       if ( MessageHelper.isSymbolMode() ) {
         keyLab += '.Symbol';
-      }
-      res = MessageHelper.getMessage(keyLab);
-      if ( res===keyLab ) {
+        res = MessageHelper.getMessage(keyLab);
+        if ( res===keyLab ) {
+          res = MessageHelper.getMessage(key);
+        }
+      } else {
         res = MessageHelper.getMessage(key);
       }
     }
@@ -46,9 +48,11 @@ export class MessageHelper {
     let msg = '';
     if ( ! ObjectHelper.isNaN(key) ) {
       MessageHelper.tr.get(key).subscribe((res: string) => {
-        //if (!(key===res)) {
+        if (!(key===res)) {
           msg = res;
-        //}
+        } else {
+          msg=key
+        }
       });
     }
     return msg;

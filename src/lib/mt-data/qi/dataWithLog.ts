@@ -58,9 +58,14 @@ export class DataWithLog {
     this.detail = detail;
   }
 
-  addData(data: any, detail?: string) {
+  addData(data: any, detail?: string, subDetail?: string) {
     if (data !== null) {
       if (typeof detail === "undefined") detail = "";
+      if (typeof subDetail === "undefined") {
+        subDetail = "";
+      } else {
+        subDetail = '<ol>'+subDetail+'</ol>';
+      }
       let force = 0;
       let tempDetail = "";
       if (data instanceof DataWithLog) {
@@ -71,14 +76,7 @@ export class DataWithLog {
           force = data;
         }
       }
-      const currValue = this.getValue();
-      let prefix = detail;
-      this.value += force;
-      this.detail += "<li>" + currValue + " + ("+ prefix + ": "+this.getForceWithSign(force)+") = " + this.value;
-      if (tempDetail.length > 0) {
-        this.detail += "<ol>" + tempDetail + "</ol>";
-      }
-      this.detail += "</li>";
+      this.addValue(force,detail,subDetail);
     }
   }
 

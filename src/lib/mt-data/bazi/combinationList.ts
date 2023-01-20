@@ -17,9 +17,9 @@ export class CombAttr {
   static BRANCHECOMB6WITHTRANSFORMTYPE = 12;
   static BRANCHECLASHTYPE = 13;
   static BRANCHEINJURYTYPE = 14;
-  static BRANCHEAGRESSIVE = 15;
-  static BRANCHEDISRESPECFULTYPE = 16;
-  static BRANCHESCANDALOUSTYPE = 17;
+  static BRANCHEUNGRATEFUL = 15;
+  static BRANCHEBULLYINGTYPE = 16;
+  static BRANCHESUNCIVIZEDTYPE = 17;
   static BRANCHEAUTOPUNITIONTYPE = 18;
   static BRANCHEDESTROYTYPE = 19;
   static TRUNKISSUPPORTEDTYPE1 = 20;
@@ -262,9 +262,9 @@ export class CombinationList {
   existClashRelation(pilarIdx: number) {
     if ( this.existBrancheRelationType(CombAttr.BRANCHECLASHTYPE,pilarIdx) ) return true;
     if ( this.existBrancheRelationType(CombAttr.BRANCHEINJURYTYPE,pilarIdx) ) return true;
-    if ( this.existBrancheRelationType(CombAttr.BRANCHEAGRESSIVE,pilarIdx) ) return true;
-    if ( this.existBrancheRelationType(CombAttr.BRANCHEDISRESPECFULTYPE,pilarIdx) ) return true;
-    if ( this.existBrancheRelationType(CombAttr.BRANCHESCANDALOUSTYPE,pilarIdx) ) return true;
+    if ( this.existBrancheRelationType(CombAttr.BRANCHEUNGRATEFUL,pilarIdx) ) return true;
+    if ( this.existBrancheRelationType(CombAttr.BRANCHEBULLYINGTYPE,pilarIdx) ) return true;
+    if ( this.existBrancheRelationType(CombAttr.BRANCHESUNCIVIZEDTYPE,pilarIdx) ) return true;
     if ( this.existBrancheRelationType(CombAttr.BRANCHEAUTOPUNITIONTYPE,pilarIdx) ) return true;
     return false;
   }

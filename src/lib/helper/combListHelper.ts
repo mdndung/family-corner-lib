@@ -11,7 +11,6 @@ import { BrancheRelation } from "../mt-data/bazi/brancheRelation";
 import { Branche } from "../mt-data/bazi/branche";
 
 export class CombListHelper {
-  static brancheHiddenStartIdx = 1;
   static logMe = false;
 
   static logMsg(message1: any, message2?: any) {
@@ -43,8 +42,8 @@ export class CombListHelper {
   }
 
   //Ref3p336 cas 1 with month branche
-  static isElementInMonthHiddenTrunk(lunar: Lunar, checkElement: Element) {
-    if (checkElement === lunar.pilarsAttr.brMonthElement) return true;
+  static evalElementInMonthReason(lunar: Lunar, checkElement: Element) {
+    if (checkElement === lunar.pilarsAttr.brMonthElement) return ' Same month '+ lunar.brancheArr[LunarBase.MINDEX]+' element ';
 
     const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(
       lunar.brancheArr[LunarBase.MINDEX]
@@ -53,38 +52,18 @@ export class CombListHelper {
     for (let i = 0; i < hiddenTrunkArr.length; i++) {
       const eeHtr = hiddenTrunkArr[i].getElement();
       if (eeHtr === checkElement) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  //Ref3p336 cas 1 with current branche and non weaked hidden branche force
-  //
-  static isElementInNonWeakForceHiddenTrunk(
-    lunar: Lunar,
-    pilarIdx: number,
-    checkElement: Element
-  ) {
-    const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(
-      lunar.brancheArr[pilarIdx]
-    );
-
-    for (let i = 0; i < hiddenTrunkArr.length; i++) {
-      const eeHtr = hiddenTrunkArr[i].getElement();
-      if (eeHtr === checkElement) {
         if (!ObjectHelper.isNaN(lunar.pilarsAttr.hiddenTrunkForceArr)) {
           if (
-            lunar.pilarsAttr.hiddenTrunkForceArr[
-              i + CombListHelper.brancheHiddenStartIdx
-            ][pilarIdx].getValue() > 3
+            lunar.pilarsAttr.hiddenTrunkForceArr[i][LunarBase.MINDEX].getValue() > 3
           ) {
-            return true;
+            return  ' Same Month non weaked hidden trunk '+  hiddenTrunkArr[i]+' element ';
           }
+        } else {
+          return  ' Same Month hidden trunk '+  hiddenTrunkArr[i]+' element ';
         }
       }
     }
-    return false;
+    return null;
   }
 
   // Ref3p336
@@ -103,7 +82,7 @@ export class CombListHelper {
           pilarIdx1,
           pilarIdx2,
           null,
-          0
+          "Transformable under some conditions"
         );
     }
   }
@@ -121,33 +100,14 @@ export class CombListHelper {
     const trunk2 = trunkArr[pilarIdx2];
     if (TrunkHelper.isTransformable(trunk1, trunk2)) {
       const trElement = TrunkHelper.getTransformElement(trunk1);
-      if (this.isElementInMonthHiddenTrunk(lunar, trElement)) {
+      const sameKindOfMonthOrHiddenTrunk=this.evalElementInMonthReason(lunar, trElement);
+      if (sameKindOfMonthOrHiddenTrunk!=null) {
         lunar.pilarsAttr.combList.addTrunkComb5(
           CombAttr.TRUNKCOMB5WITHTRANSFORMTYPE,
           pilarIdx1,
           pilarIdx2,
           trElement,
-          1
-        );
-      }
-      // Not true with example 6 Ref3page350
-      // Check the force of the hidden trunks
-      // if ( hasNoSecondaryHiddenForce(bazi,Bazi.mIndex,eTrMonthElement) ) return false ;
-      // Return true if the transformed element is present with some non weak force in hidden trunk
-      // See Ref Ref3p349ex5
-      if (
-        CombListHelper.isElementInNonWeakForceHiddenTrunk(
-          lunar,
-          LunarBase.MINDEX,
-          trElement
-        )
-      ) {
-        lunar.pilarsAttr.combList.addTrunkComb5(
-          CombAttr.TRUNKCOMB5WITHTRANSFORMTYPE,
-          pilarIdx1,
-          pilarIdx2,
-          trElement,
-          1
+          sameKindOfMonthOrHiddenTrunk
         );
       }
     }
@@ -178,7 +138,7 @@ export class CombListHelper {
           pilarIdx1,
           pilarIdx2,
           tranformedElement,
-          2
+          "Both Branches and Transformed element is same as Month element "+eTrMonthElement
         );
       }
     }
@@ -211,7 +171,8 @@ export class CombListHelper {
             pilarIdx1,
             pilarIdx2,
             tranformedElement,
-            3
+            "Same Transformed, Month element "+eTrMonthElement +
+            " with Branche element's productive relation to them "
           );
         }
       }
@@ -284,7 +245,6 @@ export class CombListHelper {
       }
       }
     }
-    this.logMsg(maxHit,comb3Branches);
     if (comb3Branches.length >= maxHit) {
       let isTransformable = !checkTransform;
       if (checkTransform) {
@@ -302,9 +262,7 @@ export class CombListHelper {
           if ( comb5List.length>0 ) {
             isTransformable=true;
           }
-
         }
-        this.logMsg(transformElement,isTransformable);
       }
       if (isTransformable) {
         return comb3Branches;
@@ -335,25 +293,24 @@ export class CombListHelper {
     if (TrunkHelper.isTransformable(trunk1, trunk2)) {
       const tranformedElement = TrunkHelper.getTransformElement(trunk1);
       if (CombListHelper.hasCombinationOf3(lunar)) {
-        const trBrancheElement = BrancheRelation.getCombinaisonResultElement(
-          lunar.brancheArr[pilarIdx1]
-        ).getValue();
-        if (
-          BaziHelper.getRelation(
-            trBrancheElement,
-            tranformedElement
-          ).isFavorable()
+        if (CombListHelper.hasBaseCombOf3(lunar,pilarIdx1) &&
+        CombListHelper.hasBaseCombOf3(lunar,pilarIdx2)
         ) {
-          if (tranformedElement === eTrMonthElement) {
-            lunar.pilarsAttr.combList.addTrunkComb5(
-              CombAttr.TRUNKCOMB5WITHTRANSFORMTYPE,
-              pilarIdx1,
-              pilarIdx2,
-              tranformedElement,
-              4
-            );
-          }
-        }
+          const trBrancheElement = BrancheRelation.getCombinaisonResultElement(
+            lunar.brancheArr[pilarIdx1]
+          ).getValue();
+          if (trBrancheElement===tranformedElement &&
+            trBrancheElement===eTrMonthElement
+            ) {
+              lunar.pilarsAttr.combList.addTrunkComb5(
+                CombAttr.TRUNKCOMB5WITHTRANSFORMTYPE,
+                pilarIdx1,
+                pilarIdx2,
+                tranformedElement,
+                'Part of Combination of 3 and 5 with same element with month element '+eTrMonthElement
+              );
+            }
+         }
       }
     }
   }
@@ -807,17 +764,17 @@ export class CombListHelper {
     CombListHelper.evalBranchePairComb(
       lunar,
       BrancheRelation.AGRESSIVE,
-      CombAttr.BRANCHEAGRESSIVE
+      CombAttr.BRANCHEUNGRATEFUL
     );
     CombListHelper.evalBranchePairComb(
       lunar,
       BrancheRelation.DISRESPECFUL,
-      CombAttr.BRANCHEDISRESPECFULTYPE
+      CombAttr.BRANCHEBULLYINGTYPE
     );
     CombListHelper.evalBranchePairComb(
       lunar,
       BrancheRelation.SCANDALOUS,
-      CombAttr.BRANCHESCANDALOUSTYPE
+      CombAttr.BRANCHESUNCIVIZEDTYPE
     );
     CombListHelper.evalBranchePairComb(
       lunar,

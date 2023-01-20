@@ -86,6 +86,10 @@ export class ElementNEnergy extends EnumBaseClass {
     return this.energy;
   }
 
+  override toString(): string {
+    return this.element + this.energy.getSignName();
+  }
+
   override getViewColorName() {
     return this.colorViewName;
   }

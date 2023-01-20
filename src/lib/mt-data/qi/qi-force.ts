@@ -5,7 +5,7 @@ import { EnumBaseClass } from '../enumBaseClass';
 export class QiForce extends EnumBaseClass {
 
   static FORCESUPERFAVORABLETHESHHOLD = 60/100; // Me
-  static FORCEFAVORABLETHESHHOLD = 40/100; // Ref3p355
+  static FORCEFAVORABLETHESHHOLD = 40/100; // Ref3p352
 
   static  VERYHOSTILE = new QiForce('VERYHOSTILE',-8);
   static  HOSTILE = new QiForce('HOSTILE',-2);
