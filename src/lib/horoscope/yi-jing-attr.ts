@@ -18,7 +18,7 @@ import { QiType } from '../mt-data/qi/qi-type';
 import { QiTypeDataRec } from '../mt-data/qi/qi-type-data-rec';
 import { YiJing } from '../mt-data/yi-jing/yijing';
 
-export class YiJingObservation {
+export class YiJingAttr {
   currYiJing?: YiJing = null ;
   qiTypeData?: QiTypeDataRec = null;
   lunar: Lunar= null;
@@ -269,13 +269,12 @@ export class YiJingObservation {
   preparePivotData(lunar: Lunar) {
     const dayTrunk = lunar.getdTrunk();
     const pilarsAttr=lunar.pilarsAttr;
-    const dayPilarForce = BaziHelper.getDayPilarForce(lunar);
-    const trunkPilarElement = pilarsAttr.trunkEE;
     const FAVORABLE_LIMIT = 5; // Ref8 p768 give 4 and is not favorable
     this.pivotRelationSet=[];
     // The minimum force (%) from which it is considerd as strong Ref8p460
-    if ( dayPilarForce>BaziHelper.MIN_PIVOT_ELEMENT_FORCE ) {
-        this.addPivotStrongEECase(lunar,trunkPilarElement[LunarBase.DINDEX].getValue()) ;
+    let dayPilarForce = pilarsAttr.getDayForce();
+    if ( pilarsAttr.isFavorable(dayPilarForce) ) {
+        this.addPivotStrongEECase(lunar,pilarsAttr.trunkEE[LunarBase.DINDEX].getValue()) ;
     }
 
     if (this.existsecDeity(SecondaryDeity.KIMTHAN)) {

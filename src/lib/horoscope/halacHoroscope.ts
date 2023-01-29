@@ -14,7 +14,7 @@ import { HalacThemeIterator } from '../mt-data/yi-jing/halac-theme-iterator';
 import { HalacTheme } from '../mt-data/yi-jing/halacTheme';
 import { YiJing } from '../mt-data/yi-jing/yijing';
 import { HoroscopeContributor } from './horoscopeContributor';
-import { YiJingObservation } from './yi-jing-observation';
+import { YiJingAttr } from './yi-jing-attr';
 
 export class HalacHoroscope extends HoroscopeContributor {
 
@@ -23,10 +23,8 @@ export class HalacHoroscope extends HoroscopeContributor {
     static YEAR_RANGE_STUDY = 'ymd.study';
     static YEAR_RANGE_AGE = 'ymd.age';
 
-
     birthLunar: Lunar;
     birthTheme: HalacTheme;
-    baseQiTypeData: QiTypeDataRec[];
 
     constructor(
         birthDate: MyCalendar,
@@ -40,18 +38,9 @@ export class HalacHoroscope extends HoroscopeContributor {
         this.baseQiTypeData.push(QiHelper.getLunarQiForce(this.birthLunar));
     }
 
-    getBaseQiType(basePeriodIdx: number) {
-        for (let index = basePeriodIdx; index >= 0; index--) {
-            const element = this.baseQiTypeData[index];
-            if (!ObjectHelper.isNaN(element)) {
-                return element;
-            }
-        }
-        return null;
-    }
 
-    getYiJingObservation(theme: YiJing, basePeriodIdx: number) {
-        const yiJingObs = new YiJingObservation(
+    getYiJingAttr(theme: YiJing, basePeriodIdx: number) {
+        const yiJingObs = new YiJingAttr(
             this.birthLunar,
             theme,
             this.getBaseQiType(basePeriodIdx)
@@ -64,7 +53,7 @@ export class HalacHoroscope extends HoroscopeContributor {
         // Base addTheme
         const prefix = 'Halac.' + theme.getHexaOrdinal();
         const yaoPos = theme.getMyYaoPos() + 1;
-        const yiJingObs = this.getYiJingObservation(theme, basePeriodIdx);
+        const yiJingObs = this.getYiJingAttr(theme, basePeriodIdx);
 
         const postFix = '&' + StringHelper.bool2Str(yiJingObs.isFavorable);
         PropertyHelper.addCommentLabel(
@@ -94,7 +83,7 @@ export class HalacHoroscope extends HoroscopeContributor {
         const yearRangeType = this.getYearRange(currAge);
         const prefix = 'Halac.' + theme.getHexaOrdinal();
         const yaoPos = theme.getMyYaoPos() + 1;
-        const yiJingObs = this.getYiJingObservation(theme, basePeriodIdx);
+        const yiJingObs = this.getYiJingAttr(theme, basePeriodIdx);
         const postFix = '&' + StringHelper.bool2Str(yiJingObs.isFavorable);
 
         PropertyHelper.addCommentLabel(

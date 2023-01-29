@@ -66,6 +66,10 @@ export class Element extends EnumBaseClass {
     return this.getNextCycleElement(Element.CONTROLLING_CYCLE);
   }
 
+  getPrevControlElement() {
+    return this.getPrevCycleElement(Element.CONTROLLING_CYCLE);
+	}
+
   getPrevProductiveElement() {
     return this.getPrevCycleElement(Element.PRODUCTIVE_CYCLE);
   }

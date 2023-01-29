@@ -1,3 +1,4 @@
+import { MessageHelper } from "../../helper/messageHelper";
 import { ObjectHelper } from "../../helper/objectHelper";
 import { LunarBase } from "./lunarBase";
 
@@ -15,7 +16,7 @@ export class CombAttr {
   static BRANCHESEASONCOMBTYPE = 10;
   static BRANCHECOMB6TYPE = 11;
   static BRANCHECOMB6WITHTRANSFORMTYPE = 12;
-  static BRANCHECLASHTYPE = 13;
+  static BRANCHECLASHTYPE = 13; // Generic with detail in additional type from 14 to 19
   static BRANCHEINJURYTYPE = 14;
   static BRANCHEUNGRATEFUL = 15;
   static BRANCHEBULLYINGTYPE = 16;
@@ -49,6 +50,10 @@ export class CombAttr {
     this.trunkAttrs = trunkAttrs;
     this.branchAttrs = branchAttrs;
     this.resultData = resultData;
+    if ( detail===null ) {
+      detail = MessageHelper.getMessage(this.getName());
+    }
+
     this.detail = detail;
   }
 
@@ -91,6 +96,10 @@ export class CombAttr {
 
   compareTo(other: CombAttr) {
     return this.type < other.type;
+  }
+
+  getName() {
+    return 'Comb.'+this.type;
   }
 }
 
@@ -223,6 +232,7 @@ export class CombinationList {
     }
     return res;
   }
+
 
   existBrancheRelationType(type: number, pilarIdx: number) {
     for (let index = 0; index < this.combList.length; index++) {

@@ -22,7 +22,7 @@ import { DataWithLog } from '../mt-data/qi/dataWithLog';
 import { CombAttr } from '../mt-data/bazi/combinationList';
 
 export class BaziHelper {
-  static MIN_PIVOT_ELEMENT_FORCE = 80;
+
   static YICHINGINDEX = [
     //0 Vide
     [0, -1, -2, -3, -4, -5, -6, -7, -8, -9],
@@ -45,6 +45,64 @@ export class BaziHelper {
     //9 Ly
     [0, 64, 35, 21, 50, -5, 14, 38, 56, 30],
   ];
+
+
+  // Ref8p5 Def1
+  static isBrancheElementAppearInTrunk(lunar: Lunar, checkElement: Element) {
+    let res = false;
+    for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
+      if (lunar.trunkArr[pilarIdx].getElement() === checkElement) {
+        res = true;
+        break;
+      }
+    }
+    return res;
+  }
+
+  //Ref8p5 Def1
+  static isBrancheAppearInTrunks(lunar: Lunar, pilarIdx: number) : boolean{
+    let checkElement=lunar.pilarsAttr.brancheEE[pilarIdx].getValue().getElement();
+    if( BaziHelper.isBrancheElementAppearInTrunk(lunar,checkElement) ) {
+      return true;
+    }
+    checkElement = lunar.brancheArr[pilarIdx].getElement();
+    return BaziHelper.isBrancheElementAppearInTrunk(lunar,checkElement) ;
+  }
+
+  static isElementInBranche(lunar: Lunar, brancheIdx: number, checkElement: Element) {
+      const branche = lunar.brancheArr[brancheIdx];
+      if (branche.getElement() === checkElement) {
+        return true;
+      }
+      const hiddenTrunkArr=BrancheHelper.getHiddenTrunk(branche);
+      for (let i = 0; i < hiddenTrunkArr.length; i++) {
+        const eeHtr = hiddenTrunkArr[i].getElement();
+        if (eeHtr === checkElement) {
+          return true;
+        }
+      }
+    return false;
+  }
+
+
+    //Ref8p505.
+    static isTrunkInBranche(lunar: Lunar, trunkPilarIdx: number,branchePilarIdx: number) : boolean{
+      let checkElement=lunar.trunkArr[trunkPilarIdx].getElement();
+      if( BaziHelper.isElementInBranche(lunar,branchePilarIdx,checkElement) ) {
+        return true;
+      }
+      return false;
+    }
+
+    //Ref3p345
+    static getClashHiddenTrunkReduceFactor(lunar:Lunar, brancheIdxs:number[]) {
+      const branche1 = lunar.brancheArr[brancheIdxs[0]];
+      const branche2 = lunar.brancheArr[brancheIdxs[1]];
+      const diff=Math.abs(branche1.ordinal()-branche2.ordinal());
+      if ( diff===6 || diff===7 ) return 1/2;
+      return 1/3
+    }
+
 
   static getYiChingIndex(sky: Trigram, earth: Trigram) {
     return BaziHelper.YICHINGINDEX[sky.hauthienNb][earth.hauthienNb];
@@ -200,16 +258,19 @@ export class BaziHelper {
     return res;
   }
 
-  static getDayPilarForce(lunar: Lunar) {
+  static getHostileForce(lunar:Lunar, element:Element) {
+    const controlElement = element.getPrevControlElement();
+    return BaziHelper.getFavorableForce(lunar,controlElement) ;
+  }
+
+  static getFavorableForce(lunar:Lunar, element:Element) {
     const pilarsAttr = lunar.pilarsAttr;
     const elementForce = pilarsAttr.elementForce;
-    const dayTrunkElement = pilarsAttr.trunkEE[LunarBase.DINDEX].getValue().element;
-    const friendElement = dayTrunkElement.getPrevProductiveElement();
+    const friendElement = element.getPrevProductiveElement();
     const favorablePoints =
-      elementForce[dayTrunkElement.ordinal()] +
-      elementForce[friendElement.ordinal()];
-    const maxPoints = pilarsAttr.sumElementForce;
-    return (favorablePoints * 100) / maxPoints;
+      elementForce[element.ordinal()].getValue() +
+      elementForce[friendElement.ordinal()].getValue();
+    return favorablePoints ;
   }
 
   static isManYangOrWoManYing(lunar: Lunar) {
@@ -267,5 +328,6 @@ export class BaziHelper {
 
     return startDate;
   }
+
 
 }

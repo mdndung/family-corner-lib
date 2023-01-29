@@ -35,7 +35,7 @@ export * from './lib/horoscope/horoscopeGenerator';
 export * from './lib/horoscope/MyHoroscope';
 export * from './lib/horoscope/selectHoroscopeOption';
 export * from './lib/horoscope/tuviHoroscope';
-export * from './lib/horoscope/yi-jing-observation';
+export * from './lib/horoscope/yi-jing-attr';
 export * from './lib/horoscope/zodiacHoroscope';
 
 

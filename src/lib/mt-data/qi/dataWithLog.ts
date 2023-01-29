@@ -48,7 +48,10 @@ export class DataWithLog {
     if (typeof detail === "undefined") {
       detail = "";
     } else {
-      detail = '<li>'+detail+' = '+ value +'</li>';
+      if ( !detail.startsWith('<') ) {
+        if ( ObjectHelper.isNaN(value) ) value = '';
+        detail = '<li>'+detail+' = '+ value +'</li>';
+      }
     }
     this.init(value, detail);
   }
@@ -92,8 +95,9 @@ export class DataWithLog {
     } else {
       subDetail = '<ol>'+subDetail+'</ol>';
     }
+    if (this.value === null) this.value = 0;
+
     if (force !== 0) {
-      if (this.value === null) this.value = 0;
       const currValue = this.getValue();
       this.value += force;
 

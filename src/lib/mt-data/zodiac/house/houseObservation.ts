@@ -87,7 +87,8 @@ export class HouseObservation extends ZodiacObservationBase {
 
 
     override initPoint() {
-        this.evalInitialPoints();
+      super.initPoint();
+      this.evalInitialPoints();
     }
 
     houseAspectForce() {

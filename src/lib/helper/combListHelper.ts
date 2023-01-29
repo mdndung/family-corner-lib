@@ -43,7 +43,8 @@ export class CombListHelper {
 
   //Ref3p336 cas 1 with month branche
   static evalElementInMonthReason(lunar: Lunar, checkElement: Element) {
-    if (checkElement === lunar.pilarsAttr.brMonthElement) return ' Same month '+ lunar.brancheArr[LunarBase.MINDEX]+' element ';
+    if (checkElement === lunar.pilarsAttr.brMonthElement)
+      return " Same month " + lunar.brancheArr[LunarBase.MINDEX] + " element ";
 
     const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(
       lunar.brancheArr[LunarBase.MINDEX]
@@ -54,12 +55,18 @@ export class CombListHelper {
       if (eeHtr === checkElement) {
         if (!ObjectHelper.isNaN(lunar.pilarsAttr.hiddenTrunkForceArr)) {
           if (
-            lunar.pilarsAttr.hiddenTrunkForceArr[i][LunarBase.MINDEX].getValue() > 3
+            lunar.pilarsAttr.hiddenTrunkForceArr[i][
+              LunarBase.MINDEX
+            ].getValue() > 3
           ) {
-            return  ' Same Month non weaked hidden trunk '+  hiddenTrunkArr[i]+' element ';
+            return (
+              " Same Month non weaked hidden trunk " +
+              hiddenTrunkArr[i] +
+              " element "
+            );
           }
         } else {
-          return  ' Same Month hidden trunk '+  hiddenTrunkArr[i]+' element ';
+          return " Same Month pilar hidden trunk " + hiddenTrunkArr[i] + " element " + checkElement;
         }
       }
     }
@@ -77,13 +84,11 @@ export class CombListHelper {
 
     let res = TrunkHelper.isTransformable(trunk1, trunk2);
     if (res) {
-        lunar.pilarsAttr.combList.addTrunkComb5(
-          CombAttr.TRUNKCOMB5TYPE,
-          pilarIdx1,
-          pilarIdx2,
-          null,
-          "Transformable under some conditions"
-        );
+      lunar.pilarsAttr.combList.addTrunkComb5(
+        CombAttr.TRUNKCOMB5TYPE,
+        pilarIdx1,
+        pilarIdx2
+      );
     }
   }
 
@@ -100,8 +105,11 @@ export class CombListHelper {
     const trunk2 = trunkArr[pilarIdx2];
     if (TrunkHelper.isTransformable(trunk1, trunk2)) {
       const trElement = TrunkHelper.getTransformElement(trunk1);
-      const sameKindOfMonthOrHiddenTrunk=this.evalElementInMonthReason(lunar, trElement);
-      if (sameKindOfMonthOrHiddenTrunk!=null) {
+      const sameKindOfMonthOrHiddenTrunk = this.evalElementInMonthReason(
+        lunar,
+        trElement
+      );
+      if (sameKindOfMonthOrHiddenTrunk != null) {
         lunar.pilarsAttr.combList.addTrunkComb5(
           CombAttr.TRUNKCOMB5WITHTRANSFORMTYPE,
           pilarIdx1,
@@ -138,7 +146,8 @@ export class CombListHelper {
           pilarIdx1,
           pilarIdx2,
           tranformedElement,
-          "Both Branches and Transformed element is same as Month element "+eTrMonthElement
+          "Both Branches and Transformed element is same as Month element " +
+            eTrMonthElement
         );
       }
     }
@@ -171,8 +180,9 @@ export class CombListHelper {
             pilarIdx1,
             pilarIdx2,
             tranformedElement,
-            "Same Transformed, Month element "+eTrMonthElement +
-            " with Branche element's productive relation to them "
+            "Same Transformed, Month element " +
+              eTrMonthElement +
+              " with Branche element's productive relation to them "
           );
         }
       }
@@ -203,17 +213,6 @@ export class CombListHelper {
     return count >= 2 && hasTrunkElementCompatibleWithTransformedElement;
   }
 
-  static isElementPresentIntrunk(lunar: Lunar, checkElement: Element) {
-    let res = false;
-    for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
-      if (lunar.trunkArr[pilarIdx].getElement() === checkElement) {
-        res = true;
-        break;
-      }
-    }
-    return res;
-  }
-
   static getBaseCombOf3(
     lunar: Lunar,
     checkPilarIdx: number,
@@ -224,25 +223,25 @@ export class CombListHelper {
     const checkBranche = lunar.brancheArr[checkPilarIdx];
     const brancheList: Branche[] = [lunar.brancheArr[checkPilarIdx]];
     let maxHit = 3;
-    let checkRange=3;
+    let checkRange = 3;
     if (checkMidComb3) {
       maxHit = 2;
-      checkRange=1;
+      checkRange = 1;
     }
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
       if (pilarIdx !== checkPilarIdx) {
-        if ( Math.abs(checkPilarIdx-pilarIdx)<= checkRange ) {
-        const branche = lunar.brancheArr[pilarIdx];
-        if (
-          BrancheHelper.getUniqueRelation(branche, checkBranche) ===
-          BrancheRelation.COMBINATION
-        ) {
-          if (!ObjectHelper.hasItem(brancheList, branche)) {
-            comb3Branches.push(pilarIdx);
-            brancheList.push(branche);
+        if (Math.abs(checkPilarIdx - pilarIdx) <= checkRange) {
+          const branche = lunar.brancheArr[pilarIdx];
+          if (
+            BrancheHelper.getUniqueRelation(branche, checkBranche) ===
+            BrancheRelation.COMBINATION
+          ) {
+            if (!ObjectHelper.hasItem(brancheList, branche)) {
+              comb3Branches.push(pilarIdx);
+              brancheList.push(branche);
+            }
           }
         }
-      }
       }
     }
     if (comb3Branches.length >= maxHit) {
@@ -251,16 +250,20 @@ export class CombListHelper {
         // Ref3p343
         const transformElement =
           BrancheRelation.getCombinaisonResultElement(checkBranche).getValue();
-        isTransformable = CombListHelper.isElementPresentIntrunk(
+        isTransformable = BaziHelper.isBrancheElementAppearInTrunk(
           lunar,
           transformElement
         );
-        if ( !isTransformable ) {
+        if (!isTransformable) {
           //Check Ref3p337 Case 4
           const combList = lunar.pilarsAttr.combList;
-          const comb5List = combList.getCombTypeAttrList(CombAttr.TRUNKCOMB5WITHTRANSFORMTYPE,checkPilarIdx,transformElement);
-          if ( comb5List.length>0 ) {
-            isTransformable=true;
+          const comb5List = combList.getCombTypeAttrList(
+            CombAttr.TRUNKCOMB5WITHTRANSFORMTYPE,
+            checkPilarIdx,
+            transformElement
+          );
+          if (comb5List.length > 0) {
+            isTransformable = true;
           }
         }
       }
@@ -293,24 +296,27 @@ export class CombListHelper {
     if (TrunkHelper.isTransformable(trunk1, trunk2)) {
       const tranformedElement = TrunkHelper.getTransformElement(trunk1);
       if (CombListHelper.hasCombinationOf3(lunar)) {
-        if (CombListHelper.hasBaseCombOf3(lunar,pilarIdx1) &&
-        CombListHelper.hasBaseCombOf3(lunar,pilarIdx2)
+        if (
+          CombListHelper.hasBaseCombOf3(lunar, pilarIdx1) &&
+          CombListHelper.hasBaseCombOf3(lunar, pilarIdx2)
         ) {
           const trBrancheElement = BrancheRelation.getCombinaisonResultElement(
             lunar.brancheArr[pilarIdx1]
           ).getValue();
-          if (trBrancheElement===tranformedElement &&
-            trBrancheElement===eTrMonthElement
-            ) {
-              lunar.pilarsAttr.combList.addTrunkComb5(
-                CombAttr.TRUNKCOMB5WITHTRANSFORMTYPE,
-                pilarIdx1,
-                pilarIdx2,
-                tranformedElement,
-                'Part of Combination of 3 and 5 with same element with month element '+eTrMonthElement
-              );
-            }
-         }
+          if (
+            trBrancheElement === tranformedElement &&
+            trBrancheElement === eTrMonthElement
+          ) {
+            lunar.pilarsAttr.combList.addTrunkComb5(
+              CombAttr.TRUNKCOMB5WITHTRANSFORMTYPE,
+              pilarIdx1,
+              pilarIdx2,
+              tranformedElement,
+              "Part of Combination of 3 and 5 with same element with month element " +
+                eTrMonthElement
+            );
+          }
+        }
       }
     }
   }
@@ -349,13 +355,15 @@ export class CombListHelper {
           trunk2Element === eTrMonthElement &&
           branche2.elementNEnergy.energy.isYang()
         ) {
-          addInfo="Label.Dominate.Husband";
+          addInfo = "Label.Dominate.Husband";
         }
         lunar.pilarsAttr.combList.addTrunkComb5(
           CombAttr.TRUNKCOMB5WITHTRANSFORMTYPE,
-          pilarIdx1, pilarIdx2,
+          pilarIdx1,
+          pilarIdx2,
           eTrMonthElement,
-          addInfo);
+          addInfo
+        );
       }
     }
   }
@@ -486,9 +494,10 @@ export class CombListHelper {
         lunar.pilarsAttr.combList.addBranchComb(
           CombAttr.BRANCHESEASONCOMBTYPE,
           combSeasonBranches,
-          null
+          null,
+          "Transformable under some conditions"
         );
-        if (CombListHelper.isElementPresentIntrunk(lunar, transformElement)) {
+        if (BaziHelper.isBrancheElementAppearInTrunk(lunar, transformElement)) {
           lunar.pilarsAttr.combList.addBranchComb(
             CombAttr.BRANCHESEASONCOMBTRANSFORMABLETYPE,
             combSeasonBranches,
@@ -516,11 +525,11 @@ export class CombListHelper {
           )
         ) {
           branchesIdx.push(index);
-          if ( branchesIdx.length===2 ) break ;
+          if (branchesIdx.length === 2) break;
         }
       }
     }
-    if (branchesIdx.length===2) {
+    if (branchesIdx.length === 2) {
       return branchesIdx;
     } else {
       return null;
@@ -530,14 +539,11 @@ export class CombListHelper {
   static evalLucHop(lunar: Lunar) {
     const combList = lunar.pilarsAttr.combList;
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
-      if ( combList.existCombRelation(pilarIdx) ) continue ;
+      if (combList.existCombRelation(pilarIdx)) continue;
       // Ref3p344
       const combLucHop = CombListHelper.getLucHopPilars(lunar, pilarIdx);
       if (combLucHop !== null) {
-        combList.addBranchComb(
-          CombAttr.BRANCHECOMB6TYPE,
-          combLucHop
-        );
+        combList.addBranchComb(CombAttr.BRANCHECOMB6TYPE, combLucHop);
         // REF3p344 Check Transform condition.
         const checkBranche = lunar.brancheArr[pilarIdx];
         let trElement =
@@ -593,7 +599,6 @@ export class CombListHelper {
     return null;
   }
 
-
   static evalBranchePairComb(
     lunar: Lunar,
     relation: BrancheRelation,
@@ -601,32 +606,41 @@ export class CombListHelper {
   ) {
     const combList = lunar.pilarsAttr.combList;
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
-      if ( combList.existCombRelation(pilarIdx) ) continue ;
+      if (combList.existCombRelation(pilarIdx)) continue;
       const branchesInjury = CombListHelper.getNeighBorRelation(
         lunar,
         relation,
         pilarIdx
       );
       if (branchesInjury !== null) {
+        lunar.pilarsAttr.combList.addBranchComb(
+          CombAttr.BRANCHECLASHTYPE,
+          branchesInjury
+        );
         lunar.pilarsAttr.combList.addBranchComb(type, branchesInjury);
       }
     }
   }
 
-  static canBoost(sources: Branche[], checkElement: Element, useOnlyMainHiddenTrunk?: boolean) : boolean {
-    let count=0;
-    if ( typeof useOnlyMainHiddenTrunk === 'undefined' ) useOnlyMainHiddenTrunk=false;
+  static canBoost(
+    sources: Branche[],
+    checkElement: Element,
+    useOnlyMainHiddenTrunk?: boolean
+  ): boolean {
+    let count = 0;
+    if (typeof useOnlyMainHiddenTrunk === "undefined")
+      useOnlyMainHiddenTrunk = false;
     for (let index = 0; index < sources.length; index++) {
       const source = sources[index];
-      if ( source.getElement()===checkElement)  count++;
+      if (source.getElement() === checkElement) count++;
       const hiddenTrunks = BrancheHelper.getHiddenTrunk(source);
       for (let index = 0; index < hiddenTrunks.length; index++) {
         const element = hiddenTrunks[index].getElement();
-        if ( element===checkElement)  count++;
+        if (element === checkElement) count++;
         if (useOnlyMainHiddenTrunk) break;
       }
     }
-    return count>0;
+    return count > 0;
   }
 
   // Ref3p333Case2
@@ -636,7 +650,8 @@ export class CombListHelper {
   ) {
     const tArr = lunar.trunkArr;
     const bArr = lunar.brancheArr;
-    const combList = lunar.pilarsAttr.combList;
+    const pilarsAttr = lunar.pilarsAttr;
+    const combList = pilarsAttr.combList;
     const checkBrancheIdxArr = combList.getBrancheNonContributor(combType);
     const checkBranches: Branche[] = [];
     for (let index = 0; index < checkBrancheIdxArr.length; index++) {
@@ -695,7 +710,7 @@ export class CombListHelper {
       // Ref3p346 example 1: No clash
       for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
         const element = tArr[pilarIdx].getElement();
-        const hasClash=combList.existClashRelation(pilarIdx);
+        const hasClash = combList.existClashRelation(pilarIdx);
         if (CombListHelper.canBoost(bArr, element, hasClash)) {
           combList.addTrunkComb(CombAttr.TRUNKISSUPPORTEDTYPE1, [pilarIdx]);
         }
@@ -703,51 +718,61 @@ export class CombListHelper {
     }
   }
 
-  static hasMidCombination( lunar: Lunar, idx: number, ) {
-    let res = lunar.pilarsAttr.combList.existBrancheRelationType(CombAttr.MIDBRANCHECOMB3TRANSFORMABLETYPE,idx);
+  static hasMidCombination(lunar: Lunar, idx: number) {
+    let res = lunar.pilarsAttr.combList.existBrancheRelationType(
+      CombAttr.MIDBRANCHECOMB3TRANSFORMABLETYPE,
+      idx
+    );
     return res;
   }
-
-
 
   // Combination of 3 (San He)
   // Ref 3 p334
   // Ref 9 p137
   static hasCombOf3(lunar: Lunar, idx: number) {
-    let res = lunar.pilarsAttr.combList.existBrancheRelationType(CombAttr.BRANCHECOMB3WITHTRANSFORMTYPE,idx);
+    let res = lunar.pilarsAttr.combList.existBrancheRelationType(
+      CombAttr.BRANCHECOMB3WITHTRANSFORMTYPE,
+      idx
+    );
     return res;
   }
 
-
-  static hasSameSeasonCombination(
-    lunar: Lunar,
-    idx: number
-  )  : boolean {
-    let res = lunar.pilarsAttr.combList.existBrancheRelationType(CombAttr.BRANCHESEASONCOMBTRANSFORMABLETYPE,idx);
+  static hasSameSeasonCombination(lunar: Lunar, idx: number): boolean {
+    let res = lunar.pilarsAttr.combList.existBrancheRelationType(
+      CombAttr.BRANCHESEASONCOMBTRANSFORMABLETYPE,
+      idx
+    );
     return res;
   }
 
   static hasTransformPlusWithTransform(lunar: Lunar, idx: number) {
-    let res = lunar.pilarsAttr.combList.existBrancheRelationType(CombAttr.BRANCHECOMB6WITHTRANSFORMTYPE,idx);
+    let res = lunar.pilarsAttr.combList.existBrancheRelationType(
+      CombAttr.BRANCHECOMB6WITHTRANSFORMTYPE,
+      idx
+    );
     return res;
   }
 
-  static hasTransformPlus( lunar: Lunar, idx: number) {
-    let res = lunar.pilarsAttr.combList.existBrancheRelationType(CombAttr.BRANCHECOMB6TYPE,idx);
+  static hasTransformPlus(lunar: Lunar, idx: number) {
+    let res = lunar.pilarsAttr.combList.existBrancheRelationType(
+      CombAttr.BRANCHECOMB6TYPE,
+      idx
+    );
     return res;
   }
 
-  static hasClashRelation( lunar: Lunar, idx: number) {
+  static hasClashRelation(lunar: Lunar, idx: number) {
     let res = lunar.pilarsAttr.combList.existClashRelation(idx);
     return res;
   }
 
-
   static hasMultipleComb6(lunar: Lunar, checkPilarIdx: number) {
-    let combAttrList = lunar.pilarsAttr.combList.getCombTypeAttrList(CombAttr.BRANCHECOMB6TYPE,checkPilarIdx);
-    return combAttrList.length>1;
+    let combAttrList = lunar.pilarsAttr.combList.getCombTypeAttrList(
+      CombAttr.BRANCHECOMB6TYPE,
+      checkPilarIdx
+    );
+    return combAttrList.length > 1;
   }
-
 
   static setupAllCombinations(lunar: Lunar) {
     lunar.pilarsAttr.combList = new CombinationList();

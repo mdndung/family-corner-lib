@@ -10,13 +10,18 @@ import { ElementNEnergy } from "../feng-shui/elementNenergy";
 import { ElementNEnergyRelation } from "../feng-shui/elementNEnergyRelation";
 import { DataWithLog } from "../qi/dataWithLog";
 import { Branche } from "./branche";
-import { BrancheRelation } from "./brancheRelation";
 import { Lunar } from "./lunar";
 import { LunarBase } from "./lunarBase";
 import { CombAttr, CombinationList } from "./combinationList";
 import { Trunk } from "./trunk";
 import { CombListHelper } from "../../helper/combListHelper";
-import { Console } from "console";
+import { QiForce } from "../qi/qi-force";
+import { YiJingAttr } from "../../horoscope/yi-jing-attr";
+import { YiJing } from "../yi-jing/yijing";
+import { BaziStructure } from "./bazi-structure";
+import { timeStamp } from "console";
+import { BaziStructureHelper } from "../../helper/bazi-structureHelper";
+import { Bazi } from "./bazi";
 
 export class PilarsAttr {
   lunar: Lunar;
@@ -25,7 +30,7 @@ export class PilarsAttr {
   trunkForceArr?: DataWithLog[] = null;
   brancheForceArr?: DataWithLog[] = null;
   hiddenTrunkForceArr?: DataWithLog[][] = null;
-
+  rootPresent: boolean[] = null;
   brMonthElement?: Element = null;
   eerCount: number[] = null;
   maxEerCount = 0;
@@ -36,21 +41,26 @@ export class PilarsAttr {
   dayHiddenRelation: ElementNEnergyRelation[][] = null;
 
   elementNEnergyForce: DataWithLog[] = null;
-  elementForce: number[] = null;
+  elementForce: DataWithLog[] = null;
   majorElement: Element = null;
   sumElementForce: number = null;
   averageElementForce: number = null;
   majorElementForce: number = null;
-
-  selectPivotEE: ElementNEnergy;
+  weakThreshHold: number = 0;
+  favorableThreshHold: number = 0;
   combList: CombinationList;
+  structure: DataWithLog;
 
   constructor(lunar: Lunar) {
     lunar.pilarsAttr = this;
     this.lunar = lunar;
-    this.initEE(lunar);
-    this.evalPilarRelation(lunar);
-    this.initEERCounters(lunar);
+
+
+    this.initEE();
+    this.evalRootPresent();
+    this.evalPilarRelation();
+    this.initEERCounters();
+    this.initStructure();
   }
 
   getHiddenTrunkName(branche: Branche, trunk: Trunk, element: Element) {
@@ -63,10 +73,10 @@ export class PilarsAttr {
   }
 
   getBrSrc(pilarIdx: number, withTransformation?: boolean) {
-    if ( typeof withTransformation=== 'undefined' ) withTransformation = true ;
+    if (typeof withTransformation === "undefined") withTransformation = true;
     const element = this.lunar.brancheArr[pilarIdx].elementNEnergy;
     let trElement = element;
-    if ( withTransformation ) {
+    if (withTransformation) {
       trElement = this.brancheEE[pilarIdx].getValue();
     }
     return (
@@ -79,10 +89,10 @@ export class PilarsAttr {
   }
 
   getTrSrc(pilarIdx: number, withTransformation?: boolean) {
-    if ( typeof withTransformation=== 'undefined' ) withTransformation = true ;
+    if (typeof withTransformation === "undefined") withTransformation = true;
     const element = this.lunar.trunkArr[pilarIdx].elementNEnergy;
     let trElement = element;
-    if ( withTransformation ) {
+    if (withTransformation) {
       trElement = this.trunkEE[pilarIdx].getValue();
     }
     return (
@@ -96,11 +106,13 @@ export class PilarsAttr {
 
   logMe(message1: any, message2?: any) {
     if (CombListHelper.logMe) {
+      if (typeof message2 === "undefined") message2 = '';
       console.log(message1, message2);
     }
   }
+
   log() {
-    //console.log(this.elementNEnergyForce);
+    console.log(this.structure);
     //console.log(this.trunkForceArr);
     //console.log(this.brancheForceArr);
   }
@@ -184,15 +196,6 @@ export class PilarsAttr {
     }
   }
 
-
-  isRootSupported(lunar: Lunar, pilarIdx: number): boolean {
-    if (pilarIdx >= LunarBase.LINDEX) return false;
-    return this.combList.existTrunkRelationType(
-      CombAttr.TRUNKISSUPPORTEDTYPE1,
-      pilarIdx
-    );
-  }
-
   evalTrunkForce(lunar: Lunar) {
     const trunkPilarElement = this.trunkEE;
     const branchePilarElement = this.brancheEE;
@@ -204,7 +207,7 @@ export class PilarsAttr {
       const brancheElement = branchePilarElement[pilarIdx]
         .getValue()
         .getElement();
-      let trunkName = this.getTrSrc(pilarIdx,false);
+      let trunkName = this.getTrSrc(pilarIdx, false);
       const brancheName = this.getBrSrc(pilarIdx);
       pilarForce[pilarIdx].setValue(
         36,
@@ -353,8 +356,22 @@ export class PilarsAttr {
     return points;
   }
 
-  setOnlyPrincipalForce(pilarIdx: number, detail?: string) {
-    const force = this.getMainHiddenForceData(pilarIdx).getValue();
+  isElementInNonNullForceHiddenTrunk(pilarIdx: number, checkElement: Element) {
+    const branche = this.lunar.brancheArr[pilarIdx];
+    const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(branche);
+
+    for (let i = 0; i < hiddenTrunkArr.length; i++) {
+      const eeHtr = hiddenTrunkArr[i].getElement();
+      if (eeHtr === checkElement) {
+        const hiddenbrancheForce =
+          this.hiddenTrunkForceArr[i][pilarIdx].getValue();
+        if (hiddenbrancheForce > 0) return true;
+      }
+    }
+    return false;
+  }
+
+  setOnlyPrincipalForce(pilarIdx: number, force: number, detail?: string) {
     if (typeof detail === "undefined") {
       detail = "";
     } else {
@@ -365,21 +382,18 @@ export class PilarsAttr {
     this.hiddenTrunkForceArr[currIdx][pilarIdx] = new DataWithLog(
       force,
       pilarName +
-        "No Transformation. Use only main hidden element force. " +
         detail
     );
     currIdx++;
     this.hiddenTrunkForceArr[currIdx][pilarIdx] = new DataWithLog(
       0,
       pilarName +
-        "No Transformation. Do not use middle hidden element force. " +
         detail
     );
     currIdx++;
     this.hiddenTrunkForceArr[currIdx][pilarIdx] = new DataWithLog(
       0,
       pilarName +
-        "No Transformation.  Do not use excess hidden element force. " +
         detail
     );
   }
@@ -426,7 +440,6 @@ export class PilarsAttr {
     }
   }
 
-
   evalBrancheEEIdx(lunar: Lunar, pilarIdx: number) {
     const currBranche = lunar.brancheArr[pilarIdx];
     const brancheElement = currBranche.getElement();
@@ -442,7 +455,10 @@ export class PilarsAttr {
           " incompatible kind with any trunk element's kind "
         );
       } else {
-        resData.updateValue(trElement, combAttrs[0].detail + " transformed element ");
+        resData.updateValue(
+          trElement,
+          combAttrs[0].detail + " transformed element "
+        );
       }
     }
 
@@ -455,13 +471,12 @@ export class PilarsAttr {
     );
   }
 
-
   getCombAttrList(lunar: Lunar, pilarIdx: number) {
     let foundCombAttr = this.combList.getCombTypeAttrList(
       CombAttr.BRANCHESEASONCOMBTRANSFORMABLETYPE,
       pilarIdx
     );
-    if (foundCombAttr.length<= 0) {
+    if (foundCombAttr.length <= 0) {
       foundCombAttr = this.combList.getCombTypeAttrList(
         CombAttr.BRANCHECOMB3WITHTRANSFORMTYPE,
         pilarIdx
@@ -488,11 +503,14 @@ export class PilarsAttr {
     return foundCombAttr;
   }
 
-  getRawBranchePoint(lunar: Lunar, pilarIdx:number) {
+  getRawBranchePoint(lunar: Lunar, pilarIdx: number) {
     let usePrincipalHiddenForce = false;
-    let usePrincipaleHiddenForceReason='';
-    let sourceName = this.getBrSrc(pilarIdx,false);
-    let combAttrList = lunar.pilarsAttr.combList.getCombTypeAttrList(CombAttr.BRANCHESEASONCOMBTRANSFORMABLETYPE,pilarIdx);
+    let usePrincipaleHiddenForceReason = "";
+    let sourceName = this.getBrSrc(pilarIdx, false);
+    let combAttrList = lunar.pilarsAttr.combList.getCombTypeAttrList(
+      CombAttr.BRANCHESEASONCOMBTRANSFORMABLETYPE,
+      pilarIdx
+    );
     const maxBranchValue = 30;
     let points = new DataWithLog(
       maxBranchValue,
@@ -500,37 +518,47 @@ export class PilarsAttr {
     );
     sourceName = this.getBrSrc(pilarIdx);
 
-    if (combAttrList.length>0) {
+    if (combAttrList.length > 0) {
       // Ref3p342
       points.addData(-6, "Same season combination: ");
     } else {
-       combAttrList = lunar.pilarsAttr.combList.getCombTypeAttrList(CombAttr.BRANCHECOMB3WITHTRANSFORMTYPE,pilarIdx);
-       if (combAttrList.length>0) {
-          // Ref3p342
-          points.addValue(
-            -10,
-            sourceName + ": Combination of 3 (San He)",
-            this.getCurrLog()
-          );
-       } else {
-        combAttrList = lunar.pilarsAttr.combList.getCombTypeAttrList(CombAttr.MIDBRANCHECOMB3TRANSFORMABLETYPE,pilarIdx);
-        if (combAttrList.length>0) {
+      combAttrList = lunar.pilarsAttr.combList.getCombTypeAttrList(
+        CombAttr.BRANCHECOMB3WITHTRANSFORMTYPE,
+        pilarIdx
+      );
+      if (combAttrList.length > 0) {
+        // Ref3p342
+        points.addValue(
+          -10,
+          sourceName + ": Combination of 3 (San He)",
+          this.getCurrLog()
+        );
+      } else {
+        combAttrList = lunar.pilarsAttr.combList.getCombTypeAttrList(
+          CombAttr.MIDBRANCHECOMB3TRANSFORMABLETYPE,
+          pilarIdx
+        );
+        if (combAttrList.length > 0) {
           points.addValue(
             -10,
             sourceName + ": Partial Combination of 3 (San He)"
           );
         } else {
-          combAttrList = lunar.pilarsAttr.combList.getCombTypeAttrList(CombAttr.BRANCHECOMB6WITHTRANSFORMTYPE,pilarIdx);
-          if (combAttrList.length>0) {
-               // Ref3p343, Ref3p344
-              if (CombListHelper.hasMultipleComb6(lunar, pilarIdx)) {
-                // Ref3p344
-                combAttrList = [];
-                usePrincipalHiddenForce = true ;
-                usePrincipaleHiddenForceReason=" Concurence combinations detected ";
-              } else {
-                points.updateValue(18, "Unique combination of 2");
-              }
+          combAttrList = lunar.pilarsAttr.combList.getCombTypeAttrList(
+            CombAttr.BRANCHECOMB6WITHTRANSFORMTYPE,
+            pilarIdx
+          );
+          if (combAttrList.length > 0) {
+            // Ref3p343, Ref3p344
+            if (CombListHelper.hasMultipleComb6(lunar, pilarIdx)) {
+              // Ref3p344
+              combAttrList = [];
+              usePrincipalHiddenForce = true;
+              usePrincipaleHiddenForceReason =
+                " Concurence combinations detected ";
+            } else {
+              points.updateValue(18, "Unique combination of 2");
+            }
           }
         }
       }
@@ -538,32 +566,42 @@ export class PilarsAttr {
 
     // Ref3p343 check transform possibility
     // Ref3p343 Notice
-    if (combAttrList.length>0) {
+    if (combAttrList.length > 0) {
       // Ref3p343, p344 + Ref3p351
-      const trElement=combAttrList[0].resultData;
+      const trElement = combAttrList[0].resultData;
       if (this.isBrancheELementInTrunk(lunar, trElement)) {
         // Keep current combined element and points
         points.addValue(
           0,
-          sourceName + " Transformed element " + trElement +" is present in trunks "
+          sourceName +
+            " Transformed element " +
+            trElement +
+            " is present in trunks "
         );
       } else {
-        usePrincipalHiddenForce=true;
-        usePrincipaleHiddenForceReason= " Transformed element " + trElement +" not found in trunks "
+        usePrincipalHiddenForce = true;
+        usePrincipaleHiddenForceReason =
+          " Transformed element " + trElement + " not found in trunks ";
       }
     } else {
-      if (lunar.pilarsAttr.combList.existBrancheRelationType(CombAttr.MIDBRANCHECOMB3TYPE,pilarIdx)) {
-        usePrincipalHiddenForce=true;
-        usePrincipaleHiddenForceReason=" Non transformed mid combination of 3 ";
+      if (
+        lunar.pilarsAttr.combList.existBrancheRelationType(
+          CombAttr.MIDBRANCHECOMB3TYPE,
+          pilarIdx
+        )
+      ) {
+        usePrincipalHiddenForce = true;
+        usePrincipaleHiddenForceReason =
+          " Non transformed mid combination of 3 ";
       }
     }
 
-    if ( usePrincipalHiddenForce ) {
+    if (usePrincipalHiddenForce) {
       const hiddenLog = this.getMainHiddenForceData(pilarIdx);
-      this.setOnlyPrincipalForce(pilarIdx);
+      this.setOnlyPrincipalForce(pilarIdx,hiddenLog.getValue());
       points.updateValue(
         hiddenLog.getValue(),
-        sourceName +usePrincipaleHiddenForceReason,
+        sourceName + usePrincipaleHiddenForceReason,
         hiddenLog.getDetail()
       );
     }
@@ -579,14 +617,15 @@ export class PilarsAttr {
     const currBranche = brancheArr[pilarIdx];
     const brancheElement = currBranche.getElement();
 
-
-    let points = this.getRawBranchePoint(lunar,pilarIdx);
+    let points = this.getRawBranchePoint(lunar, pilarIdx);
     const sourceName = this.getBrSrc(pilarIdx);
 
     // Ref3p341, 342
     if (this.trunkForceArr[pilarIdx].getValue() >= 18) {
-      const mainHiddenData =  this.hiddenTrunkForceArr[0][pilarIdx];
-      const trunkResultElement = trunkElements[pilarIdx].getValue().getElement();
+      const mainHiddenData = this.hiddenTrunkForceArr[0][pilarIdx];
+      const trunkResultElement = trunkElements[pilarIdx]
+        .getValue()
+        .getElement();
       if (
         BaziHelper.getRelation(trunkResultElement, brancheElement).isFavorable()
       ) {
@@ -606,14 +645,22 @@ export class PilarsAttr {
       }
     }
     // Ref3p344 Clash
-    if (CombListHelper.hasClashRelation(lunar, pilarIdx)) {
-      const monthElement = brancheArr[LunarBase.MINDEX].getElement();
-      if (monthElement != Element.EARTH) {
-        // Ref3p345: Update if month element not dragon, ox, dog, goat which are earth
-        let force = Math.trunc(points.value / 3);
-        points.updateValue(force, " Clash ");
-        this.setOnlyPrincipalForce(pilarIdx, " Clash ");
+    const clashCombList = this.combList.getCombTypeAttrList(CombAttr.BRANCHECLASHTYPE,pilarIdx);
+    if (clashCombList.length>0) {
+      // Assume no any transformed combination kind  for this pilar
+      //Ref3p344. Keep only the principal force
+      let fraction= 1/3;
+      let force = Math.trunc(points.value*fraction);
+      points.updateValue(force, " Clash ");
+      const pilarElement = brancheArr[pilarIdx].getElement();
+      if (pilarElement != Element.EARTH) {
+        // Ref3p345: Update if principal hidden month element not dragon, ox, dog, goat which are earth
+        fraction= BaziHelper.getClashHiddenTrunkReduceFactor(lunar,clashCombList[0].branchAttrs);
+        force = this.getMainHiddenForceData(pilarIdx).getValue();
+        force = Math.trunc(force*fraction);
+        this.setOnlyPrincipalForce(pilarIdx, force," Clash ");
       }
+
     }
 
     this.avoidZeroForce(points, sourceName);
@@ -627,7 +674,8 @@ export class PilarsAttr {
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
       this.setBranchePoints(lunar, pilarIdx);
     }
-    // Update influence of month branch element on trunk's element
+    // Update influence of month branch  element on trunk's element
+    // Also for hidden trunk element on branche (Ref8p543)
     // Ref3p346
 
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
@@ -643,14 +691,15 @@ export class PilarsAttr {
 
       checkElement = this.brancheEE[pilarIdx].getValue().getElement();
       checkName = this.getBrSrc(pilarIdx);
-      checkForceAttr = this.brancheForceArr[pilarIdx];
+      let currBrancheForceAttr = this.brancheForceArr[pilarIdx];
       this.propagateMonthBrancheElementForce(
         checkElement,
         checkName,
-        checkForceAttr
+        currBrancheForceAttr
       );
 
       const branche = this.lunar.brancheArr[pilarIdx];
+      const brancheElement =branche.getElement();
       const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(branche);
       for (let i = 0; i < hiddenTrunkArr.length; i++) {
         checkElement = hiddenTrunkArr[i].getElement();
@@ -665,6 +714,12 @@ export class PilarsAttr {
           checkName,
           checkForceAttr
         );
+        if ( brancheElement.isDestructive(checkElement)) {
+          // Cas branche lukewarm branche. See Ref8p543 Sữu ẩm
+          currBrancheForceAttr.addData(
+            -checkForceAttr.getValue(),
+            checkName+ " incompatible ");
+        }
       }
     }
   }
@@ -697,78 +752,82 @@ export class PilarsAttr {
     }
   }
 
+  addEEForce(ee: ElementNEnergy, force: number, detail: string) {
+    this.sumElementForce += force;
+    this.elementNEnergyForce[ee.ordinal()].addData(force, detail);
+    this.elementForce[ee.getElement().ordinal()].addData(force, detail);
+  }
+
   evalElementNEnergyForce(lunar: Lunar) {
     const len = ElementNEnergy.getValues().length;
     const brancheArr = lunar.brancheArr;
     this.elementNEnergyForce = DataWithLog.newDataArray(len);
+    const elementValues = Element.getValues();
+    this.elementForce = DataWithLog.newDataArray(elementValues.length);
+    for (let index = 0; index < len; index++) {
+      this.elementNEnergyForce[index].addData(0);
+    }
+    for (let index = 0; index < elementValues.length; index++) {
+      this.elementForce[index].addData(0);
+    }
+    this.sumElementForce = 0;
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
       // Trunc element's force
       let ee = this.trunkEE[pilarIdx].getValue();
-      this.elementNEnergyForce[ee.ordinal()].addData(
-        this.trunkForceArr[pilarIdx],
+      this.addEEForce(
+        ee,
+        this.trunkForceArr[pilarIdx].getValue(),
         this.getTrSrc(pilarIdx)
       );
 
       const comb5List = this.getCombAttrList(lunar, pilarIdx);
       if (comb5List.length > 0) {
-        // Use branche Force when there is combination with transform
-        ee = comb5List[0].resultData;
-        this.elementNEnergyForce[ee.ordinal()].addData(
-          this.brancheForceArr[pilarIdx],
-          this.getBrSrc(pilarIdx)
+        // Use only transformed element force. Example Ref3p347 cas 2.3
+        ee = this.brancheEE[pilarIdx].getValue();
+        this.addEEForce(
+          ee,
+          this.brancheForceArr[pilarIdx].getValue(),
+          this.getBrSrc(pilarIdx) + '. Transformed. Use transformed element '+ ee+' force'
         );
       } else {
-        // Use hidden trunk force
+        // Use only hidden trunk force. Example Ref3p347 cas 1.4
         const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(
           brancheArr[pilarIdx]
         );
         const hLen = hiddenTrunkArr.length;
-        // The main hidden trunk is the same as the transformed branche element
-        this.elementNEnergyForce[
-          hiddenTrunkArr[0].elementNEnergy.ordinal()
-        ].addData(
-          this.hiddenTrunkForceArr[0][pilarIdx],
-          this.getBrSrc(pilarIdx) + " 's Main Hidden Trunk " + hiddenTrunkArr[0]
-        );
-        for (let i = 1; i < hLen; i++) {
-          this.elementNEnergyForce[
-            hiddenTrunkArr[i].elementNEnergy.ordinal()
-          ].addData(
+        let addDetail =  " 's Main Hidden Trunk ";
+        for (let i = 0; i < hLen; i++) {
+          this.addEEForce(
+            hiddenTrunkArr[i].elementNEnergy,
             this.hiddenTrunkForceArr[i][pilarIdx].getValue(),
             this.getBrSrc(pilarIdx) +
-              " 's non Main Hidden Trunk " +
+            'NOT transformed element. Use '+
+            addDetail +
               hiddenTrunkArr[i]
           );
+          addDetail =  " 's non Main Hidden Trunk "
         }
       }
     }
+    this.weakThreshHold = this.sumElementForce * QiForce.FORCEWEAKTHESHHOLD;
+    this.favorableThreshHold = this.sumElementForce * QiForce.FORCEFAVORABLETHESHHOLD;
   }
 
   initMajorElement(lunar: Lunar) {
     this.evalElementNEnergyForce(lunar);
-    this.elementForce = [0, 0, 0, 0, 0];
-    for (let idx = 0; idx < this.elementNEnergyForce.length; idx++) {
-      const ee = ElementNEnergy.WATERYANG.getEnum(idx) as ElementNEnergy;
-      this.elementForce[ee.element.ordinal()] +=
-        this.elementNEnergyForce[idx].getValue();
-    }
-    // initMajorElementForce();
-    this.sumElementForce = 0;
-    this.majorElement = null;
     const elementValues = Element.getValues();
-    elementValues.forEach((element) => {
-      this.sumElementForce += this.elementForce[element.ordinal()];
-    });
-
+    this.majorElement = null;
     this.majorElementForce = 0;
 
     elementValues.forEach((element) => {
       if (
-        (100 * this.elementForce[element.ordinal()]) / this.sumElementForce >
+        (100 * this.elementForce[element.ordinal()].getValue()) /
+          this.sumElementForce >
         this.majorElementForce
       ) {
         this.majorElementForce =
-          (100 * this.elementForce[element.ordinal()]) / this.sumElementForce;
+          (100 * this.elementForce[element.ordinal()].getValue()) /
+          this.sumElementForce;
         this.majorElement = element as Element;
       }
     });
@@ -776,10 +835,11 @@ export class PilarsAttr {
     this.averageElementForce = this.sumElementForce / 5;
   }
 
-  evalPilarRelation(lunar: Lunar) {
+  evalPilarRelation() {
+    const lunar=this.lunar;
     const MAX_LEN = LunarBase.PILARS_LEN;
     const brancheArr = lunar.brancheArr;
-
+    const trunkArr = lunar.trunkArr;
     this.dayHiddenRelation = ObjectHelper.newMatrix(MAX_LEN, MAX_LEN, null);
     this.trunkRelation = ObjectHelper.newMatrix(MAX_LEN, MAX_LEN, null);
     this.brancheRelation = ObjectHelper.newMatrix(MAX_LEN, MAX_LEN, null);
@@ -787,58 +847,85 @@ export class PilarsAttr {
     const brancheBrRelation = ObjectHelper.newMatrix(MAX_LEN, MAX_LEN, null);
 
     for (let pilarCol = 0; pilarCol < MAX_LEN; pilarCol++) {
+      const currTrunkEE = trunkArr[pilarCol].elementNEnergy;
       for (let j = 0; j < MAX_LEN; j++) {
         // j-->pilarCol: The transformed result effect is on the source
         this.trunkRelation[j][pilarCol] = BaziHelper.getEnNRelation(
-          this.trunkEE[j].getValue(),
-          this.trunkEE[pilarCol].getValue()
+          // Use original element
+          trunkArr[j].elementNEnergy,
+          currTrunkEE
         );
       }
     }
 
-    const dayTrunk = lunar.getdTrunk();
     for (let pilarCol = 0; pilarCol < MAX_LEN; pilarCol++) {
       const toBranche = brancheArr[pilarCol];
-      for (let j = 0; j < MAX_LEN; j++) {
-        const fromBranche = brancheArr[j];
-        // Use the transformed result if fitted
-        this.brancheRelation[j][pilarCol] = BaziHelper.getEnNRelation(
-          this.brancheEE[j].getValue(),
-          this.brancheEE[pilarCol].getValue()
+      const currTrunkEE = trunkArr[pilarCol].elementNEnergy
+      for (let pilarBranche = 0; pilarBranche < MAX_LEN; pilarBranche++) {
+        const fromBranche = brancheArr[pilarBranche];
+        // Use original element
+        this.brancheRelation[pilarBranche][pilarCol] = BaziHelper.getEnNRelation(
+          fromBranche.elementNEnergy,toBranche.elementNEnergy
         );
-        this.brancheTrunkRelation[j][pilarCol] = BaziHelper.getEnNRelation(
-          this.brancheEE[j].getValue(),
-          this.trunkEE[pilarCol].getValue()
+        this.brancheTrunkRelation[pilarBranche][pilarCol] = BaziHelper.getEnNRelation(
+          fromBranche.elementNEnergy,
+          currTrunkEE
         );
-        brancheBrRelation[j][pilarCol] = BrancheHelper.getUniqueRelation(
+        brancheBrRelation[pilarBranche][pilarCol] = BrancheHelper.getUniqueRelation(
           fromBranche,
           toBranche
         );
-      }
-      const hiddenTrunk = BrancheHelper.getHiddenTrunk(toBranche);
-      // The first hidden trunk has the same element as the branche
-      // Use the trannsforned element to calculate the EER
-
-      const ee = ElementNEnergy.getElementNEnergy(
-        this.brancheEE[pilarCol].getValue().getElement(),
-        hiddenTrunk[0].getEnergy()
-      );
-      this.dayHiddenRelation[pilarCol][0] = BaziHelper.getEnNRelation(
-        ee,
-        dayTrunk.elementNEnergy
-      );
-      for (let i = 1; i < hiddenTrunk.length; i++) {
-        this.dayHiddenRelation[pilarCol][i] = TrunkHelper.getEERelation(
-          hiddenTrunk[i],
-          dayTrunk
-        );
+        const hiddenTrunk = BrancheHelper.getHiddenTrunk(fromBranche);
+        for (let i = 0; i < hiddenTrunk.length; i++) {
+          this.dayHiddenRelation[pilarBranche][i]=(BaziHelper.eNeTrunkRelation(
+           hiddenTrunk[i], trunkArr[LunarBase.DINDEX]
+          ));
+        }
       }
     }
 
     this.initMajorElement(lunar);
   }
 
-  initEERCounters(lunar: Lunar) {
+  // Ref8p5 Thong can
+  evalRootPresent() {
+    const lunar=this.lunar;
+    const MAX_LEN = LunarBase.PILARS_LEN;
+    const brancheArr = lunar.brancheArr;
+    const trunkArr= lunar.trunkArr;
+
+    this.rootPresent = ObjectHelper.newArray(MAX_LEN, false);
+    for (let pilarCol = 0; pilarCol < MAX_LEN; pilarCol++) {
+      const branche = brancheArr[pilarCol];
+      const currOriginTrunkEE = trunkArr[pilarCol].elementNEnergy
+      const currTrfTrunkEE = this.trunkEE[pilarCol].getValue()
+      this.rootPresent[pilarCol] =
+        currOriginTrunkEE === branche.elementNEnergy &&
+        currTrfTrunkEE === branche.elementNEnergy
+        ;
+      this.rootPresent[pilarCol] =
+        this.rootPresent[pilarCol] ||
+        currOriginTrunkEE === this.brancheEE[pilarCol].getValue()&&
+        currTrfTrunkEE === this.brancheEE[pilarCol].getValue()
+        ;
+
+      const hiddenTrunk = BrancheHelper.getHiddenTrunk(branche);
+      for (let i = 0; i < hiddenTrunk.length; i++) {
+        this.rootPresent[pilarCol] =
+          this.rootPresent[pilarCol] ||
+          currOriginTrunkEE === hiddenTrunk[i].elementNEnergy&&
+          currTrfTrunkEE === hiddenTrunk[i].elementNEnergy;
+      }
+    }
+  }
+
+  initStructure() {
+    this.structure=BaziStructureHelper.getCachCuc(this.lunar);
+  }
+
+
+  initEERCounters() {
+    const lunar=this.lunar;
     const eerLen = ElementNEnergyRelation.getValues().length;
     this.eerCount = [].fill(0, eerLen);
     this.maxEerCount = 0;
@@ -854,7 +941,7 @@ export class PilarsAttr {
         element = PilarsAttr.getTransformable(
           trunkArr[i],
           trunkArr[LunarBase.DINDEX],
-          this.brancheEE[LunarBase.MINDEX].getValue().getElement()
+          lunar.brancheArr[LunarBase.MINDEX].getElement()
         );
         if (element != null) {
           const ene = ElementNEnergy.getElementNEnergy(
@@ -888,7 +975,8 @@ export class PilarsAttr {
     }
   }
 
-  initEE(lunar: Lunar) {
+  initEE() {
+    const lunar=this.lunar;
     // First pass for brMonthElement
     this.brMonthElement = lunar.brancheArr[LunarBase.MINDEX].getElement();
     CombListHelper.setupAllCombinations(lunar);
@@ -912,5 +1000,87 @@ export class PilarsAttr {
       this.eerCount[ElementNEnergyRelation.GE.ordinal()] +
       this.eerCount[ElementNEnergyRelation.GC.ordinal()]
     );
+  }
+
+
+  isVeryWeakedElement(element: Element) {
+    return (
+      this.elementForce[element.ordinal()].getValue() <= this.weakThreshHold/2
+    );
+  }
+
+  isFavorableElement(element: Element) {
+    return (
+      this.elementForce[element.ordinal()].getValue() >= this.favorableThreshHold
+    );
+  }
+
+  isWeakedElement(element: Element) {
+    return (
+      this.elementForce[element.ordinal()].getValue() <= this.weakThreshHold
+    );
+  }
+
+
+  getRelationCount(relation: ElementNEnergyRelation, toIndex: number) {
+    let count = this.getTrunkRelationCount(relation, toIndex);
+    count += this.getHiddenRelationCount(relation);
+    return count;
+  }
+
+  getPairedRelationCount(relation: ElementNEnergyRelation, toIndex: number): number {
+    let count = this.getRelationCount(relation, toIndex);
+    count+=this.getRelationCount(relation.getEnumNextNElement(1), toIndex);
+    return count;
+  }
+
+
+  getTrunkPairedRelationCount(relation: ElementNEnergyRelation, toIndex: number) {
+    let count = this.getTrunkRelationCount(relation,toIndex)
+    count+= this.getTrunkRelationCount(relation.getEnumNextNElement(1),toIndex)
+    return count
+  }
+
+
+  getTrunkRelationCount(relation: ElementNEnergyRelation, toIndex: number) {
+    let count = 0;
+    for (let i = 0; i < LunarBase.LINDEX; i++) {
+      if (relation === this.trunkRelation[i][toIndex]) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+
+  getHiddenRelationCount(relation: ElementNEnergyRelation) {
+    let count = 0;
+
+    for (let branchePilarIdx = 0; branchePilarIdx < LunarBase.LINDEX; branchePilarIdx++) {
+      const hTrunkArr = BrancheHelper.getHiddenTrunk(
+        this.lunar.brancheArr[branchePilarIdx]
+      );
+      for (let i = 0; i < hTrunkArr.length; i++) {
+        if (relation === this.dayHiddenRelation[branchePilarIdx][i]) {
+            count++;
+        }
+      }
+    }
+    return count;
+  }
+
+  getDayForce(){
+    // Must also add friend element force
+    return this.trunkForceArr[LunarBase.DINDEX].getValue();
+  }
+
+  isFavorable(force:number) {
+    return force>this.averageElementForce;
+  }
+
+  getDayForceLabel(): string {
+    const force=this.getDayForce();
+    if ( this.isFavorable(force) ) return "Label.Day.Favorable";
+    return "Label.Day.Weak";
   }
 }

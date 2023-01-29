@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 
 import { ColorViewHelper } from '../helper/colorViewHelper';
+import { MessageHelper } from '../helper/messageHelper';
 import { ObjectHelper } from '../helper/objectHelper';
 
 export class EnumBaseClass {
@@ -95,7 +96,6 @@ export class EnumBaseClass {
     return elementArr[nextFromIdx];
   }
 
-
   getNextNElement( elementArr: EnumBaseClass[], n: number) {
     const len =elementArr.length;
     let index = (this.getIndex(elementArr) + n) % len;
@@ -109,6 +109,15 @@ export class EnumBaseClass {
 
   getFullName():string {
     return this.getClassName()+'.'+this.getName();
+  }
+
+
+  getMsgFullName():string {
+    return MessageHelper.getMessage(this.getFullName());
+  }
+
+  getMsgName():string {
+    return MessageHelper.getMessage(this.getName());
   }
 
   getViewColorName() {
