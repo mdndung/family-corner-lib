@@ -16,12 +16,8 @@ import { CombAttr, CombinationList } from "./combinationList";
 import { Trunk } from "./trunk";
 import { CombListHelper } from "../../helper/combListHelper";
 import { QiForce } from "../qi/qi-force";
-import { YiJingAttr } from "../../horoscope/yi-jing-attr";
-import { YiJing } from "../yi-jing/yijing";
-import { BaziStructure } from "./bazi-structure";
-import { timeStamp } from "console";
 import { BaziStructureHelper } from "../../helper/bazi-structureHelper";
-import { Bazi } from "./bazi";
+
 
 export class PilarsAttr {
   lunar: Lunar;
@@ -49,6 +45,7 @@ export class PilarsAttr {
   weakThreshHold: number = 0;
   favorableThreshHold: number = 0;
   combList: CombinationList;
+  specialStructure: DataWithLog;
   structure: DataWithLog;
 
   constructor(lunar: Lunar) {
@@ -112,7 +109,7 @@ export class PilarsAttr {
   }
 
   log() {
-    console.log(this.structure);
+    console.log(this.specialStructure);
     //console.log(this.trunkForceArr);
     //console.log(this.brancheForceArr);
   }
@@ -758,7 +755,7 @@ export class PilarsAttr {
     this.elementForce[ee.getElement().ordinal()].addData(force, detail);
   }
 
-  evalElementNEnergyForce(lunar: Lunar) {
+  evalElementForce(lunar: Lunar) {
     const len = ElementNEnergy.getValues().length;
     const brancheArr = lunar.brancheArr;
     this.elementNEnergyForce = DataWithLog.newDataArray(len);
@@ -814,7 +811,7 @@ export class PilarsAttr {
   }
 
   initMajorElement(lunar: Lunar) {
-    this.evalElementNEnergyForce(lunar);
+    this.evalElementForce(lunar);
     const elementValues = Element.getValues();
     this.majorElement = null;
     this.majorElementForce = 0;
@@ -920,7 +917,10 @@ export class PilarsAttr {
   }
 
   initStructure() {
-    this.structure=BaziStructureHelper.getCachCuc(this.lunar);
+    this.specialStructure=BaziStructureHelper.getCachCuc(this.lunar);
+    this.structure=BaziStructureHelper.getMainCachCuc(this.lunar);
+    if ( this.specialStructure===null ) this.specialStructure=this.structure;
+    if ( this.structure===null ) this.structure=this.specialStructure;
   }
 
 
