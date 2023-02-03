@@ -4,22 +4,21 @@ import { EnumBaseClass } from "../enumBaseClass";
 
 export class ElementNEnergyRelation extends EnumBaseClass {
 
-  static  GC= new ElementNEnergyRelation('GC');
-  static  GE= new ElementNEnergyRelation('GE');
-  static GDC= new ElementNEnergyRelation('GDC');
-  static  GDE= new ElementNEnergyRelation('GDE');
-  static  RC= new ElementNEnergyRelation('RC');
-  static  RE= new ElementNEnergyRelation('RE');
-  static  RDC= new ElementNEnergyRelation('RDC');
-  static  RDE= new ElementNEnergyRelation('RDE');
-  static EC= new ElementNEnergyRelation('EC');
-  static EE= new ElementNEnergyRelation('EE');
+  static  GC= new ElementNEnergyRelation('DR');
+  static  GE= new ElementNEnergyRelation('IR');
+  static GDC= new ElementNEnergyRelation('HO');
+  static  GDE= new ElementNEnergyRelation('EG');
+  static  RC= new ElementNEnergyRelation('DO');
+  static  RE= new ElementNEnergyRelation('7K');
+  static  RDC= new ElementNEnergyRelation('DW');
+  static  RDE= new ElementNEnergyRelation('IW');
+  static EC= new ElementNEnergyRelation('RW');
+  static EE= new ElementNEnergyRelation('F');
+
 
   constructor(name: string) {
     super(name);
   }
-
-
 
   static getValues(): ElementNEnergyRelation[] {
     return ElementNEnergyRelation.GC.getValues() as ElementNEnergyRelation[];

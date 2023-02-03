@@ -8,5 +8,11 @@ export class LunarBase {
   static HINDEX=3;
   static LINDEX=4;
 
-
+  static getLabel(index: number) {
+    if (index===LunarBase.YINDEX) return "Label.Year";
+    if (index===LunarBase.MINDEX) return "Label.Month";
+    if (index===LunarBase.DINDEX) return "Label.Day";
+    if (index===LunarBase.HINDEX) return "Label.Hour";
+    return "n/a";
+  }
 }

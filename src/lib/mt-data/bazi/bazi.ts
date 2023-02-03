@@ -13,12 +13,10 @@ import { Trunk } from './trunk';
 export class Bazi extends Lunar {
 
   static monthSectTermDate = [6,4,6,5,6,6,7,8,8,8,7,7 ];
-  secondaryDeityPilars: SecondaryDeity[][]= null;
   locThanTrunks: Trunk[]= null;
 
   constructor(birthDate: MyCalendar, isMan: boolean, trArr?: Trunk[], brArr?: Branche[]) {
     super(birthDate, isMan, trArr, brArr);
-    this.secondaryDeityPilars=SecondaryDeity.evalSecondaryDeity(this,this);
     this.locThanTrunks=SecondaryDeity.evalLocThanTrunk(this,this);
   }
 

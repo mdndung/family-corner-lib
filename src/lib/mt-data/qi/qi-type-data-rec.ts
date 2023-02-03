@@ -23,10 +23,8 @@ export class QiTypeDataRec {
   }
 
   addQiTypeForce(qiType: QiType, force: number) {
-    if (force !== 0) {
       const cIdx = this.getIndex(qiType);
       this.qiTypeForceArr[cIdx] += force;
-    }
   }
 
   getForce(qiType: QiType) {
@@ -44,6 +42,10 @@ export class QiTypeDataRec {
 
   isFavorable(qiType: QiType) {
     return this.isForceGEThan(qiType, QiForce.FAVORABLEFORCE);
+  }
+
+  isHostile(qiType: QiType) {
+    return this.getForce(qiType)<=QiForce.HOSTILE.force
   }
 
   hasStrongForce(qiType: QiType) {

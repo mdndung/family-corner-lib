@@ -18,7 +18,6 @@ export  class BaziObservationBase extends ObservationBase {
   private evalInitialPoints() {
     this.baseQiTypeData=[];
     this.baseQiTypeData.push(QiHelper.getLunarQiForce(this.bazi));
-    console.log('evalInitialPoints', this.baseQiTypeData);
   }
 
   private commentPrincipalDeityPilar() {

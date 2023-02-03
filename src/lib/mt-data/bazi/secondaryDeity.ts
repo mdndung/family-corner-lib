@@ -325,6 +325,7 @@ export class SecondaryDeity extends EnumBaseClass {
     return null;
   }
 
+  //Ref8p129
   static isKimThan(trunk: Trunk, branche: Branche) {
     if (Trunk.YI === trunk && Branche.OX === branche) {return true;}
     if (Trunk.JI === trunk && Branche.SNAKE === branche) {return true;}
@@ -344,6 +345,7 @@ export class SecondaryDeity extends EnumBaseClass {
     return false;
   }
 
+  //Ref8p129
   static getKimThan(lunar: Lunar) {
     let found = false;
     if (SecondaryDeity.isKimThan(lunar.getdTrunk(), lunar.getdBranche())) {

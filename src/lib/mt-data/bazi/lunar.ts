@@ -15,6 +15,7 @@ import { NagiaHelper } from '../../helper/nagiaHelper';
 import { TrigramHelper } from '../../helper/trigramHelper';
 import { PilarsAttr } from './pilarsAttr';
 import { LunarBase } from './lunarBase';
+import { SecondaryDeity } from './secondaryDeity';
 
 export class Lunar {
 
@@ -34,6 +35,7 @@ export class Lunar {
   yangCount =  0 ;
 
   pilarsAttr: PilarsAttr;
+
 
   constructor(birthDate: MyCalendar, isMan: boolean, trArr?: Trunk[], brArr?: Branche[]) {
     if ( typeof trArr === 'undefined') {

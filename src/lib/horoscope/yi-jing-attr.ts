@@ -1,6 +1,7 @@
 
 import { BaziHelper } from '../helper/baziHelper';
 import { ObjectHelper } from '../helper/objectHelper';
+import { PivotHelper } from '../helper/pivot-helper';
 import { QiHelper } from '../helper/qiHelper';
 import { TrunkHelper } from '../helper/trunkHelper';
 import { Branche } from '../mt-data/bazi/branche';
@@ -23,8 +24,6 @@ export class YiJingAttr {
   qiTypeData?: QiTypeDataRec = null;
   lunar: Lunar= null;
   isFavorable = false;
-  pivotRelationSet: ElementNEnergyRelation[]= null;
-  selectedPivotENE: ElementNEnergy = null;
   secondaryDeityPilar: SecondaryDeity[][]= null;
   locThanTrunk: Trunk[]= null;
   favorableCount: number= null;
@@ -236,206 +235,6 @@ export class YiJingAttr {
     return force;
   }
 
-  addPivotStrongEECase(lunar: Lunar, ee: ElementNEnergy){
-    const dayTrunk = lunar.getdTrunk();
-    const trunkArr=lunar.trunkArr;
-    const brancheArr=lunar.brancheArr;
-    for (let i = 0; i < LunarBase.PILARS_LEN; i++) {
-        if (trunkArr[i].elementNEnergy === ee) {
-          ObjectHelper.pushIfNotExist(
-            this.pivotRelationSet,
-            BaziHelper.getEnNRelation(ee,dayTrunk.elementNEnergy));
-        }
-        if (brancheArr[i].elementNEnergy === ee) {
-          ObjectHelper.pushIfNotExist(
-            this.pivotRelationSet,
-            BaziHelper.getEnNRelation(ee,dayTrunk.elementNEnergy));
-        }
-    }
-  }
-
-  existsecDeity( deity: SecondaryDeity) {
-    for (let i = 0; i < LunarBase.PILARS_LEN; i++) {
-      const index=ObjectHelper.findIndex(this.secondaryDeityPilar[i],deity);
-      if (index>=0) {return true;}
-    }
-    return false;
-  }
-
-
-
-  // REF 7a page 97 p7.1: MONTHBRANCHEDAYTRUNKLIFECYCLE (Dụng thần)
-  //
-  preparePivotData(lunar: Lunar) {
-    const dayTrunk = lunar.getdTrunk();
-    const pilarsAttr=lunar.pilarsAttr;
-    const FAVORABLE_LIMIT = 5; // Ref8 p768 give 4 and is not favorable
-    this.pivotRelationSet=[];
-    // The minimum force (%) from which it is considerd as strong Ref8p460
-    let dayPilarForce = pilarsAttr.getDayForce();
-    if ( pilarsAttr.isFavorable(dayPilarForce) ) {
-        this.addPivotStrongEECase(lunar,pilarsAttr.trunkEE[LunarBase.DINDEX].getValue()) ;
-    }
-
-    if (this.existsecDeity(SecondaryDeity.KIMTHAN)) {
-        // Pivot must be first on Fire Yang pilar
-        this.addPivotStrongEECase(lunar,ElementNEnergy.FIREYANG);
-        if (this.pivotRelationSet.length===0) {
-            // Other wise Pivot must be on Fire Yin pilar
-            this.addPivotStrongEECase(lunar,ElementNEnergy.FIREYIN);
-        }
-    }
-    const addIfNonNull = ObjectHelper.pushIfNotExist;
-    if (this.pivotRelationSet.length===0) {
-        // Check if there is an element force null
-        const generatedCount = this.lunar.pilarsAttr.getGeneratedDeityCase();
-        if (this.qiTypeData.isFavorable(QiType.DAYSTATUS)) {
-                // Add the element found in tab from ref 3 page 389
-                dayTrunk.getPivot(lunar.getmBranche()).forEach(trunkPivot => {
-                  const ee = trunkPivot.elementNEnergy;
-                  addIfNonNull(this.pivotRelationSet,
-                    BaziHelper.getEnNRelation(ee,lunar.getdTrunk().elementNEnergy));
-                });
-
-                if (generatedCount > FAVORABLE_LIMIT) {
-                    // Ref8 p484 case 1
-                    addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.RC);
-                    addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.RE);
-                } else {
-                  let relationCount =
-                    pilarsAttr.eerCount[ElementNEnergyRelation.RE.ordinal()]+
-                    pilarsAttr.eerCount[ElementNEnergyRelation.RC.ordinal()];
-                  const isDayStatusStrong = this.qiTypeData.hasStrongForce(QiType.DAYSTATUS);
-                    if (isDayStatusStrong &&
-                            (generatedCount > 0) &&
-                            (relationCount !== 0)
-                    ) {
-                        // Ref8 p484-485 case 3
-                        addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.RDC);
-                        addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.RDE);
-                    } else {
-                      relationCount =
-                    pilarsAttr.eerCount[ElementNEnergyRelation.EE.ordinal()]+
-                    pilarsAttr.eerCount[ElementNEnergyRelation.EC.ordinal()];
-                        if (relationCount> FAVORABLE_LIMIT) {
-
-                            if (isDayStatusStrong) {
-                                // Ref8 p484-485 case 3, case 5
-                                addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.RDC);
-                                addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.RDE);
-                            } else {
-                                // Ref8 p484-485 case 4 case 2
-                                addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.GC);
-                                addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.GE);
-                            }
-                        } else {
-                            // Ref8 p484-485 case 6
-                            addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.RC);
-                            addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.RE);
-                        }
-                    }
-                }
-            } else {
-                const restrictCaseCount =
-                pilarsAttr.eerCount[ElementNEnergyRelation.GE.ordinal()]+
-                pilarsAttr.eerCount[ElementNEnergyRelation.GC.ordinal()]+
-                pilarsAttr.eerCount[ElementNEnergyRelation.RE.ordinal()]+
-                pilarsAttr.eerCount[ElementNEnergyRelation.RC.ordinal()]+
-                pilarsAttr.eerCount[ElementNEnergyRelation.RDC.ordinal()]+
-                pilarsAttr.eerCount[ElementNEnergyRelation.RDE.ordinal()];
-                const RESTRICT_LIMIT=9;
-                if (restrictCaseCount > RESTRICT_LIMIT) {
-                    if ( generatedCount >0 ) {
-                        // Ref3 p99 Cas 1 p182
-                        addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.GC);
-                        addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.GE);
-                    } else {
-                        // Ref3 p99 Cas 2
-                        addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.EC);
-                        addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.EE);
-                    }
-                } else {
-                    //
-                    addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.GC);
-                    addIfNonNull(this.pivotRelationSet, ElementNEnergyRelation.GE);
-                }
-        }
-    }
-
-  }
-
-  evalPivotForce( lunar: Lunar, currPilarIdx: number, relationSet: ElementNEnergyRelation[]) {
-    let selectEE: ElementNEnergy = null;
-    let selectedRelation: ElementNEnergyRelation = null;
-    const pilarsAttr=lunar.pilarsAttr;
-    // Doing iteratively.
-    const trunkRelationArr = pilarsAttr.trunkRelation;
-    const brancheTrunkRelationArr =pilarsAttr.brancheTrunkRelation;
-   const eeForceArr = pilarsAttr.elementNEnergyForce;
-    const trunkEEArr = pilarsAttr.trunkEE;
-    const brancheEEArr = pilarsAttr.brancheEE;
-    let diffDayPilarForce = 1000 ;
-    const dayPilarForce = eeForceArr[trunkEEArr[LunarBase.DINDEX].getValue().ordinal()].getValue();
-    let relation = trunkRelationArr[currPilarIdx][LunarBase.DINDEX];
-    //
-    let force = 0 ;
-    let currEE = trunkEEArr[currPilarIdx].getValue();
-    let currEEForce = eeForceArr[currEE.ordinal()].getValue();
-
-    relationSet.forEach(checkRelation => {
-        let currdiffDayForce;
-        if ((relation === checkRelation)) {
-            currdiffDayForce = Math.abs(currEEForce-dayPilarForce);
-           if ( currdiffDayForce<diffDayPilarForce) {
-                selectEE = currEE;
-                selectedRelation = relation;
-                diffDayPilarForce= currdiffDayForce;
-            }
-           force++;
-        }
-        relation = brancheTrunkRelationArr[currPilarIdx][LunarBase.DINDEX];
-        if (relation === checkRelation) {
-            currEE = brancheEEArr[currPilarIdx].getValue();
-            currEEForce = eeForceArr[currEE.ordinal()].getValue();
-            currdiffDayForce = Math.abs(currEEForce-dayPilarForce);
-           if ( currdiffDayForce<diffDayPilarForce) {
-                selectEE = currEE;
-                selectedRelation = relation;
-                diffDayPilarForce= currdiffDayForce;
-            }
-            force++;
-        }
-    });
-    if ( selectEE===null ) {
-      force++;
-    }
-    return {force, selectEE, index:currPilarIdx};
-}
-
-  getPivotForce(lunar: Lunar) {
-    this.selectedPivotENE=null;
-    let currPivotForce = this.evalPivotForce(lunar, LunarBase.MINDEX,this.pivotRelationSet);
-    if ( currPivotForce.force===0 ) {
-      currPivotForce = this.evalPivotForce(lunar, LunarBase.HINDEX,this.pivotRelationSet);
-    }
-    if ( currPivotForce.force===0 ) {
-      currPivotForce = this.evalPivotForce(lunar, LunarBase.YINDEX,this.pivotRelationSet);
-    }
-    if ( currPivotForce.force===0 ) {
-      ObjectHelper.pushIfNotExist(this.pivotRelationSet, ElementNEnergyRelation.RDC);
-      currPivotForce = this.evalPivotForce(lunar, LunarBase.MINDEX,this.pivotRelationSet);
-    }
-    if ( currPivotForce.force===0 ) {
-      currPivotForce = this.evalPivotForce(lunar, LunarBase.MINDEX,this.pivotRelationSet);
-    }
-    if ( currPivotForce.force!==0 ) {
-      this.selectedPivotENE = currPivotForce.selectEE;
-    }
-
-    return currPivotForce.force;
-  }
-
-
   private addQiTypeForce(qiType: QiType, currForce: number) {
     let force =  currForce;
     const baseForce = this.currBaseForce.getForce(qiType);
@@ -496,10 +295,8 @@ export class YiJingAttr {
       baseForceData.getForce(QiType.DAYSTATUS)
     );
 
-    this.preparePivotData(this.lunar);
-    force = this.getPivotForce(this.lunar);
-
-    this.addQiTypeForce(QiType.PIVOT, force);
+    const currPivotForceAttr = PivotHelper.getElligiblePivotAttr(this.lunar);
+    this.addQiTypeForce(QiType.PIVOT, currPivotForceAttr.matchCount);
 
 
   }
@@ -548,7 +345,5 @@ export class YiJingAttr {
     this.countQiType(QiType.PIVOT) ;
 
     this.isFavorable =(this.favorableCount * 2 > this.totalCount) ;
-
-    //console.log('isFavorable count ', this.favorableCount, this.totalCount, this.isFavorable);
   }
 }

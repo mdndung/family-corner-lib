@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ColorViewHelper } from '../../helper/colorViewHelper';
+import { ObjectHelper } from '../../helper/objectHelper';
 import { EnumBaseClass } from '../enumBaseClass';
 
 export class Element extends EnumBaseClass {
@@ -108,5 +109,11 @@ export class Element extends EnumBaseClass {
 
   override getViewColorName() {
     return this.colorViewName;
+  }
+
+  isLostForceRelation(otherElement: Element) {
+    const thisCtrlIdx = ObjectHelper.findIndex(Element.CONTROLLING_CYCLE,this);
+    const otherCtrlIdx = ObjectHelper.findIndex(Element.CONTROLLING_CYCLE,otherElement);
+    return Math.abs(thisCtrlIdx-otherCtrlIdx)===1
   }
 }

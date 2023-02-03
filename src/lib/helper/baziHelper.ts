@@ -20,6 +20,7 @@ import { MyCalendar } from '../mt-data/date/mycalendar';
 import { DateHelper } from './dateHelper';
 import { DataWithLog } from '../mt-data/qi/dataWithLog';
 import { CombAttr } from '../mt-data/bazi/combinationList';
+import { SecondaryDeity } from '../mt-data/bazi/secondaryDeity';
 
 export class BaziHelper {
 
@@ -45,6 +46,15 @@ export class BaziHelper {
     //9 Ly
     [0, 64, 35, 21, 50, -5, 14, 38, 56, 30],
   ];
+
+
+static existsecDeity( secondaryDeityPilar: SecondaryDeity[][], deity: SecondaryDeity) {
+  for (let i = 0; i < LunarBase.PILARS_LEN; i++) {
+    const index=ObjectHelper.findIndex(secondaryDeityPilar[i],deity);
+    if (index>=0) {return true;}
+  }
+  return false;
+}
 
 
   // Ref8p5 Def1
