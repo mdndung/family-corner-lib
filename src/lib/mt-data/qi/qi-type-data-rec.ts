@@ -1,43 +1,47 @@
-
-import { QiForce } from './qi-force';
-import { QiType } from './qi-type';
+import { MessageHelper } from "../../helper/messageHelper";
+import { ObjectHelper } from "../../helper/objectHelper";
+import { DataWithLog } from "./dataWithLog";
+import { QiForce } from "./qi-force";
+import { QiType } from "./qi-type";
 
 export class QiTypeDataRec {
-  qiTypeArr: string[];
-  qiTypeForceArr: number[];
+  qiTypeForceArr: DataWithLog[];
 
   constructor() {
-    this.qiTypeArr = [];
-    this.qiTypeForceArr = [];
+    this.qiTypeForceArr = ObjectHelper.newArray(
+      QiType.NONE.getValues().length,
+      null
+    );
   }
 
   getIndex(qiType: QiType) {
-    const name = qiType.getName();
-    let cIdx = this.qiTypeArr.indexOf(name);
-    if (cIdx === -1) {
-      cIdx = this.qiTypeArr.length;
-      this.qiTypeArr.push(name);
-      this.qiTypeForceArr.push(0);
-    }
-    return cIdx;
+    return qiType.ordinal();
   }
 
-  addQiTypeForce(qiType: QiType, force: number) {
-      const cIdx = this.getIndex(qiType);
-      this.qiTypeForceArr[cIdx] += force;
+  addQiTypeForce(qiType: QiType, force: DataWithLog) {
+    if (force !== null) {
+      if (this.qiTypeForceArr[this.getIndex(qiType)] === null) {
+        this.qiTypeForceArr[this.getIndex(qiType)] = force;
+      } else {
+        this.qiTypeForceArr[this.getIndex(qiType)].addData(force);
+      }
+    }
+  }
+
+  getData(qiType: QiType) {
+    return this.qiTypeForceArr[this.getIndex(qiType)];
   }
 
   getForce(qiType: QiType) {
-    const name = qiType.getName();
-    const cIdx = this.qiTypeArr.indexOf(name);
-    if (cIdx === -1) {
+    const cIdx = this.getIndex(qiType);
+    if (this.qiTypeForceArr[cIdx] === null) {
       return 0;
     }
-    return this.qiTypeForceArr[cIdx];
+    return this.qiTypeForceArr[cIdx].getValue();
   }
 
   isForceGEThan(qiType: QiType, force: number) {
-    return this.getForce(qiType)>=force;
+    return this.getForce(qiType) >= force;
   }
 
   isFavorable(qiType: QiType) {
@@ -45,31 +49,38 @@ export class QiTypeDataRec {
   }
 
   isHostile(qiType: QiType) {
-    return this.getForce(qiType)<=QiForce.HOSTILE.force
+    return this.getForce(qiType) <= QiForce.HOSTILE.force;
   }
 
   hasStrongForce(qiType: QiType) {
     return this.isForceGEThan(qiType, QiForce.STRONGFORCE);
   }
 
-  getQiTypeDirection(qiType: QiType) {
-    let val = 0;
-    const force = this.getForce(qiType);
-    if ( force>=QiForce.FAVORABLEFORCE) {
-       val = 1 ;
-    } else {
-      if ( force<0) {
-        val = -1 ;
+  getQiTypeDirection(qiType: QiType, reverse?: number) {
+    if (typeof reverse === "undefined") reverse = 1;
+    const data = this.getData(qiType);
+    if (data !== null) {
+      let val = 0;
+      const force = data.getValue();
+      let detail = "";
+      if (force >= QiForce.FAVORABLEFORCE) {
+        val = 1;
+      } else {
+        if (force < 0) {
+          val = -1;
+        }
+      }
+      val = val * reverse;
+      if (val != 0) {
+        detail=qiType+ ': ';
+        if ( val>0 ) {
+          detail+=MessageHelper.getMessage('Label.Favorable');
+        } else {
+          detail+=MessageHelper.getMessage('Label.Hostile');
+        }
+        return new DataWithLog(val, detail);
       }
     }
-    return val;
+    return null;
   }
-
-  log() {
-    for (let index = 0; index < this.qiTypeArr.length; index++) {
-      console.log('Status', this.qiTypeArr[index], 'Force ', this.qiTypeForceArr[index]);
-
-    }
-  }
-
 }

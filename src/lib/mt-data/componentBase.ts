@@ -56,7 +56,7 @@ export class ComponentBase {
     } else {
       let key = item;
       if ( this.isEnum(item) ) {
-          return key.getMsgFullName();
+      return key;
       }
       return this.getMessage(key);
     }

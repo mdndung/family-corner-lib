@@ -98,6 +98,10 @@ export class CombAttr {
     return this.type < other.type;
   }
 
+  static getTypeName(type: number) {
+    return 'Comb.'+type;
+  }
+
   getName() {
     return 'Comb.'+this.type;
   }

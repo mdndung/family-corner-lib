@@ -32,13 +32,11 @@ export class MyHoroscope {
     birthLieu: CoordinateSystem,
     isMan: boolean,
     xcelDoc: XcelDocInterface,
-    tr: TranslateService
   ) {
     this.baseBirthDate = birthDate.getCopy();
     this.baseBirthLieu = birthLieu;
     this.baseLunar = new Lunar(birthDate, isMan);
     this.doc = xcelDoc;
-    MessageHelper.init(tr);
   }
 
 

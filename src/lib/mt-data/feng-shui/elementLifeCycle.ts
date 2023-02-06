@@ -73,6 +73,9 @@ export class ElementLifeCycle extends EnumBaseClass {
     return ElementLifeCycle.BIRTH.getEnumNextNElement(nextCount);
   }
 
+  isFavorable() {
+    return this.qiForce.isFavorable();
+  }
   override getClassName() {
     return 'ElementLifeCycle';
   }

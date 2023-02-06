@@ -4,19 +4,25 @@ import { ObjectHelper } from './objectHelper';
 
 export class MessageHelper {
 
-  static tr: TranslateService= null;
+  private static tr: TranslateService= null;
   static USE_SYMBOL_MODE = false ;
 
   constructor(translateService: TranslateService) {
     MessageHelper.tr = translateService;
   }
 
-  static init(translateService: TranslateService) {
-    MessageHelper.tr = translateService;
+  static initTranslateService(translateService: TranslateService) {
+    if ( MessageHelper.tr===null ) {
+      MessageHelper.tr = translateService;
+    }
   }
 
   static isSymbolMode() {
     return MessageHelper.USE_SYMBOL_MODE;
+  }
+
+  static getTranslateService ( ) {
+    return MessageHelper.tr;
   }
 
   static setSymbolMode(mode: boolean) {
@@ -49,7 +55,7 @@ export class MessageHelper {
     if ( ! ObjectHelper.isNaN(key) ) {
       MessageHelper.tr.get(key).subscribe((res: string) => {
         if (!(key===res)) {
-          msg = res;
+        msg = res;
         } else {
           msg=key
         }

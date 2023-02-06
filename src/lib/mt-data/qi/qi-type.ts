@@ -40,7 +40,7 @@ export class QiType extends EnumBaseClass {
   // Ref2 p350				Thuan/Nghich mua (Season) sinh
   static  BIRTHSEASONENERGY= new QiType('BIRTHSEASONENERGY',true,'MS');
   // Ref2 p356				Thuan/Nghich thoi (Solar term) sinh
-  static  BIRTHSOLARTERMENERGY= new QiType('BIRTHSOLARTERMENERGY',true,'TS');
+  static  BIRTHWITHTIME= new QiType('BIRTHSOLARTERMENERGY',true,'TS');
 
 
   // Ref2 p366				Duoc theo				People => Theme
@@ -128,6 +128,6 @@ export class QiType extends EnumBaseClass {
     this.key = key;
   }
 
-  override getClassName() {return 'QiType';}
+  override getClassName() {return 'Qi.Type';}
 
 }

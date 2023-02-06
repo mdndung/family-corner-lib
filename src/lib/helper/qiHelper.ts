@@ -9,18 +9,16 @@ import { QiTypeDataRec } from '../mt-data/qi/qi-type-data-rec';
 import { YiJing } from '../mt-data/yi-jing/yijing';
 import { BrancheHelper } from './brancheHelper';
 import { Energy } from '../mt-data/feng-shui/energy';
-import { ElementRelation } from '../mt-data/feng-shui/element-relation';
 import { BaziHelper } from './baziHelper';
 import { ElementLifeCycle } from '../mt-data/feng-shui/elementLifeCycle';
 import { ElementNEnergyRelation } from '../mt-data/feng-shui/elementNEnergyRelation';
-import { PilarsAttr } from '../mt-data/bazi/pilarsAttr';
-import { TrunkHelper } from './trunkHelper';
-import { BrancheRelation } from '../mt-data/bazi/brancheRelation';
 import { LunarBase } from '../mt-data/bazi/lunarBase';
-import { CombListHelper } from './combListHelper';
 import { Bazi } from '../mt-data/bazi/bazi';
 import { CombAttr } from '../mt-data/bazi/combinationList';
-import { constants } from 'crypto';
+import { DataWithLog } from '../mt-data/qi/dataWithLog';
+import { MessageHelper } from './messageHelper';
+
+
 
 export class QiHelper {
   // YiJing.month in java
@@ -255,21 +253,28 @@ export class QiHelper {
     );
   }
 
+
+
   // Ref2 p350: BIRTHSEASONENERGY
+  // Ref10a p134-p136
   static getBirthSeasonForce(lunar: Lunar) {
     let qiForce = QiForce.HOSTILE;
+
     const season = lunar.getmBranche().season;
+    let detail="Not in season "+ season
     if (season.isYin(lunar.yinCount)) {
       qiForce = QiForce.MEDIUM;
+      detail="Is Yin season "+ season
     }
     if (season.isYang(lunar.yangCount)) {
+      detail="Is Yang season "+ season
       if (qiForce.isEqual(QiForce.HOSTILE)) {
         qiForce = QiForce.MEDIUM;
       } else {
-        qiForce = QiForce.FAVORABLE;
+        qiForce = QiForce.PROSPEROUS;
       }
     }
-    return qiForce.force;
+    return new DataWithLog(qiForce.force,detail);
   }
 
   // Ref2 p350
@@ -348,7 +353,7 @@ export class QiHelper {
   }
 
   // Ref 2p355: BIRTHMONTHENERGY
-  static getBirthMonthThemeForce(lunar: Lunar) {
+  static getBirthWithTimeForce(lunar: Lunar) {
     let qiForce = QiForce.NONE;
     const yinCount = lunar.yinCount;
     const yangCount = lunar.yangCount;
@@ -414,133 +419,93 @@ export class QiHelper {
         }
         break;
     }
-    return qiForce.force;
+    if ( qiForce===QiForce.NONE ) { return null ; }
+      let detail='';
+      if (qiForce.isFavorable()) {
+        detail='Birth in compatible time'
+      } else {
+          detail='Birth in incompatible time'
+      }
+      return new DataWithLog(qiForce.force,detail);
+
   }
 
   // REF 7a p7.1: MONTHBRANCHEDAYTRUNKLIFECYCLE
-  //
+  // REF3 P70
   static getMonthDayTrunkLifeCycleForce(lunar: Lunar) {
     let qiForce = QiForce.NONE;
-    const elementLC = BaziHelper.elementLifeCycle(
-      lunar.getdTrunk(),
-      lunar.getmBranche()
-    );
-    if (elementLC.qiForce.isEqual(QiForce.FAVORABLE)) {
-      const eer = BaziHelper.eNeTrunkRelation(
-        lunar.getmTrunk(),
-        lunar.getdTrunk()
-      );
-      if (eer.isProductive()) {
-        qiForce = QiForce.FAVORABLE;
-      } else {
-        qiForce = QiForce.HOSTILE;
-      }
+    let cycle=BaziHelper.elementLifeCycle( lunar.getdTrunk(), lunar.getmBranche());
+    let detail="Month Branche cycle "+ cycle + " ";
+    if ( cycle.isFavorable() ) {
+      qiForce = QiForce.PROSPEROUS;
+     detail += "favorable";
+    } else {
+      detail += "not favorable"
     }
-    return qiForce.force;
+    if ( qiForce===QiForce.NONE ) { return null ; }
+    return  new DataWithLog(qiForce.force,detail);
   }
 
+   // Ref 3 p70			Dac dia
   // Ref 9 p150
   // Ref 10a p136: EARTHDAYTRUNKSUPPORT
   static getDayEarthTrunkForce(lunar: Lunar) {
-    const favorableForce = QiForce.FAVORABLE.force;
     const dTrunk = lunar.getdTrunk();
-    const dBranche = lunar.getdBranche();
-    const dTrunkEnE = dTrunk.elementNEnergy;
-    const dTrElement = dTrunk.getElement();
-    let relation = BaziHelper.getRelation(lunar.getyBranche().getElement(),dTrElement);
-
-    if (
-      relation === ElementRelation.GENERATE ||
-      relation === ElementRelation.ENFORCE
-    ) {
-      return favorableForce;
-    }
-
-    relation = BaziHelper.getRelation(lunar.getmBranche().getElement(),dTrElement);
-    if (
-      relation === ElementRelation.GENERATE ||
-      relation === ElementRelation.ENFORCE
-    ) {
-      return favorableForce;
-    }
-
-    relation = BaziHelper.getRelation(lunar.gethBranche().getElement(),dTrElement);
-    if (
-      relation === ElementRelation.GENERATE ||
-      relation === ElementRelation.ENFORCE
-    ) {
-      return favorableForce;
-    }
+    const brancheArr = lunar.brancheArr;
     // Can ngay + gap cac chi con lai TS
+    let qiForce=QiForce.NONE;
+    let detail='';
     if (dTrunk.getEnergy().isEqual(Energy.YANG)) {
-      if (
-        BaziHelper.elementLifeCycle(dTrunk, lunar.getyBranche()).isEqual(
-          ElementLifeCycle.BIRTH
-        )
-      ) {
-        return favorableForce;
-      }
-      if (
-        BaziHelper.elementLifeCycle(dTrunk, dBranche).isEqual(
-          ElementLifeCycle.BIRTH
-        )
-      ) {
-        return favorableForce;
-      }
-      if (
-        BaziHelper.elementLifeCycle(dTrunk, lunar.gethBranche()).isEqual(
-          ElementLifeCycle.BIRTH
-        )
-      ) {
-        return favorableForce;
+      for (let index = 0; index < LunarBase.PILARS_LEN; index++) {
+        if ( index!==LunarBase.MINDEX ) {
+          const branche = brancheArr[index];
+          const cycle=BaziHelper.elementLifeCycle(dTrunk, branche);
+          if ( cycle===ElementLifeCycle.BIRTH ) {
+            qiForce= QiForce.FAVORABLE;
+            detail ="Branche "+MessageHelper.getMessage(LunarBase.getLabel(index)) + " cycle is "+ cycle;
+            break;
+          }
+        }
       }
     }
-    // Can ngay gap loc
-    // Kinh Duong
-    //
-    const hiddenTrunk = BrancheHelper.getHiddenTrunk(dBranche);
-    for (let index = 0; index < hiddenTrunk.length; index++) {
-      const htr = hiddenTrunk[index];
-      const eNeR = BaziHelper.eNeTrunkRelation(htr, dTrunk);
-      if (
-        eNeR.isEqual(ElementNEnergyRelation.EE) ||
-        eNeR.isEqual(ElementNEnergyRelation.EC)
-      ) {
-        return favorableForce;
+    if (! qiForce.isFavorable ) {
+      for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
+        // Examine only month, hour and day. Year is too far and has no influence
+        if ( pilarIdx!==LunarBase.YINDEX ) {
+           // Can ngay gap loc, Kinh Duong
+          //
+          const branche=brancheArr[pilarIdx];
+          const hiddenTrunk = BrancheHelper.getHiddenTrunk(branche);
+          let temp: any;
+          for (let index = 0; index < hiddenTrunk.length; index++) {
+            const htr = hiddenTrunk[index];
+            temp = BaziHelper.eNeTrunkRelation(htr, dTrunk);
+            if (temp===ElementNEnergyRelation.EE || temp===ElementNEnergyRelation.EC) {
+              qiForce= QiForce.FAVORABLE;
+              detail ="Branche "+MessageHelper.getMessage(LunarBase.getLabel(pilarIdx)) + " deity is "+ temp;
+              break;
+            }
+          }
+          // Tomb
+          // Also see Ref 9 p150
+         //
+          temp=BaziHelper.elementLifeCycle(dTrunk, branche)
+          if ( temp===ElementLifeCycle.TOMB ) {
+            qiForce= QiForce.FAVORABLE;
+            detail ="Branche "+MessageHelper.getMessage(LunarBase.getLabel(pilarIdx)) + " cycle is "+ temp;
+            break;
+          }
+        }
       }
     }
+    if ( qiForce===QiForce.NONE ) { return null ; }
+    return  new DataWithLog(qiForce.force,detail);
+   }
 
-    // Tomb
-    // Also see Ref 9 p150
-    // Examine only month, hour and day. Year is too far and has no influence
-    //
-    if (
-      BaziHelper.elementLifeCycle(dTrunk, lunar.getyBranche()).isEqual(
-        ElementLifeCycle.TOMB
-      )
-    ) {
-      return favorableForce;
-    }
-    if (
-      BaziHelper.elementLifeCycle(dTrunk, dBranche).isEqual(
-        ElementLifeCycle.TOMB
-      )
-    ) {
-      return favorableForce;
-    }
-    if (
-      BaziHelper.elementLifeCycle(dTrunk, lunar.gethBranche()).isEqual(
-        ElementLifeCycle.TOMB
-      )
-    ) {
-      return favorableForce;
-    }
-
-    return QiForce.NONE.force;
-  }
 
   // Ref 7a p7.1,7.2
   // Ref 9  p152
+  // Ref 3 p70
   // Duoc Sinh (Soutien par la croissance). GROWDAYTRUNKSUPPORT
   static getDayGrowSupportForce(lunar: Lunar) {
     let qiForce = QiForce.NONE;
@@ -549,7 +514,15 @@ export class QiHelper {
     pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.RC,LunarBase.DINDEX);
     // Case Trunk
     qiForce= qiForce.getEnumNextNElement(step);
-    return qiForce.force;
+    if ( qiForce===QiForce.NONE ) { return null ; }
+    let detail='';
+    if ( qiForce.isFavorable() ) {
+      detail =' Day Pilar is supported in growth'
+    } else {
+      detail =' Day Pilar is not supported in growth'
+    }
+
+    return  new DataWithLog(qiForce.force,detail);
   }
 
    // Ref 7a p7.1,7.2
@@ -561,7 +534,6 @@ export class QiHelper {
       const countRCRE =pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.RC,LunarBase.DINDEX);
       let qiForce: QiForce = QiForce.NONE;
       const count = countECEE  - countRCRE ;
-      pilarsAttr.logMe("Count", count)
       if ( count>0 ) {
         if ( count>2 ) {
           qiForce=QiForce.VERYSTRONG
@@ -571,7 +543,14 @@ export class QiHelper {
       } else {
         if ( count<0 ) qiForce=QiForce.HOSTILE
       }
-      return qiForce.force;
+      if ( qiForce===QiForce.NONE ) { return null ; }
+      let detail='';
+      if ( qiForce.isFavorable() ) {
+        detail =' Day Pilar is supported by other pilars'
+      } else {
+        detail =' Day Pilar is not supported by other pilars'
+      }
+      return  new DataWithLog(qiForce.force,detail);
   }
 
   static getCombinationForce(lunar: Lunar, type:number) {
@@ -579,6 +558,9 @@ export class QiHelper {
     const pilarsAttr = lunar.pilarsAttr;
     const combList = pilarsAttr.combList;
     const countComb = combList.getCombTypeAttrList(type,LunarBase.DINDEX);
+
+    let detail='';
+    let comTypeName=MessageHelper.getMessage(CombAttr.getTypeName(type));
     if ( countComb.length>0 ) {
       const trElement=countComb[0].resultData;
       if ( trElement===null ) {
@@ -590,140 +572,86 @@ export class QiHelper {
           qiForce=QiForce.FAVORABLE;
         }
       }
+      if ( qiForce===QiForce.NONE ) { return null ; }
+      if ( qiForce.isFavorable() ) {
+        detail =' Day Pilar has no lost force combination type '
+      } else {
+        detail =' Day Pilar has lost force combination type '
+      }
+      detail += comTypeName;
+      return  new DataWithLog(qiForce,detail);
     }
-    return qiForce.force;
+    return null;
   }
 
-  // Ref 3 p62
-  static getTransformableElement(lunar: Lunar, qiTypeData: QiTypeDataRec) {
-    let element = null;
-    const dayTrunk = lunar.getdTrunk();
-    const dayBranche = lunar.getdBranche();
-
-    if (qiTypeData.isFavorable(QiType.TRUNKCOMBINAISON)) {
-      // Case 1: Month or day transformable with month branche'element equals result element
-       element = PilarsAttr.getTransformable(
-        lunar.getmTrunk(),
-        dayTrunk,
-        lunar.getmBranche().getElement()
-      );
-      if (element !== null) {
-        return element;
-      }
-      // Hour and day transformable
-      element = PilarsAttr.getTransformable(
-        lunar.gethTrunk(),
-        dayTrunk,
-        lunar.getmBranche().getElement()
-      );
-      if (element !== null) {
-        return element;
-      }
-      // Case 2: Year trunk
-      element = PilarsAttr.getTransformable(
-        lunar.getyTrunk(),
-        lunar.getmTrunk(),
-        lunar.getyBranche().getElement()
-      );
-      if (element !== null) {
-        return element;
-      }
-      // Case 3
-      element = TrunkHelper.getTransformElement(dayTrunk);
-      // Case 3a day and month
-      if (TrunkHelper.isTransformable(lunar.getyTrunk(), lunar.getmTrunk())) {
-        if (
-          BrancheHelper.isSameCombination(lunar.gethBranche(),
-            dayBranche,
-            lunar.getyBranche()
-          )
-        ) {
-          if (
-            element === BrancheRelation.getCombinaisonResultElement(dayBranche).getValue()
-          ) {
-            return element;
-          }
-        }
-        if (
-          CombListHelper.hasSameSeasonCombination(
-            lunar,
-            LunarBase.DINDEX
-          )
-        ) {
-          if (element === dayBranche.season.element) {
-            return element;
-          }
-        }
-      }
-      // Case 3b day and hour
-      if (TrunkHelper.isTransformable(lunar.getyTrunk(), lunar.gethTrunk())) {
-        if (
-          BrancheHelper.isSameCombination( lunar.getmBranche(),
-            dayBranche,
-            lunar.getyBranche()
-          )
-        ) {
-          if (
-            element === BrancheRelation.getCombinaisonResultElement(dayBranche).getValue()
-          ) {
-            return element;
-          }
-        }
-        if (
-          CombListHelper.hasSameSeasonCombination(
-            lunar,
-            LunarBase.DINDEX
-          )
-        ) {
-          if (element === dayBranche.season.element) {
-            return element;
-          }
-        }
-      }
-    }
-    return element;
+  static countFavorableDeities(lunar: Lunar) {
+    let pilarsAttr = lunar.pilarsAttr;
+    const dPilar = LunarBase.DINDEX;
+    const count = pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.EC,dPilar ) +
+    pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.GC,dPilar ) ;
+    return count;
   }
 
-  static getDayForce(lunar: Lunar, qiTypeData: QiTypeDataRec) {
-    let fCount = 0;
+  static countNonFavorableDeities (lunar: Lunar) {
+    let pilarsAttr = lunar.pilarsAttr;
+    const dPilar = LunarBase.DINDEX;
+    const count = pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.GDC,dPilar ) +
+    pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.RDC,dPilar ) +
+    pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.RC,dPilar );
+    return count;
+  }
 
-    fCount += qiTypeData.getForce(QiType.EARTHDAYTRUNKSUPPORT);
-    fCount += qiTypeData.getQiTypeDirection(QiType.GROWDAYTRUNKSUPPORT);
-    fCount += qiTypeData.getQiTypeDirection(QiType.PILARDAYTRUNKSUPPORT);
-    fCount += qiTypeData.getQiTypeDirection(
+
+  //Ref3 p70
+  static getDayTrunkForce(lunar: Lunar, qiTypeData: QiTypeDataRec) {
+
+    let dayForceData = new DataWithLog(0,"");
+
+    // Factor 1
+    dayForceData.addData(qiTypeData.getQiTypeDirection(QiType.EARTHDAYTRUNKSUPPORT));
+    dayForceData.addData(qiTypeData.getQiTypeDirection(QiType.GROWDAYTRUNKSUPPORT));
+    dayForceData.addData(qiTypeData.getQiTypeDirection(QiType.PILARDAYTRUNKSUPPORT));
+    dayForceData.addData(qiTypeData.getQiTypeDirection(
       QiType.MONTHBRANCHEDAYTRUNKLIFECYCLE
-    );
-    fCount += qiTypeData.getQiTypeDirection(QiType.SEASONCOMBINAISON);
-    fCount += qiTypeData.getQiTypeDirection(QiType.COMBINATIONOF3);
+    ));
+    dayForceData.addData(qiTypeData.getQiTypeDirection(QiType.SEASONCOMBINAISON));
+    dayForceData.addData(qiTypeData.getQiTypeDirection(QiType.COMBINATIONOF3));
 
     // Other case of Ref3 p71
     //
-    const dayTrunk = lunar.getdTrunk();
-    // Find Trunk favorable combinaison with transformation
-    if (qiTypeData.isFavorable(QiType.DAYCOMBINETRANSFORM)) {
-        fCount++;
-    }
 
-    if (qiTypeData.isFavorable(QiType.BRANCHCOMBINAISONRESTRICTDAY)) {
-      fCount--;
+    let pilarsAttr = lunar.pilarsAttr;
+    const dayTrunkElement = pilarsAttr.trunkEE[LunarBase.DINDEX].getValue().element;
+    let favorableForce=BaziHelper.getFavorableForce(lunar,dayTrunkElement );
+    let hostileForce=BaziHelper.getHostileForce(lunar,dayTrunkElement );
+
+    if (favorableForce<hostileForce) {
+      dayForceData.addData(-1,'Weak day trunk element '+ dayTrunkElement+ ' '+ favorableForce + ' < '+hostileForce );
     } else {
-      fCount += qiTypeData.getQiTypeDirection(QiType.MIDCOMBINATION);
-      fCount += qiTypeData.getQiTypeDirection(QiType.MIDSEASONCOMBINAISON);
+      dayForceData.addData(1,'Supported day trunk element '+ dayTrunkElement+ ' ' +favorableForce + ' > '+hostileForce);
     }
-    fCount -= qiTypeData.getQiTypeDirection(QiType.BRANCHECLASHDAY);
 
-    return fCount;
+    favorableForce = QiHelper.countFavorableDeities(lunar);
+    hostileForce = QiHelper.countNonFavorableDeities(lunar);
+    if (favorableForce<hostileForce) {
+      dayForceData.addData(-1,'Non favorable deities count '+ favorableForce + ' < '+hostileForce );
+    } else {
+      dayForceData.addData(1,'Favorable deities count '+ favorableForce + ' > '+hostileForce );
+    }
+
+    dayForceData.addData(qiTypeData.getQiTypeDirection(QiType.BRANCHECLASHDAY,-1));
+
+    return dayForceData;
   }
 
 
 
   static getLunarQiForce(lunar: Lunar) {
-    const qiTypeData: QiTypeDataRec = new QiTypeDataRec();
-
+    let qiTypeData: QiTypeDataRec = new QiTypeDataRec();
     let force = QiHelper.getBirthSeasonForce(lunar);
     qiTypeData.addQiTypeForce(QiType.BIRTHSEASONENERGY, force);
-    force = QiHelper.getBirthMonthThemeForce(lunar);
-    qiTypeData.addQiTypeForce(QiType.BIRTHSOLARTERMENERGY, force);
+    force = QiHelper.getBirthWithTimeForce(lunar);
+    qiTypeData.addQiTypeForce(QiType.BIRTHWITHTIME, force);
     force = QiHelper.getMonthDayTrunkLifeCycleForce(lunar);
     qiTypeData.addQiTypeForce(QiType.MONTHBRANCHEDAYTRUNKLIFECYCLE, force);
     force = QiHelper.getDayEarthTrunkForce(lunar);
@@ -732,6 +660,7 @@ export class QiHelper {
     qiTypeData.addQiTypeForce(QiType.GROWDAYTRUNKSUPPORT, force);
     force=QiHelper.getDayPilarsConfigurationSupporStatus(lunar);
     qiTypeData.addQiTypeForce(QiType.PILARDAYTRUNKSUPPORT, force);
+
     force=QiHelper.getCombinationForce(lunar,CombAttr.BRANCHESEASONCOMBTRANSFORMABLETYPE);
     qiTypeData.addQiTypeForce(QiType.SEASONCOMBINAISON, force);
     force=QiHelper.getCombinationForce(lunar,CombAttr.BRANCHECOMB3WITHTRANSFORMTYPE);
@@ -745,7 +674,7 @@ export class QiHelper {
     force=QiHelper.getCombinationForce(lunar,CombAttr.BRANCHECLASHTYPE);
     qiTypeData.addQiTypeForce(QiType.BRANCHECLASHDAY, force);
 
-    force = QiHelper.getDayForce(lunar, qiTypeData);
+    force = QiHelper.getDayTrunkForce(lunar, qiTypeData);
     qiTypeData.addQiTypeForce(QiType.DAYSTATUS, force);
     return qiTypeData;
   }
@@ -785,7 +714,13 @@ export class QiHelper {
 
         }
     }
-    return force.force;
+    let detail = 'Mid Season force ';
+    if (force.isFavorable() ) {
+      detail += 'favorable '
+    } else {
+      detail += 'non favorable '
+    }
+    return new DataWithLog(force.force,detail);
   }
 
 
@@ -796,7 +731,13 @@ export class QiHelper {
     if ( combList.existRelationType(type)) {
       qiForce = QiForce.FAVORABLE;
     }
-    return qiForce.force
+    let detail = 'Combination ';
+    if (qiForce.isFavorable() ) {
+      detail += 'favorable '
+    } else {
+      detail += 'non favorable '
+    }
+    return new DataWithLog(qiForce.force,detail);
 
   }
 

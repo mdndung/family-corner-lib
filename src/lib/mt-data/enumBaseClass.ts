@@ -125,7 +125,7 @@ export class EnumBaseClass {
   }
 
   toString(): string {
-    return this.getName();
+    return this.getMsgFullName();
   }
 
 }

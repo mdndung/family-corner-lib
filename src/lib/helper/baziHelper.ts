@@ -273,6 +273,11 @@ static existsecDeity( secondaryDeityPilar: SecondaryDeity[][], deity: SecondaryD
     return BaziHelper.getFavorableForce(lunar,controlElement) ;
   }
 
+  static getFavorableElements(lunar:Lunar, element:Element) {
+    const friendElement = element.getPrevProductiveElement();
+    return [element,friendElement] ;
+  }
+
   static getFavorableForce(lunar:Lunar, element:Element) {
     const pilarsAttr = lunar.pilarsAttr;
     const elementForce = pilarsAttr.elementForce;

@@ -199,12 +199,11 @@ export class BaziStructureHelper {
     const pilarsAttr = bazi.pilarsAttr;
 
     let details = "";
-    let dayPilarForce = pilarsAttr.getDayForce();
     pilarsAttr.logMe(
       "TongSat 1 weak day force ",
-      !pilarsAttr.isFavorable(dayPilarForce)
+      !pilarsAttr.isDayElementNFriendForceFavorable()
     );
-    if (!pilarsAttr.isFavorable(dayPilarForce)) {
+    if (!pilarsAttr.isDayElementNFriendForceFavorable()) {
       details = "<li>Weak Day Force </li>";
       // Ref8p495
       pilarsAttr.logMe(
@@ -289,13 +288,12 @@ export class BaziStructureHelper {
   //Ref3p374
   static getTongNhiCach(bazi: Lunar): DataWithLog {
     const pilarsAttr = bazi.pilarsAttr;
-    let dayPilarForce = pilarsAttr.getDayForce();
     let details = "";
     pilarsAttr.logMe(
       "TONG NHI 1 weak day force ",
-      !pilarsAttr.isFavorable(dayPilarForce)
+      !pilarsAttr.isDayElementNFriendForceFavorable()
     );
-    if (!pilarsAttr.isFavorable(dayPilarForce)) {
+    if (!pilarsAttr.isDayElementNFriendForceFavorable()) {
       details = "<li> Weak Day Force</li>";
       let structure = BaziStructure.TONG_NHI;
       if (!BaziHelper.isBrancheAppearInTrunks(bazi, LunarBase.MINDEX)) {
@@ -390,14 +388,13 @@ export class BaziStructureHelper {
   //Ref8p505
   static getTongTheCach(bazi: Lunar): DataWithLog {
     const pilarsAttr = bazi.pilarsAttr;
-    let dayPilarForce = pilarsAttr.getDayForce();
     let countFav = 0;
     let countNonFav = 0;
     let countAvoid = 0;
     let favThreshHold = 3;
     let details = "";
 
-    if (!pilarsAttr.isFavorable(dayPilarForce)) {
+    if (!pilarsAttr.isDayElementNFriendForceFavorable()) {
       details = "<li>Weak Day Force </li>";
       let structure = BaziStructure.TONG_THE;
 
@@ -458,12 +455,11 @@ export class BaziStructureHelper {
   //Ref8p505
   static getTongTaiCach(bazi: Lunar): DataWithLog {
     const pilarsAttr = bazi.pilarsAttr;
-    let dayPilarForce = pilarsAttr.getDayForce();
     let countNonFav = 0;
     let countAvoid = 0;
     let details = "";
 
-    if (!pilarsAttr.isFavorable(dayPilarForce)) {
+    if (!pilarsAttr.isDayElementNFriendForceFavorable()) {
       details = "<li>Weak Day Force </li>";
       let structure = BaziStructure.TONG_TAI;
       pilarsAttr.logMe(
@@ -535,11 +531,9 @@ export class BaziStructureHelper {
     const pilarsAttr = bazi.pilarsAttr;
     const trunkArr = bazi.trunkArr;
     let details = "";
-    let dayPilarForce = pilarsAttr.getDayForce();
-    const trunkDayElement = trunkArr[LunarBase.DINDEX].getElement();
     let eeRtocheck: ElementNEnergyRelation[] = [];
 
-    if (pilarsAttr.isFavorable(dayPilarForce)) {
+    if (pilarsAttr.isDayElementNFriendForceFavorable()) {
       details = "<li> Favorable day force </>";
       eeRtocheck = [
         ElementNEnergyRelation.EC,
@@ -588,17 +582,14 @@ export class BaziStructureHelper {
       CombAttr.TRUNKCOMB5TYPE,
       LunarBase.DINDEX
     );
-    pilarsAttr.logMe("ThienDia hop", combAttrList);
     if (combAttrList.length > 0) {
       details = combAttrList[0].detail;
-      pilarsAttr.logMe("ThienDia hop", details);
       combAttrList = combList.getCombTypeAttrList(
         CombAttr.BRANCHECOMB6TYPE,
         LunarBase.DINDEX
       );
       if (combAttrList.length > 0) {
         details += ", " + combAttrList[0].detail;
-        pilarsAttr.logMe("ThienDia hop", details);
         return BaziStructureHelper.getDataLog(
           BaziStructure.THIEN_DIA_DUC_KHI,
           details

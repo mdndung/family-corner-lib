@@ -10,10 +10,9 @@ import { LunarBase } from '../mt-data/bazi/lunarBase';
 import { SecondaryDeity } from '../mt-data/bazi/secondaryDeity';
 import { Trunk } from '../mt-data/bazi/trunk';
 import { ElementRelation } from '../mt-data/feng-shui/element-relation';
-import { ElementNEnergy } from '../mt-data/feng-shui/elementNenergy';
-import { ElementNEnergyRelation } from '../mt-data/feng-shui/elementNEnergyRelation';
 import { Energy } from '../mt-data/feng-shui/energy';
 import { Trigram } from '../mt-data/feng-shui/trigram';
+import { DataWithLog } from '../mt-data/qi/dataWithLog';
 import { QiForce } from '../mt-data/qi/qi-force';
 import { QiType } from '../mt-data/qi/qi-type';
 import { QiTypeDataRec } from '../mt-data/qi/qi-type-data-rec';
@@ -241,7 +240,7 @@ export class YiJingAttr {
     if ( baseForce!==0 ) {
       force = Math.trunc((force+baseForce)/2);
     }
-    this.qiTypeData.addQiTypeForce(qiType,force);
+    this.qiTypeData.addQiTypeForce(qiType,new DataWithLog(force));
   }
 
   initThemeQiForce(baseForceData: QiTypeDataRec) {
@@ -279,8 +278,8 @@ export class YiJingAttr {
       baseForceData.getForce(QiType.BIRTHSEASONENERGY)
     );
     this.qiTypeData.addQiTypeForce(
-      QiType.BIRTHSOLARTERMENERGY,
-      baseForceData.getForce(QiType.BIRTHSOLARTERMENERGY)
+      QiType.BIRTHWITHTIME,
+      baseForceData.getForce(QiType.BIRTHWITHTIME)
     );
     this.qiTypeData.addQiTypeForce(
       QiType.MONTHBRANCHEDAYTRUNKLIFECYCLE,

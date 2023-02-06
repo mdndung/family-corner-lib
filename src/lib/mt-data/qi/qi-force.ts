@@ -28,6 +28,9 @@ export class QiForce extends EnumBaseClass {
 
   override getClassName() {return 'Qi.Force';}
 
+  isFavorable () {
+    return this.force>=QiForce.FAVORABLEFORCE;
+  }
   isStrong() {
     return this.force>=QiForce.STRONGFORCE;
   }

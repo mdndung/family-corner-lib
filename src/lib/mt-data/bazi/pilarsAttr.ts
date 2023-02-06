@@ -19,12 +19,14 @@ import { QiForce } from "../qi/qi-force";
 import { BaziStructureHelper } from "../../helper/bazi-structureHelper";
 import { PivotHelper } from "../../helper/pivot-helper";
 import { SecondaryDeity } from "./secondaryDeity";
-import { MessageHelper } from "../../helper/messageHelper";
-import { Energy } from "../feng-shui/energy";
+import { QiHelper } from "../../helper/qiHelper";
+import { QiTypeDataRec } from "../qi/qi-type-data-rec";
+
 
 
 export class PilarsAttr {
   lunar: Lunar;
+  qiTypeData: QiTypeDataRec;
   trunkEE?: DataWithLog[] = null;
   brancheEE?: DataWithLog[] = null;
   trunkForceArr?: DataWithLog[] = null;
@@ -59,6 +61,7 @@ export class PilarsAttr {
     this.initEE();
     this.evalRootPresent();
     this.evalPilarRelation();
+    this.qiTypeData=QiHelper.getLunarQiForce(lunar);
     this.initStructure();
     this.initPivot();
   }
@@ -68,7 +71,7 @@ export class PilarsAttr {
   }
 
   getEEName(element: ElementNEnergy, trElement: ElementNEnergy) {
-    if (element === trElement) return element.toString();
+    if (element === trElement) return element;
     return element + "==>" + trElement;
   }
 
@@ -112,7 +115,6 @@ export class PilarsAttr {
   }
 
   log() {
-
   }
 
   static getTransformable(trunk1: Trunk, trunk2: Trunk, checkELement: Element) {
@@ -966,30 +968,6 @@ export class PilarsAttr {
   }
 
 
-  isVeryWeakedElement(element: Element) {
-    return (
-      this.elementForce[element.ordinal()].getValue() <= this.weakThreshHold/2
-    );
-  }
-
-  isFavorableElement(element: Element) {
-    return (
-      this.elementForce[element.ordinal()].getValue() >= this.favorableThreshHold
-    );
-  }
-
-  isWeakedElement(element: Element) {
-    return (
-      this.elementForce[element.ordinal()].getValue() <= this.weakThreshHold
-    );
-  }
-
-
-  getRelationCount(relation: ElementNEnergyRelation, toIndex: number) {
-    let count = this.getTrunkRelationCount(relation, toIndex);
-    count += this.getHiddenRelationCount(relation);
-    return count;
-  }
 
   getPairedRelationCount(relation: ElementNEnergyRelation, toIndex: number): number {
     let count = this.getRelationCount(relation, toIndex);
@@ -1033,18 +1011,51 @@ export class PilarsAttr {
     return count;
   }
 
-  getDayForce(){
-    // Must also add friend element force
-    return this.trunkForceArr[LunarBase.DINDEX].getValue();
+  // Ref3p352. Nhat chu
+  getDayElementNFriendForce(){
+    // Must use friend element force
+    let dayPilarForce = BaziHelper.getFavorableForce(this.lunar, this.trunkEE[LunarBase.DINDEX].getValue().element);
+    return dayPilarForce;
+  }
+
+  isDayElementNFriendForceFavorable() {
+    const dayForce=this.getDayElementNFriendForce();
+    return dayForce>this.favorableThreshHold;
   }
 
   isFavorable(force:number) {
     return force>this.averageElementForce;
   }
 
+
   getDayForceLabel(): string {
-    const force=this.getDayForce();
+    const force=this.getDayElementNFriendForce();
     if ( this.isFavorable(force) ) return "Label.Day.Favorable";
     return "Label.Day.Weak";
   }
+
+  isWeakedElement(element: Element) {
+    return (
+      this.elementForce[element.ordinal()].getValue() <= this.weakThreshHold
+    );
+  }
+
+  isVeryWeakedElement(element: Element) {
+    return (
+      this.elementForce[element.ordinal()].getValue() <= this.weakThreshHold/2
+    );
+  }
+
+  isFavorableElement(element: Element) {
+    return (
+      this.elementForce[element.ordinal()].getValue() >= this.favorableThreshHold
+    );
+  }
+
+  getRelationCount(relation: ElementNEnergyRelation, toIndex: number) {
+    let count = this.getTrunkRelationCount(relation, toIndex);
+    count += this.getHiddenRelationCount(relation);
+    return count;
+  }
+
 }

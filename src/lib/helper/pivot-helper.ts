@@ -142,12 +142,11 @@ export class PivotHelper {
     const qiTypeData = QiHelper.getLunarQiForce(lunar);
     const trunkDayEer = lunar.trunkArr[LunarBase.DINDEX].elementNEnergy;
     const trunkDayElement=trunkDayEer.element;
-    let dayPilarForce = pilarsAttr.getDayForce();
-    let details = "<li>Weak Day Trunk Force</li>";
+    let details = "<li>Weak Day Trunk Element And Friends Force</li>";
     let currAddedeer="";
     let tempElement: Element ;
-    if (pilarsAttr.isFavorable(dayPilarForce)) {
-      details = "<li>Favorable Day Trunk Force</li>";
+    if (pilarsAttr.isDayElementNFriendForceFavorable()) {
+      details = "<li>Favorable Day Trunk Element And Friends Force</li>";
       currAddedeer = PivotHelper.addElligiblePivotEER(
         lunar,
         pilarsAttr.trunkEE[LunarBase.DINDEX].getValue(),
