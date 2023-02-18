@@ -78,12 +78,12 @@ export class BaziStructureHelper {
       if (pilarsAttr.isVeryWeakedElement(restrictElement)) {
         details += "<li> Very weaked element " + restrictElement + "</li>";
         const countFav = pilarsAttr.getPairedRelationCount(
-          ElementNEnergyRelation.GC,
+          ElementNEnergyRelation.DR,
           LunarBase.MINDEX
         );
         const countFriendFav =
           pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.EC,
+            ElementNEnergyRelation.RW,
             LunarBase.DINDEX
           )
         //Ref8p539 case 7
@@ -113,11 +113,11 @@ export class BaziStructureHelper {
               (countFav + countFriendFav) +
               ") of " +
               BaziStructureHelper.getPairedENumFullName(
-                ElementNEnergyRelation.GC
+                ElementNEnergyRelation.DR
               ) +
               " and " +
               BaziStructureHelper.getPairedENumFullName(
-                ElementNEnergyRelation.EC
+                ElementNEnergyRelation.RW
               ) +
               "</li>"
           );
@@ -214,7 +214,7 @@ export class BaziStructureHelper {
         // Ref8p495 Cas Tong Sat
         details += "<li> day trunk element not present in day branche </li>";
         const countRC = pilarsAttr.getPairedRelationCount(
-          ElementNEnergyRelation.RC,
+          ElementNEnergyRelation.DO,
           LunarBase.DINDEX
         );
         pilarsAttr.logMe(
@@ -227,12 +227,12 @@ export class BaziStructureHelper {
             countRC +
             " " +
             BaziStructureHelper.getPairedENumFullName(
-              ElementNEnergyRelation.RC
+              ElementNEnergyRelation.DO
             ) +
             "</li>";
           // Case Ref8p497 cas 1
           const countGDC = pilarsAttr.getTrunkPairedRelationCount(
-            ElementNEnergyRelation.GDC,
+            ElementNEnergyRelation.HO,
             LunarBase.DINDEX
           );
           pilarsAttr.logMe("Tong Sat countRC EQ 0", countGDC);
@@ -240,12 +240,12 @@ export class BaziStructureHelper {
             details +=
               "<li> absence of " +
               BaziStructureHelper.getPairedENumFullName(
-                ElementNEnergyRelation.GDC
+                ElementNEnergyRelation.HO
               ) +
               "</li>";
             const countEC =
               pilarsAttr.getTrunkPairedRelationCount(
-                ElementNEnergyRelation.EC,
+                ElementNEnergyRelation.RW,
                 LunarBase.DINDEX
               )
             pilarsAttr.logMe("Tong Sat countEC NE 0", countEC);
@@ -256,12 +256,12 @@ export class BaziStructureHelper {
                 countEC +
                 " " +
                 BaziStructureHelper.getPairedENumFullName(
-                  ElementNEnergyRelation.EC
+                  ElementNEnergyRelation.RW
                 ) +
                 "</li>";
               let structure = BaziStructure.TONG_SAT;
               const countGC = pilarsAttr.getPairedRelationCount(
-                ElementNEnergyRelation.GC,
+                ElementNEnergyRelation.DR,
                 LunarBase.DINDEX
               );
               if (countGC > 0) {
@@ -270,7 +270,7 @@ export class BaziStructureHelper {
                   countGC +
                   " " +
                   BaziStructureHelper.getPairedENumFullName(
-                    ElementNEnergyRelation.GC
+                    ElementNEnergyRelation.DR
                   ) +
                   "</li>";
                 structure = BaziStructure.DUMMY_TONG_SAT;
@@ -303,7 +303,7 @@ export class BaziStructureHelper {
       }
 
       const countGDC = pilarsAttr.getPairedRelationCount(
-        ElementNEnergyRelation.GDC,
+        ElementNEnergyRelation.HO,
         LunarBase.MINDEX
       );
       pilarsAttr.logMe(
@@ -316,11 +316,11 @@ export class BaziStructureHelper {
           countGDC +
           " of " +
           BaziStructureHelper.getPairedENumFullName(
-            ElementNEnergyRelation.GDC
+            ElementNEnergyRelation.HO
           ) +
           "</li>";
         const countRDC = pilarsAttr.getPairedRelationCount(
-          ElementNEnergyRelation.RDC,
+          ElementNEnergyRelation.DW,
           LunarBase.DINDEX
         );
         pilarsAttr.logMe("TONG NHI countRDC GT 0 ", countRDC);
@@ -330,16 +330,16 @@ export class BaziStructureHelper {
             countRDC +
             " of " +
             BaziStructureHelper.getPairedENumFullName(
-              ElementNEnergyRelation.RDC
+              ElementNEnergyRelation.DW
             ) +
             "</li>";
           const countGCRC =
             pilarsAttr.getPairedRelationCount(
-              ElementNEnergyRelation.GC,
+              ElementNEnergyRelation.DR,
               LunarBase.DINDEX
             ) +
             pilarsAttr.getPairedRelationCount(
-              ElementNEnergyRelation.RC,
+              ElementNEnergyRelation.DO,
               LunarBase.DINDEX
             );
 
@@ -350,16 +350,16 @@ export class BaziStructureHelper {
               countGCRC +
               " of " +
               BaziStructureHelper.getPairedENumFullName(
-                ElementNEnergyRelation.GC
+                ElementNEnergyRelation.DR
               ) +
               ", " +
               BaziStructureHelper.getPairedENumFullName(
-                ElementNEnergyRelation.RC
+                ElementNEnergyRelation.DO
               );
             ("</li>");
             const countEC =
               pilarsAttr.getPairedRelationCount(
-                ElementNEnergyRelation.EC,
+                ElementNEnergyRelation.RW,
                 LunarBase.DINDEX
               )
             if (countEC < countGDC) {
@@ -410,19 +410,19 @@ export class BaziStructureHelper {
           "<li> Day trunk element not present in day, month pilars</li> ";
         countFav =
           pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.GDC,
+            ElementNEnergyRelation.HO,
             LunarBase.MINDEX
           ) +
           pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.RC,
+            ElementNEnergyRelation.DO,
             LunarBase.MINDEX
           );
         countNonFav = pilarsAttr.getPairedRelationCount(
-          ElementNEnergyRelation.GC,
+          ElementNEnergyRelation.DR,
           LunarBase.DINDEX
         );
         countAvoid = pilarsAttr.getPairedRelationCount(
-          ElementNEnergyRelation.EC,
+          ElementNEnergyRelation.RW,
           LunarBase.DINDEX
         );
 
@@ -438,11 +438,11 @@ export class BaziStructureHelper {
               countFav +
               ") of " +
               BaziStructureHelper.getPairedENumFullName(
-                ElementNEnergyRelation.GDC
+                ElementNEnergyRelation.HO
               ) +
               ", " +
               BaziStructureHelper.getPairedENumFullName(
-                ElementNEnergyRelation.RC
+                ElementNEnergyRelation.DO
               ) +
               "</li>"
           );
@@ -471,12 +471,12 @@ export class BaziStructureHelper {
       ) {
         details += "<li> Day trunk element not present in day branch </li>";
         countAvoid = pilarsAttr.getPairedRelationCount(
-          ElementNEnergyRelation.GC,
+          ElementNEnergyRelation.DR,
           LunarBase.DINDEX
         );
         countNonFav =
           pilarsAttr.getTrunkPairedRelationCount(
-            ElementNEnergyRelation.EC,
+            ElementNEnergyRelation.RW,
             LunarBase.DINDEX
           )
         pilarsAttr.logMe(
@@ -493,13 +493,13 @@ export class BaziStructureHelper {
             details +
               "<li> without presence of " +
               BaziStructureHelper.getPairedENumFullName(
-                ElementNEnergyRelation.GC
+                ElementNEnergyRelation.DR
               ) +
               " and with litte presence (" +
               countNonFav +
               ") of " +
               BaziStructureHelper.getPairedENumFullName(
-                ElementNEnergyRelation.EC
+                ElementNEnergyRelation.RW
               ) +
               "</li>"
           );
@@ -536,24 +536,24 @@ export class BaziStructureHelper {
     if (pilarsAttr.isDayElementNFriendForceFavorable()) {
       details = "<li> Favorable day force </>";
       eeRtocheck = [
-        ElementNEnergyRelation.EC,
-        ElementNEnergyRelation.GC,
-        ElementNEnergyRelation.GDC,
-        ElementNEnergyRelation.RDC,
-        ElementNEnergyRelation.RC,
+        ElementNEnergyRelation.RW,
+        ElementNEnergyRelation.DR,
+        ElementNEnergyRelation.HO,
+        ElementNEnergyRelation.DW,
+        ElementNEnergyRelation.DO,
       ];
     } else {
       details = "<li> weak day force </>";
       eeRtocheck = [
-        ElementNEnergyRelation.RDC,
-        ElementNEnergyRelation.RC,
-        ElementNEnergyRelation.GDC,
+        ElementNEnergyRelation.DW,
+        ElementNEnergyRelation.DO,
+        ElementNEnergyRelation.HO,
       ];
     }
     for (let index = 0; index < eeRtocheck.length; index++) {
       const eeR = eeRtocheck[index];
       let countEeR = pilarsAttr.getPairedRelationCount(eeR, LunarBase.DINDEX);
-      if (eeR === ElementNEnergyRelation.EC) {
+      if (eeR === ElementNEnergyRelation.RW) {
         countEeR--;
       }
       if (countEeR > BaziStructureHelper.FAVTHRESHHOLD) {
@@ -613,7 +613,7 @@ export class BaziStructureHelper {
     if (pilarsAttr.isFavorableElement(trunkDayElement)) {
       details += "<li> Favorable day Element </li>";
       const countRE = pilarsAttr.getTrunkRelationCount(
-        ElementNEnergyRelation.RE,
+        ElementNEnergyRelation.K7,
         LunarBase.DINDEX
       );
       pilarsAttr.logMe("RC countRC ", countRE);
@@ -622,11 +622,11 @@ export class BaziStructureHelper {
           "<li> presence (" +
           countRE +
           ") " +
-          ElementNEnergyRelation.RE.getMsgFullName() +
+          ElementNEnergyRelation.K7.getMsgFullName() +
           "</li>";
         let structure = BaziStructure.THAT_SAT;
         const countGDC = pilarsAttr.getTrunkRelationCount(
-          ElementNEnergyRelation.GDE,
+          ElementNEnergyRelation.EG,
           LunarBase.DINDEX
         );
         pilarsAttr.logMe("RC countGDC ", countGDC);
@@ -636,7 +636,7 @@ export class BaziStructureHelper {
             "<li> presence (" +
             countRE +
             ") " +
-            ElementNEnergyRelation.GE.getMsgFullName() +
+            ElementNEnergyRelation.IR.getMsgFullName() +
             "</li>";
         }
         return BaziStructureHelper.getDataLog(structure, details);

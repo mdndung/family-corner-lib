@@ -34,8 +34,7 @@ export class HalacHoroscope extends HoroscopeContributor {
         super(birthDate, studyDate, isMan);
         this.birthLunar = new Lunar(birthDate, isMan);
         this.birthTheme = new HalacTheme(this.birthLunar);
-        this.baseQiTypeData = [];
-        this.baseQiTypeData.push(QiHelper.getLunarQiForce(this.birthLunar));
+        this.initBaseQiType(this.birthLunar);
     }
 
 

@@ -275,23 +275,23 @@ export class YiJingAttr {
     // From base
     this.qiTypeData.addQiTypeForce(
       QiType.BIRTHSEASONENERGY,
-      baseForceData.getForce(QiType.BIRTHSEASONENERGY)
+      baseForceData.getData(QiType.BIRTHSEASONENERGY)
     );
     this.qiTypeData.addQiTypeForce(
       QiType.BIRTHWITHTIME,
-      baseForceData.getForce(QiType.BIRTHWITHTIME)
+      baseForceData.getData(QiType.BIRTHWITHTIME)
     );
     this.qiTypeData.addQiTypeForce(
       QiType.MONTHBRANCHEDAYTRUNKLIFECYCLE,
-      baseForceData.getForce(QiType.MONTHBRANCHEDAYTRUNKLIFECYCLE)
+      baseForceData.getData(QiType.MONTHBRANCHEDAYTRUNKLIFECYCLE)
     );
     this.qiTypeData.addQiTypeForce(
       QiType.EARTHDAYTRUNKSUPPORT,
-      baseForceData.getForce(QiType.EARTHDAYTRUNKSUPPORT)
+      baseForceData.getData(QiType.EARTHDAYTRUNKSUPPORT)
     );
     this.qiTypeData.addQiTypeForce(
       QiType.DAYSTATUS,
-      baseForceData.getForce(QiType.DAYSTATUS)
+      baseForceData.getData(QiType.DAYSTATUS)
     );
 
     const currPivotForceAttr = PivotHelper.getElligiblePivotAttr(this.lunar);
@@ -313,8 +313,6 @@ export class YiJingAttr {
     this.favorableCount = 0 ;
     this.totalCount = 0 ;
     this.favorableForce = QiForce.MEDIUM.force;
-
-    //this.qiTypeData.log();
 
     // Period theme / Que tot hay xau
     this.countQiType(QiType.THEMESKYEARTHTRIGRAM) ;

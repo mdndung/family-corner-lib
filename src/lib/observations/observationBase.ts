@@ -3,6 +3,7 @@ import { ObjectHelper } from '../helper/objectHelper';
 import { PropertyHelper } from '../helper/PropertyHelper';
 
 export class ObservationBase {
+
   supportDetail: string = null;
   maxPoints: number = 0;
   points: number = 0;
@@ -70,6 +71,7 @@ export class ObservationBase {
 
    insertRawKeyifExistProp(rawKey: string,postFix:string ) {
     if (this.isPropExist(rawKey+postFix)) {
+      console.log('Insert defined Raw key ', rawKey)
       this.rawPropCache.push(rawKey);
       return true ;
     }
@@ -79,8 +81,9 @@ export class ObservationBase {
 
 
   addBaseComment(rawKey: string) {
-
+    //console.log("addBaseComment ", rawKey);
     if ( this.isRawKeyExist(rawKey) ) return  ;
+    // Insert if exist property
     if ( this.insertRawKeyifExistProp(rawKey,'&') ) return ;
     if ( this.insertRawKeyifExistProp(rawKey,'&-') ) return ;
     if ( this.insertRawKeyifExistProp(rawKey,'&+') ) return ;
@@ -88,6 +91,7 @@ export class ObservationBase {
     if ( this.insertRawKeyifExistProp(rawKey,'&-.+') ) return ;
     if ( this.insertRawKeyifExistProp(rawKey,'&+.-') ) return ;
     if ( this.insertRawKeyifExistProp(rawKey,'&+.+') ) return ;
+
   }
 
   point2force(degree1_10: number) {

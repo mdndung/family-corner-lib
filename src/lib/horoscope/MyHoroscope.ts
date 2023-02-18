@@ -64,8 +64,6 @@ export class MyHoroscope {
       this.doc
     );
 
-    console.log(selectHoroscope);
-
     if ( selectHoroscope.isBaziSelected() ) {
       hGen.addContributor(
         new BaziHoroscope(this.baseBirthDate, studyDate, this.baseLunar.isMan)

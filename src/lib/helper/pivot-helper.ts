@@ -56,9 +56,6 @@ export class PivotHelper {
           ObjectHelper.pushIfNotExist(selectTrunk,trunkArr[currPilarIdx])
           diffDayPilarForce = currdiffDayForce;
         }
-        pilarsAttr.logMe(
-          "currdiffDayForce " + currdiffDayForce
-        );
         matchCount++;
       }
       pilarsAttr.logMe(
@@ -73,9 +70,6 @@ export class PivotHelper {
         currEEForce = eeForceArr[currEE.ordinal()].getValue();
         currdiffDayForce = Math.abs(currEEForce - dayPilarForce);
         if (currdiffDayForce < diffDayPilarForce) {
-          pilarsAttr.logMe(
-            "currdiffDayForce " + currdiffDayForce
-          );
           ObjectHelper.pushIfNotExist(selectPivotElements,currEE.element);
           ObjectHelper.pushIfNotExist(selectTrunk,hiddenTrunkArr[currPilarIdx])
           diffDayPilarForce = currdiffDayForce;
@@ -139,7 +133,7 @@ export class PivotHelper {
     const pivotRelationSet: ElementNEnergyRelation[] = [];
     const pilarsAttr = lunar.pilarsAttr;
     const FAVORABLE_LIMIT = 5; // Ref8 p768 give 4 and is not favorable
-    const qiTypeData = QiHelper.getLunarQiForce(lunar);
+    const qiTypeData = pilarsAttr.qiTypeData;
     const trunkDayEer = lunar.trunkArr[LunarBase.DINDEX].elementNEnergy;
     const trunkDayElement=trunkDayEer.element;
     let details = "<li>Weak Day Trunk Element And Friends Force</li>";
@@ -164,6 +158,8 @@ export class PivotHelper {
       }
     }
     //Ref8p129()
+    // Assume that KimHthan conditions already fit when KimThan evaluated
+    //
     if (
       BaziHelper.existsecDeity(
         pilarsAttr.secondaryDeityPilars,
@@ -198,7 +194,7 @@ export class PivotHelper {
 
       // Check if there is an element force null
       const generatedCount = pilarsAttr.getPairedRelationCount(
-        ElementNEnergyRelation.GC,
+        ElementNEnergyRelation.DR,
         LunarBase.DINDEX
       );
 
@@ -221,10 +217,10 @@ export class PivotHelper {
         if (generatedCount > FAVORABLE_LIMIT) {
           details += "<li>Lot of " + generatedCount + " DR, IR deities support.</li>";
           // Ref8 p484 case 1
-          details += PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.RC);
+          details += PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DO);
         } else {
           let relationCount = pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.RC,
+            ElementNEnergyRelation.DO,
             LunarBase.DINDEX
           );
           const isDayStatusStrong = qiTypeData.hasStrongForce(QiType.DAYSTATUS);
@@ -232,11 +228,11 @@ export class PivotHelper {
             // Ref8 p484-485 case 3
             details +=
               "<li>Too Strong Trunk. Try to use DW or IW deities to control day pilar force</li>";
-              details +=PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.RDC);
+              details +=PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DW);
           } else {
             relationCount =
               pilarsAttr.getPairedRelationCount(
-                ElementNEnergyRelation.EC,
+                ElementNEnergyRelation.RW,
                 LunarBase.DINDEX
               ) ;
             if (relationCount > 2) {
@@ -246,18 +242,18 @@ export class PivotHelper {
                 // Ref8 p484-485 case 3, case 5
                 details +=
                   "<li>Too Strong Trunk. Try to use deities DW or IW to control this strong force</li>";
-                details += PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.RDC);
+                details += PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DW);
 
               } else {
                 // Ref8 p484-485 case 4 case 2
                 details += "<li>Try to use deities DR or IR to reduce day force</li>";
-                details += PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.GC);
+                details += PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DR);
               }
             } else {
               details +=
                 "<li>Only (" + relationCount + ") support from deities RW, F</li>";
               // Ref8 p484-485 case 6
-              details +=PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.RC,"Add DO, 7K to reduce lost force");
+              details +=PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DO,"Add DO, 7K to reduce lost force");
             }
           }
         }
@@ -265,15 +261,15 @@ export class PivotHelper {
         details += "<li>Weak Day Trunk</li>";
         const restrictCaseCount =
           pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.GC,
+            ElementNEnergyRelation.DR,
             LunarBase.DINDEX
           ) +
           pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.RC,
+            ElementNEnergyRelation.DO,
             LunarBase.DINDEX
           ) +
           pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.RDC,
+            ElementNEnergyRelation.DW,
             LunarBase.DINDEX
           );
         const RESTRICT_LIMIT = FAVORABLE_LIMIT;
@@ -282,16 +278,16 @@ export class PivotHelper {
           if (generatedCount > 0) {
             // Ref3 p99 Cas 1 p182
             details += "<li>Try to use DR, IR to reduce lost forces </li>";
-            details +=PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.GC);
+            details +=PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DR);
           } else {
             // Ref3 p99 Cas 2
             details += "<li>Try to use RW, F to reduce lost forces </li>";
-            details += PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.EC);
+            details += PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.RW);
           }
         } else {
           //
           details += "<li>Not too many " + restrictCaseCount + " dominate deities</li>";
-          details +=PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.GC);
+          details +=PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DR);
         }
       }
     return new DataWithLog(pivotRelationSet, details);
@@ -337,7 +333,7 @@ export class PivotHelper {
         details + "<li>try to use DW as the last chance</>";
       ObjectHelper.pushIfNotExist(
         elligiblePivotEERData.getValue(),
-        ElementNEnergyRelation.RDC
+        ElementNEnergyRelation.DW
       );
 
       elligiblePivotAttr = PivotHelper.evalPivotForce(

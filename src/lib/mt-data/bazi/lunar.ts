@@ -34,7 +34,7 @@ export class Lunar {
   yinCount = 0 ;
   yangCount =  0 ;
 
-  pilarsAttr: PilarsAttr;
+  pilarsAttr: PilarsAttr = null ;
 
 
   constructor(birthDate: MyCalendar, isMan: boolean, trArr?: Trunk[], brArr?: Branche[]) {
@@ -56,6 +56,10 @@ export class Lunar {
     this.init();
   }
 
+  getDayMasterElement() {
+    if ( this.pilarsAttr===null ) return  this.trunkArr[LunarBase.DINDEX].getElement();
+    return  this.pilarsAttr.trunkEE[LunarBase.DINDEX].getValue().element;
+  }
 
   getYearStartMonth() {
     return Lunar.YearStartMonthTrunk[this.trunkArr[LunarBase.YINDEX].ordinal()];

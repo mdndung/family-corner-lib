@@ -116,8 +116,7 @@ export class QiType extends EnumBaseClass {
 
   // Ref3 p257				Tuong hai
   static  BRANCHECLASH= new QiType('BRANCHECLASH',true,'TUH');
-  // Ref3 p257				Tuong hai
-  static  BRANCHECLASHDAY= new QiType('BRANCHECLASHDAY',true,'TUHD');
+
 
   isGeneralType: boolean ;
   key: string ;

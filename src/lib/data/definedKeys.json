@@ -121,13 +121,29 @@
   "Avoid.Act": [
     0
   ],
-  "BRType1.C.GDC&": [
+  "BRType1.C.DR&": [
     0,
     "=Ref8p188p11"
   ],
-  "BRType1.C.GDE&-": [
+  "BRType1.C.IR&-": [
     -2,
     "=Ref8p188p11"
+  ],
+  "BRType1.D&":[
+    -2,
+    "TOBECOMPLETED Ref8p43p1a"
+  ],
+  "F.BRType1.D&":[
+    -2,
+    "TOBECOMPLETED Ref8p43p1a"
+  ],
+  "BRType1.D.DEAD&":[
+    -2,
+    "TOBECOMPLETED Ref8p43p1b"
+  ],
+  "BRType1.D.REPOSE&":[
+    -2,
+    "TOBECOMPLETED Ref8p43p1b"
   ],
   "BRType2.B.D.H&+": [
     2,
@@ -236,23 +252,23 @@
     -2,
     "=Ref8p42p3"
   ],
-  "BRType4a.MONKEY.RAT.DRAGON&+": [
+  "BRType1.B.WATER&+": [
     1,
     "=Ref8p38p2a"
   ],
-  "BRType4a.MONKEY.RAT.DRAGON&-": [
+  "BRType1.B.WATER&-": [
     1,
     "=Ref8p38p2b"
   ],
-  "BRType4a.PIG.RABBIT.GOAT&": [
+  "BRType4a.B.WOOD&": [
     1,
     "=Ref8p38p1"
   ],
-  "BRType4a.RAT.COCK.OX": [
+  "BRType4a.B.METAL&": [
     1,
     "=Ref8p39p2"
   ],
-  "BRType4a.TIGER.HORSE.DOG": [
+  "BRType4a.B.FIRE&": [
     1,
     "=Ref8p39p1"
   ],
@@ -1098,51 +1114,51 @@
     -1,
     "=Ref29p409p3"
   ],
-  "CachCucType1.GDC&+": [
+  "CachCucType1.DR&+": [
     2,
     "=Ref8p185p1Bad"
   ],
-  "CachCucType1.GDC&-": [
+  "CachCucType1.DR&-": [
     -2,
     "=Ref8p185p1Good"
   ],
-  "CachCucType1.GDE&": [
+  "CachCucType1.IR&": [
     0,
     "=Ref8p185p2==Ref8p186p7"
   ],
-  "CachCucType1.GE&+": [
+  "CachCucType1.EG&+": [
     2,
     "=Ref8p228p1"
   ],
-  "CachCucType1.RC&": [
+  "CachCucType1.DW&": [
     0,
     "=Ref8p378p3"
   ],
-  "CachCucType1.RDC&": [
+  "CachCucType1.DO&": [
     0,
     "=Ref8p447p8"
   ],
-  "CachCucType1.RDE&": [
+  "CachCucType1.7K&": [
     0,
     "=Ref8p445p1==Ref8p447p8"
   ],
-  "CachCucType1.RE&": [
+  "CachCucType1.IW&": [
     0,
     "=Ref8p217p1==Ref8p218p2"
   ],
-  "CachCucType1.RE&+.+": [
+  "CachCucType1.IW&+.+": [
     3,
-    "=CachCucType1.RE&==Ref8p219p2"
+    "=CachCucType1.IW&==Ref8p219p2"
   ],
-  "CachCucType2.EC&": [
+  "CachCucType2.RW&": [
     0,
     "=Ref8p386p21"
   ],
-  "CachCucType2.GDE.RC.RDC.+.+&": [
+  "CachCucType2.IR.DW.DO.+.+&": [
     0,
     "=Ref8p201p1"
   ],
-  "CachCucType2.GDE.RE.RDC.+.+&": [
+  "CachCucType2.IR.IW.DO.+.+&": [
     0,
     "=Ref8p201p1"
   ],
@@ -2147,585 +2163,585 @@
   "Dispute.Act": [
     0
   ],
-  "DtyForceType1.GC.+.GDC.0&": [
+  "EnERType1.HO.+.DR.0&": [
     0,
     "=Ref8p451p37"
   ],
-  "DtyForceType1.GC.+.RC.0&": [
+  "EnERType1.HO.+.DW.0&": [
     0,
     "=Ref8p451p37"
   ],
-  "DtyGType1a.GC.+&-": [
+  "DtyGType1a.HO.+&-": [
     1,
     "=Ref3p502p1==Ref4p560p24==Ref3p548p27"
   ],
-  "DtyGType1a.GC.0&": [
+  "DtyGType1a.HO.0&": [
     1,
     "=Ref3p477p3"
   ],
-  "DtyGType1a.RC.+&": [
+  "DtyGType1a.DW.+&": [
     1,
     "=Ref8p425p73"
   ],
-  "DtyGType1a.RC.0&+": [
+  "DtyGType1a.DW.0&+": [
     1,
     "=Ref8p423p49"
   ],
-  "DtyGType1a.RDC.+&": [
+  "DtyGType1a.DO.+&": [
     1,
     "=Ref3p459p2"
   ],
-  "DtyGType1a.RDC.+&-.-": [
+  "DtyGType1a.DO.+&-.-": [
     1,
     "=Ref3p459p2==Ref8p451p36"
   ],
-  "DtyGType2a.EC.GC.+.0&+": [
+  "DtyGType2a.RW.HO.+.0&+": [
     1,
     "=Ref8p226p5"
   ],
-  "DtyGType2a.EC.RC.+.+&-": [
+  "DtyGType2a.RW.DW.+.+&-": [
     1,
     "=Ref3p459p4"
   ],
-  "DtyGType2a.EC.RC.+.-&-": [
+  "DtyGType2a.RW.DW.+.-&-": [
     1,
     "=Ref8p392p2"
   ],
-  "DtyGType2a.EC.RC.+.0&+": [
+  "DtyGType2a.RW.DW.+.0&+": [
     1,
     "=Ref8p419p15"
   ],
-  "DtyGType2a.EC.RDC.+.0&": [
+  "DtyGType2a.RW.DO.+.0&": [
     1,
     "=Ref8p446p8"
   ],
-  "DtyGType2a.GC.GDC.+.-&": [
+  "DtyGType2a.HO.DR.+.-&": [
     1,
     "=Ref8p227p5"
   ],
-  "DtyGType2a.GC.GDC.+.0&-": [
+  "DtyGType2a.HO.DR.+.0&-": [
     1,
     "=Ref8p227p6==Ref8p451p37"
   ],
-  "DtyGType2a.GC.GDC.-.0&-": [
+  "DtyGType2a.HO.DR.-.0&-": [
     1,
     "=Ref8p227p5"
   ],
-  "DtyGType2a.GC.RC.+.-&+": [
+  "DtyGType2a.HO.DW.+.-&+": [
     1,
     "=Ref8p383p9"
   ],
-  "DtyGType2a.GC.RC.+.0&": [
+  "DtyGType2a.HO.DW.+.0&": [
     1,
     "=Ref8p451p37"
   ],
-  "DtyGType2a.GC.RDC.+.+&+": [
+  "DtyGType2a.HO.DO.+.+&+": [
     1,
     "=Ref8p187p5"
   ],
-  "DtyGType2a.GC.RDC.+.-&": [
+  "DtyGType2a.HO.DO.+.-&": [
     1,
     "=Ref8p421p32d==Ref8p446p6"
   ],
-  "DtyGType2a.GDC.GC.+.-&+": [
+  "DtyGType2a.DR.HO.+.-&+": [
     1,
     "=Ref8p227p4a"
   ],
-  "DtyGType2a.GDC.GC.+.0&+": [
+  "DtyGType2a.DR.HO.+.0&+": [
     1,
     "=Ref8p227p4b"
   ],
-  "DtyGType2a.RC.EC.+.-&": [
+  "DtyGType2a.DW.RW.+.-&": [
     1,
     "=Ref8p392p2"
   ],
-  "DtyGType2a.RC.EC.+.-&-": [
+  "DtyGType2a.DW.RW.+.-&-": [
     1,
     "=Ref8p393p11"
   ],
-  "DtyGType2a.RC.EC.+.0&": [
+  "DtyGType2a.DW.RW.+.0&": [
     1,
     "=Ref3p548p29"
   ],
-  "DtyGType2a.RC.EC.+.0&-": [
+  "DtyGType2a.DW.RW.+.0&-": [
     1,
     "=Ref8p393p11"
   ],
-  "DtyGType2a.RC.GC.+.+&-": [
+  "DtyGType2a.DW.HO.+.+&-": [
     1,
     "=Ref8p393p11"
   ],
-  "DtyGType2a.RC.GC.-.0&+": [
+  "DtyGType2a.DW.HO.-.0&+": [
     1,
     "=Ref8p392p1"
   ],
-  "DtyGType2a.RC.GDC.+.-&": [
+  "DtyGType2a.DW.DR.+.-&": [
     1,
     "=Ref3p440p13"
   ],
-  "DtyGType2a.RC.GDC.+.-&-": [
+  "DtyGType2a.DW.DR.+.-&-": [
     1,
-    "=DtyGType2a.RC.GDC.+.-&==Ref3p548p22"
+    "=DtyGType2a.DW.DR.+.-&==Ref3p548p22"
   ],
-  "DtyGType2a.RC.RDC.0.0&": [
+  "DtyGType2a.DW.DO.0.0&": [
     1,
     "=Ref3p515p11"
   ],
-  "DtyGType2a.RDC.GC.+.+&+": [
+  "DtyGType2a.DO.HO.+.+&+": [
     1,
     "=Ref8p187p5"
   ],
-  "DtyGType2a.RDC.GC.+.-&+": [
+  "DtyGType2a.DO.HO.+.-&+": [
     1,
     "=Ref8p187p5"
   ],
-  "DtyGType2a.RDC.GC.+.0&": [
+  "DtyGType2a.DO.HO.+.0&": [
     1,
     "=Ref8p450p26"
   ],
-  "DtyGType2a.RDC.GDC.+.-&": [
+  "DtyGType2a.DO.DR.+.-&": [
     1,
     "=Ref3p440p24"
   ],
-  "DtyGType2a.RDC.GDC.+.0&-.-": [
+  "DtyGType2a.DO.DR.+.0&-.-": [
     1,
     "=Ref8p392p8"
   ],
-  "DtyGType2a.RDC.GDC.0.0&": [
+  "DtyGType2a.DO.DR.0.0&": [
     1,
     "=Ref8p153p2"
   ],
-  "DtyGType2a.RDC.GDE.+.-&": [
+  "DtyGType2a.DO.IR.+.-&": [
     1,
     "=Ref3p440p3"
   ],
-  "DtyGType2a.RDC.RC.+.-&-": [
+  "DtyGType2a.DO.DW.+.-&-": [
     1,
     "=Ref8p392p7"
   ],
-  "DtyGType2a.RDC.RC.+.0&": [
+  "DtyGType2a.DO.DW.+.0&": [
     1,
     "=Ref8p450p35"
   ],
-  "DtyGType2a.RDC.RC.0.0&": [
+  "DtyGType2a.DO.DW.0.0&": [
     1,
     "=Ref3p515p11"
   ],
-  "DtyGType3a.EC.GC.RC.+.-.-&": [
+  "DtyGType3a.RW.HO.DW.+.-.-&": [
     1,
     "=Ref8p420p24"
   ],
-  "DtyGType3a.EC.RC.GC.+.-.-&": [
+  "DtyGType3a.RW.DW.HO.+.-.-&": [
     1,
     "=Ref8p420p24"
   ],
-  "DtyGType3a.EC.RC.GC.+.-.0&+": [
+  "DtyGType3a.RW.DW.HO.+.-.0&+": [
     1,
     "=Ref8p393p10"
   ],
-  "DtyGType3a.EC.RC.RDC.+.-.0&+": [
+  "DtyGType3a.RW.DW.DO.+.-.0&+": [
     0
   ],
-  "DtyGType3a.GDC.GC.RC.+.-.-&+": [
+  "DtyGType3a.DR.HO.DW.+.-.-&+": [
     1,
     "=Ref8p393p9"
   ],
-  "DtyGType3a.GDC.RC.GC.+.-.-&+": [
+  "DtyGType3a.DR.DW.HO.+.-.-&+": [
     1,
     "=Ref8p384p11==Ref8p393p9"
   ],
-  "DtyGType3a.RC.EC.RDC.+.-.-&-": [
+  "DtyGType3a.DW.RW.DO.+.-.-&-": [
     1,
     "=Ref8p393p10"
   ],
-  "DtyGType3a.RC.RDC.EC.+.-.-&-": [
+  "DtyGType3a.DW.DO.RW.+.-.-&-": [
     1,
     "=Ref8p393p10"
   ],
-  "DtyGType3a.RDC.GDC.RC.+.-.-&": [
+  "DtyGType3a.DO.DR.DW.+.-.-&": [
     1,
     "=Ref8p392p8"
   ],
-  "DtyGType3a.RDC.RC.GDC.+.-.-&": [
+  "DtyGType3a.DO.DW.DR.+.-.-&": [
     1,
     "=Ref8p392p8"
   ],
-  "DtyHidden1.RC.0&": [
+  "DtyGType4a.+.DO.1.DR.HO&": [
+    1,
+    "=Ref8p166p7"
+  ],
+  "DtyGType4a.+.DO.5.DR.HO&": [
+    1,
+    "=Ref8p166p7"
+  ],
+  "DtyHidden1.DW.0&": [
     0,
     "=Ref3p520p2"
   ],
-  "DtyHidden1.RDC.0&-": [
+  "DtyHidden1.DO.0&-": [
     -2,
     "=Ref3p515p11"
   ],
-  "DtyHidden2.RDC.0.Vd&-": [
-    -2,
+  "DtyType1a.DO.Vd.Quy&": [
+    0,
     "=Ref3p516p2"
   ],
-  "DtyHidden3.RC.DOG&+": [
+  "DtyHidden3.DW.DOG&+": [
     2,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RC.DRAGON&+": [
+  "DtyHidden3.DW.DRAGON&+": [
     2,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RC.GOAT&+": [
+  "DtyHidden3.DW.GOAT&+": [
     2,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RC.HORSE&+": [
+  "DtyHidden3.DW.HORSE&+": [
     2,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RDC.DOG&": [
+  "DtyHidden3.DO.DOG&": [
     0,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RDC.DRAGON&": [
+  "DtyHidden3.DO.DRAGON&": [
     0,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RDC.GOAT&": [
+  "DtyHidden3.DO.GOAT&": [
     0,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RDC.HORSE&": [
+  "DtyHidden3.DO.HORSE&": [
     0,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RDE.DOG&": [
+  "DtyHidden3.7K.DOG&": [
     0,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RDE.DRAGON&": [
+  "DtyHidden3.7K.DRAGON&": [
     0,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RDE.GOAT&": [
+  "DtyHidden3.7K.GOAT&": [
     0,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RDE.HORSE&": [
+  "DtyHidden3.7K.HORSE&": [
     0,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RE.DOG&": [
+  "DtyHidden3.IW.DOG&": [
     0,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RE.DRAGON&-": [
+  "DtyHidden3.IW.DRAGON&-": [
     -2,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RE.GOAT&": [
+  "DtyHidden3.IW.GOAT&": [
     0,
     "=Ref8p419p16"
   ],
-  "DtyHidden3.RE.HORSE&": [
+  "DtyHidden3.IW.HORSE&": [
     0,
     "=Ref8p419p16"
   ],
-  "DtyOnPilar1.EC.+&": [
+  "DtyOnPilar1.RW.+&": [
     0,
     "=Ref8p380p15"
   ],
-  "DtyOnPilar1.GC.+&": [
+  "DtyOnPilar1.HO.+&": [
     0,
     "=Ref8p446p1"
   ],
-  "DtyOnPilar1.GC.-&": [
+  "DtyOnPilar1.HO.-&": [
     0,
     "=Ref8p446p1"
   ],
-  "DtyOnPilar2.GC.1.+&+": [
-    2,
-    "=Ref8p381p16"
-  ],
-  "DtyOnPilar2.GC.5.+&+": [
-    2,
-    "=Ref8p381p16"
-  ],
-  "DtyOnPilar4.RDC.TOMB&": [
+  "DtyOnPilar4.DO.TOMB&": [
     0,
     "=Ref8p450p25"
   ],
-  "DtyType1a.EE.+&+": [
+  "DtyType1a.F.+&+": [
     1,
     "=Ref8p245p3Bad==Ref3p558p1==Ref3p471p12"
   ],
-  "DtyType1a.EE.+&-": [
+  "DtyType1a.F.+&-": [
     1,
     "=Ref8p245p3Good==Ref3p558p1==Ref3p471p12"
   ],
-  "DtyType1a.GC.+&+": [
+  "DtyType1a.HO.+&+": [
     1,
     "=Ref3p477p1==Ref8p241p2==Ref3p478p2"
   ],
-  "DtyType1a.GDC.+&+": [
+  "DtyType1a.DR.+&+": [
     1,
     "=Ref3p456p7==Ref3p527p7==Ref3p558p4==Ref8p181p1aBad==Ref8p185p6Bad==Ref8p186p2Bad==Ref8p181p1bBad"
   ],
-  "DtyType1a.GDC.+&-": [
+  "DtyType1a.DR.+&-": [
     1,
     "=Ref8p185p6Good==Ref8p186p2Good"
   ],
-  "DtyType1a.GDC.0&+": [
+  "DtyType1a.DR.0&+": [
     1,
     "=Ref3p548p13"
   ],
-  "DtyType1a.GDE.+&": [
+  "DtyType1a.IR.+&": [
     1,
     "=Ref8p202p1==Ref3p548p16a"
   ],
-  "DtyType1a.GDE.+&+": [
+  "DtyType1a.IR.+&+": [
     1,
     "=Ref8p199p1a"
   ],
-  "DtyType1a.GDE.+&-": [
+  "DtyType1a.IR.+&-": [
     1,
-    "=DtyType1a.GDE.+&==Ref3p558p17"
+    "=DtyType1a.IR.+&==Ref3p558p17"
   ],
-  "DtyType1a.GE.+&": [
+  "DtyType1a.EG.+&": [
     1,
     "=Ref8p230p4"
   ],
-  "DtyType1a.GE.+&+": [
+  "DtyType1a.EG.+&+": [
     1,
-    "=DtyType1a.GE.+&==Ref8p199p8a==Ref3p553p24"
+    "=DtyType1a.EG.+&==Ref8p199p8a==Ref3p553p24"
   ],
-  "DtyType1a.GE.+&-": [
+  "DtyType1a.EG.+&-": [
     1,
     "=Ref8p228p7"
   ],
-  "DtyType1a.RC.+&": [
+  "DtyType1a.DW.+&": [
     1,
     "=Ref3p520p1==Ref3p471p14b"
   ],
-  "DtyType1a.RC.+&+": [
+  "DtyType1a.DW.+&+": [
     1,
-    "=DtyType1a.RC.+&==Ref3p471p14a"
+    "=DtyType1a.DW.+&==Ref3p471p14a"
   ],
-  "DtyType1a.RC.0&+": [
+  "DtyType1a.DW.0&+": [
     1,
     "=Ref3p520p3"
   ],
-  "DtyType1a.RDC.+&": [
+  "DtyType1a.DO.+&": [
     1,
     "=Ref8p142p2"
   ],
-  "DtyType1a.RDC.+&+": [
+  "DtyType1a.DO.+&+": [
     1,
     "=Ref8p142p2Bad"
   ],
-  "DtyType1a.RDC.+&-": [
+  "DtyType1a.DO.+&-": [
     1,
     "=Ref8p142p2Good"
   ],
-  "DtyType1a.RDC.0&": [
+  "DtyType1a.DO.0&": [
     1,
     "=Ref3p477p11"
   ],
-  "DtyType1a.RE.+&+": [
+  "DtyType1a.IW.+&+": [
     1,
     "=Ref8p220p5==Ref3p471p14a"
   ],
-  "DtyType1a.RE.+&-": [
+  "DtyType1a.IW.+&-": [
     1,
     "=Ref8p220p4"
   ],
-  "DtyType1b.GDC.2.+&": [
+  "DtyType1b.DR.2.+&": [
     1,
     "=Ref8p180p2"
   ],
-  "DtyType1b.GDC.4.+&": [
+  "DtyType1b.DR.4.+&": [
     1,
     "=Ref8p180p2"
   ],
-  "DtyType2a.GC.GDC&": [
+  "DtyType2a.HO.DR&": [
     1,
     "=Ref3p551p4"
   ],
-  "DtyType2a.GDC.GDE&": [
+  "DtyType2a.DR.IR&": [
     1,
     "=Ref3p440p21==Ref3p440p19a==Ref3p446Vd1"
   ],
-  "DtyType2a.GDC.RDE&": [
+  "DtyType2a.DR.7K&": [
     1,
     "=Ref8p171p3"
   ],
-  "DtyType2a.GE.GC.+.-&": [
+  "DtyType2a.HO.DW&": [
+    0,
+    "=Ref8p238p1a"
+  ],
+  "DtyType2a.HO.DW&+": [
+    0,
+    "=DtyType2a.HO.DW&==Ref8p238p2"
+  ],
+  "DtyType2a.HO.IW&+": [
+    0,
+    "=Ref8p238p3"
+  ],
+"DtyType2b.HO.DW.+.0&": [
+  0,
+  "=Ref8p238p1b==Ref8p238p4"
+],
+"DtyType2b.HO.DW.-.0&": [
+0,
+"=Ref8p238p1b"
+],
+  "DtyType2b.EG.HO.+.-&": [
     0
   ],
-  "DtyType2a.GE.GDE&+": [
+  "DtyType2a.EG.IR&+": [
     1,
     "=Ref3p451p17"
   ],
-  "DtyType2a.GE.RDC.+.-&": [
+  "DtyType2b.EG.DO.+.-&": [
     1,
     "=Ref3p502p19"
   ],
-  "DtyType2a.RC.RE&": [
+  "DtyType2a.DW.IW&": [
     1,
     "=Ref8p427p1"
   ],
-  "DtyType2a.RC.RE&+": [
+  "DtyType2a.DW.IW&+": [
     1,
-    "=DtyType2a.RC.RE&==Ref3p440p19b"
+    "=DtyType2a.DW.IW&==Ref3p440p19b"
   ],
-  "DtyType2a.RDC.RDE&+": [
+  "DtyType2a.DO.7K&+": [
     1,
     "=Ref3p542p3Bad==Ref8p172p1Bad"
   ],
-  "DtyType2a.RDC.RDE&-": [
+  "DtyType2a.DO.7K&-": [
     1,
     "=Ref3p542p3Good==Ref8p172p1Good"
   ],
-  "DtyType2b.EC.RC.+.-&": [
+  "DtyGType2a.RW.DW.+.-&": [
     1,
     "=Ref8p378p4"
   ],
-  "DtyType2b.EC.RC.+.0&": [
+  "DtyGType2a.RW.IW.+.0&": [
     1,
     "=Ref8p378p4"
   ],
-  "DtyType2b.EC.RE.+.-&": [
+  "DtyGType2a.HO.DW.+.+&+": [
     1,
-    "=Ref8p378p4"
+    "=DtyType2a.HO.DW&+==Ref8p380p14"
   ],
-  "DtyType2b.EC.RE.+.0&": [
-    1,
-    "=Ref8p378p4"
-  ],
-  "DtyType2b.GC.RC.+.-&+": [
-    1,
-    "=Ref8p238p1a==Ref8p238p2==Ref8p380p14"
-  ],
-  "DtyType2b.GC.RC.+.0&+": [
-    1,
-    "=Ref8p238p1b"
-  ],
-  "DtyType2b.GC.RC.+.0&-": [
+  "DtyType2b.HO.DW.+.0&-": [
     1,
     "=Ref8p238p5"
   ],
-  "DtyType2b.GC.RE.+.+&+": [
-    1,
-    "=Ref8p238p3"
-  ],
-  "DtyType2b.GC.RE.+.+&-": [
-    1,
-    "=Ref8p238p4"
-  ],
-  "DtyType2b.GC.RE.+.-&+": [
+  "DtyType2b.HO.IW.+.-&+": [
     1,
     "=Ref8p238p3==Ref8p380p14"
   ],
-  "DtyType2b.GDE.RE.+.0&": [
+  "DtyType2b.IR.IW.+.0&": [
     1,
     "=Ref8p200p7"
   ],
-  "DtyType2b.GDE.RE.+.0&+": [
+  "DtyType2b.IR.IW.+.0&+": [
     1,
     "=Ref8p198p9"
   ],
-  "DtyType2b.GE.GDE.+.+&": [
+  "DtyType2b.EG.IR.+.+&": [
     1,
     "=Ref8p199p8b"
   ],
-  "DtyType2b.RC.RDC.+.-&": [
+  "DtyType2b.DW.DO.+.-&": [
     1,
     "=Ref8p448p13"
   ],
-  "DtyType2b.RC.RDE.+.-&+": [
+  "DtyType2b.DW.7K.+.-&+": [
     1,
-    "=DtyType2b.RC.RDC.+.-&==Ref8p417p1==Ref8p449p14"
+    "=DtyType2b.DW.DO.+.-&==Ref8p417p1==Ref8p449p14"
   ],
-  "DtyType2b.RDC.RDE.+.0&": [
-    1,
-    "=Ref8p448p5"
-  ],
-  "DtyType2b.RDE.EC.+.-&+": [
-    1,
-    "=Ref3p532p6"
-  ],
-  "DtyType2b.RDE.EE.+.-&+": [
-    1,
-    "=Ref3p532p6"
-  ],
-  "DtyType2b.RDE.GC.+.-&+": [
-    1,
-    "=Ref3p532p6"
-  ],
-  "DtyType2b.RDE.GDC.+.-&+": [
-    1,
-    "=Ref3p532p8"
-  ],
-  "DtyType2b.RDE.GDE.+.-&+": [
-    1,
-    "=Ref3p532p8"
-  ],
-  "DtyType2b.RDE.GE.+.-&+": [
-    1,
-    "=Ref3p532p6"
-  ],
-  "DtyType2b.RDE.RC.+.-&-": [
-    1,
-    "=Ref8p426p78"
-  ],
-  "DtyType2b.RDE.RDC.+.0&": [
+  "DtyType2b.DO.7K.+.0&": [
     1,
     "=Ref8p448p5"
   ],
-  "DtyType2b.RDE.RE.+.-&-": [
+  "DtyType2b.7K.RW.+.-&+": [
+    1,
+    "=Ref3p532p6"
+  ],
+  "DtyType2b.7K.F.+.-&+": [
+    1,
+    "=Ref3p532p6"
+  ],
+  "DtyType2b.7K.HO.+.-&+": [
+    1,
+    "=Ref8p167p3==Ref3p532p6"
+  ],
+  "DtyType2b.7K.DR.+.-&+": [
+    1,
+    "=Ref8p167p3==Ref3p532p8"
+  ],
+  "DtyType2b.7K.IR.+.-&+": [
+    1,
+    "=Ref8p167p3==Ref3p532p8"
+  ],
+  "DtyType2b.7K.EG.+.-&+": [
+    1,
+    "=Ref8p167p3==Ref3p532p6"
+  ],
+  "DtyType2b.7K.DW.+.-&-": [
     1,
     "=Ref8p426p78"
   ],
-  "DtyType2b.RE.RDE.+.-&+": [
+  "DtyType2b.7K.DO.+.0&": [
+    1,
+    "=Ref8p448p5"
+  ],
+  "DtyType2b.7K.IW.+.-&-": [
+    1,
+    "=Ref8p426p78"
+  ],
+  "DtyType2b.IW.7K.+.-&+": [
     1,
     "=Ref8p417p1"
   ],
-  "DtyType2c.GE.Y.EE.+.-&": [
+  "DtyType2c.EG.Y.F.+.-&": [
     0,
     "=Ref8p225p1b"
   ],
-  "DtyType2c.GE.Y.GDE.+.0&": [
+  "DtyType2c.EG.Y.IR.+.0&": [
     0,
     "=Ref3p434p4"
   ],
-  "DtyType3a.EE.GDC.RE.+.-.-&": [
+  "DtyType3a.F.DR.IW.+.-.-&": [
     1,
     "=Ref3p459p9"
   ],
-  "DtyType3a.EE.GDC.RE.+.-.0&": [
+  "DtyType3a.F.DR.IW.+.-.0&": [
     1,
     "=Ref3p459p9"
   ],
-  "DtyType3a.EE.GDE.RE.+.-.-&": [
+  "DtyType3a.F.IR.IW.+.-.-&": [
     1,
     "=Ref3p459p9"
   ],
-  "DtyType3a.EE.GDE.RE.+.-.0&": [
+  "DtyType3a.F.IR.IW.+.-.0&": [
     1,
     "=Ref3p459p9"
   ],
-  "DtyType3a.GC.RC.RE.+.0.0&-": [
-    1,
+  "DtyType3a.HO.DW.IW.+.0.0&-": [
+    0,
     "=Ref3p516p19"
   ],
-  "DtyType3a.GDC.RC.RE.+.0.0&": [
+  "DtyType3a.DR.DW.IW.+.0.0&": [
     1,
     "=Ref8p180p1"
   ],
-  "DtyType3a.RDC.RDE.GC.+.+.-&": [
+  "DtyType3a.DO.7K.HO.+.-.-&": [
     1,
     "=Ref3p541p16"
   ],
-  "DtyType3a.RDE.GC.GE.+.0.0&-": [
+  "DtyType3a.7K.HO.EG.+.0.0&-": [
     1,
     "=Ref8p424p60"
   ],
-  "DtyType3a.RDE.GE.GC.+.0.0&-": [
+  "DtyType3a.7K.EG.HO.+.0.0&-": [
     1,
     "=Ref8p424p60"
   ],
@@ -2780,15 +2796,15 @@
   "Except.For": [
     0
   ],
-  "F.DtyType2a.GE.GC.+.-&": [
+  "F.DtyType2b.EG.HO.+.-&": [
     1,
     "=Ref3p502p15"
   ],
-  "F.DtyType2a.RDC.RDE&+": [
+  "F.DtyType2a.DO.7K&+": [
     1,
     "=Ref8p172p2Bad"
   ],
-  "F.DtyType2a.RDC.RDE&-": [
+  "F.DtyType2a.DO.7K&-": [
     1,
     "=Ref8p172p2Good"
   ],
@@ -4088,259 +4104,235 @@
     1,
     "=Lifea.45a==,==Mariagea.6a==Mariagea.6b"
   ],
-  "F.Type1a.EE.1&+": [
+  "F.Type1a.T.F.1&+": [
     1,
     "=Husbandb.20"
   ],
-  "F.Type1a.EE.3&+": [
+  "F.Type1a.T.F.3&+": [
     1,
     "=Husbandb.20"
   ],
-  "F.Type1a.EE.3&+.-": [
+  "F.Type1a.T.F.3&+.-": [
     1,
     "=Husbandb.20==Relationb.20"
   ],
-  "F.Type1a.GC.1&+.+": [
+  "F.Type1a.T.HO.1&+.+": [
     1,
-    "=Type1a.GC.1&==Persona.137==Careera.147==Careera.145"
+    "=Type1a.T.HO.1&==Persona.137==Careera.147==Careera.145"
   ],
-  "F.Type1a.GC.5&+.+": [
+  "F.Type1a.T.HO.5&+.+": [
     1,
-    "=Type1a.GC.1&==Persona.137==Careera.147==Careera.145"
+    "=Type1a.T.HO.1&==Persona.137==Careera.147==Careera.145"
   ],
-  "F.Type1a.GDC.3&": [
+  "F.Type1a.T.DR.3&": [
     1,
     "=Childb.21"
   ],
-  "F.Type2a.RDC.D&": [
+  "F.Type2a.T.DO.D&": [
     1,
     "=Ref8p30p3"
   ],
-  "F.Type2a.RDC.M&+": [
+  "F.Type2a.T.DO.M&+": [
     1,
     "=Mariageb.22==Healthb.20==Mariagea.2"
   ],
-  "F.Type2a.RDC.M&-.-": [
+  "F.Type2a.T.DO.M&-.-": [
     1,
     "=Mariageb.24"
   ],
-  "F.Type2c.B.RC.D.1&+": [
+  "F.Type2c.B.DW.D.1&+": [
     2,
     "=Ref8p208p5"
   ],
-  "F.Type2c.B.RC.D.5&+": [
+  "F.Type2c.B.DW.D.5&+": [
     2,
     "=Ref8p208p5"
   ],
-  "F.Type2c.B.RDC.D.1&": [
+  "F.Type2c.B.DO.D.1&": [
     0,
     "=Husbanda.2"
   ],
-  "F.Type2c.B.RDC.D.1&+.+": [
+  "F.Type2c.B.DO.D.1&+.+": [
     3,
     "=Mariagea.3"
   ],
-  "F.Type2c.B.RDC.D.1&+.-": [
+  "F.Type2c.B.DO.D.1&+.-": [
     1,
-    "=Ref8p145p3==F.Type2a.RDC.D&"
+    "=Ref8p145p3==F.Type2a.T.DO.D&"
   ],
-  "F.Type2c.B.RDC.D.5&": [
+  "F.Type2c.B.DO.D.5&": [
     0,
     "=Husbanda.2"
   ],
-  "F.Type2c.B.RDC.D.5&+.+": [
+  "F.Type2c.B.DO.D.5&+.+": [
     3,
     "=Mariagea.3"
   ],
-  "F.Type2c.B.RDC.D.5&+.-": [
+  "F.Type2c.B.DO.D.5&+.-": [
     1,
-    "=Ref8p145p3==F.Type2a.RDC.D&"
+    "=Ref8p145p3==F.Type2a.T.DO.D&"
   ],
-  "F.Type2c.B.RDC.Y.2&": [
+  "F.Type2c.B.DO.Y.2&": [
     0,
     "=Studyb.20"
   ],
-  "F.Type2c.B.RDC.Y.4&": [
+  "F.Type2c.B.DO.Y.4&": [
     0,
     "=Studyb.20"
   ],
-  "F.Type2c.B.RE.D.1&": [
+  "F.Type2c.B.IW.D.1&": [
     0,
     "=Husbanda.3"
   ],
-  "F.Type2c.B.RE.D.5&": [
+  "F.Type2c.B.IW.D.5&": [
     0,
     "=Husbanda.3"
   ],
-  "F.Type2c.T.GC.Y.1&": [
+  "F.Type2c.T.HO.Y.1&": [
     0,
     "=Studya.7"
   ],
-  "F.Type2c.T.GC.Y.2&": [
+  "F.Type2c.T.HO.Y.2&": [
     0,
     "=Studyb.20"
   ],
-  "F.Type2c.T.GC.Y.4&": [
+  "F.Type2c.T.HO.Y.4&": [
     0,
     "=Studyb.20"
   ],
-  "F.Type2c.T.GC.Y.5&": [
+  "F.Type2c.T.HO.Y.5&": [
     0,
     "=Studya.7"
   ],
-  "F.Type2c.T.RDC.Y.1&+.+": [
+  "F.Type2c.T.DO.Y.1&+.+": [
     3,
     "=Studya.7"
   ],
-  "F.Type2c.T.RDC.Y.5&+.+": [
+  "F.Type2c.T.DO.Y.5&+.+": [
     3,
     "=Studya.7"
   ],
-  "F.Type2c.T.RDE.Y.1&": [
+  "F.Type2c.T.7K.Y.1&": [
     0,
     "=Studya.7"
   ],
-  "F.Type2c.T.RDE.Y.2&": [
+  "F.Type2c.T.7K.Y.2&": [
     0,
     "=Studyb.20"
   ],
-  "F.Type2c.T.RDE.Y.4&": [
+  "F.Type2c.T.7K.Y.4&": [
     0,
     "=Studyb.20"
   ],
-  "F.Type2c.T.RDE.Y.5&": [
+  "F.Type2c.T.7K.Y.5&": [
     0,
     "=Studya.7"
   ],
-  "F.Type3a.RDE.Vd&+": [
+  "F.Type3a.7K.Vd&+": [
     1,
     "=Mariageb.28==Ref8p172p11"
   ],
-  "F.Type5a.GDC.HCI&": [
+  "F.Type5a.TB.DR.HCI&": [
     1,
     "=Husbandb.27"
   ],
-  "F.Type5a.GDE.HCI&": [
+  "F.Type5a.TB.IR.HCI&": [
     1,
     "=Husbandb.27"
   ],
-  "F.Type5a.RDC.DHO&+": [
+  "F.Type5a.TB.DO.DHO&+": [
     1,
     "=Husbanda.4==Husbanda.6"
   ],
-  "F.Type6a.GC.Y.KHD&": [
+  "F.Type6a.HO.Y.KHD&": [
     1,
     "=Parentb.32b"
   ],
-  "F.Type8a.RDE.D.DEATH&": [
+  "F.Type8a.TB.7K.D.DEATH&": [
     1,
     "=Ref8p172p11"
   ],
-  "F.Type8a.RDE.D.SICKNESS&": [
+  "F.Type8a.TB.7K.D.SICKNESS&": [
     1,
     "=Ref8p172p11"
   ],
-  "F.Type8a.RDE.D.TOMB&": [
+  "F.Type8a.TB.7K.D.TOMB&": [
     1,
     "=Ref8p172p11"
   ],
-  "F.Type9b.B.RDC.D.2.DEATH&": [
+  "F.Type9b.B.DO.D.2.DEATH&": [
     1,
     "=Ref8p145p2"
   ],
-  "F.Type9b.B.RDC.D.2.REPOSE&": [
+  "F.Type9b.B.DO.D.2.REPOSE&": [
     1,
     "=Ref8p145p2"
   ],
-  "F.Type9b.B.RDC.D.2.SICKNESS&": [
+  "F.Type9b.B.DO.D.2.SICKNESS&": [
     1,
     "=Ref8p145p2"
   ],
-  "F.Type9b.B.RDC.D.2.TOMB&": [
+  "F.Type9b.B.DO.D.2.TOMB&": [
     1,
     "=Ref8p145p2"
   ],
-  "F.Type9b.B.RDC.D.4.DEATH&": [
+  "F.Type9b.B.DO.D.4.DEATH&": [
     1,
     "=Ref8p145p2"
   ],
-  "F.Type9b.B.RDC.D.4.REPOSE&": [
+  "F.Type9b.B.DO.D.4.REPOSE&": [
     1,
     "=Ref8p145p2"
   ],
-  "F.Type9b.B.RDC.D.4.SICKNESS&": [
+  "F.Type9b.B.DO.D.4.SICKNESS&": [
     1,
     "=Ref8p145p2"
   ],
-  "F.Type9b.B.RDC.D.4.TOMB&": [
+  "F.Type9b.B.DO.D.4.TOMB&": [
     1,
     "=Ref8p145p2"
   ],
-  "F.TypeTB.RDC.M.GDE.B&-.-": [
+  "F.TypeTB.DO.M.IR&-.-": [
     -3,
     "=Husbandb.25"
   ],
-  "F.TypeTB.T.RDC.EE.B&+": [
+  "F.TypeTB.DO.F&+": [
     2,
     "=Ref8p151p3b"
   ],
-  "F.TypeTB.T.RDC.EE.B&-": [
+  "F.TypeTB.DO.F&-": [
     -2,
     "=Ref8p151p3c"
   ],
-  "F.TypeTB.T.RDC.GE.B&": [
+  "F.TypeTB.DO.EG&": [
     0,
     "=Ref8p151p1"
   ],
-  "F.TypeTB.T.RDE.EE.B&": [
+  "F.TypeTB.7K.F&": [
     0,
     "=Ref8p176p1c"
   ],
-  "F.TypeTB.T.RDE.GDE.B&": [
+  "F.TypeTB.7K.IR&": [
     0,
     "=Ref8p176p4b"
   ],
-  "F.TypeTB.T.RDE.RDC.B&": [
+  "F.TypeTB.7K.DO&": [
     0,
     "=Ref8p175p2b"
   ],
-  "F.TypeTB.T.RDE.RDE&": [
+  "F.TypeTB.7K.7K&": [
     0,
     "=Ref8p172p7c"
   ],
-  "F.TypeTB.T.RDE.RE.B&": [
+  "F.TypeTB.7K.IW&": [
     0,
     "=Ref8p175p3b"
   ],
-  "F.TypeTBn.T.RDC.1.GC.B&": [
-    0,
-    "=Ref8p150p3c"
-  ],
-  "F.TypeTBn.T.RDC.5.GC.B&": [
-    0,
-    "=Ref8p150p3c"
-  ],
-  "F.TypeTBn.T.RDE.2.RE.B&": [
-    0,
-    "=Husbandb.23==Parentb.27"
-  ],
-  "F.TypeTBn.T.RDE.4.RE.B&": [
-    0,
-    "=Husbandb.23==Parentb.27"
-  ],
-  "F.TypeTBx.T.GC.Y.EC.B&+": [
-    2,
-    "=Parentb.32b"
-  ],
-  "F.TypeTBx.T.GC.Y.EE.B&+": [
-    2,
-    "=Parentb.32b"
-  ],
-  "F.TypeTTa.GDE.Y.GDC.D&": [
+  "F.TypeTTa.IR.Y.DR.D&": [
     1,
     "=Wifeb.33"
   ],
-  "F.Year.PIVOT_YEAR.GE.GDC&": [
+  "F.Year.PIVOT_YEAR.EG.DR&": [
     0,
     "=Ref3p560p8"
   ],
@@ -14225,7 +14217,7 @@
     2,
     "=Fortuneb.29"
   ],
-  "M.DtyGType3a.EC.RC.RDC.+.-.0&+": [
+  "M.DtyGType3a.RW.DW.DO.+.-.0&+": [
     1,
     "=Ref8p423p50"
   ],
@@ -15201,181 +15193,165 @@
     0,
     "=Careera.51"
   ],
-  "M.Type2a.EE.D&-.+": [
+  "M.Type2a.T.F.D&-.+": [
     1,
     "=Wifea.1"
   ],
-  "M.Type2a.EE.D.B&+": [
+  "M.Type2a.T.F.D&+": [
     1,
-    "=Type2a.EE.D&+==Wifeb.20"
+    "=Type2a.T.F.D&+==Wifeb.20"
   ],
-  "M.Type2b.T.GC.D&-": [
+  "M.Type2b.T.HO.D&-": [
     1,
     "=Ref3p503p9"
   ],
-  "M.Type2c.B.RC.D.1&+": [
+  "M.Type2c.B.DW.D.1&+": [
     2,
     "=Ref8p208p2"
   ],
-  "M.Type2c.B.RC.D.5&+": [
+  "M.Type2c.B.DW.D.5&+": [
     2,
     "=Ref8p208p2"
   ],
-  "M.Type2c.B.RDC.D.1&+": [
+  "M.Type2c.B.DO.D.1&+": [
     2,
     "=Ref8p145p1a==Ref8p30p1"
   ],
-  "M.Type2c.B.RDC.D.2&": [
+  "M.Type2c.B.DO.D.2&": [
     0,
     "=Ref8p30p2"
   ],
-  "M.Type2c.B.RDC.D.2&-": [
+  "M.Type2c.B.DO.D.2&-": [
     -2,
     "=Ref8p145p1b"
   ],
-  "M.Type2c.B.RDC.D.4&": [
+  "M.Type2c.B.DO.D.4&": [
     0,
     "=Ref8p30p2"
   ],
-  "M.Type2c.B.RDC.D.4&-": [
+  "M.Type2c.B.DO.D.4&-": [
     -2,
     "=Ref8p145p1b"
   ],
-  "M.Type2c.B.RDC.D.5&+": [
+  "M.Type2c.B.DO.D.5&+": [
     2,
     "=Ref8p145p1a==Ref8p30p1"
   ],
-  "M.Type2c.B.RE.D.1&": [
+  "M.Type2c.B.IW.D.1&": [
     0,
     "=Wifea.3"
   ],
-  "M.Type2c.B.RE.D.3&+": [
+  "M.Type2c.B.IW.D.3&+": [
     2,
     "=Wifea.7"
   ],
-  "M.Type2c.B.RE.D.5&": [
+  "M.Type2c.B.IW.D.5&": [
     0,
     "=Wifea.3"
   ],
-  "M.Type2c.T.EC.Y.1&": [
+  "M.Type2c.T.RW.Y.1&": [
     0,
     "=Studya.7"
   ],
-  "M.Type2c.T.EC.Y.2&": [
+  "M.Type2c.T.RW.Y.2&": [
     0,
     "=Studyb.20"
   ],
-  "M.Type2c.T.GDC.D.0&-": [
+  "M.Type2c.T.DR.D.0&-": [
     -2,
     "=Wifea.8a==Wifea.8b"
   ],
-  "M.Type2c.T.RE.Y.1&": [
+  "M.Type2c.T.IW.Y.1&": [
     0,
     "=Studya.7"
   ],
-  "M.Type2c.T.RE.Y.2&": [
+  "M.Type2c.T.IW.Y.2&": [
     0,
     "=Studyb.20"
   ],
-  "M.Type2c.T.RE.Y.4&": [
+  "M.Type2c.T.IW.Y.4&": [
     0,
     "=Studyb.20"
   ],
-  "M.Type2c.T.RE.Y.5&": [
+  "M.Type2c.T.IW.Y.5&": [
     0,
     "=Studya.7"
   ],
-  "M.Type3a.RDE.Vd&+": [
+  "M.Type3a.7K.Vd&+": [
     1,
     "=Ref8p172p8==Ref8p172p10"
   ],
-  "M.Type4.RC.M.Vd&": [
+  "M.Type4.TB.DW.M.Vd&": [
     0,
     "=Wifeb.35"
   ],
-  "M.Type4.RC.Y.Vd&": [
+  "M.Type4.TB.DW.Y.Vd&": [
     0,
     "=Wifeb.35==Wifeb.36"
   ],
-  "M.Type6a.GC.Y.KHD&": [
+  "M.Type6a.HO.Y.KHD&": [
     1,
     "=Parentb.32b==Wifeb.25"
   ],
-  "M.Type7a.RC.D.1.KQU&+": [
+  "M.Type7a.TB.DW.D.1.KQU&+": [
     1,
     "=Ref8p208p3"
   ],
-  "M.Type7a.RC.D.1.THN&+": [
+  "M.Type7a.TB.DW.D.1.THN&+": [
     1,
     "=Ref8p208p3"
   ],
-  "M.Type7a.RC.D.1.TNG&+": [
+  "M.Type7a.TB.DW.D.1.TNG&+": [
     1,
     "=Ref8p208p3"
   ],
-  "M.Type7a.RC.D.5.KQU&+": [
+  "M.Type7a.TB.DW.D.5.KQU&+": [
     1,
     "=Ref8p208p3"
   ],
-  "M.Type7a.RC.D.5.THN&+": [
+  "M.Type7a.TB.DW.D.5.THN&+": [
     1,
     "=Ref8p208p3"
   ],
-  "M.Type7a.RC.D.5.TNG&+": [
+  "M.Type7a.TB.DW.D.5.TNG&+": [
     1,
     "=Ref8p208p3"
   ],
-  "M.Type7b.B.EE.H.1.LTH&": [
+  "M.Type7b.B.F.H.1.LTH&": [
     1,
     "=Wifea.2==Wifea.1"
   ],
-  "M.Type7b.B.EE.H.5.LTH&": [
+  "M.Type7b.B.F.H.5.LTH&": [
     1,
     "=Wifea.2==Wifea.1"
   ],
-  "M.Type7b.T.EE.H.1.LTH&": [
+  "M.Type7b.T.F.H.1.LTH&": [
     1,
     "=Wifea.2==Wifea.1"
   ],
-  "M.Type7b.T.EE.H.5.LTH&": [
+  "M.Type7b.T.F.H.5.LTH&": [
     1,
     "=Wifea.2==Wifea.1"
   ],
-  "M.Type8c.RC.REPOSE&-": [
+  "M.Type8c.TB.DW.REPOSE&-": [
     -2,
     "=Ref3p520p2==Ref3p468p4"
   ],
-  "M.Type8c.RC.TOMB&-": [
+  "M.Type8c.TB.DW.TOMB&-": [
     -2,
     "=Ref3p520p2"
   ],
-  "M.Type8c.RC.TOMB&-.+": [
+  "M.Type8c.TB.DW.TOMB&-.+": [
     -1,
     "=Ref3p520p2==Ref3p468p4"
   ],
-  "M.TypeTB.T.EE.EC.B&": [
+  "M.TypeTB.F.RW&": [
     0,
     "=Mariageb.20==Wifeb.23"
   ],
-  "M.TypeTB.T.RDE.RDE&": [
+  "M.TypeTB.7K.7K&": [
     0,
     "=Ref8p172p7b"
-  ],
-  "M.TypeTBn.T.RDC.1.GC.B&+": [
-    2,
-    "=Ref8p150p3b"
-  ],
-  "M.TypeTBn.T.RDC.5.GC.B&+": [
-    2,
-    "=Ref8p150p3b"
-  ],
-  "M.TypeTBx.T.GC.Y.EC.B&+": [
-    2,
-    "=Parentb.32b==Wifeb.25"
-  ],
-  "M.TypeTBx.T.GC.Y.EE.B&+": [
-    2,
-    "=Parentb.32b==Wifeb.25"
   ],
   "MARS.AQUARIUS&+": [
     1,
@@ -15665,43 +15641,43 @@
     -1,
     "=Ref28p86p4"
   ],
-  "MainPeriodType1.GC.+&": [
+  "MainPeriodType1.HO.+&": [
     0,
     "=Ref8p447p1a"
   ],
-  "MainPeriodType1.GC.-&": [
+  "MainPeriodType1.HO.-&": [
     0,
     "=Ref8p447p1a"
   ],
-  "MainPeriodType1.RC.+&": [
+  "MainPeriodType1.DW.+&": [
     0,
     "=Ref8p430p1"
   ],
-  "MainPeriodType1.RDC.+&": [
+  "MainPeriodType1.DO.+&": [
     0,
     "=Ref8p447p3==Ref8p430p2"
   ],
-  "MainPeriodType1.RDC.-&": [
+  "MainPeriodType1.DO.-&": [
     0,
     "=Ref8p447p3"
   ],
-  "MainPeriodType1.RDE.+&": [
+  "MainPeriodType1.7K.+&": [
     0,
     "=Ref8p447p3==Ref8p430p2"
   ],
-  "MainPeriodType1.RDE.-&": [
+  "MainPeriodType1.7K.-&": [
     0,
     "=Ref8p447p3"
   ],
-  "MainPeriodType1.RE.+&": [
+  "MainPeriodType1.IW.+&": [
     0,
     "=Ref8p430p1"
   ],
-  "MainPeriodType2.GC.2&": [
+  "MainPeriodType2.HO.2&": [
     0,
     "=Ref8p432p7"
   ],
-  "MainPeriodType2.GC.5&": [
+  "MainPeriodType2.HO.5&": [
     0,
     "=Ref8p432p7"
   ],
@@ -15925,71 +15901,71 @@
     -1,
     "=Ref28p128p6"
   ],
-  "NGHType1c.RC.EARTH&": [
+  "NGHType1c.DW.EARTH&": [
     0,
     "=Ref8p26p3"
   ],
-  "NGHType1c.RC.FIRE&": [
+  "NGHType1c.DW.FIRE&": [
     0,
     "=Ref8p29p2"
   ],
-  "NGHType1c.RC.METAL&": [
+  "NGHType1c.DW.METAL&": [
     0,
     "=Ref8p27p4"
   ],
-  "NGHType1c.RC.WATER&": [
+  "NGHType1c.DW.WATER&": [
     0,
     "=Ref8p28p1"
   ],
-  "NGHType1c.RC.WOOD&": [
+  "NGHType1c.DW.WOOD&": [
     0,
     "=Ref8p28p4"
   ],
-  "NGHType1d.H.RC.EARTH.D&": [
+  "NGHType1d.H.DW.EARTH.D&": [
     0,
     "=Ref8p26p4"
   ],
-  "NGHType1d.H.RDC.EARTH.D&": [
+  "NGHType1d.H.DO.EARTH.D&": [
     0,
     "=Ref8p27p1Good"
   ],
-  "NGHType1d.M.RC.EARTH.D&": [
+  "NGHType1d.M.DW.EARTH.D&": [
     0,
     "=Ref8p26p4"
   ],
-  "NGHType1d.M.RDC.EARTH.D&-": [
+  "NGHType1d.M.DO.EARTH.D&-": [
     -2,
     "=Ref8p27p1Good"
   ],
-  "NGHType2a.RDC.EARTH.-.RDE&-": [
+  "NGHType2a.DO.EARTH.-.7K&-": [
     1,
     "=Ref8p27p2"
   ],
-  "NGHType2a.RDC.FIRE.-.RDE&-": [
+  "NGHType2a.DO.FIRE.-.7K&-": [
     1,
     "=Ref8p29p3"
   ],
-  "NGHType2a.RDC.METAL.-.RDE&-": [
+  "NGHType2a.DO.METAL.-.7K&-": [
     1,
     "=Ref8p27p5"
   ],
-  "NGHType2a.RDC.WATER.-.RDE&-": [
+  "NGHType2a.DO.WATER.-.7K&-": [
     1,
     "=Ref8p28p2"
   ],
-  "NGHType2b.RDC.METAL.-.DEATH&-": [
+  "NGHType2b.DO.METAL.-.DEATH&-": [
     1,
     "=Ref8p27p5==Ref3p248p10"
   ],
-  "NGHType2b.RDC.METAL.-.REPOSE&-": [
+  "NGHType2b.DO.METAL.-.REPOSE&-": [
     1,
     "=Ref8p27p5==Ref3p248p10"
   ],
-  "NGHType2b.RDC.WATER.-.DEATH&-": [
+  "NGHType2b.DO.WATER.-.DEATH&-": [
     1,
     "=Ref8p28p2"
   ],
-  "NGHType2b.RDC.WATER.-.REPOSE&-": [
+  "NGHType2b.DO.WATER.-.REPOSE&-": [
     1,
     "=Ref8p28p2"
   ],
@@ -16636,46 +16612,6 @@
     0,
     "=Healthb.79"
   ],
-  "Pilar.D.B.RDE.EARTH.WATER.+.EARTH.EARTH&": [
-    0,
-    "=Ref8p169p2b"
-  ],
-  "Pilar.D.B.RDE.EARTH.WATER.-.EARTH.EARTH&": [
-    0,
-    "=Ref8p169p2b"
-  ],
-  "Pilar.D.B.RDE.FIRE.METAL.+.FIRE.FIRE&": [
-    0,
-    "=Ref8p168p2b"
-  ],
-  "Pilar.D.B.RDE.FIRE.METAL.-.FIRE.FIRE&": [
-    0,
-    "=Ref8p168p2b"
-  ],
-  "Pilar.D.B.RDE.METAL.WOOD.+.METAL.METAL&": [
-    0,
-    "=Ref8p168p3b"
-  ],
-  "Pilar.D.B.RDE.METAL.WOOD.-.METAL.METAL&": [
-    0,
-    "=Ref8p168p3b"
-  ],
-  "Pilar.D.B.RDE.WATER.FIRE.+.WATER.WATER&": [
-    0,
-    "=Ref8p168p1b"
-  ],
-  "Pilar.D.B.RDE.WATER.FIRE.-.WATER.WATER&": [
-    0,
-    "=Ref8p168p1b"
-  ],
-  "Pilar.D.B.RDE.WOOD.EARTH.+.WOOD.WOOD&": [
-    0,
-    "=Ref8p169p1b"
-  ],
-  "Pilar.D.B.RDE.WOOD.EARTH.-.WOOD.WOOD&": [
-    0,
-    "=Ref8p169p1b"
-  ],
   "Pilar.D.B.REN.+.EARTH.EARTH&": [
     0,
     "=Healthb.2092"
@@ -16692,7 +16628,7 @@
     0,
     "=Healthb.2086"
   ],
-  "Pilar.D.BIRTH.GC&-.-": [
+  "Pilar.D.BIRTH.HO&-.-": [
     -3,
     "=Healthb.33"
   ],
@@ -16990,19 +16926,19 @@
     2,
     "=Ref3p515p7"
   ],
-  "RC.M.2.RDC.D.2&-": [
+  "RC.M.2.DO.D.2&-": [
     -2,
     "=Ref8p155p7a"
   ],
-  "RC.M.4.RDC.D.2&-": [
+  "RC.M.4.DO.D.2&-": [
     -2,
     "=Ref8p155p7a"
   ],
-  "RC.Y.1.RDC.M&+": [
+  "RC.Y.1.DO.M&+": [
     2,
     "=Ref8p155p3"
   ],
-  "RC.Y.5.RDC.M&+": [
+  "RC.Y.5.DO.M&+": [
     2,
     "=Ref8p155p3"
   ],
@@ -34612,6 +34548,10 @@
     0,
     "=Lifea.56"
   ],
+  "Ref8p144p4": [
+    0,
+    "=Lifeb.28a==Careerb.22==Studyb.20"
+  ],
   "Ref8p144p6": [
     0,
     "=Persona.9a==Persona.9b"
@@ -34640,7 +34580,7 @@
     0,
     "=Persona.11"
   ],
-  "Ref8p146p1": [
+  "Ref8p146p2": [
     0,
     "=Mariageb.37==Studyb.23"
   ],
@@ -34871,45 +34811,29 @@
     0,
     "=Persona.176==Persona.173==Persona.179"
   ],
-  "Ref8p168p1a": [
+  "Ref8p167p3": [
     0,
-    "=Healthb.27==Healthb.74==Healthb.75==Careerb.71"
+    "=Careera.1044==Careera.44==Careera.1512==Careera.1513==Careera.1514==Careera.44"
   ],
-  "Ref8p168p1b": [
+  "Ref8p168p1": [
     0,
-    "=Healthb.2095"
+    "=Healthb.27==Healthb.74==Healthb.75==Careerb.71==Healthb.2095"
   ],
-  "Ref8p168p2a": [
+  "Ref8p168p2": [
     0,
-    "=Healthb.76==Healthb.77==Healthb.37==Healthb.78==Careerb.73"
+    "=Healthb.76==Healthb.77==Healthb.37==Healthb.78==Careerb.73==Healthb.2096==Lifeb.2006"
   ],
-  "Ref8p168p2b": [
+  "Ref8p168p3": [
     0,
-    "=Healthb.2096==Lifeb.2006"
+    "=Personb.192==Healthb.66==Healthb.79==Healthb.33==Careerb.72==Healthb.33==Lifeb.2501"
   ],
-  "Ref8p168p3a": [
+  "Ref8p169p1": [
     0,
-    "=Personb.192==Healthb.66==Healthb.79==Healthb.33==Careerb.72"
+    "=Personb.107a==Personb.69==Healthb.74b==Healthb.101==Healthb.71==Healthb.209"
   ],
-  "Ref8p168p3b": [
-    0,
-    "=Healthb.33==Lifeb.2501"
-  ],
-  "Ref8p169p1a": [
-    0,
-    "=Personb.107a==Personb.69==Healthb.74b==Healthb.101==Healthb.71"
-  ],
-  "Ref8p169p1b": [
-    0,
-    "=Healthb.2097"
-  ],
-  "Ref8p169p2a": [
+  "Ref8p169p2": [
     0,
     "=Persona.101==Healthb.70==Healthb.102==,==Healthb.103==,==Healthb.104"
-  ],
-  "Ref8p169p2b": [
-    0,
-    "=Healthb.103==Healthb.104"
   ],
   "Ref8p169p3": [
     0,
@@ -34918,6 +34842,10 @@
   "Ref8p169p4": [
     0,
     "=Persona.266==Persona.5==Careera.4==Persona.135"
+  ],
+  "Ref8p170p1": [
+    0,
+    "=Personb.244"
   ],
   "Ref8p170p10Bad": [
     0,
@@ -34929,7 +34857,7 @@
   ],
   "Ref8p170p2": [
     0,
-    "=Careera.120"
+    "=Careera.120==Careera.47"
   ],
   "Ref8p170p3": [
     0,
@@ -37320,10 +37248,6 @@
     -1,
     "=Ref28p118p4"
   ],
-  "SP.B.EC.Ref8p259p1&": [
-    0,
-    "=Ref8p259p1"
-  ],
   "SP.Careera.Religeous.+&": [
     1,
     "=Lifea.45b==Persona.8==Persona.203==Persona.130==Persona.279"
@@ -37340,53 +37264,13 @@
     0,
     "=Ref7_2ap21b"
   ],
-  "SP.RDE.+.RDC.-&+": [
+  "DtyType2b.7K.DO.+.-&+": [
     2,
     "=Ref8p167p2"
   ],
-  "SP.RDE.1.GDC.+.GC.-&+": [
+  "DtyType2b.7K.DO.+.0&+": [
     2,
-    "=Ref8p166p7"
-  ],
-  "SP.RDE.1.GDC.0.GC.0&-": [
-    -2,
-    "=Ref8p169p3"
-  ],
-  "SP.RDE.5.GDC.+.GC.-&+": [
-    2,
-    "=Ref8p166p7"
-  ],
-  "SP.RDE.5.GDC.0.GC.0&-": [
-    -2,
-    "=Ref8p169p3"
-  ],
-  "SP.T.RDC.RDC.B.Ref8p144p3&": [
-    0,
-    "=Ref8p144p3"
-  ],
-  "SP.T.RDE.GE.Ref8p170p10&-": [
-    -2,
-    "=Ref8p170p10Bad"
-  ],
-  "SP.T.RDE.GE.Ref8p170p5a&": [
-    0,
-    "=Ref8p170p5a"
-  ],
-  "SP.T.RDE.GE.Ref8p170p5b&": [
-    0,
-    "=Ref8p170p5b"
-  ],
-  "SP.T.RDE.GE.Ref8p170p9&-": [
-    -2,
-    "=Ref8p170p9"
-  ],
-  "SP.T.RDE.RDC.Ref8p171p2b&": [
-    0,
-    "=Ref8p171p2b"
-  ],
-  "SP.TB.EC.Ref8p258p6&": [
-    0,
-    "=Ref8p258p6"
+    "=Ref8p167p2"
   ],
   "SP.TKY.Ref8p124p1&": [
     0,
@@ -37408,22 +37292,7 @@
     0,
     "=Ref8p125p1"
   ],
-  "SP.Type8.B.RDE.D.DEATH&": [
-    0,
-    "=Ref8p165p4"
-  ],
-  "SP.Type8.B.RDE.D.REPOSE&": [
-    0,
-    "=Ref8p165p4"
-  ],
-  "SP.Type8.B.RDE.D.SICKNESS&": [
-    0,
-    "=Ref8p165p4"
-  ],
-  "SP.Type8.B.RDE.D.TOMB&": [
-    0,
-    "=Ref8p165p4"
-  ],
+
   "ST.ASPECT.JUPITER.NEPTUNE&": [
     1,
     "=Ref29p434p2"
@@ -38064,7 +37933,7 @@
     1,
     "=Ref7_2ap39aBad"
   ],
-  "SecDeType1a.CGI.+&": [
+  "SecDeType1a.CGI.-&": [
     1,
     "=Ref8p99p1==Ref7_2ap31a"
   ],
@@ -38082,7 +37951,7 @@
   ],
   "SecDeType1a.DHO.+&": [
     1,
-    "=Ref7_2ap37a==Ref7_2ap38a1"
+    "=Ref7_2ap37a==Ref7_2ap38a1==Ref8p86p6"
   ],
   "SecDeType1a.DMA&+": [
     1,
@@ -38142,19 +38011,15 @@
   ],
   "SecDeType1a.KDU.+&": [
     1,
-    "=Ref7_2ap20a"
+    "=Ref7_2ap20a===Ref7_2ap39b"
   ],
   "SecDeType1a.KHD.+&": [
     1,
-    "=Ref7_2ap28h==Ref7_2ap29a"
+    "=Ref7_2ap28h==Ref7_2ap29a==Ref8p73p1"
   ],
   "SecDeType1a.KHD.-&": [
     1,
     "=Ref7_2ap28h"
-  ],
-  "SecDeType1a.KSA.+&": [
-    1,
-    "=Ref7_2ap30e"
   ],
   "SecDeType1a.KSA.-&+": [
     1,
@@ -38651,41 +38516,29 @@
     0,
     "=Persona.241==Persona.3==Persona.2a==Persona.2b==Persona.1"
   ],
-  "SecDeType1f.DHO.+.+&": [
-    0,
-    "=Ref8p86p6"
-  ],
-  "SecDeType1f.DMA.+.+&": [
+  "SecDeType1a.DMA.+&": [
     0,
     "=Ref8p79p9"
   ],
-  "SecDeType1f.HNH.+.+&": [
+  "SecDeType1a.HNH.+&": [
     0,
     "=Ref8p102p1"
   ],
-  "SecDeType1f.HNH.-.+&": [
+  "SecDeType1a.HNH.-&": [
     0,
     "=Ref8p102p1"
   ],
-  "SecDeType1f.KDU.+.+&": [
+  "SecDeType1a.KDU.-&": [
     0,
     "=Ref7_2ap39b"
   ],
-  "SecDeType1f.KDU.-.+&": [
-    0,
-    "=Ref7_2ap39b"
-  ],
-  "SecDeType1f.KHD.+.+&": [
+  "SecDeType1a.KHD.-&+": [
     0,
     "=Ref8p73p1"
   ],
-  "SecDeType1f.KHD.-.+&": [
-    0,
-    "=Ref8p73p1"
-  ],
-  "SecDeType1f.KSA.+.+&": [
-    0,
-    "=Ref8p89p1"
+  "SecDeType1a.KSA.+&": [
+    1,
+    "=Ref8p89p1==Ref7_2ap30e"
   ],
   "SecDeType1f.LTH.+.+&": [
     0,
@@ -39200,3484 +39053,3790 @@
     0,
     "=Ref17p63p1&==Ref17p63p3&==Ref17p64p4&"
   ],
-  "Type10a1.GC.H.2&-.-": [
+  "Type10a1.T.HO.H.2&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.GC.H.4&-.-": [
+  "Type10a1.T.HO.H.4&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.GC.M.2&-.-": [
+  "Type10a1.T.HO.M.2&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.GC.M.4&-.-": [
+  "Type10a1.T.HO.M.4&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.GE.H.2&-.-": [
+  "Type10a1.T.EG.H.2&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.GE.H.4&-.-": [
+  "Type10a1.T.EG.H.4&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.GE.M.2&-.-": [
+  "Type10a1.T.EG.M.2&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.GE.M.4&-.-": [
+  "Type10a1.T.EG.M.4&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RC.H.1&+": [
+  "Type10a1.T.DW.H.1&+": [
     2,
     "=Ref8p386p16"
   ],
-  "Type10a1.RC.H.2&-.-": [
+  "Type10a1.T.DW.H.2&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RC.H.4&-.-": [
+  "Type10a1.T.DW.H.4&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RC.H.5&+": [
+  "Type10a1.T.DW.H.5&+": [
     2,
     "=Ref8p386p16"
   ],
-  "Type10a1.RC.M.1&+": [
+  "Type10a1.T.DW.M.1&+": [
     2,
     "=Ref8p386p16"
   ],
-  "Type10a1.RC.M.2&-.-": [
+  "Type10a1.T.DW.M.2&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RC.M.4&-.-": [
+  "Type10a1.T.DW.M.4&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RC.M.5&+": [
+  "Type10a1.T.DW.M.5&+": [
     2,
     "=Ref8p386p16"
   ],
-  "Type10a1.RDC.D.1&": [
+  "Type10a1.T.DO.D.1&": [
     0,
     "=Ref8p448p2"
   ],
-  "Type10a1.RDC.D.5&": [
+  "Type10a1.T.DO.D.5&": [
     0,
     "=Ref8p448p2"
   ],
-  "Type10a1.RDC.H.2&-.-": [
+  "Type10a1.T.DO.H.2&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RDC.H.4&-.-": [
+  "Type10a1.T.DO.H.4&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RDC.M.2&-.-": [
+  "Type10a1.T.DO.M.2&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RDC.M.4&-.-": [
+  "Type10a1.T.DO.M.4&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RDE.H.2&-.-": [
+  "Type10a1.T.7K.H.2&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RDE.H.4&-.-": [
+  "Type10a1.T.7K.H.4&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RDE.M.2&-.-": [
+  "Type10a1.T.7K.M.2&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RDE.M.4&-.-": [
+  "Type10a1.T.7K.M.4&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RE.H.1&+": [
+  "Type10a1.T.IW.H.1&+": [
     2,
     "=Ref8p386p16"
   ],
-  "Type10a1.RE.H.2&-.-": [
+  "Type10a1.T.IW.H.2&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RE.H.4&-.-": [
+  "Type10a1.T.IW.H.4&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RE.H.5&+": [
+  "Type10a1.T.IW.H.5&+": [
     2,
     "=Ref8p386p16"
   ],
-  "Type10a1.RE.M.1&+": [
+  "Type10a1.T.IW.M.1&+": [
     2,
     "=Ref8p386p16"
   ],
-  "Type10a1.RE.M.2&-.-": [
+  "Type10a1.T.IW.M.2&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RE.M.4&-.-": [
+  "Type10a1.T.IW.M.4&-.-": [
     -3,
     "=Ref8p156p3a"
   ],
-  "Type10a1.RE.M.5&+": [
+  "Type10a1.T.IW.M.5&+": [
     2,
     "=Ref8p386p16"
   ],
-  "Type10a2.B.EE.D.2&+": [
+  "Type10a2.B.F.D.2&+": [
     2,
     "=Ref8p418p9"
   ],
-  "Type10a2.B.GC.D.2&+": [
+  "Type10a2.B.HO.D.2&+": [
     2,
     "=Ref8p418p6a"
   ],
-  "Type10a2.B.GC.D.4&+": [
+  "Type10a2.B.HO.D.4&+": [
     2,
     "=Ref8p418p6a"
   ],
-  "Type10a2.B.GDC.D.1&-": [
+  "Type10a2.B.DR.D.1&-": [
     -2,
     "=Ref8p418p12a"
   ],
-  "Type10a2.B.GDC.D.5&-": [
+  "Type10a2.B.DR.D.5&-": [
     -2,
     "=Ref8p418p12a"
   ],
-  "Type10a2.B.GDE.D.1&-": [
+  "Type10a2.B.IR.D.1&-": [
     -2,
     "=Ref8p418p12b"
   ],
-  "Type10a2.B.GDE.D.2&": [
+  "Type10a2.B.IR.D.2&": [
     0,
     "=Ref8p448p6"
   ],
-  "Type10a2.B.RC.D.1&": [
+  "Type10a2.B.DW.D.1&": [
     0,
     "=Ref8p386p17a"
   ],
-  "Type10a2.B.RC.D.1&+": [
+  "Type10a2.B.DW.D.1&+": [
     2,
-    "=Type10a2.B.RE.D.1&==Ref8p417p4a"
+    "=Type10a2.B.IW.D.1&==Ref8p417p4a"
   ],
-  "Type10a2.B.RC.D.5&": [
+  "Type10a2.B.DW.D.5&": [
     0,
     "=Ref8p386p17a"
   ],
-  "Type10a2.B.RC.D.5&+": [
+  "Type10a2.B.DW.D.5&+": [
     2,
-    "=Type10a2.B.RE.D.1&==Ref8p417p4a"
+    "=Type10a2.B.IW.D.1&==Ref8p417p4a"
   ],
-  "Type10a2.B.RC.H.1&": [
+  "Type10a2.B.DW.H.1&": [
     0,
     "=Ref8p386p17b"
   ],
-  "Type10a2.B.RC.H.5&": [
+  "Type10a2.B.DW.H.5&": [
     0,
     "=Ref8p386p17b"
   ],
-  "Type10a2.B.RDC.D.1&+": [
+  "Type10a2.B.DO.D.1&+": [
     2,
     "=Ref8p417p5"
   ],
-  "Type10a2.B.RDC.D.5&+": [
+  "Type10a2.B.DO.D.5&+": [
     2,
     "=Ref8p417p5"
   ],
-  "Type10a2.B.RDE.D.1&+": [
+  "Type10a2.B.7K.D.1&+": [
     2,
     "=Ref8p417p5"
   ],
-  "Type10a2.B.RDE.D.5&+": [
+  "Type10a2.B.7K.D.5&+": [
     2,
     "=Ref8p417p5"
   ],
-  "Type10a2.B.RE.D.1&": [
+  "Type10a2.B.IW.D.1&": [
     0,
     "=Ref8p386p17a"
   ],
-  "Type10a2.B.RE.D.1&+": [
+  "Type10a2.B.IW.D.1&+": [
     2,
-    "=Type10a2.B.RE.D.1&==Ref8p417p4a"
+    "=Type10a2.B.IW.D.1&==Ref8p417p4a"
   ],
-  "Type10a2.B.RE.D.5&": [
+  "Type10a2.B.IW.D.5&": [
     0,
     "=Ref8p386p17a"
   ],
-  "Type10a2.B.RE.D.5&+": [
+  "Type10a2.B.IW.D.5&+": [
     2,
-    "=Type10a2.B.RE.D.1&==Ref8p417p4a"
+    "=Type10a2.B.IW.D.1&==Ref8p417p4a"
   ],
-  "Type10a2.B.RE.H.1&": [
+  "Type10a2.B.IW.H.1&": [
     0,
     "=Ref8p386p17b"
   ],
-  "Type10a2.B.RE.H.5&": [
+  "Type10a2.B.IW.H.5&": [
     0,
     "=Ref8p386p17b"
   ],
-  "Type10a2.T.RC.M.1&": [
+  "Type10a2.T.DW.M.1&": [
     0,
     "=Ref8p386p17a"
   ],
-  "Type10a2.T.RC.M.5&": [
+  "Type10a2.T.DW.M.5&": [
     0,
     "=Ref8p386p17a"
   ],
-  "Type10a2.T.RE.M.1&": [
+  "Type10a2.T.IW.M.1&": [
     0,
     "=Ref8p386p17a"
   ],
-  "Type10a2.T.RE.M.5&": [
+  "Type10a2.T.IW.M.5&": [
     0,
     "=Ref8p386p17a"
   ],
-  "Type10b.B.GE.D.0.GDE.0&+": [
+  "Type10b.B.EG.D.0.IR.0&+": [
     1,
-    "=Type10b.B.GE.D.1.GDE.0&==Type10b.B.GE.D.5.GDE.0&==Ref8p418p7"
+    "=Type10b.B.EG.D.1.IR.0&==Type10b.B.EG.D.5.IR.0&==Ref8p418p7"
   ],
-  "Type10b.B.GE.D.1.GDE.+&": [
+  "Type10b.B.EG.D.1.IR.+&": [
     1,
     "=Ref8p226p1b"
   ],
-  "Type10b.B.GE.D.1.GDE.0&": [
+  "Type10b.B.EG.D.1.IR.0&": [
     1,
     "=Ref8p226p1a==Ref8p226p3"
   ],
-  "Type10b.B.GE.D.1.GDE.0&+": [
+  "Type10b.B.EG.D.1.IR.0&+": [
     1,
-    "=Type10b.B.GE.D.1.GDE.0&==Ref8p418p7"
+    "=Type10b.B.EG.D.1.IR.0&==Ref8p418p7"
   ],
-  "Type10b.B.GE.D.2.GDE.0&+": [
-    1,
-    "=Ref8p418p7"
-  ],
-  "Type10b.B.GE.D.4.GDE.0&+": [
+  "Type10b.B.EG.D.2.IR.0&+": [
     1,
     "=Ref8p418p7"
   ],
-  "Type10b.B.GE.D.5.GDE.+&": [
+  "Type10b.B.EG.D.4.IR.0&+": [
+    1,
+    "=Ref8p418p7"
+  ],
+  "Type10b.B.EG.D.5.IR.+&": [
     1,
     "=Ref8p226p1b"
   ],
-  "Type10b.B.GE.D.5.GDE.0&": [
+  "Type10b.B.EG.D.5.IR.0&": [
     1,
     "=Ref8p226p1a==Ref8p226p3"
   ],
-  "Type10b.B.GE.D.5.GDE.0&+": [
+  "Type10b.B.EG.D.5.IR.0&+": [
     1,
-    "=Type10b.B.GE.D.5.GDE.0&==Ref8p418p7"
+    "=Type10b.B.EG.D.5.IR.0&==Ref8p418p7"
   ],
-  "Type11a.GC.H.+&": [
-    1,
-    "=Ref8p388p3"
-  ],
-  "Type11a.GC.M.+&": [
+  "Type11a.TB.HO.H.+&": [
     1,
     "=Ref8p388p3"
   ],
-  "Type11a.GE.H.+&": [
+  "Type11a.TB.HO.M.+&": [
+    1,
+    "=Ref8p388p3"
+  ],
+  "Type11a.TB.EG.H.+&": [
     1,
     "=Ref8p388p2"
   ],
-  "Type11a.GE.M.+&": [
+  "Type11a.TB.EG.M.+&": [
     1,
     "=Ref8p388p2"
   ],
-  "Type11a.RC.H.-&": [
+  "Type11a.TB.DW.H.-&": [
     1,
     "=Ref8p390p4"
   ],
-  "Type11a.RC.M.-&": [
+  "Type11a.TB.DW.M.-&": [
     1,
     "=Ref8p390p4"
   ],
-  "Type11a.RDC.H.+&": [
+  "Type11a.TB.DO.H.+&": [
     1,
     "=Ref8p389p5"
   ],
-  "Type11a.RDC.M.+&": [
+  "Type11a.TB.DO.M.+&": [
     1,
     "=Ref8p389p5"
   ],
-  "Type11a.RDE.H.+&": [
+  "Type10a2.T.7K.H.+&": [
+    1,
+    "=Ref8p388p4==Ref8p170p5a"
+  ],
+  "Type11a.TB.7K.M.+&": [
     1,
     "=Ref8p388p4"
   ],
-  "Type11a.RDE.M.+&": [
+  "Type11a.TB.IW.H.+&": [
     1,
     "=Ref8p388p4"
   ],
-  "Type11a.RE.H.+&": [
+  "Type11a.TB.IW.M.+&": [
     1,
     "=Ref8p388p4"
   ],
-  "Type11a.RE.M.+&": [
-    1,
-    "=Ref8p388p4"
-  ],
-  "Type11b.GC.H.+.1&+": [
+  "Type11b.TB.HO.H.+.1&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.GC.H.+.5&+": [
+  "Type11b.TB.HO.H.+.5&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.GC.M.+.1&+": [
+  "Type11b.TB.HO.M.+.1&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.GC.M.+.5&+": [
+  "Type11b.TB.HO.M.+.5&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.GE.H.+.1&+": [
+  "Type11b.TB.EG.H.+.1&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.GE.H.+.5&+": [
+  "Type11b.TB.EG.H.+.5&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.GE.M.+.1&+": [
+  "Type11b.TB.EG.M.+.1&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.GE.M.+.5&+": [
+  "Type11b.TB.EG.M.+.5&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.RC.H.+.1&+": [
+  "Type11b.TB.DW.H.+.1&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.RC.H.+.5&+": [
+  "Type11b.TB.DW.H.+.5&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.RC.M.+.1&+": [
+  "Type11b.TB.DW.M.+.1&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.RC.M.+.5&+": [
+  "Type11b.TB.DW.M.+.5&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.RE.H.+.1&+": [
+  "Type11b.TB.IW.H.+.1&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.RE.H.+.5&+": [
+  "Type11b.TB.IW.H.+.5&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.RE.M.+.1&+": [
+  "Type11b.TB.IW.M.+.1&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type11b.RE.M.+.5&+": [
+  "Type11b.TB.IW.M.+.5&+": [
     1,
     "=Ref8p382p3"
   ],
-  "Type1a.EC.0&+": [
+  "Type12a.DO.M.+.7K.0.DR.+": [
+    1,
+    "=Ref8p144p3"
+  ],
+  "Type12a.DO.M.-.7K.+.DR.0": [
+    -1,
+    "=Ref8p144p4"
+  ],
+  "DayForce1a.-.0.0.+": [
+    -1,"=Ref8p169p3"
+  ],
+  "DayForce1c.+.KHD": [
+    1,"=Ref8p169p4==Ref8p170p2"
+  ],
+  "DayForce1c.+": [
+    -1,"=Ref8p170p1"
+  ],
+  "Type1a.T.RW.0&+": [
     1,
     "=Persona.16c==Relationb.20"
   ],
-  "Type1a.EC.0&+.+": [
+  "Type1a.T.RW.0&+.+": [
     1,
-    "=Persona.16a==Persona.16b==Type1a.EC.0&+"
+    "=Persona.16a==Persona.16b==Type1a.T.RW.0&+"
   ],
-  "Type1a.EC.1&": [
+  "Type1a.T.RW.1&": [
     1,
     "=Persona.121"
   ],
-  "Type1a.EC.1&+.+": [
+  "Type1a.T.RW.1&+.+": [
     1,
-    "=Type1a.EC.1&==Persona.16a==Persona.16b==Persona.16c==Relationb.20==Persona.170"
+    "=Type1a.T.RW.1&==Persona.16a==Persona.16b==Persona.16c==Relationb.20==Persona.170"
   ],
-  "Type1a.EC.5&-": [
+  "Type1a.T.RW.5&-": [
     1,
     "=Ref3p173p1"
   ],
-  "Type1a.EE.0&+": [
+  "Type1a.T.F.0&+": [
     1,
     "=Fortunea.8"
   ],
-  "Type1a.EE.0&-": [
+  "Type1a.T.F.0&-": [
     1,
     "=Fortuneb.25"
   ],
-  "Type1a.EE.1&+": [
+  "Type1a.T.F.1&+": [
     1,
-    "=Type1a.EE.1&-==Persona.168"
+    "=Type1a.T.F.1&-==Persona.168"
   ],
-  "Type1a.EE.1&+.+": [
+  "Type1a.T.F.1&+.+": [
     1,
-    "=Type1a.EE.1&+==Fortuneb.28"
+    "=Type1a.T.F.1&+==Fortuneb.28"
   ],
-  "Type1a.EE.1&-": [
+  "Type1a.T.F.1&-": [
     1,
     "=Ref8p249p3==Persona.98==Persona.99"
   ],
-  "Type1a.EE.1&-.-": [
+  "Type1a.T.F.1&-.-": [
     1,
     "=Ref8p249p3==Careera.142"
   ],
-  "Type1a.EE.2&": [
+  "Type1a.T.F.2&": [
     1,
     "=Ref8p249p4==Careerb.31a==Careerb.31b"
   ],
-  "Type1a.EE.2&+": [
+  "Type1a.T.F.2&+": [
     1,
     "=Personb.79"
   ],
-  "Type1a.EE.2&+.+": [
+  "Type1a.T.F.2&+.+": [
     1,
     "=Personb.100==Personb.62==Relationb.67"
   ],
-  "Type1a.EE.3&+": [
+  "Type1a.T.F.3&+": [
     0
   ],
-  "Type1a.EE.3&+.+": [
+  "Type1a.T.F.3&+.+": [
     1,
-    "=Type1a.EE.2&+==Persona.8"
+    "=Type1a.T.F.2&+==Persona.8"
   ],
-  "Type1a.EE.3&+.-": [
+  "Type1a.T.F.3&+.-": [
     1,
     "=Careerb.33"
   ],
-  "Type1a.EE.3&-.+": [
+  "Type1a.T.F.3&-.+": [
     1,
-    "=Type1a.EE.2&==Careerb.33==Healtha.2"
+    "=Type1a.T.F.2&==Careerb.33==Healtha.2"
   ],
-  "Type1a.EE.5&-": [
+  "Type1a.T.F.5&-": [
     1,
     "=Ref3p173p1"
   ],
-  "Type1a.GC.1&": [
+  "Type1a.T.HO.1&": [
     1,
     "=Persona.3==Persona.2a==Persona.2b==Persona.45==Ref3p502p21"
   ],
-  "Type1a.GC.1&+.+": [
+  "Type1a.T.HO.1&+.+": [
     0
   ],
-  "Type1a.GC.1&+.-": [
+  "Type1a.T.HO.1&+.-": [
     1,
-    "=Type1a.GC.1&==Persona.18a==Persona.18b"
+    "=Type1a.T.HO.1&==Persona.18a==Persona.18b"
   ],
-  "Type1a.GC.1&-": [
+  "Type1a.T.HO.1&-": [
     1,
     "=Ref8p187p4"
   ],
-  "Type1a.GC.2&-.+": [
+  "Type1a.T.HO.2&-.+": [
     1,
     "=Personb.35a==Personb.35b==Personb.36==Persona.46"
   ],
-  "Type1a.GC.4&-.+": [
+  "Type1a.T.HO.4&-.+": [
     1,
     "=Personb.35a==Personb.35b==Personb.36==Persona.46"
   ],
-  "Type1a.GC.5&": [
+  "Type1a.T.HO.5&": [
     1,
     "=Persona.3==Persona.2a==Persona.2b==Persona.45==Ref3p502p21"
   ],
-  "Type1a.GC.5&+": [
+  "Type1a.T.HO.5&+": [
     1,
-    "=Ref3p173p6==Type1a.GC.5&"
+    "=Ref3p173p6==Type1a.T.HO.5&"
   ],
-  "Type1a.GC.5&+.+": [
+  "Type1a.T.HO.5&+.+": [
     0
   ],
-  "Type1a.GC.5&+.-": [
+  "Type1a.T.HO.5&+.-": [
     1,
     "=Persona.18a==Persona.18b"
   ],
-  "Type1a.GC.5&-": [
+  "Type1a.T.HO.5&-": [
     1,
     "=Ref8p187p4"
   ],
-  "Type1a.GDC.1&+": [
+  "Type1a.T.DR.1&+": [
     1,
     "=Ref3p527p7==Ref3p558p4==Persona.42==Persona.89==Persona.166"
   ],
-  "Type1a.GDC.1&+.+": [
+  "Type1a.T.DR.1&+.+": [
     1,
-    "=Type1a.GDC.1&+==Persona.9a==Persona.9b==Lifea.15==Persona.3==Persona.2a==Persona.2b==Careera.143"
+    "=Type1a.T.DR.1&+==Persona.9a==Persona.9b==Lifea.15==Persona.3==Persona.2a==Persona.2b==Careera.143"
   ],
-  "Type1a.GDC.1&-": [
+  "Type1a.T.DR.1&-": [
     1,
     "=Ref8p186p4==Ref8p187p4==Careerb.37==Personb.116b"
   ],
-  "Type1a.GDC.2&+": [
+  "Type1a.T.DR.2&+": [
     1,
     "=Personb.31a==Personb.31b==Personb.31c==Personb.32a==Personb.32b"
   ],
-  "Type1a.GDC.2&-.-": [
+  "Type1a.T.DR.2&-.-": [
     1,
     "=Ref3p439p15==Ref3p548p13==Personb.31a==Personb.31b==Personb.31c"
   ],
-  "Type1a.GDC.3&": [
+  "Type1a.T.DR.3&": [
     0
   ],
-  "Type1a.GDC.3&+.-": [
+  "Type1a.T.DR.3&+.-": [
     1,
     "=Persona.3==Persona.2a==Persona.2b==Persona.9a==Persona.9b==Persona.42==Careera.11"
   ],
-  "Type1a.GDC.4&+": [
+  "Type1a.T.DR.4&+": [
     1,
     "=Ref3p173p10==Ref3p173p14==Personb.31a==Personb.31b==Personb.31c==Personb.32a==Personb.32b"
   ],
-  "Type1a.GDC.4&-.-": [
+  "Type1a.T.DR.4&-.-": [
     1,
     "=Ref3p439p15==Personb.31a==Personb.31b==Personb.31c"
   ],
-  "Type1a.GDC.5&+": [
+  "Type1a.T.DR.5&+": [
     1,
     "=Ref3p173p3==Ref3p527p7==Ref3p558p4==Persona.172b==Careera.94==Persona.3==Persona.2a==Persona.2b==Persona.42==Persona.89==Persona.166==Careera.143"
   ],
-  "Type1a.GDC.5&+.+": [
+  "Type1a.T.DR.5&+.+": [
     1,
-    "=Type1a.GDC.5&+==Persona.9a==Persona.9b==Lifea.15"
+    "=Type1a.T.DR.5&+==Persona.9a==Persona.9b==Lifea.15"
   ],
-  "Type1a.GDC.5&-": [
+  "Type1a.T.DR.5&-": [
     1,
     "=Ref8p186p4==Ref8p187p4==Ref3p173p7==Ref3p173p3==Careerb.37==Personb.116b"
   ],
-  "Type1a.GDE.1&": [
+  "Type1a.T.IR.1&": [
     1,
     "=Ref8p199p1a"
   ],
-  "Type1a.GDE.1&-": [
+  "Type1a.T.IR.1&-": [
     1,
     "=Ref8p195p1"
   ],
-  "Type1a.GDE.2&+": [
+  "Type1a.T.IR.2&+": [
     1,
     "=Ref3p439p15"
   ],
-  "Type1a.GDE.2&-": [
+  "Type1a.T.IR.2&-": [
     1,
     "=Ref3p439p15"
   ],
-  "Type1a.GDE.3&+.+": [
+  "Type1a.T.IR.3&+.+": [
     1,
     "=Healtha.3"
   ],
-  "Type1a.GDE.4&+": [
+  "Type1a.T.IR.4&+": [
     1,
     "=Ref3p173p10==Ref3p173p14==Ref3p439p15"
   ],
-  "Type1a.GDE.4&-": [
+  "Type1a.T.IR.4&-": [
     1,
     "=Ref3p439p15"
   ],
-  "Type1a.GDE.5&": [
+  "Type1a.T.IR.5&": [
     1,
     "=Ref8p199p1a"
   ],
-  "Type1a.GDE.5&-": [
+  "Type1a.T.IR.5&-": [
     1,
     "=Ref8p195p1==Ref3p173p3==Ref3p173p7"
   ],
-  "Type1a.GE.1&": [
+  "Type1a.T.EG.1&": [
     1,
     "=Ref3p502p21"
   ],
-  "Type1a.GE.1&+.+": [
+  "Type1a.T.EG.1&+.+": [
     1,
     "=Ref3p502p21==Ref8p237p2"
   ],
-  "Type1a.GE.2&+": [
+  "Type1a.T.EG.2&+": [
     1,
     "=Personb.25==Personb.38a==Personb.38b==Personb.39"
   ],
-  "Type1a.GE.3&+.+": [
+  "Type1a.T.EG.3&+.+": [
     1,
     "=Careerb.22==Mariageb.28"
   ],
-  "Type1a.GE.4&": [
+  "Type1a.T.EG.4&": [
     1,
     "=Ref3p501p2"
   ],
-  "Type1a.GE.4&+": [
+  "Type1a.T.EG.4&+": [
     1,
-    "=Type1a.GE.4&==Personb.25==Personb.38a==Personb.38b==Personb.39"
+    "=Type1a.T.EG.4&==Personb.25==Personb.38a==Personb.38b==Personb.39"
   ],
-  "Type1a.GE.5&": [
+  "Type1a.T.EG.5&": [
     1,
     "=Ref3p502p21==Ref3p501p2"
   ],
-  "Type1a.GE.5&+": [
+  "Type1a.T.EG.5&+": [
     1,
-    "=Ref3p173p6==Type1a.GE.5&"
+    "=Ref3p173p6==Type1a.T.EG.5&"
   ],
-  "Type1a.GE.5&+.+": [
+  "Type1a.T.EG.5&+.+": [
     1,
-    "=Type1a.GE.5&+==Ref8p237p2"
+    "=Type1a.T.EG.5&+==Ref8p237p2"
   ],
-  "Type1a.RC.1&": [
+  "Type1a.T.DW.1&": [
     1,
     "=Persona.121==Persona.171==Persona.14a==Personb.2068==Persona.172a==Persona.172b"
   ],
-  "Type1a.RC.1&+": [
+  "Type1a.T.DW.1&+": [
     1,
-    "=Type1a.RC.1&==Persona.54==Persona.5==Careera.40==Ref8p379p10"
+    "=Type1a.T.DW.1&==Persona.54==Persona.5==Careera.40==Ref8p379p10"
   ],
-  "Type1a.RC.2&-": [
+  "Type1a.T.DW.2&-": [
     1,
     "=Lifeb.34"
   ],
-  "Type1a.RC.3&-.+": [
+  "Type1a.T.DW.3&-.+": [
     1,
-    "=Type1a.RC.2&-==Personb.103"
+    "=Type1a.T.DW.2&-==Personb.103"
   ],
-  "Type1a.RC.5&+": [
+  "Type1a.T.DW.5&+": [
     1,
     "=Ref3p173p1"
   ],
-  "Type1a.RC.5&-": [
+  "Type1a.T.DW.5&-": [
     1,
     "=Ref3p173p9"
   ],
-  "Type1a.RDC.1&": [
+  "Type1a.T.DO.1&": [
     1,
     "=Ref8p428p3"
   ],
-  "Type1a.RDC.1&+": [
+  "Type1a.T.DO.1&+": [
     1,
-    "=Type3a.RDC.NVd&+==Type1a.RDC.1&==Persona.161==Persona.162==Ref8p30p1==Ref8p445p4"
+    "=Type3a.TB.DO.NVd&+==Type1a.T.DO.1&==Persona.161==Persona.162==Ref8p30p1==Ref8p445p4"
   ],
-  "Type1a.RDC.1&-": [
+  "Type1a.T.DO.1&-": [
     1,
-    "=Type3a.RDC.NVd&-==Type1a.RDC.1&==Ref8p30p1"
+    "=Type3a.TB.DO.NVd&-==Type1a.T.DO.1&==Ref8p30p1"
   ],
-  "Type1a.RDC.2&+": [
+  "Type1a.T.DO.2&+": [
     1,
     "=Personb.23==Ref8p30p2==Careerb.23"
   ],
-  "Type1a.RDC.2&-": [
+  "Type1a.T.DO.2&-": [
     1,
-    "=Ref8p146p1"
+    "=Ref8p146p2"
   ],
-  "Type1a.RDC.3&": [
+  "Type1a.T.DO.3&": [
     1,
     "=Ref8p141p3a"
   ],
-  "Type1a.RDC.3&-": [
+  "Type1a.T.DO.3&-": [
     1,
     "=Ref8p141p3a==Ref8p141p3b==Ref8p142p1a"
   ],
-  "Type1a.RDC.4&+": [
+  "Type1a.T.DO.4&+": [
     1,
     "=Personb.23==Ref8p30p2==Careerb.23"
   ],
-  "Type1a.RDC.4&-": [
+  "Type1a.T.DO.4&-": [
     1,
-    "=Ref3p173p11==Ref8p146p1"
+    "=Ref3p173p11==Ref8p146p2"
   ],
-  "Type1a.RDC.5&": [
-    1,
-    "=Ref8p428p3"
-  ],
-  "Type1a.RDC.5&+": [
-    1,
-    "=Type3a.RDC.NVd&+==Persona.161==Persona.162==Ref8p30p1==Ref8p445p4"
-  ],
-  "Type1a.RDC.5&-": [
-    1,
-    "=Type3a.RDC.NVd&-==Ref8p30p1==Type1a.RDC.5&==Ref3p173p2"
-  ],
-  "Type1a.RDE.1&": [
+  "Type1a.T.DO.5&": [
     1,
     "=Ref8p428p3"
   ],
-  "Type1a.RDE.1&+": [
+  "Type1a.T.DO.5&+": [
     1,
-    "=Ref8p445p4==Type1a.RDE.1&"
+    "=Type3a.TB.DO.NVd&+==Persona.161==Persona.162==Ref8p30p1==Ref8p445p4"
   ],
-  "Type1a.RDE.1&+.+": [
+  "Type1a.T.DO.5&-": [
     1,
-    "=Type1a.RDE.1&==Persona.3==Persona.163==Persona.18a==Persona.18b==Persona.19a==Persona.19b==Persona.8==Lifea.2==Persona.10c"
+    "=Type3a.TB.DO.NVd&-==Ref8p30p1==Type1a.T.DO.5&==Ref3p173p2"
   ],
-  "Type1a.RDE.1&-.+": [
+  "Type1a.T.7K.1&": [
     1,
-    "=Type1a.RDE.1&==Personb.29b"
+    "=Ref8p428p3"
   ],
-  "Type1a.RDE.1&-.-": [
+  "Type1a.T.7K.1&+": [
     1,
-    "=Type1a.RDE.1&==Personb.29a"
+    "=Ref8p445p4==Type1a.T.7K.1&"
   ],
-  "Type1a.RDE.2&+.+": [
+  "Type1a.T.7K.1&+.+": [
+    1,
+    "=Type1a.T.7K.1&==Persona.3==Persona.163==Persona.18a==Persona.18b==Persona.19a==Persona.19b==Persona.8==Lifea.2==Persona.10c"
+  ],
+  "Type1a.T.7K.1&-.+": [
+    1,
+    "=Type1a.7K.1&==Personb.29b"
+  ],
+  "Type1a.T.7K.1&-.-": [
+    1,
+    "=Type1a.T.7K.1&==Personb.29a"
+  ],
+  "Type1a.T.7K.2&+.+": [
     1,
     "=Personb.30==Personb.101==Mariageb.23"
   ],
-  "Type1a.RDE.3&+.+": [
+  "Type1a.T.7K.3&+.+": [
     1,
     "=Persona.101==Personb.101==Personb.101c==Personb.101d"
   ],
-  "Type1a.RDE.4&+.+": [
+  "Type1a.T.7K.4&+.+": [
     1,
-    "=Type1a.RDE.1&==Personb.30==Personb.101==Mariageb.23"
+    "=Type1a.T.7K.1&==Personb.30==Personb.101==Mariageb.23"
   ],
-  "Type1a.RDE.4&-": [
+  "Type1a.T.7K.4&-": [
     1,
     "=Ref3p173p11"
   ],
-  "Type1a.RDE.5&": [
+  "Type1a.T.7K.5&": [
     1,
     "=Ref8p428p3"
   ],
-  "Type1a.RDE.5&+": [
+  "Type1a.T.7K.5&+": [
     1,
-    "=Type1a.RDE.1&==Ref8p445p4"
+    "=Type1a.T.7K.1&==Ref8p445p4"
   ],
-  "Type1a.RDE.5&+.+": [
+  "Type1a.T.7K.5&+.+": [
     1,
-    "=Type1a.RDE.1&==Persona.3==Persona.163==Persona.18a==Persona.18b==Persona.19a==Persona.19b==Persona.8==Lifea.2==Persona.10c"
+    "=Type1a.T.7K.1&==Persona.3==Persona.163==Persona.18a==Persona.18b==Persona.19a==Persona.19b==Persona.8==Lifea.2==Persona.10c"
   ],
-  "Type1a.RDE.5&-": [
+  "Type1a.T.7K.5&-": [
     1,
-    "=Type1a.RDE.1&==Ref3p173p2"
+    "=Type1a.T.7K.1&==Ref3p173p2"
   ],
-  "Type1a.RDE.5&-.+": [
+  "Type1a.T.7K.5&-.+": [
     1,
-    "=Type1a.RDE.1&==Personb.29b"
+    "=Type1a.T.7K.1&==Personb.29b"
   ],
-  "Type1a.RDE.5&-.-": [
+  "Type1a.T.7K.5&-.-": [
     1,
-    "=Type1a.RDE.1&==Personb.29a"
+    "=Type1a.T.7K.1&==Personb.29a"
   ],
-  "Type1a.RE.0&+": [
+  "Type1a.T.IW.0&+": [
     1,
     "=Persona.3==Persona.2a==Careera.2a==Careera.2b==Careera.3"
   ],
-  "Type1a.RE.1&+": [
+  "Type1a.T.IW.1&+": [
     1,
     "=Careera.3==Ref8p379p10"
   ],
-  "Type1a.RE.1&+.+": [
+  "Type1a.T.IW.1&+.+": [
     1,
-    "=Type1a.RE.1&+==Persona.2b==Careera.2a==Relationa.8==Careera.3"
+    "=Type1a.T.IW.1&+==Persona.2b==Careera.2a==Relationa.8==Careera.3"
   ],
-  "Type1a.RE.3&+": [
+  "Type1a.T.IW.3&+": [
     1,
     "=Ref3p464p5"
   ],
-  "Type1a.RE.3&-": [
+  "Type1a.T.IW.3&-": [
     1,
     "=Careera.14==Ref3p527p4==Ref3p463p22"
   ],
-  "Type1a.RE.4&+.+": [
+  "Type1a.T.IW.4&+.+": [
     1,
     "=Ref3p548p28==Ref3p439p1"
   ],
-  "Type1a.RE.4&-.+": [
+  "Type1a.T.IW.4&-.+": [
     1,
     "=Ref3p548p28==Ref3p439p1==Ref3p527p4==Ref3p463p22"
   ],
-  "Type1a.RE.5&+": [
+  "Type1a.T.IW.5&+": [
     1,
     "=Careera.3==Ref8p379p10==Ref3p464p5==Ref3p173p1==Ref3p439p1"
   ],
-  "Type1a.RE.5&+.+": [
+  "Type1a.T.IW.5&+.+": [
     1,
-    "=Type1a.RE.1&+==Persona.2b==Careera.2a==Relationa.8==Careera.3==Ref3p548p28==Ref3p464p5==Ref3p439p1"
+    "=Type1a.T.IW.1&+==Persona.2b==Careera.2a==Relationa.8==Careera.3==Ref3p548p28==Ref3p464p5==Ref3p439p1"
   ],
-  "Type1a.RE.5&-": [
+  "Type1a.T.IW.5&-": [
     1,
     "=Ref3p173p9==Ref3p439p1==Ref3p527p4==Ref3p463p22"
   ],
-  "Type1a.RE.5&-.+": [
+  "Type1a.T.IW.5&-.+": [
     1,
     "=Ref3p548p28==Ref3p439p1==Ref3p527p4==Ref3p463p22"
   ],
-  "Type1b.GC.1.EC.+&+": [
+  "Type1b.TB.HO.1.RW.+&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GC.1.EC.-&+": [
+  "Type1b.TB.HO.1.RW.-&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GC.1.EE.+&+": [
+  "Type1b.TB.HO.1.F.+&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GC.1.EE.-&+": [
+  "Type1b.TB.HO.1.F.-&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GC.5.EC.+&+": [
+  "Type1b.TB.HO.5.RW.+&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GC.5.EC.-&+": [
+  "Type1b.TB.HO.5.RW.-&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GC.5.EE.+&+": [
+  "Type1b.TB.HO.5.F.+&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GC.5.EE.-&+": [
+  "Type1b.TB.HO.5.F.-&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GDC.1.GC.0&+": [
+  "Type1b.TB.DO.1.HO&": [
+    -1,
+    "=Type1d.T.DO.HO.NoQuy&"
+  ],
+  "Type1b.TB.DO.5.HO&": [
+    -1,
+    "=Type1d.T.DO.HO.NoQuy&"
+  ],
+  "Type1b.TB.DR.1.HO.0&+": [
     1,
     "=Ref8p187p6"
   ],
-  "Type1b.GDC.1.GE.0&+": [
+  "Type1b.TB.DR.1.EG.0&+": [
     1,
     "=Ref8p187p6"
   ],
-  "Type1b.GDC.1.RC.+&-": [
+  "Type1b.TB.DR.1.DW.+&-": [
     1,
     "=Ref8p392p6"
   ],
-  "Type1b.GDC.1.RE.+&-": [
+  "Type1b.TB.DR.1.IW.+&-": [
     1,
     "=Ref8p392p6"
   ],
-  "Type1b.GDC.5.GC.0&+": [
+  "Type1b.TB.DR.5.HO.0&+": [
     1,
     "=Ref8p187p6"
   ],
-  "Type1b.GDC.5.GE.0&+": [
+  "Type1b.TB.DR.5.EG.0&+": [
     1,
     "=Ref8p187p6"
   ],
-  "Type1b.GDC.5.RC.+&-": [
+  "Type1b.TB.DR.5.DW.+&-": [
     1,
     "=Ref8p392p6"
   ],
-  "Type1b.GDC.5.RE.+&-": [
+  "Type1b.TB.DR.5.IW.+&-": [
     1,
     "=Ref8p392p6"
   ],
-  "Type1b.GDE.1.GC.0&+": [
+  "Type1b.TB.IR.1.HO.0&+": [
     1,
     "=Ref8p187p6"
   ],
-  "Type1b.GDE.1.GE.0&+": [
+  "Type1b.TB.IR.1.EG.0&+": [
     1,
     "=Ref8p187p6"
   ],
-  "Type1b.GDE.1.RC.+&-": [
+  "Type1b.TB.IR.1.DW.+&-": [
     1,
     "=Ref8p392p6"
   ],
-  "Type1b.GDE.1.RE.+&-": [
+  "Type1b.TB.IR.1.IW.+&-": [
     1,
     "=Ref8p392p6"
   ],
-  "Type1b.GDE.5.GC.0&+": [
+  "Type1b.TB.IR.5.HO.0&+": [
     1,
     "=Ref8p187p6"
   ],
-  "Type1b.GDE.5.GE.0&+": [
+  "Type1b.TB.IR.5.EG.0&+": [
     1,
     "=Ref8p187p6"
   ],
-  "Type1b.GDE.5.RC.+&-": [
+  "Type1b.TB.IR.5.DW.+&-": [
     1,
     "=Ref8p392p6"
   ],
-  "Type1b.GDE.5.RE.+&-": [
+  "Type1b.TB.IR.5.IW.+&-": [
     1,
     "=Ref8p392p6"
   ],
-  "Type1b.GE.1.EC.+&+": [
+  "Type1b.TB.EG.1.RW.+&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GE.1.EC.-&+": [
+  "Type1b.TB.EG.1.RW.-&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GE.1.EE.+&+": [
+  "Type1b.TB.EG.1.F.+&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GE.1.EE.-&+": [
+  "Type1b.TB.EG.1.F.-&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GE.2.EC.+&-.+": [
+  "Type1b.TB.EG.2.RW.+&-.+": [
     1,
     "=Ref3p173p15"
   ],
-  "Type1b.GE.4.EC.+&-": [
+  "Type1b.TB.EG.4.RW.+&-": [
     1,
     "=Ref3p173p15"
   ],
-  "Type1b.GE.4.EC.-&-": [
+  "Type1b.TB.EG.4.RW.-&-": [
     1,
     "=Ref3p173p15"
   ],
-  "Type1b.GE.4.EE.+&-": [
+  "Type1b.TB.EG.4.F.+&-": [
     1,
     "=Ref3p173p15"
   ],
-  "Type1b.GE.4.EE.-&-": [
+  "Type1b.TB.EG.4.F.-&-": [
     1,
     "=Ref3p173p15"
   ],
-  "Type1b.GE.5.EC.+&+": [
+  "Type1b.TB.EG.5.RW.+&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GE.5.EC.-&+": [
+  "Type1b.TB.EG.5.RW.-&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GE.5.EE.+&+": [
+  "Type1b.TB.EG.5.F.+&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.GE.5.EE.-&+": [
+  "Type1b.TB.EG.5.F.-&+": [
     1,
     "=Ref3p173p6"
   ],
-  "Type1b.RC.1.+&": [
+  "Type1b.TB.DW.1.+&": [
     1,
     "=Ref8p427p2a"
   ],
-  "Type1b.RC.1.-&": [
+  "Type1b.TB.DW.1.-&": [
     1,
     "=Ref8p427p2a"
   ],
-  "Type1b.RC.2.+&": [
+  "Type1b.TB.DW.1.EC.-&": [
+    1,
+    "=Ref8p259p1"
+  ],
+  "Type1b.TB.DW.1.EC.+&": [
+    1,
+    "=Ref8p259p1"
+  ],
+  "Type1b.TB.DW.2.+&": [
     1,
     "=Ref8p427p2b"
   ],
-  "Type1b.RC.2.-&": [
+  "Type1b.TB.DW.2.-&": [
     1,
     "=Ref8p427p2b"
   ],
-  "Type1b.RC.4.+": [
+  "Type1b.TB.DW.4.+&": [
     1,
     "=Ref8p427p2b"
   ],
-  "Type1b.RC.4.-": [
+  "Type1b.TB.DW.4.-&": [
     1,
     "=Ref8p427p2b"
   ],
-  "Type1b.RC.5.+": [
+  "Type1b.TB.DW.5.+&": [
     1,
     "=Ref8p427p2a"
   ],
-  "Type1b.RC.5.-": [
+  "Type1b.TB.DW.5.-&": [
     1,
     "=Ref8p427p2a"
   ],
-  "Type2a.EC.D&+.+": [
+  "Type1b.TB.EG.1.IW&+": [
+    2,
+    "=Ref8p232p6"
+  ],
+  "Type1b.TB.EG.5.DW&+": [
+    2,
+    "=Ref8p232p5"
+  ],
+  "Type1b.TB.EG.5.IW&+": [
+    2,
+    "=Ref8p232p6"
+  ],
+  "Type1b.TB.DW.1.DW&+": [
+    2,
+    "=Ref8p212p1"
+  ],
+  "Type1b.TB.DW.5.DW&+": [
+    2,
+    "=Ref8p212p1"
+  ],
+  "Type1b.TB.DO.1.DR&+": [
+    2,
+    "=Ref8p153p4"
+  ],
+  "Type1b.TB.DO.1.IR&+": [
+    2,
+    "=Ref8p153p4==Ref8p149p4b"
+  ],
+  "Type1b.TB.DO.1.DW&+": [
+    2,
+    "=Ref8p149p5"
+  ],
+  "Type1b.TB.DO.1.DO&": [
+    0,
+    "=Ref8p149p1"
+  ],
+  "Type1b.TB.DO.1.IW&": [
+    0,
+    "=Ref8p150p2a==Ref8p150p2b"
+  ],
+  "Type1b.TB.DO.2.IR&-": [
+    -2,
+    "=Ref8p149p4a"
+  ],
+  "Type1b.TB.DO.2.DW&-": [
+    -2,
+    "=Ref8p150p1"
+  ],
+  "Type1b.TB.DO.2.DO&": [
+    0,
+    "=Ref8p149p2"
+  ],
+  "Type1b.TB.DO.4.IR&-": [
+    -2,
+    "=Ref8p149p4a"
+  ],
+  "Type1b.TB.DO.4.DW&-": [
+    -2,
+    "=Ref8p150p1"
+  ],
+  "Type1b.TB.DO.4.DO&": [
+    0,
+    "=Ref8p149p2"
+  ],
+  "Type1b.TB.DO.5.DR&+": [
+    2,
+    "=Ref8p153p4"
+  ],
+  "Type1b.TB.DO.5.IR&+": [
+    2,
+    "=Ref8p153p4==Ref8p149p4b"
+  ],
+  "Type1b.TB.DO.5.DW&+": [
+    2,
+    "=Ref8p149p5"
+  ],
+  "Type1b.TB.DO.5.DO&": [
+    0,
+    "=Ref8p149p1"
+  ],
+  "Type1b.TB.DO.5.IW&": [
+    0,
+    "=Ref8p150p2a==Ref8p150p2b"
+  ],
+
+  "Type1b.TB.IW.1.DW&+": [
+    2,
+    "=Ref8p221p4"
+  ],
+  "Type1b.TB.IW.1.DW&+.+": [
+    3,
+    "=Ref8p221p5"
+  ],
+  "Type1b.TB.IW.1.DW&-": [
+    -2,
+    "=Ref8p221p4"
+  ],
+  "Type1b.TB.IW.1.DW&-.+": [
+    -1,
+    "=Ref8p221p5"
+  ],
+  "Type1b.TB.IW.1.DO&": [
+    0,
+    "=Ref8p220p8"
+  ],
+  "Type1b.TB.IW.2.DW&": [
+    0,
+    "=Ref8p221p6"
+  ],
+  "Type1b.TB.IW.2.DO&": [
+    0,
+    "=Ref8p220p9"
+  ],
+  "Type1b.TB.IW.2.7K&+": [
+    2,
+    "=Ref8p221p1Bad"
+  ],
+  "Type1b.TB.IW.2.7K&-": [
+    -2,
+    "=Ref8p221p1Good"
+  ],
+  "Type1b.TB.IW.2.IW&+": [
+    2,
+    "=Ref8p222p1"
+  ],
+  "Type1b.TB.IW.4.DW&": [
+    0,
+    "=Ref8p221p6"
+  ],
+  "Type1b.TB.IW.4.DO&": [
+    0,
+    "=Ref8p220p9"
+  ],
+  "Type1b.TB.IW.4.7K&+": [
+    2,
+    "=Ref8p221p1Bad"
+  ],
+  "Type1b.TB.IW.4.7K&-": [
+    -2,
+    "=Ref8p221p1Good"
+  ],
+  "Type1b.TB.IW.4.IW&+": [
+    2,
+    "=Ref8p222p1"
+  ],
+  "Type1b.TB.IW.5.DW&+": [
+    2,
+    "=Ref8p221p4"
+  ],
+  "Type1b.TB.IW.5.DW&+.+": [
+    3,
+    "=Ref8p221p5"
+  ],
+  "Type1b.TB.IW.5.DW&-": [
+    -2,
+    "=Ref8p221p4"
+  ],
+  "Type1b.TB.IW.5.DW&-.+": [
+    -1,
+    "=Ref8p221p5"
+  ],
+  "Type1b.TB.IW.5.DO&": [
+    0,
+    "=Ref8p220p8"
+  ],
+  "Type1c.TB.7K.-.GDE.-&": [
+    1,"=Ref8p170p9"
+  ],
+  "Type1c.TB.7K.-.GDE.+&": [
+    -2,"=Ref8p170p10Bad"
+  ],
+  "Type1c.TB.7K.-.DR.+&": [
+    1,"=Ref8p170p9"
+  ],
+  "Type1c.TB.7K.-.IR.+&": [
+    1,"=Ref8p170p9"
+  ],
+  "Type1d.T.DO.HO.NoQuy&": [
+    -1,
+    "=Ref8p150p3a==Ref8p150p3b==Ref8p150p3c"
+  ],
+  "Type1d.T.7K.DO.NoQuy&": [
+    -1,"=Ref8p171p2a"
+  ],
+  "Type1d.T.7K.DO&": [
+    1,"=Ref8p171p2a"
+  ],
+  "Type1g.T.HO.+.1&+": [
+    2,
+    "=Ref8p381p16"
+  ],
+  "Type1g.T.HO.+.5&+": [
+    2,
+    "=Ref8p381p16"
+  ],
+  "Type1h.TB.DO.FIRE.METAL&": [
+    1,
+    "=Ref8p168p2"
+  ],
+  "Type1h.TB.DO.METAL.WOOD&": [
+    1,
+    "=Ref8p168p3"
+  ],
+  "Type1h.TB.DO.WATER.FIRE&": [
+    1,
+    "=Ref8p168p1"
+  ],
+  "Type1h.TB.DO.WOOD.EARTH&": [
+    1,
+    "=Ref8p169p1"
+  ],
+  "Type1h.TB.DO.WATER.WOOD&": [
+    1,
+    "=Ref8p169p2"
+  ],
+  "Type1i.T.DO.+.7K&": [
+    -1,
+    "=Ref8p151p2a"
+  ],
+  "Type1i.T.DO.-.7K&": [
+    -1,
+    "=Ref8p151p2b"
+  ],
+  "Type2a.T.RW.D&+.+": [
     1,
     "=Wifea.9==Mariageb.20"
   ],
-  "Type2a.EC.D&-.-": [
+  "Type2a.T.RW.D&-.-&": [
     1,
     "=Wifea.3==Mariagea.1"
   ],
-  "Type2a.EC.M&-.-": [
+  "Type2a.T.RW.M&-.-&": [
     1,
     "=Ref8p258p5"
   ],
-  "Type2a.EC.Y&+": [
+  "Type2a.T.RW.Y&+": [
     1,
-    "=Type2a.EE.Y&+"
+    "=Type2a.T.F.Y&+"
   ],
-  "Type2a.EC.Y&-": [
+  "Type2a.T.RW.Y&-": [
     1,
-    "=Type2a.EE.Y&-"
+    "=Type2a.T.F.Y&-"
   ],
-  "Type2a.EE.D&+": [
+  "Type2a.T.F.D&+": [
     1,
     "=Ref3p471p1"
   ],
-  "Type2a.EE.D&+.+": [
+  "Type2a.T.F.D&+.+": [
     1,
-    "=Type2a.EE.D&+==Persona.18a"
+    "=Type2a.T.F.D&+==Persona.18a"
   ],
-  "Type2a.EE.D&-.+": [
+  "Type2a.T.F.D&-.+": [
     0
   ],
-  "Type2a.EE.D.B&+": [
+  "Type2a.T.F.D.B&+": [
     0
   ],
-  "Type2a.EE.H&-.+": [
+  "Type2a.T.F.H&-.+": [
     1,
     "=Parenta.6"
   ],
-  "Type2a.EE.Y&+": [
+  "Type2a.T.F.Y&+": [
     1,
     "=Ref8p247p1a"
   ],
-  "Type2a.EE.Y&-": [
+  "Type2a.T.F.Y&-": [
     1,
     "=Ref8p247p1b"
   ],
-  "Type2a.GC.D&": [
+  "Type2a.T.HO.D&": [
     1,
     "=Ref3p470p22==Mariageb.32==Healthb.67==Ref8p446p4"
   ],
-  "Type2a.GC.H&-": [
+  "Type2a.T.HO.H&-": [
     1,
     "=Ref8p236p8"
   ],
-  "Type2a.GC.M&": [
+  "Type2a.T.HO.M&": [
     1,
     "=Ref8p235p6"
   ],
-  "Type2a.GC.M&+.+": [
+  "Type2a.T.HO.M&+.+": [
     1,
-    "=Type2a.GC.M&==Ref3p459p1"
+    "=Type2a.T.HO.M&==Ref3p459p1"
   ],
-  "Type2a.GC.M&-.+": [
+  "Type2a.T.HO.M&-.+": [
     1,
-    "=Type2a.GC.M&==Ref3p459p1"
+    "=Type2a.T.HO.M&==Ref3p459p1"
   ],
-  "Type2a.GC.Y&": [
+  "Type2a.T.HO.Y&": [
     1,
     "=Ref3p438p1a"
   ],
-  "Type2a.GDC.H&+": [
+  "Type2a.T.DR.H&+": [
     1,
     "=Ref8p102p2Bad"
   ],
-  "Type2a.GDC.H&-": [
+  "Type2a.T.DR.H&-": [
     1,
     "=Ref8p102p2Good"
   ],
-  "Type2a.GDC.M&+": [
+  "Type2a.T.DR.M&+": [
     1,
     "=Ref8p102p2Bad"
   ],
-  "Type2a.GDC.M&+.-": [
+  "Type2a.T.DR.M&+.-": [
     1,
-    "=Type2a.GDC.Y&"
+    "=Type2a.T.DR.Y&"
   ],
-  "Type2a.GDC.M&-": [
+  "Type2a.T.DR.M&-": [
     1,
     "=Ref8p102p2Good"
   ],
-  "Type2a.GDC.M&-.-": [
+  "Type2a.T.DR.M&-.-": [
     1,
-    "=Type2a.GDC.Y&"
+    "=Type2a.T.DR.Y&"
   ],
-  "Type2a.GDC.Y&": [
+  "Type2a.T.DR.Y&": [
     1,
-    "=Ref8p182p1==Type5a.GDC.TDU&==Ref3p434p6"
+    "=Ref8p182p1==Type5a.TB.DR.TDU&==Ref3p434p6"
   ],
-  "Type2a.GDC.Y&+.-": [
+  "Type2a.T.DR.Y&+.-": [
     1,
-    "=Type2a.GDC.Y&"
+    "=Type2a.T.DR.Y&"
   ],
-  "Type2a.GDC.Y&-.-": [
+  "Type2a.T.DR.Y&-.-": [
     1,
-    "=Type2a.GDC.Y&"
+    "=Type2a.T.DR.Y&"
   ],
-  "Type2a.GDE.H&-": [
+  "Type2a.T.IR.H&-": [
     1,
     "=Ref8p200p10"
   ],
-  "Type2a.GDE.M&": [
+  "Type2a.T.IR.M&": [
     1,
     "=Ref8p200p8"
   ],
-  "Type2a.GDE.M&+.-": [
+  "Type2a.T.IR.M&+.-": [
     1,
     "=Ref8p195p4==Ref8p200p8"
   ],
-  "Type2a.GDE.M&-.-": [
+  "Type2a.T.IR.M&-.-": [
     1,
     "=Ref8p195p4==Ref8p200p8"
   ],
-  "Type2a.GDE.Y&": [
+  "Type2a.T.IR.Y&": [
     1,
     "=Ref8p195p4==Ref3p451p6"
   ],
-  "Type2a.GE.Y&+": [
+  "Type2a.T.EG.Y&+": [
     1,
     "=Studya.6"
   ],
-  "Type2a.RC.M&": [
+  "Type2a.T.DW.M&": [
     1,
     "=Ref8p219p5"
   ],
-  "Type2a.RDC.D&": [
+  "Type2a.T.DO.D&": [
     0
   ],
-  "Type2a.RDC.M&+": [
+  "Type2a.T.DO.M&+": [
     1,
     "=Careera.6"
   ],
-  "Type2a.RDC.M&-.-": [
+  "Type2a.T.DO.M&-.-": [
     0
   ],
-  "Type2a.RDC.Y&+": [
+  "Type2a.T.DO.Y&+": [
     1,
     "=Ref8p143p3a"
   ],
-  "Type2a.RDC.Y&-": [
+  "Type2a.T.DO.Y&-": [
     1,
     "=Ref8p143p3b"
   ],
-  "Type2a.RDE.D&-.+": [
+  "Type2a.T.7K.D&-.+": [
     1,
     "=Ref3p504p5"
   ],
-  "Type2a.RDE.M&": [
+  "Type2a.T.7K.M&": [
     1,
     "=Ref8p171p8"
   ],
-  "Type2a.RDE.Y&": [
+  "Type2a.T.7K.Y&": [
     1,
     "=Ref8p429p6a"
   ],
-  "Type2a.RDE.Y&+.+": [
+  "Type2a.T.7K.Y&+.+": [
     1,
     "=Ref8p429p6b"
   ],
-  "Type2b.B.EC.D&": [
+  "Type2b.B.RW.D&": [
     1,
     "=Ref3p463p1==Ref3p463p2==Ref8p264p3"
   ],
-  "Type2b.B.EC.D&+": [
+  "Type2b.B.RW.D&+": [
     1,
     "=Ref8p258p10"
   ],
-  "Type2b.B.EC.H&": [
+  "Type2b.B.RW.H&": [
     1,
     "=Ref8p259p8"
   ],
-  "Type2b.B.EE.D&-": [
+  "Type2b.B.F.D&-": [
     1,
     "=Ref8p418p11"
   ],
-  "Type2b.B.GC.D&": [
+  "Type2b.B.HO.D&": [
     1,
     "=Ref8p244p5==Ref3p470p23==Ref3p476p1"
   ],
-  "Type2b.B.GC.D&+": [
+  "Type2b.B.HO.D&+": [
     1,
-    "=Type2b.B.GC.D&==Ref8p418p6b"
+    "=Type2b.B.HO.D&==Ref8p418p6b"
   ],
-  "Type2b.B.GDC.D&": [
+  "Type2b.B.DR.D&": [
     1,
     "=Ref3p463p4==Ref3p463p5"
   ],
-  "Type2b.B.GDC.M&-": [
+  "Type2b.B.DR.M&-": [
     1,
     "=Ref8p182p10"
   ],
-  "Type2b.B.GDE.D&": [
+  "Type2b.B.IR.D&": [
     1,
     "=Ref3p463p4==Ref3p463p5"
   ],
-  "Type2b.B.GDE.D&-": [
+  "Type2b.B.IR.D&-": [
     1,
-    "=Type2b.B.GDE.D&==Ref8p196p7"
+    "=Type2b.B.IR.D&==Ref8p196p7"
   ],
-  "Type2b.B.GE.D&+": [
+  "Type2b.B.EG.D&+": [
     1,
     "=Ref3p463p6Bad"
   ],
-  "Type2b.B.GE.D&-": [
+  "Type2b.B.EG.D&-": [
     1,
     "=Ref3p463p6Good"
   ],
-  "Type2b.B.GE.M&": [
+  "Type2b.B.EG.M&": [
     1,
     "=Ref8p225p3"
   ],
-  "Type2b.B.RC.D&+.+": [
+  "Type2b.B.DW.D&+.+": [
     1,
     "=Ref3p463p7"
   ],
-  "Type2b.B.RC.D&-.+": [
+  "Type2b.B.DW.D&-.+": [
     1,
     "=Ref3p463p7"
   ],
-  "Type2b.B.RDC.D&+": [
+  "Type2b.B.DO.D&+": [
     1,
     "=Ref3p470p15Bad==Ref8p418p8"
   ],
-  "Type2b.B.RDC.D&-": [
+  "Type2b.B.DO.D&-": [
     1,
     "=Ref3p470p15Good"
   ],
-  "Type2b.B.RDE.D&": [
+  "Type2b.B.7K.D&": [
     1,
     "=Ref8p428p5"
   ],
-  "Type2b.B.RDE.D&+.+": [
+  "Type2b.B.7K.D&+.+": [
     1,
-    "=Ref3p471p9==Ref3p470p15Bad==Type2b.B.RDE.D&"
+    "=Ref3p471p9==Ref3p470p15Bad==Type2b.B.7K.D&"
   ],
-  "Type2b.B.RDE.D&-": [
+  "Type2b.B.7K.D&-": [
     1,
-    "=Ref3p470p15Good==Type2b.B.RDE.D&"
+    "=Ref3p470p15Good==Type2b.B.7K.D&"
   ],
-  "Type2b.B.RDE.Y&-.+": [
+  "Type2b.B.7K.Y&-.+": [
     1,
     "=Ref8p164p1a"
   ],
-  "Type2b.B.RDE.Y&-.-": [
+  "Type2b.B.7K.Y&-.-": [
     1,
     "=Ref8p164p1a==Mariagea.4"
   ],
-  "Type2b.B.RE.D&+.+": [
+  "Type2b.B.IW.D&+.+": [
     1,
     "=Ref3p463p7"
   ],
-  "Type2b.B.RE.D&-.+": [
+  "Type2b.B.IW.D&-.+": [
     1,
     "=Ref3p463p7"
   ],
-  "Type2b.B.RE.M&": [
+  "Type2b.B.IW.M&": [
     1,
     "=Ref8p216p2"
   ],
-  "Type2b.B.RE.M&+": [
+  "Type2b.B.IW.M&+": [
     1,
     "=Ref8p218p8"
   ],
-  "Type2b.GDE.D&": [
+  "Type2b.IR.D&": [
     1,
     "=Ref8p197p1"
   ],
-  "Type2b.T.EC.M&+": [
+  "Type2b.T.RW.M&+": [
     1,
     "=Ref8p258p1b"
   ],
-  "Type2b.T.EC.M&-": [
+  "Type2b.T.RW.M&-": [
     1,
     "=Ref8p258p1a"
   ],
-  "Type2b.T.EC.Y&+": [
+  "Type2b.T.RW.Y&+": [
     1,
     "=Ref8p258p1b"
   ],
-  "Type2b.T.EC.Y&-": [
+  "Type2b.T.RW.Y&-": [
     1,
     "=Ref8p258p1a"
   ],
-  "Type2b.T.GC.D&-": [
+  "Type2b.T.HO.D&-": [
     0
   ],
-  "Type2b.T.RC.D&": [
+  "Type2b.T.DW.D&": [
     1,
     "=Ref3p520p2b"
   ],
-  "Type2b.T.RC.D&+.+": [
+  "Type2b.T.DW.D&+.+": [
     1,
     "=Ref3p463p8"
   ],
-  "Type2b.T.RC.H&+": [
+  "Type2b.T.DW.H&+": [
     1,
     "=Ref8p219p4b"
   ],
-  "Type2b.T.RC.H&-": [
+  "Type2b.T.DW.H&-": [
     1,
     "=Ref8p219p4a"
   ],
-  "Type2b.T.RC.M&+": [
+  "Type2b.T.DW.M&+": [
     1,
     "=Ref8p219p4b"
   ],
-  "Type2b.T.RC.M&-": [
+  "Type2b.T.DW.M&-": [
     1,
     "=Ref8p219p4a"
   ],
-  "Type2b.T.RC.Y&+": [
+  "Type2b.T.DW.Y&+": [
     1,
     "=Ref8p219p4b"
   ],
-  "Type2b.T.RC.Y&-": [
+  "Type2b.T.DW.Y&-": [
     1,
     "=Ref8p219p4a"
   ],
-  "Type2b.T.RDE.H&": [
+  "Type2b.T.7K.H&": [
     1,
     "=Ref8p428p5"
   ],
-  "Type2b.T.RDE.H&+": [
+  "Type2b.T.7K.H&+": [
     1,
-    "=Ref8p170p7==Type2b.T.RDE.H&"
+    "=Ref8p170p7==Type2b.T.7K.H&"
   ],
-  "Type2b.T.RDE.M&": [
+  "Type2b.T.7K.M&": [
     1,
     "=Ref8p428p5"
   ],
-  "Type2b.T.RE.D&+.+": [
+  "Type2b.T.IW.D&+.+": [
     1,
     "=Ref3p463p8"
   ],
-  "Type2c.B.EC.D.2&+.+": [
+  "Type2b.B.EG.D.WOOD.FIRE&": [
+      1,
+      "=Ref8p228p2"
+    ],
+  "Type2b.B.EG.D.FIRE.EARTH&": [
+      1,
+      "=Ref8p228p3"
+    ],
+  "Type2b.B.EG.D.METAL.WATER&": [
+      1,
+      "=Ref8p228p4"
+    ],
+  "Type2b.B.EG.D.WATER.WOOD&": [
+      1,
+      "=Ref8p228p5"
+    ],
+    "Type2b.B.EG.D.EARTH.METAL&": [
+      1,
+      "=Ref8p228p6"
+    ],
+  "Type2c.B.RW.D.2&+.+": [
     3,
     "=Wifeb.28"
   ],
-  "Type2c.B.EC.D.3&+": [
+  "Type2c.B.RW.D.3&+": [
     2,
     "=Healthb.21"
   ],
-  "Type2c.B.EC.H.2&+": [
+  "Type2c.B.RW.H.2&+": [
     2,
     "=Childb.20"
   ],
-  "Type2c.B.EC.L.1&": [
+  "Type2c.B.RW.L.1&": [
     0,
     "=Careera.52b==Fortunea.10"
   ],
-  "Type2c.B.EC.Y.1&+": [
+  "Type2c.B.RW.Y.1&+": [
     2,
-    "=Type2a.GE.Y&+==Careera.6"
+    "=Type2a.T.EG.Y&+==Careera.6"
   ],
-  "Type2c.B.EE.D.3&+": [
+  "Type2c.B.F.D.3&+": [
     2,
     "=Mariageb.21"
   ],
-  "Type2c.B.EE.Y.1&+": [
+  "Type2c.B.F.Y.1&+": [
     2,
-    "=Type2a.GE.Y&+==Careera.6"
+    "=Type2a.T.EG.Y&+==Careera.6"
   ],
-  "Type2c.B.GC.D.2&": [
+  "Type2c.B.HO.D.2&": [
     0,
     "=Ref8p172p11==Ref8p241p4"
   ],
-  "Type2c.B.GC.D.2&-": [
+  "Type2c.B.HO.D.2&-": [
     -2,
     "=Ref8p446p5"
   ],
-  "Type2c.B.GC.D.4&": [
+  "Type2c.B.HO.D.4&": [
     0,
     "=Ref8p172p11==Ref8p241p4"
   ],
-  "Type2c.B.GC.D.4&-": [
+  "Type2c.B.HO.D.4&-": [
     -2,
     "=Ref8p446p5"
   ],
-  "Type2c.B.GC.H.2&": [
+  "Type2c.B.HO.H.2&": [
     0,
     "=Ref8p236p10"
   ],
-  "Type2c.B.GC.H.4&": [
+  "Type2c.B.HO.H.4&": [
     0,
     "=Ref8p236p10"
   ],
-  "Type2c.B.GDC.D.0&-": [
+  "Type2c.B.DR.D.0&-": [
     -2,
     "=Ref8p183p6"
   ],
-  "Type2c.B.GDC.D.2&-": [
+  "Type2c.B.DR.D.2&-": [
     -2,
     "=Ref8p183p6"
   ],
-  "Type2c.B.GDC.D.4&-": [
+  "Type2c.B.DR.D.4&-": [
     -2,
     "=Ref8p183p6"
   ],
-  "Type2c.B.GDC.Y.2&-.-": [
+  "Type2c.B.DR.Y.2&-.-": [
     -3,
     "=Ref8p182p8"
   ],
-  "Type2c.B.GDC.Y.4&-.-": [
+  "Type2c.B.DR.Y.4&-.-": [
     -3,
     "=Ref8p182p8"
   ],
-  "Type2c.B.GDE.D&": [
+  "Type2c.B.IR.D&": [
     0,
     "=Ref8p197p3"
   ],
-  "Type2c.B.GDE.H.2&": [
+  "Type2c.B.IR.H.2&": [
     0,
     "=Ref8p197p4"
   ],
-  "Type2c.B.GE.D.2&-": [
+  "Type2c.B.EG.D.2&-": [
     -2,
     "=Ref8p446p5"
   ],
-  "Type2c.B.GE.D.4&-": [
+  "Type2c.B.EG.D.4&-": [
     -2,
     "=Ref8p446p5"
   ],
-  "Type2c.B.GE.H.2&-": [
+  "Type2c.B.EG.H.2&-": [
     -2,
     "=Lifeb.23==Personb.39==Personb.156==Personb.61"
   ],
-  "Type2c.B.GE.H.4&-": [
+  "Type2c.B.EG.H.4&-": [
     -2,
     "=Lifeb.23==Personb.39==Personb.156==Personb.61"
   ],
-  "Type2c.B.RC.D.1&+": [
+  "Type2c.B.DW.D.1&+": [
     0
   ],
-  "Type2c.B.RC.D.2&-": [
+  "Type2c.B.DW.D.2&-": [
     -2,
     "=Ref8p155p7a==Ref8p418p13a==Ref8p446p5"
   ],
-  "Type2c.B.RC.D.4&-": [
+  "Type2c.B.DW.D.4&-": [
     -2,
     "=Ref8p155p7a==Ref8p418p13a==Ref8p446p5"
   ],
-  "Type2c.B.RC.D.5&+": [
+  "Type2c.B.DW.D.5&+": [
     0
   ],
-  "Type2c.B.RDC.D.1&": [
+  "Type2c.B.DO.D.1&": [
     0,
     "=Ref3p464p21==Mariagea.5"
   ],
-  "Type2c.B.RDC.D.1&+": [
+  "Type2c.B.DO.D.1&+": [
     0
   ],
-  "Type2c.B.RDC.D.1&+.+": [
+  "Type2c.B.DO.D.1&+.+": [
     3,
     "=Ref3p559p1==Persona.3==Persona.2a==Persona.2b==Persona.10a==Persona.10b==Persona.10c"
   ],
-  "Type2c.B.RDC.D.1&+.-": [
+  "Type2c.B.DO.D.1&+.-": [
     0
   ],
-  "Type2c.B.RDC.D.1&-.+": [
+  "Type2c.B.DO.D.1&-.+": [
     -1,
     "=Ref3p559p1"
   ],
-  "Type2c.B.RDC.D.2&": [
+  "Type2c.B.DO.D.2&": [
     0
   ],
-  "Type2c.B.RDC.D.2&-": [
+  "Type2c.B.DO.D.2&-": [
     0,
     "=Ref8p155p7a"
   ],
-  "Type2c.B.RDC.D.3&+": [
+  "Type2c.B.DO.D.3&+": [
     2,
     "=Healthb.21"
   ],
-  "Type2c.B.RDC.D.4&": [
+  "Type2c.B.DO.D.4&": [
     0
   ],
-  "Type2c.B.RDC.D.4&-": [
+  "Type2c.B.DO.D.4&-": [
     0,
     "=Ref8p155p7a"
   ],
-  "Type2c.B.RDC.D.5&": [
+  "Type2c.B.DO.D.5&": [
     0,
     "=Ref3p464p21==Mariagea.5"
   ],
-  "Type2c.B.RDC.D.5&+": [
+  "Type2c.B.DO.D.5&+": [
     0
   ],
-  "Type2c.B.RDC.D.5&+.+": [
+  "Type2c.B.DO.D.5&+.+": [
     3,
     "=Ref3p559p1==Persona.3==Persona.2a==Persona.2b==Persona.10a==Persona.10b==Persona.10c"
   ],
-  "Type2c.B.RDC.D.5&+.-": [
+  "Type2c.B.DO.D.5&+.-": [
     0
   ],
-  "Type2c.B.RDC.D.5&-.+": [
+  "Type2c.B.DO.D.5&-.+": [
     -1,
     "=Ref3p559p1"
   ],
-  "Type2c.B.RDC.H.1&": [
+  "Type2c.B.DO.H.1&": [
     0,
     "=Mariagea.5"
   ],
-  "Type2c.B.RDC.H.1&+.+": [
+  "Type2c.B.DO.H.1&+.+": [
     3,
     "=Ref8p146p4==Ref8p146p6"
   ],
-  "Type2c.B.RDC.H.2&": [
+  "Type2c.B.DO.H.2&": [
     0,
     "=Ref8p146p5"
   ],
-  "Type2c.B.RDC.H.3&": [
+  "Type2c.B.DO.H.3&": [
     0,
     "=Ref8p146p5"
   ],
-  "Type2c.B.RDC.H.4&": [
+  "Type2c.B.DO.H.4&": [
     0,
     "=Ref8p146p5"
   ],
-  "Type2c.B.RDC.H.5&": [
+  "Type2c.B.DO.H.5&": [
     0,
     "=Mariagea.5"
   ],
-  "Type2c.B.RDC.H.5&+.+": [
+  "Type2c.B.DO.H.5&+.+": [
     3,
     "=Ref8p146p4==Ref8p146p6"
   ],
-  "Type2c.B.RDC.M.1&": [
+  "Type2c.B.DO.M.1&": [
     0,
     "=Mariagea.5"
   ],
-  "Type2c.B.RDC.M.1&+": [
+  "Type2c.B.DO.M.1&+": [
     2,
     "=Ref8p155p2"
   ],
-  "Type2c.B.RDC.M.5&": [
+  "Type2c.B.DO.M.5&": [
     0,
     "=Mariagea.5"
   ],
-  "Type2c.B.RDC.M.5&+": [
+  "Type2c.B.DO.M.5&+": [
     2,
     "=Ref8p155p2"
   ],
-  "Type2c.B.RDC.Y.1&": [
+  "Type2c.B.DO.Y.1&": [
     0,
     "=Mariagea.5"
   ],
-  "Type2c.B.RDC.Y.2&": [
+  "Type2c.B.DO.Y.2&": [
     0,
     "=Ref8p143p4"
   ],
-  "Type2c.B.RDC.Y.4&": [
+  "Type2c.B.DO.Y.4&": [
     0,
     "=Ref8p143p4"
   ],
-  "Type2c.B.RDC.Y.5&": [
+  "Type2c.B.DO.Y.5&": [
     0,
     "=Mariagea.5"
   ],
-  "Type2c.B.RDE.D.1&": [
+  "Type2c.B.7K.D.1&": [
     0,
     "=Ref8p164p3==Ref3p464p21"
   ],
-  "Type2c.B.RDE.D.2&": [
+  "Type2c.B.7K.D.2&": [
     0,
     "=Ref8p165p1"
   ],
-  "Type2c.B.RDE.D.2&-": [
+  "Type2c.B.7K.D.2&-": [
     -2,
-    "=Type2c.B.RDE.D.2&==Ref8p419p14b==Ref8p446p5"
+    "=Type2c.B.7K.D.2&==Ref8p419p14b==Ref8p446p5"
   ],
-  "Type2c.B.RDE.D.4&": [
+  "Type2c.B.7K.D.4&": [
     0,
     "=Ref8p165p1"
   ],
-  "Type2c.B.RDE.D.4&-": [
+  "Type2c.B.7K.D.4&-": [
     -2,
-    "=Type2c.B.RDE.D.2&==Ref8p419p14b==Ref8p446p5"
+    "=Type2c.B.7K.D.2&==Ref8p419p14b==Ref8p446p5"
   ],
-  "Type2c.B.RDE.D.5&": [
+  "Type2c.B.7K.D.5&": [
     0,
     "=Ref8p164p3==Ref3p464p21"
   ],
-  "Type2c.B.RDE.M.2&": [
+  "Type2c.B.7K.M.2&": [
     0,
     "=Ref8p172p12a"
   ],
-  "Type2c.B.RDE.M.4&": [
+  "Type2c.B.7K.M.4&": [
     0,
     "=Ref8p172p12a"
   ],
-  "Type2c.B.RE.D.1&": [
+  "Type2c.B.IW.D.1&": [
     0,
     "=Ref3p520p20==Ref8p216p5a"
   ],
-  "Type2c.B.RE.D.1&+.+": [
+  "Type2c.B.IW.D.1&+.+": [
     3,
     "=Ref3p559p1"
   ],
-  "Type2c.B.RE.D.1&-.+": [
+  "Type2c.B.IW.D.1&-.+": [
     -1,
     "=Ref3p559p1"
   ],
-  "Type2c.B.RE.D.2&": [
+  "Type2c.B.IW.D.2&": [
     0,
     "=Ref8p216p6"
   ],
-  "Type2c.B.RE.D.2&-": [
+  "Type2c.B.IW.D.2&-": [
     -2,
-    "=Type2c.B.RE.D.2&==Ref8p418p13b==Ref8p446p5"
+    "=Type2c.B.IW.D.2&==Ref8p418p13b==Ref8p446p5"
   ],
-  "Type2c.B.RE.D.3&+": [
+  "Type2c.B.IW.D.3&+": [
     0
   ],
-  "Type2c.B.RE.D.4&": [
+  "Type2c.B.IW.D.4&": [
     0,
     "=Ref8p216p6"
   ],
-  "Type2c.B.RE.D.4&-": [
+  "Type2c.B.IW.D.4&-": [
     -2,
-    "=Type2c.B.RE.D.2&==Ref8p418p13b==Ref8p446p5"
+    "=Type2c.B.IW.D.2&==Ref8p418p13b==Ref8p446p5"
   ],
-  "Type2c.B.RE.D.5&": [
+  "Type2c.B.IW.D.5&": [
     0,
     "=Ref3p520p20==Ref8p216p5a"
   ],
-  "Type2c.B.RE.D.5&+.+": [
+  "Type2c.B.IW.D.5&+.+": [
     3,
     "=Ref3p559p1"
   ],
-  "Type2c.B.RE.D.5&-.+": [
+  "Type2c.B.IW.D.5&-.+": [
     -1,
     "=Ref3p559p1"
   ],
-  "Type2c.B.RE.H.2&-": [
+  "Type2c.B.IW.H.2&-": [
     -2,
     "=Ref8p217p2"
   ],
-  "Type2c.B.RE.H.4&-": [
+  "Type2c.B.IW.H.4&-": [
     -2,
     "=Ref8p217p2"
   ],
-  "Type2c.B.RE.M.1&": [
+  "Type2c.B.IW.M.1&": [
     0,
     "=Ref8p216p3"
   ],
-  "Type2c.B.RE.M.5&": [
+  "Type2c.B.IW.M.5&": [
     0,
     "=Ref8p216p3"
   ],
-  "Type2c.EE.Y.3&+": [
+  "Type2c.F.Y.3&+": [
     2,
-    "=Type1a.EE.0&+"
+    "=Type1a.T.F.0&+"
   ],
-  "Type2c.EE.Y.3&-": [
+  "Type2c.F.Y.3&-": [
     -2,
-    "=Type1a.EE.0&-"
+    "=Type1a.T.F.0&-"
   ],
-  "Type2c.T.EC.H.2&+": [
+  "Type2c.T.RW.H.2&+": [
     2,
     "=Childb.20"
   ],
-  "Type2c.T.EC.L.1&": [
+  "Type2c.T.RW.L.1&": [
     0,
-    "=Type2c.B.EC.L.1&"
+    "=Type2c.B.RW.L.1&"
   ],
-  "Type2c.T.EC.M.1&+": [
+  "Type2c.T.RW.M.1&+": [
     2,
     "=Studya.6"
   ],
-  "Type2c.T.EC.Y.1&": [
+  "Type2c.T.RW.Y.1&": [
     0
   ],
-  "Type2c.T.EC.Y.1&+": [
+  "Type2c.T.RW.Y.1&+": [
     2,
-    "=Type2a.GE.Y&+==Careera.6"
+    "=Type2a.T.EG.Y&+==Careera.6"
   ],
-  "Type2c.T.EC.Y.2&": [
+  "Type2c.T.RW.Y.2&": [
     0
   ],
-  "Type2c.T.EC.Y.3&+": [
+  "Type2c.T.RW.Y.3&+": [
     2,
-    "=Type1a.EE.0&+"
+    "=Type1a.T.F.0&+"
   ],
-  "Type2c.T.EC.Y.3&-": [
+  "Type2c.T.RW.Y.3&-": [
     -2,
-    "=Type1a.EE.0&-"
+    "=Type1a.T.F.0&-"
   ],
-  "Type2c.T.EE.H.3&+.-": [
+  "Type2c.T.F.H.3&+.-": [
     1,
     "=Lifeb.24==Childb.20"
   ],
-  "Type2c.T.EE.Y.1&+": [
+  "Type2c.T.F.Y.1&+": [
     2,
-    "=Type2a.GE.Y&+==Careera.6"
+    "=Type2a.T.EG.Y&+==Careera.6"
   ],
-  "Type2c.T.GC.H.2&": [
+  "Type2c.T.HO.H.2&": [
     0,
     "=Ref8p236p10"
   ],
-  "Type2c.T.GC.H.4&": [
+  "Type2c.T.HO.H.4&": [
     0,
     "=Ref8p236p10"
   ],
-  "Type2c.T.GC.M.2&": [
+  "Type2c.T.HO.M.2&": [
     0,
     "=Ref8p235p5==Ref8p235p6"
   ],
-  "Type2c.T.GC.M.4&": [
+  "Type2c.T.HO.M.4&": [
     0,
     "=Ref8p235p5==Ref8p235p6"
   ],
-  "Type2c.T.GC.Y.1&": [
+  "Type2c.T.HO.Y.1&": [
     0
   ],
-  "Type2c.T.GC.Y.1&+": [
+  "Type2c.T.HO.Y.1&+": [
     2,
     "=Studya.6"
   ],
-  "Type2c.T.GC.Y.2&": [
+  "Type2c.T.HO.Y.2&": [
     0
   ],
-  "Type2c.T.GC.Y.4&": [
+  "Type2c.T.HO.Y.4&": [
     0
   ],
-  "Type2c.T.GC.Y.5&": [
+  "Type2c.T.HO.Y.5&": [
     0
   ],
-  "Type2c.T.GC.Y.5&+": [
+  "Type2c.T.HO.Y.5&+": [
     2,
     "=Studya.6"
   ],
-  "Type2c.T.GDC.D.0&-": [
+  "Type2c.T.DR.D.0&-": [
     -2,
     "=Lifea.15"
   ],
-  "Type2c.T.GDC.H.1&+": [
+  "Type2c.T.DR.H.1&+": [
     2,
     "=Persona.164==Persona.43b"
   ],
-  "Type2c.T.GDC.H.5&+": [
+  "Type2c.T.DR.H.5&+": [
     2,
     "=Persona.164==Persona.43b"
   ],
-  "Type2c.T.GDC.M.1&+.+": [
+  "Type2c.T.DR.M.1&+.+": [
     3,
     "=Ref8p183p2aBad"
   ],
-  "Type2c.T.GDC.M.1&-": [
+  "Type2c.T.DR.M.1&-": [
     -2,
     "=Ref8p186p7"
   ],
-  "Type2c.T.GDC.M.1&-.+": [
+  "Type2c.T.DR.M.1&-.+": [
     -1,
     "=Persona.14a==Personb.2068==Persona.52==Persona.164==Persona.43b"
   ],
-  "Type2c.T.GDC.M.2&": [
+  "Type2c.T.DR.M.2&": [
     0,
     "=Ref8p187p3"
   ],
-  "Type2c.T.GDC.M.4&": [
+  "Type2c.T.DR.M.4&": [
     0,
     "=Ref8p187p3"
   ],
-  "Type2c.T.GDC.M.5&+.+": [
+  "Type2c.T.DR.M.5&+.+": [
     3,
     "=Ref8p183p2aBad"
   ],
-  "Type2c.T.GDC.M.5&-": [
+  "Type2c.T.DR.M.5&-": [
     -2,
     "=Ref8p186p7"
   ],
-  "Type2c.T.GDC.M.5&-.+": [
+  "Type2c.T.DR.M.5&-.+": [
     -1,
     "=Persona.14a==Personb.2068==Persona.52==Persona.164==Persona.43b"
   ],
-  "Type2c.T.GDC.Y.1&": [
+  "Type2c.T.DR.Y.1&": [
     0,
-    "=Type2a.GDC.Y&==Parenta.15"
+    "=Type2a.T.DR.Y&==Parenta.15"
   ],
-  "Type2c.T.GDC.Y.3&+.+": [
+  "Type2c.T.DR.Y.3&+.+": [
     3,
     "=Mariageb.22"
   ],
-  "Type2c.T.GDC.Y.3&-.+": [
+  "Type2c.T.DR.Y.3&-.+": [
     -1,
     "=Origina.3"
   ],
-  "Type2c.T.GDC.Y.5&": [
+  "Type2c.T.DR.Y.5&": [
     0,
-    "=Type2a.GDC.Y&==Parenta.15"
+    "=Type2a.T.DR.Y&==Parenta.15"
   ],
-  "Type2c.T.GDE.H.2&": [
+  "Type2c.T.IR.H.2&": [
     0,
     "=Ref8p197p4==Ref8p197p5"
   ],
-  "Type2c.T.GDE.M.1&+.+": [
+  "Type2c.T.IR.M.1&+.+": [
     3,
     "=Ref8p186p7==Ref8p196p6"
   ],
-  "Type2c.T.GDE.M.2&": [
+  "Type2c.T.IR.M.2&": [
     0,
     "=Ref8p187p4"
   ],
-  "Type2c.T.GE.D.2&+": [
+  "Type2c.T.EG.D.2&+": [
     2,
     "=Mariageb.28"
   ],
-  "Type2c.T.GE.D.4&+": [
+  "Type2c.T.EG.D.4&+": [
     2,
     "=Mariageb.28"
   ],
-  "Type2c.T.GE.H.2&-": [
+  "Type2c.T.EG.H.2&-": [
     -2,
     "=Lifeb.23==Personb.39==Personb.156==Personb.61"
   ],
-  "Type2c.T.GE.H.4&-": [
+  "Type2c.T.EG.H.4&-": [
     -2,
     "=Lifeb.23==Personb.39==Personb.156==Personb.61"
   ],
-  "Type2c.T.GE.M.1&+": [
+  "Type2c.T.EG.M.1&+": [
     2,
     "=Careera.9"
   ],
-  "Type2c.T.GE.M.2&-": [
+  "Type2c.T.EG.M.2&-": [
     -2,
     "=Personb.60"
   ],
-  "Type2c.T.GE.M.4&-": [
+  "Type2c.T.EG.M.4&-": [
     -2,
     "=Personb.60"
   ],
-  "Type2c.T.GE.M.5&+": [
+  "Type2c.T.EG.M.5&+": [
     2,
     "=Careera.9"
   ],
-  "Type2c.T.GE.Y.2&+": [
+  "Type2c.T.EG.Y.2&+": [
     2,
     "=Originb.20"
   ],
-  "Type2c.T.GE.Y.3&-": [
+  "Type2c.T.EG.Y.3&-": [
     -2,
     "=Lifeb.26"
   ],
-  "Type2c.T.GE.Y.4&+": [
+  "Type2c.T.EG.Y.4&+": [
     2,
     "=Originb.20"
   ],
-  "Type2c.T.RC.H.2&+": [
+  "Type2c.T.DW.H.2&+": [
     2,
     "=Lifea.1017"
   ],
-  "Type2c.T.RC.H.2&-": [
+  "Type2c.T.DW.H.2&-": [
     -2,
     "=Ref8p155p7b"
   ],
-  "Type2c.T.RC.H.4&+": [
+  "Type2c.T.DW.H.4&+": [
     2,
     "=Lifea.1017"
   ],
-  "Type2c.T.RC.H.4&-": [
+  "Type2c.T.DW.H.4&-": [
     -2,
     "=Ref8p155p7b"
   ],
-  "Type2c.T.RC.M.1&+": [
+  "Type2c.T.DW.M.1&+": [
     2,
     "=Ref8p207p6==Ref8p210p5==Studya.6"
   ],
-  "Type2c.T.RC.M.2&-": [
+  "Type2c.T.DW.M.2&-": [
     -2,
     "=Ref8p155p7a"
   ],
-  "Type2c.T.RC.M.4&-": [
+  "Type2c.T.DW.M.4&-": [
     -2,
     "=Ref8p155p7a"
   ],
-  "Type2c.T.RC.Y.1&+": [
+  "Type2c.T.DW.Y.1&+": [
     2,
     "=Studya.6"
   ],
-  "Type2c.T.RC.Y.1&+.+": [
+  "Type2c.T.DW.Y.1&+.+": [
     3,
     "=Ref8p207p1==Studya.6"
   ],
-  "Type2c.T.RC.Y.2&": [
+  "Type2c.T.DW.Y.2&": [
     0,
     "=Origina.1==Lifea.1017"
   ],
-  "Type2c.T.RC.Y.3&+.+": [
+  "Type2c.T.DW.Y.3&+.+": [
     3,
     "=Origina.2==Lifea.12"
   ],
-  "Type2c.T.RDC.H.1&": [
+  "Type2c.T.DO.H.1&": [
     0,
     "=Mariagea.5"
   ],
-  "Type2c.T.RDC.H.1&+.+": [
+  "Type2c.T.DO.H.1&+.+": [
     3,
     "=Ref8p146p4==Ref8p146p6"
   ],
-  "Type2c.T.RDC.H.2&": [
+  "Type2c.T.DO.H.2&": [
     0,
     "=Ref8p146p5"
   ],
-  "Type2c.T.RDC.H.2&-": [
+  "Type2c.T.DO.H.2&-": [
     -2,
     "=Ref8p155p7b"
   ],
-  "Type2c.T.RDC.H.3&": [
+  "Type2c.T.DO.H.3&": [
     0,
     "=Ref8p146p5"
   ],
-  "Type2c.T.RDC.H.4&": [
+  "Type2c.T.DO.H.4&": [
     0,
     "=Ref8p146p5"
   ],
-  "Type2c.T.RDC.H.4&-": [
+  "Type2c.T.DO.H.4&-": [
     -2,
     "=Ref8p155p7b"
   ],
-  "Type2c.T.RDC.H.5&": [
+  "Type2c.T.DO.H.5&": [
     0,
     "=Mariagea.5"
   ],
-  "Type2c.T.RDC.H.5&+.+": [
+  "Type2c.T.DO.H.5&+.+": [
     3,
     "=Ref8p146p4==Ref8p146p6"
   ],
-  "Type2c.T.RDC.M.0&-": [
+  "Type2c.T.DO.M.0&-": [
     -2,
     "=Ref8p144p7"
   ],
-  "Type2c.T.RDC.M.1&": [
+  "Type2c.T.DO.M.1&": [
     0,
     "=Mariagea.5"
   ],
-  "Type2c.T.RDC.M.1&+.+": [
+  "Type2c.T.DO.M.1&+.+": [
     3,
     "=Ref8p155p2==Careera.16a==Careera.16b==Studya.5==Studya.4b==Studya.6"
   ],
-  "Type2c.T.RDC.M.1&+.-": [
+  "Type2c.T.DO.M.1&+.-": [
     1,
     "=Careera.16a==Careera.16b==Studya.5"
   ],
-  "Type2c.T.RDC.M.2&-": [
+  "Type2c.T.DO.M.2&-": [
     -2,
     "=Lifeb.37a==Careerb.22==Ref8p155p7a"
   ],
-  "Type2c.T.RDC.M.4&-": [
+  "Type2c.T.DO.M.4&-": [
     -2,
     "=Lifeb.37a==Careerb.22==Ref8p155p7a"
   ],
-  "Type2c.T.RDC.M.5&": [
+  "Type2c.T.DO.M.5&": [
     0,
     "=Mariagea.5"
   ],
-  "Type2c.T.RDC.M.5&+.+": [
+  "Type2c.T.DO.M.5&+.+": [
     3,
     "=Ref8p155p2==Careera.16a==Careera.16b==Studya.5==Studya.4b==Studya.6"
   ],
-  "Type2c.T.RDC.M.5&+.-": [
+  "Type2c.T.DO.M.5&+.-": [
     1,
     "=Careera.16a==Careera.16b==Studya.5"
   ],
-  "Type2c.T.RDC.Y.1&": [
+  "Type2c.T.DO.Y.1&": [
     0,
     "=Mariagea.5"
   ],
-  "Type2c.T.RDC.Y.1&+.+": [
+  "Type2c.T.DO.Y.1&+.+": [
     3,
     "=Ref8p143p2==Studya.6"
   ],
-  "Type2c.T.RDC.Y.1&+.-": [
+  "Type2c.T.DO.Y.1&+.-": [
     1,
     "=Ref8p143p2"
   ],
-  "Type2c.T.RDC.Y.5&": [
+  "Type2c.T.DO.Y.5&": [
     0,
     "=Mariagea.5"
   ],
-  "Type2c.T.RDC.Y.5&+.+": [
+  "Type2c.T.DO.Y.5&+.+": [
     3,
     "=Ref8p143p2==Studya.6"
   ],
-  "Type2c.T.RDC.Y.5&+.-": [
+  "Type2c.T.DO.Y.5&+.-": [
     1,
     "=Ref8p143p2"
   ],
-  "Type2c.T.RDE.H.1&+": [
+  "Type2c.T.7K.H.1&+": [
     2,
-    "=Persona.3==Persona.2b==Fortunea.4==Type2b.T.RDE.H&"
+    "=Persona.3==Persona.2b==Fortunea.4==Type2b.T.7K.H&"
   ],
-  "Type2c.T.RDE.H.2&+": [
+  "Type2c.T.7K.H.2&+": [
     2,
-    "=Fortuneb.24==Ref8p170p6==Type2b.T.RDE.H&+"
+    "=Fortuneb.24==Ref8p170p6==Type2b.T.7K.H&+"
   ],
-  "Type2c.T.RDE.H.4&+": [
+  "Type2c.T.7K.H.4&+": [
     2,
-    "=Fortuneb.24==Ref8p170p6==Type2b.T.RDE.H&+"
+    "=Fortuneb.24==Ref8p170p6==Type2b.T.7K.H&+"
   ],
-  "Type2c.T.RDE.H.5&+": [
+  "Type2c.T.7K.H.5&+": [
     2,
-    "=Persona.3==Persona.2b==Fortunea.4==Type2b.T.RDE.H&"
+    "=Persona.3==Persona.2b==Fortunea.4==Type2b.T.7K.H&"
   ],
-  "Type2c.T.RDE.M.1&+.+": [
+  "Type2c.T.7K.M.1&+.+": [
     3,
     "=Studya.5==Studya.4b==Studya.6"
   ],
-  "Type2c.T.RDE.M.1&+.-": [
+  "Type2c.T.7K.M.1&+.-": [
     1,
     "=Studya.5==Studya.6"
   ],
-  "Type2c.T.RDE.M.2&": [
+  "Type2c.T.7K.M.2&": [
     0,
     "=Ref8p172p12a"
   ],
-  "Type2c.T.RDE.M.4&": [
+  "Type2c.T.7K.M.4&": [
     0,
     "=Ref8p172p12a"
   ],
-  "Type2c.T.RDE.M.5&+.+": [
+  "Type2c.T.7K.M.5&+.+": [
     3,
     "=Studya.5==Studya.4b==Studya.6"
   ],
-  "Type2c.T.RDE.M.5&+.-": [
+  "Type2c.T.7K.M.5&+.-": [
     1,
     "=Studya.5==Studya.6"
   ],
-  "Type2c.T.RDE.Y.1&": [
+  "Type2c.T.7K.Y.1&": [
     0
   ],
-  "Type2c.T.RDE.Y.1&+.+": [
+  "Type2c.T.7K.Y.1&+.+": [
     3,
     "=Fortunea.2==Studya.6"
   ],
-  "Type2c.T.RDE.Y.2&": [
+  "Type2c.T.7K.Y.2&": [
     0
   ],
-  "Type2c.T.RDE.Y.4&": [
+  "Type2c.T.7K.Y.4&": [
     0
   ],
-  "Type2c.T.RDE.Y.5&": [
+  "Type2c.T.7K.Y.5&": [
     0
   ],
-  "Type2c.T.RDE.Y.5&+.+": [
+  "Type2c.T.7K.Y.5&+.+": [
     3,
     "=Fortunea.2==Studya.6"
   ],
-  "Type2c.T.RE.M.1&+": [
+  "Type2c.T.IW.M.1&+": [
     2,
     "=Ref8p216p3==Persona.3==Persona.12==Careera.4"
   ],
-  "Type2c.T.RE.M.2&-.-": [
+  "Type2c.T.IW.M.2&-.-": [
     -3,
     "=Personb.20a==Personb.20b"
   ],
-  "Type2c.T.RE.M.4&-.-": [
+  "Type2c.T.IW.M.4&-.-": [
     -3,
     "=Personb.20a==Personb.20b"
   ],
-  "Type2c.T.RE.M.5&+": [
+  "Type2c.T.IW.M.5&+": [
     2,
     "=Ref8p216p3==Persona.3==Persona.12==Careera.4"
   ],
-  "Type2c.T.RE.Y.0&+.+": [
+  "Type2c.T.IW.Y.0&+.+": [
     3,
     "=Ref8p215p1"
   ],
-  "Type2c.T.RE.Y.1&": [
+  "Type2c.T.IW.Y.1&": [
     0
   ],
-  "Type2c.T.RE.Y.2&": [
+  "Type2c.T.IW.Y.2&": [
     0,
     "=Ref8p215p2==Ref8p216p4"
   ],
-  "Type2c.T.RE.Y.4&": [
+  "Type2c.T.IW.Y.4&": [
     0,
     "=Ref8p215p2==Ref8p216p4"
   ],
-  "Type2c.T.RE.Y.5&": [
+  "Type2c.T.IW.Y.5&": [
     0
   ],
-  "Type2d.B.GC.D.1.RC.+&+": [
+  "Type2c.T.IW.Y.F&": [
+    0,
+    "=Ref8p215p3"
+  ],
+
+  "Type2d.B.HO.D.1.DW.+&+": [
     2,
     "=Ref8p236p2==Ref8p236p2b"
   ],
-  "Type2d.B.GC.D.1.RDE.0&": [
+  "Type2d.B.HO.D.1.7K.0&": [
     0,
     "=Persona.160"
   ],
-  "Type2d.B.GC.D.2.RC.+&+": [
+  "Type2d.B.HO.D.2.DW.+&+": [
     2,
     "=Ref8p236p2==Ref8p236p2a"
   ],
-  "Type2d.B.GC.D.4.RC.+&+": [
+  "Type2d.B.HO.D.4.DW.+&+": [
     2,
     "=Ref8p236p2==Ref8p236p2a"
   ],
-  "Type2d.B.GC.D.5.RC.+&+": [
+  "Type2d.B.HO.D.5.DW.+&+": [
     2,
     "=Ref8p236p2==Ref8p236p2b"
   ],
-  "Type2d.B.GC.D.5.RDE.0&": [
+  "Type2d.B.HO.D.5.7K.0&": [
     0,
     "=Persona.160"
   ],
-  "Type2d.B.GC.H.1.RDE.0&": [
+  "Type2d.B.HO.H.1.7K.0&": [
     0,
     "=Persona.160"
   ],
-  "Type2d.B.GC.H.5.RDE.0&": [
+  "Type2d.B.HO.H.5.7K.0&": [
     0,
     "=Persona.160"
   ],
-  "Type2d.B.GDC.H.1.RC.+": [
+  "Type2d.B.DR.H.1.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDC.H.1.RE.+": [
+  "Type2d.B.DR.H.1.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDC.H.5.RC.+": [
+  "Type2d.B.DR.H.5.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDC.H.5.RE.+": [
+  "Type2d.B.DR.H.5.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDC.M.1.RC.+": [
+  "Type2d.B.DR.M.1.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDC.M.1.RE.+": [
+  "Type2d.B.DR.M.1.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDC.M.5.RC.+": [
+  "Type2d.B.DR.M.5.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDC.M.5.RE.+": [
+  "Type2d.B.DR.M.5.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDE.H.1.RC.+": [
+  "Type2d.B.IR.H.1.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDE.H.1.RE.+": [
+  "Type2d.B.IR.H.1.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDE.H.5.RC.+": [
+  "Type2d.B.IR.H.5.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDE.H.5.RE.+": [
+  "Type2d.B.IR.H.5.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDE.M.1.RC.+": [
+  "Type2d.B.IR.M.1.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDE.M.1.RE.+": [
+  "Type2d.B.IR.M.1.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDE.M.5.RC.+": [
+  "Type2d.B.IR.M.5.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.B.GDE.M.5.RE.+": [
+  "Type2d.B.IR.M.5.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GC.0.EC.+&": [
+  "Type2d.T.HO.0.RW.+&": [
     0,
     "=Ref8p235p1"
   ],
-  "Type2d.T.GC.0.EE.+&": [
+  "Type2d.T.HO.0.F.+&": [
     0,
     "=Ref8p235p1"
   ],
-  "Type2d.T.GDC.H.1.RC.+": [
+  "Type2d.T.DR.H.1.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDC.H.1.RC.0&": [
+  "Type2d.T.DR.H.1.DW.0&": [
     0,
     "=Ref8p182p9"
   ],
-  "Type2d.T.GDC.H.1.RE.+": [
+  "Type2d.T.DR.H.1.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDC.H.5.RC.+": [
+  "Type2d.T.DR.H.5.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDC.H.5.RC.0&": [
+  "Type2d.T.DR.H.5.DW.0&": [
     0,
     "=Ref8p182p9"
   ],
-  "Type2d.T.GDC.H.5.RE.+": [
+  "Type2d.T.DR.H.5.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDC.M.1.RC.+": [
+  "Type2d.T.DR.M.1.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDC.M.1.RC.0&": [
+  "Type2d.T.DR.M.1.DW.0&": [
     0,
     "=Ref8p182p9"
   ],
-  "Type2d.T.GDC.M.1.RE.+": [
+  "Type2d.T.DR.M.1.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDC.M.5.RC.+": [
+  "Type2d.T.DR.M.5.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDC.M.5.RC.0&": [
+  "Type2d.T.DR.M.5.DW.0&": [
     0,
     "=Ref8p182p9"
   ],
-  "Type2d.T.GDC.M.5.RE.+": [
+  "Type2d.T.DR.M.5.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDE.H.1.RC.+": [
+  "Type2d.T.IR.H.1.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDE.H.1.RE.+": [
+  "Type2d.T.IR.H.1.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDE.H.5.RC.+": [
+  "Type2d.T.IR.H.5.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDE.H.5.RE.+": [
+  "Type2d.T.IR.H.5.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDE.M.1.RC.+": [
+  "Type2d.T.IR.M.1.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDE.M.1.RE.+": [
+  "Type2d.T.IR.M.1.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDE.M.5.RC.+": [
+  "Type2d.T.IR.M.5.DW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type2d.T.GDE.M.5.RE.+": [
+  "Type2d.T.IR.M.5.IW.+": [
     0,
     "=Ref8p389p1"
   ],
-  "Type3a.EC.Vd&+.+": [
+  "Type2e.T.7K.H.GDE.+": [
+    0,
+    "=Ref8p170p5b"
+  ],
+  "Type3a.TB.RW.Vd&+.+": [
     1,
     "=Careerb.37==Careerb.38"
   ],
-  "Type3a.GC.Vd&": [
+  "Type3a.TB.HO.Vd&": [
     1,
     "=Ref7_2ap36a3"
   ],
-  "Type3a.GDC.Vd&+.+": [
+  "Type3a.TB.DR.Vd&+.+": [
     1,
     "=Careerb.34==Parentb.29==Parentb.20"
   ],
-  "Type3a.GDC.Vd&+.-": [
+  "Type3a.TB.DR.Vd&+.-": [
     1,
     "=Careerb.34==Parentb.29==Parentb.20"
   ],
-  "Type3a.GDC.Vd&-.+": [
+  "Type3a.TB.DR.Vd&-.+": [
     1,
     "=Careerb.34==Parentb.29==Parentb.20"
   ],
-  "Type3a.GDC.Vd&-.-": [
+  "Type3a.TB.DR.Vd&-.-": [
     1,
     "=Careerb.34==Parentb.29==Parentb.20"
   ],
-  "Type3a.GE.Vd&": [
+  "Type3a.TB.EG.Vd&": [
     1,
     "=Ref7_2ap36a2"
   ],
-  "Type3a.RC.Vd&": [
+  "Type3a.TB.DW.Vd&": [
     1,
     "=Ref8p219p7a==Ref8p392p2"
   ],
-  "Type3a.RC.Vd&-": [
+  "Type3a.TB.DW.Vd&-": [
     1,
     "=Ref8p219p7b"
   ],
-  "Type3a.RDC.NVd&+": [
+  "Type3a.TB.DO.NVd&+": [
     1,
     "=Ref8p141p1Bad"
   ],
-  "Type3a.RDC.NVd&-": [
+  "Type3a.TB.DO.NVd&-": [
     1,
     "=Ref8p141p1Good"
   ],
-  "Type3a.RDC.Vd&": [
+  "Type3a.TB.DO.Vd&": [
     1,
     "=Ref8p157p1"
   ],
-  "Type3a.RDE.Vd&": [
+  "Type3a.TB.7K.Vd&": [
     1,
     "=Ref8p449p17"
   ],
-  "Type3a.RDE.Vd&+": [
+  "Type3a.TB.7K.Vd&+": [
     0
   ],
-  "Type3b.RDC.Vd.NoQuy&": [
+  "Type3b.TB.DO.Vd.NoQuy&": [
     1,
     "=Ref8p156p4a"
   ],
-  "Type4.EE.M.NVd&": [
+  "Type3c.TB.RW.M.Vd.NoQuy&": [
+    1,
+    "=Ref8p258p6"
+  ],
+  "Type4.TB.F.M.NVd&": [
     0,
     "=Relationa.1"
   ],
-  "Type4.GE.M.Vd&": [
+  "Type4.TB.EG.M.Vd&": [
     0,
     "=Ref7_2ap36a2"
   ],
-  "Type4.RC.M.Vd&": [
+  "Type4.TB.DW.M.Vd&": [
     0
   ],
-  "Type4.RC.Y.Vd&": [
+  "Type4.TB.DW.Y.Vd&": [
     0
   ],
-  "Type4.RDC.M.NVd&+.+": [
+  "Type4.TB.DO.M.NVd&+.+": [
     3,
     "=Lifea.1"
   ],
-  "Type4.RDC.M.NVd&+.-": [
+  "Type4.TB.DO.M.NVd&+.-": [
     1,
     "=Persona.8"
   ],
-  "Type4.RDC.Y.NVd&+": [
+  "Type4.TB.DO.Y.NVd&+": [
     2,
     "=Careera.13"
   ],
-  "Type4.RDC.Y.Vd&-": [
+  "Type4.TB.DO.Y.Vd&-": [
     -2,
     "=Ref8p156p4b"
   ],
-  "Type5a.DE.KSA&": [
+  "Type5a.TB.DE.KSA&": [
     1,
     "=Persona.18b==Persona.176==Persona.244"
   ],
-  "Type5a.EC.DMA&": [
+  "Type5a.TB.RW.DMA&": [
     1,
     "=Ref3p456p3"
   ],
-  "Type5a.EC.KCU&": [
+  "Type5a.TB.RW.KCU&": [
     1,
     "=Fortuneb.31"
   ],
-  "Type5a.EC.KDU&": [
+  "Type5a.TB.RW.KDU&": [
     1,
     "=Fortunea.6"
   ],
-  "Type5a.EC.KHD&-": [
+  "Type5a.TB.RW.KHD&-": [
     1,
     "=Ref8p73p6==Ref8p74p8==Ref7_2ap28e==Ref3p558p7"
   ],
-  "Type5a.EC.LTH&": [
+  "Type5a.TB.RW.LTH&": [
     1,
     "=Ref3p456p1a"
   ],
-  "Type5a.EC.NDU&": [
+  "Type5a.TB.RW.NDU&": [
     1,
     "=Ref3p456p1c"
   ],
-  "Type5a.EC.TDU&": [
+  "Type5a.TB.RW.TDU&": [
     1,
     "=Ref3p456p1c"
   ],
-  "Type5a.EC.THN&+": [
+  "Type5a.TB.RW.THN&+": [
     1,
     "=Ref8p65p4a==Persona.2a==Persona.2b"
   ],
-  "Type5a.EC.THN&-": [
+  "Type5a.TB.RW.THN&-": [
     1,
     "=Ref8p65p4a==Persona.2a==Persona.2b"
   ],
-  "Type5a.EC.TNG&": [
+  "Type5a.TB.RW.TNG&": [
     1,
     "=Ref3p456p1b"
   ],
-  "Type5a.GC.KHD&": [
+  "Type5a.TB.HO.KHD&": [
     1,
     "=Ref7_2ap28d"
   ],
-  "Type5a.GDC.CTH&": [
+  "Type5a.TB.DR.CTH&": [
     1,
     "=Ref8p91p2==Relationa.12"
   ],
-  "Type5a.GDC.DHO&": [
+  "Type5a.TB.DR.DHO&": [
     1,
     "=Ref7_2ap38b"
   ],
-  "Type5a.GDC.HCI&": [
+  "Type5a.TB.DR.HCI&": [
     0
   ],
-  "Type5a.GDC.HCI&+": [
+  "Type5a.TB.DR.HCI&+": [
     1,
     "=Ref8p83p6==Ref8p83p12"
   ],
-  "Type5a.GDC.KHD&": [
+  "Type5a.TB.DR.KHD&": [
     1,
     "=Ref8p73p7==Ref7_2ap28g"
   ],
-  "Type5a.GDC.NDU&": [
+  "Type5a.TB.DR.NDU&": [
     1,
-    "=Type5a.GDC.TDU&"
+    "=Type5a.TB.DR.TDU&"
   ],
-  "Type5a.GDC.TDU&": [
+  "Type5a.TB.DR.TDU&": [
     1,
     "=Persona.90==Persona.139==Ref3p434p3"
   ],
-  "Type5a.GDC.TNG&+": [
+  "Type5a.TB.DR.TNG&+": [
     1,
     "=Careera.17"
   ],
-  "Type5a.GDC.VTI&": [
+  "Type5a.TB.DR.VTI&": [
     1,
     "=Ref8p67p2"
   ],
-  "Type5a.GDE.DHO&": [
+  "Type5a.TB.IR.DHO&": [
     1,
     "=Persona.164==Persona.241"
   ],
-  "Type5a.GDE.HCI&": [
+  "Type5a.TB.IR.HCI&": [
     0
   ],
-  "Type5a.GDE.KHD&": [
+  "Type5a.TB.IR.KHD&": [
     1,
     "=Ref8p73p7"
   ],
-  "Type5a.GDE.TDU&": [
+  "Type5a.TB.IR.TDU&": [
     1,
     "=Persona.90==Persona.139"
   ],
-  "Type5a.RC.DHO&": [
+  "Type5a.TB.DW.DHO&": [
     1,
     "=Ref7_2ap38d"
   ],
-  "Type5a.RC.DMA&": [
+  "Type5a.TB.DW.DMA&": [
     1,
     "=Careera.1==Wifea.8a==Mariagea.1==Careera.81"
   ],
-  "Type5a.RC.KHD&+.+": [
+  "Type5a.TB.DW.KHD&+.+": [
     1,
     "=Ref8p74p9==Ref7_2ap28f"
   ],
-  "Type5a.RC.LTH&+": [
+  "Type5a.TB.DW.LTH&+": [
     1,
     "=Ref8p417p2"
   ],
-  "Type5a.RC.TNG&+": [
+  "Type5a.TB.DW.TNG&+": [
     1,
     "=Ref8p81p5a"
   ],
-  "Type5a.RC.TNG&+.+": [
+  "Type5a.TB.DW.TNG&+.+": [
     1,
     "=Ref8p81p5b==Ref7_2ap19g"
   ],
-  "Type5a.RDC.CTH&": [
+  "Type5a.TB.DO.CTH&": [
     1,
     "=Ref8p91p2"
   ],
-  "Type5a.RDC.DHO&+": [
+  "Type5a.TB.DO.DHO&+": [
     0
   ],
-  "Type5a.RDC.DMA&": [
+  "Type5a.TB.DO.DMA&": [
     1,
     "=Ref8p80p1"
   ],
-  "Type5a.RDC.DMA&+": [
+  "Type5a.TB.DO.DMA&+": [
     1,
     "=Careera.82==Careera.1"
   ],
-  "Type5a.RDC.HCI&": [
+  "Type5a.TB.DO.HCI&": [
     1,
     "=Ref8p83p12"
   ],
-  "Type5a.RDC.KSA&+": [
+  "Type5a.TB.DO.KSA&+": [
     1,
     "=Ref8p89p7==Ref7_2ap30a"
   ],
-  "Type5a.RDC.QTU&+": [
+  "Type5a.TB.DO.QTU&+": [
     1,
     "=Relationa.12"
   ],
-  "Type5a.RDC.THN&": [
+  "Type5a.TB.DO.THN&": [
     1,
     "=Ref7_2ap8p2b"
   ],
-  "Type5a.RDC.TKY&": [
+  "Type5a.TB.DO.TKY&": [
     1,
     "=Ref7_2ap12"
   ],
-  "Type5a.RDE.DMA&": [
+  "Type5a.TB.7K.DMA&": [
     1,
     "=Ref8p79p6"
   ],
-  "Type5a.RDE.KCU&": [
+  "Type5a.TB.7K.KCU&": [
     1,
     "=Ref8p127p6==Ref7_2ap14c"
   ],
-  "Type5a.RDE.KDU&": [
+  "Type5a.TB.7K.KDU&": [
     1,
     "=Ref8p170p2==Ref8p448p8"
   ],
-  "Type5a.RDE.KDU&+": [
+  "Type5a.TB.7K.KDU&+": [
     1,
     "=Ref8p170p2==Ref8p169p4"
   ],
-  "Type5a.RDE.KHD&": [
+  "Type5a.TB.7K.KHD&": [
     1,
     "=Ref8p422p36==Ref8p448p8"
   ],
-  "Type5a.RDE.KHD&+.+": [
+  "Type5a.TB.7K.KHD&+.+": [
     1,
-    "=Type5a.RDE.KHD&==Ref3p532p7==Ref3p532p4"
+    "=Type5a.TB.7K.KHD&==Ref3p532p7==Ref3p532p4"
   ],
-  "Type5a.RDE.KHD&+.-": [
+  "Type5a.TB.7K.KHD&+.-": [
     1,
-    "=Type5a.RDE.KHD&==Ref3p532p4"
+    "=Type5a.TB.7K.KHD&==Ref3p532p4"
   ],
-  "Type5a.RDE.KHD&-.+": [
+  "Type5a.TB.7K.KHD&-.+": [
     1,
-    "=Type5a.RDE.KHD&==Ref3p532p4"
+    "=Type5a.TB.7K.KHD&==Ref3p532p4"
   ],
-  "Type5a.RDE.KSA&": [
+  "Type5a.TB.7K.KSA&": [
     1,
     "=Careera.85"
   ],
-  "Type5a.RDE.THN&+": [
+  "Type5a.TB.7K.THN&+": [
     1,
     "=Ref8p65p4b==Persona.2a==Persona.2b"
   ],
-  "Type5a.RDE.THN&-": [
+  "Type5a.TB.7K.THN&-": [
     1,
     "=Ref8p65p4a==Persona.2a==Persona.2b"
   ],
-  "Type5a.RDE.TKY&": [
+  "Type5a.TB.7K.TKY&": [
     1,
     "=Ref7_2ap12"
   ],
-  "Type5a.RE.DMA&": [
+  "Type5a.TB.IW.DMA&": [
     1,
     "=Ref8p80p1"
   ],
-  "Type5a.RE.KCU&": [
+  "Type5a.TB.IW.KCU&": [
     1,
     "=Fortuneb.31"
   ],
-  "Type5a.RE.KHD&-": [
+  "Type5a.TB.IW.KHD&-": [
     1,
     "=Ref3p439p2"
   ],
-  "Type5a.RE.LTH&+": [
+  "Type5a.TB.IW.LTH&+": [
     1,
     "=Ref8p417p2"
   ],
-  "Type5a.RE.TNG&+.+": [
+  "Type5a.TB.IW.TNG&+.+": [
     1,
     "=Careera.48"
   ],
-  "Type5b.EE.KQU.NVd&+": [
+  "Type5b.TB.F.KQU.NVd&+": [
     1,
     "=BroSisa.1"
   ],
-  "Type5b.EE.TNG.NVd&+": [
+  "Type5b.TB.F.TNG.NVd&+": [
     1,
     "=BroSisa.1"
   ],
-  "Type5c.B.EC.TNG&": [
+  "Type5c.B.RW.TNG&": [
     0,
     "=Ref3p463p3"
   ],
-  "Type5c.B.GDE.HCI&": [
+  "Type5c.B.IR.HCI&": [
     0,
     "=Ref8p83p10"
   ],
-  "Type5d.EC.1.DHO&": [
+  "Type5d.TB.RW.1.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.EC.2.DHO&": [
+  "Type5d.TB.RW.2.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.EC.4.DHO&": [
+  "Type5d.TB.RW.4.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.EC.5.DHO&": [
+  "Type5d.TB.RW.5.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.EE.1.DHO&": [
+  "Type5d.TB.F.1.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.EE.1.KCU&": [
+  "Type5d.TB.F.1.KCU&": [
     0,
     "=Ref8p127p1a"
   ],
-  "Type5d.EE.1.KCU&+": [
+  "Type5d.TB.F.1.KCU&+": [
     2,
     "=Ref8p127p1a==Ref8p127p2"
   ],
-  "Type5d.EE.2.DHO&": [
+  "Type5d.TB.F.2.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.EE.4.DHO&": [
+  "Type5d.TB.F.4.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.EE.5.DHO&": [
+  "Type5d.TB.F.5.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.EE.5.KCU&": [
+  "Type5d.TB.F.5.KCU&": [
     0,
     "=Ref8p127p1a"
   ],
-  "Type5d.EE.5.KCU&+": [
+  "Type5d.TB.F.5.KCU&+": [
     2,
     "=Ref8p127p1a==Ref8p127p2"
   ],
-  "Type5d.GC.1.DHO&": [
+  "Type5d.TB.HO.1.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.GC.2.DHO&": [
+  "Type5d.TB.HO.2.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.GC.4.DHO&": [
+  "Type5d.TB.HO.4.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.GC.5.DHO&": [
+  "Type5d.TB.HO.5.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.GDC.1.DHO&": [
+  "Type5d.TB.DR.1.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.GDC.1.KCU&": [
+  "Type5d.TB.DR.1.KCU&": [
     0,
     "=Ref8p127p1a"
   ],
-  "Type5d.GDC.1.KCU&+": [
+  "Type5d.TB.DR.1.KCU&+": [
     2,
     "=Ref8p127p1a==Ref8p127p2"
   ],
-  "Type5d.GDC.1.TDU&": [
+  "Type5d.TB.DR.1.TDU&": [
     0,
     "=Ref8p104p4"
   ],
-  "Type5d.GDC.2.DHO&": [
+  "Type5d.TB.DR.2.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.GDC.4.DHO&": [
+  "Type5d.TB.DR.4.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.GDC.5.DHO&": [
+  "Type5d.TB.DR.5.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.GDC.5.KCU&": [
+  "Type5d.TB.DR.5.KCU&": [
     0,
     "=Ref8p127p1a"
   ],
-  "Type5d.GDC.5.KCU&+": [
+  "Type5d.TB.DR.5.KCU&+": [
     2,
     "=Ref8p127p1a==Ref8p127p2"
   ],
-  "Type5d.GDC.5.TDU&": [
+  "Type5d.TB.DR.5.TDU&": [
     0,
     "=Ref8p104p4"
   ],
-  "Type5d.GDE.1.DHO&": [
+  "Type5d.TB.IR.1.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.GDE.2.DHO&": [
+  "Type5d.TB.IR.2.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.GDE.4.DHO&": [
+  "Type5d.TB.IR.4.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.GDE.5.DHO&": [
+  "Type5d.TB.IR.5.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.GE.1.DHO&": [
+  "Type5d.TB.EG.1.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.GE.2.DHO&": [
+  "Type5d.TB.EG.2.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.GE.4.DHO&": [
+  "Type5d.TB.EG.4.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.GE.5.DHO&": [
+  "Type5d.TB.EG.5.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.RC.1.DHO&": [
+  "Type5d.TB.DW.1.DHO&": [
     0,
     "=Ref8p85p2==Ref8p87p7"
   ],
-  "Type5d.RC.1.TDU&": [
+  "Type5d.TB.DW.1.TDU&": [
     0,
     "=Ref8p104p5==Ref8p386p18"
   ],
-  "Type5d.RC.1.THN&": [
+  "Type5d.TB.DW.1.THN&": [
     0,
     "=Ref8p386p18"
   ],
-  "Type5d.RC.2.DHO&": [
+  "Type5d.TB.DW.2.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.RC.4.DHO&": [
+  "Type5d.TB.DW.4.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.RC.5.DHO&": [
+  "Type5d.TB.DW.5.DHO&": [
     0,
     "=Ref8p85p2==Ref8p87p7"
   ],
-  "Type5d.RC.5.TDU&": [
+  "Type5d.TB.DW.5.TDU&": [
     0,
     "=Ref8p104p5==Ref8p386p18"
   ],
-  "Type5d.RC.5.THN&": [
+  "Type5d.TB.DW.5.THN&": [
     0,
     "=Ref8p386p18"
   ],
-  "Type5d.RDC.1.DHO&": [
+  "Type5d.TB.DO.1.DHO&": [
     0,
     "=Ref8p85p2==Ref8p86p7==Ref8p87p7"
   ],
-  "Type5d.RDC.1.TDU&": [
+  "Type5d.TB.DO.1.TDU&": [
     0,
     "=Ref8p104p4"
   ],
-  "Type5d.RDC.2.DHO&": [
+  "Type5d.TB.DO.2.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.RDC.4.DHO&": [
+  "Type5d.TB.DO.4.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.RDC.5.DHO&": [
+  "Type5d.TB.DO.5.DHO&": [
     0,
     "=Ref8p85p2==Ref8p86p7==Ref8p87p7"
   ],
-  "Type5d.RDC.5.TDU&": [
+  "Type5d.TB.DO.5.TDU&": [
     0,
     "=Ref8p104p4"
   ],
-  "Type5d.RDE.1.DHO&": [
+  "Type5d.TB.7K.1.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.RDE.2.DHO&": [
+  "Type5d.TB.7K.2.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.RDE.2.DHO&-": [
+  "Type5d.TB.7K.2.DHO&-": [
     -2,
     "=Ref8p85p3==Ref8p87p8"
   ],
-  "Type5d.RDE.2.KSA&": [
+  "Type5d.TB.7K.2.KSA&": [
     0,
     "=Ref8p90p1"
   ],
-  "Type5d.RDE.4.DHO&": [
+  "Type5d.TB.7K.4.DHO&": [
     0,
     "=Ref8p85p3==Ref8p87p8"
   ],
-  "Type5d.RDE.4.KSA&": [
+  "Type5d.TB.7K.4.KSA&": [
     0,
     "=Ref8p90p1"
   ],
-  "Type5d.RDE.5.DHO&": [
+  "Type5d.TB.7K.5.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.RE.1.DHO&": [
+  "Type5d.TB.IW.1.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5d.RE.2.DHO&": [
+  "Type5d.TB.IW.2.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.RE.4.DHO&": [
+  "Type5d.TB.IW.4.DHO&": [
     0,
     "=Ref8p85p3"
   ],
-  "Type5d.RE.5.DHO&": [
+  "Type5d.TB.IW.5.DHO&": [
     0,
     "=Ref8p85p2"
   ],
-  "Type5e.RDE.M.KHD&": [
+  "Type5e.TB.7K.M.KHD&": [
     0,
     "=Ref3p552p8"
   ],
-  "Type6a.EC.D.KDU&": [
+  "Type6a.RW.D.KDU&": [
     1,
     "=Ref8p259p3"
   ],
-  "Type6a.EC.H.KHD&": [
+  "Type6a.RW.H.KHD&": [
     1,
     "=Ref8p259p7"
   ],
-  "Type6a.EC.Y.KHD&": [
+  "Type6a.RW.Y.KHD&": [
     1,
     "=Ref3p438p1b"
   ],
-  "Type6a.EE.H.KHD&+": [
+  "Type6a.F.H.KHD&+": [
     1,
     "=Ref8p249p2"
   ],
-  "Type6a.EE.H.LTH&": [
+  "Type6a.F.H.LTH&": [
     1,
     "=Fortunea.9"
   ],
-  "Type6a.GC.D.KHD&": [
+  "Type6a.HO.D.KHD&": [
     1,
     "=Ref8p73p8b"
   ],
-  "Type6a.GC.H.DMA&": [
+  "Type6a.HO.H.DMA&": [
     1,
     "=Ref8p236p9"
   ],
-  "Type6a.GC.H.KHD&": [
+  "Type6a.HO.H.KHD&": [
     1,
     "=Careerb.39==Lifeb.60"
   ],
-  "Type6a.GC.Y.KHD&": [
+  "Type6a.HO.Y.KHD&": [
     0
   ],
-  "Type6a.GDC.M.DMA&": [
+  "Type6a.DR.M.DMA&": [
     1,
     "=Ref8p188p10"
   ],
-  "Type6a.GDC.Y.DMA&": [
+  "Type6a.DR.Y.DMA&": [
     1,
     "=Ref8p188p10"
   ],
-  "Type6a.GDE.D.HCI&": [
+  "Type6a.IR.D.HCI&": [
     1,
     "=Ref8p200p2"
   ],
-  "Type6a.GE.D.DMA&": [
+  "Type6a.EG.D.DMA&": [
     1,
     "=Ref8p229p5"
   ],
-  "Type6a.GE.D.HCI&": [
+  "Type6a.EG.D.HCI&": [
     1,
     "=Ref8p229p4"
   ],
-  "Type6a.GE.D.HDI&-": [
+  "Type6a.EG.D.HDI&-": [
     1,
     "=Ref8p229p3"
   ],
-  "Type6a.GE.D.VTI&": [
+  "Type6a.EG.D.VTI&": [
     1,
     "=Ref8p229p4"
   ],
-  "Type6a.RDC.D.LTH&": [
+  "Type6a.DO.D.LTH&": [
     1,
     "=Ref8p145p8"
   ],
-  "Type6a.RDC.M.TNG&+": [
+  "Type6a.DO.M.TNG&+": [
     1,
     "=Persona.55a==Persona.290"
   ],
-  "Type6a.RDC.M.TNG&+.-": [
+  "Type6a.DO.M.TNG&+.-": [
     1,
-    "=Ref8p144p6==Type6a.RDC.M.TNG&+"
+    "=Ref8p144p6==Type6a.DO.M.TNG&+"
   ],
-  "Type6a.RDE.H.KHD&": [
+  "Type6a.7K.H.KHD&": [
     1,
     "=Ref7_2ap28d"
   ],
-  "Type6a.RDE.M.KDU&-": [
+  "Type6a.7K.M.KDU&-": [
     1,
     "=Ref8p164p2c"
   ],
-  "Type6a.RDE.Y.KHD&-": [
+  "Type6a.7K.Y.KHD&-": [
     1,
     "=Ref3p439p8==Ref3p440p2"
   ],
-  "Type7a.EE.D.1.KCU&": [
+  "Type7a.TB.F.D.1.KCU&": [
     1,
     "=Ref8p127p1b"
   ],
-  "Type7a.EE.D.1.KCU&+.+": [
+  "Type7a.TB.F.D.1.KCU&+.+": [
     1,
     "=Ref8p127p1b==Ref8p127p3"
   ],
-  "Type7a.EE.D.5.KCU&": [
+  "Type7a.TB.F.D.5.KCU&": [
     1,
     "=Ref8p127p1b"
   ],
-  "Type7a.EE.D.5.KCU&+.+": [
+  "Type7a.TB.F.D.5.KCU&+.+": [
     1,
     "=Ref8p127p1b==Ref8p127p3"
   ],
-  "Type7a.GDC.D.1.KCU&": [
+  "Type7a.TB.DR.D.1.KCU&": [
     1,
     "=Ref8p127p1b"
   ],
-  "Type7a.GDC.D.1.KCU&+.+": [
+  "Type7a.TB.DR.D.1.KCU&+.+": [
     1,
     "=Ref8p127p1b==Ref8p127p3"
   ],
-  "Type7a.GDC.D.1.NDU&": [
+  "Type7a.TB.DR.D.1.NDU&": [
     1,
     "=Ref8p104p3"
   ],
-  "Type7a.GDC.D.1.TDU&": [
+  "Type7a.TB.DR.D.1.TDU&": [
     1,
     "=Ref8p104p3"
   ],
-  "Type7a.GDC.D.1.TNG&+": [
+  "Type7a.TB.DR.D.1.TNG&+": [
     1,
     "=Ref8p81p1"
   ],
-  "Type7a.GDC.D.5.KCU&": [
+  "Type7a.TB.DR.D.5.KCU&": [
     1,
     "=Ref8p127p1b"
   ],
-  "Type7a.GDC.D.5.KCU&+.+": [
+  "Type7a.TB.DR.D.5.KCU&+.+": [
     1,
     "=Ref8p127p1b==Ref8p127p3"
   ],
-  "Type7a.GDC.D.5.NDU&": [
+  "Type7a.TB.DR.D.5.NDU&": [
     1,
     "=Ref8p104p3"
   ],
-  "Type7a.GDC.D.5.TDU&": [
+  "Type7a.TB.DR.D.5.TDU&": [
     1,
     "=Ref8p104p3"
   ],
-  "Type7a.GDC.D.5.TNG&+": [
+  "Type7a.TB.DR.D.5.TNG&+": [
     1,
     "=Ref8p81p1"
   ],
-  "Type7a.GDC.H.1.NDU&": [
+  "Type7a.TB.DR.H.1.NDU&": [
     1,
     "=Ref8p104p3"
   ],
-  "Type7a.GDC.H.1.TDU&": [
+  "Type7a.TB.DR.H.1.TDU&": [
     1,
     "=Ref8p104p3"
   ],
-  "Type7a.GDC.H.5.NDU&": [
+  "Type7a.TB.DR.H.5.NDU&": [
     1,
     "=Ref8p104p3"
   ],
-  "Type7a.GDC.H.5.TDU&": [
+  "Type7a.TB.DR.H.5.TDU&": [
     1,
     "=Ref8p104p3"
   ],
-  "Type7a.GDC.M.1.HSI&+": [
+  "Type7a.TB.DR.M.1.HSI&+": [
     1,
     "=Studya.4a==Studya.4b"
   ],
-  "Type7a.GDC.M.5.HSI&+": [
+  "Type7a.TB.DR.M.5.HSI&+": [
     1,
     "=Studya.4a==Studya.4b"
   ],
-  "Type7a.RC.D.0.KCU&-": [
+  "Type7a.TB.DW.D.0.KCU&-": [
     1,
     "=Ref8p127p7"
   ],
-  "Type7a.RC.D.1.KQU&+": [
+  "Type7a.TB.DW.D.1.KQU&+": [
     0
   ],
-  "Type7a.RC.D.1.THN&+": [
+  "Type7a.TB.DW.D.1.THN&+": [
     0
   ],
-  "Type7a.RC.D.1.TNG&+": [
+  "Type7a.TB.DW.D.1.TNG&+": [
     0
   ],
-  "Type7a.RC.D.2.KCU&-": [
+  "Type7a.TB.DW.D.2.KCU&-": [
     1,
     "=Ref8p127p7"
   ],
-  "Type7a.RC.D.3.KCU&-": [
+  "Type7a.TB.DW.D.3.KCU&-": [
     1,
     "=Ref8p127p7"
   ],
-  "Type7a.RC.D.4.KCU&-": [
+  "Type7a.TB.DW.D.4.KCU&-": [
     1,
     "=Ref8p127p7"
   ],
-  "Type7a.RC.D.5.KQU&+": [
+  "Type7a.TB.DW.D.5.KQU&+": [
     0
   ],
-  "Type7a.RC.D.5.THN&+": [
+  "Type7a.TB.DW.D.5.THN&+": [
     0
   ],
-  "Type7a.RC.D.5.TNG&+": [
+  "Type7a.TB.DW.D.5.TNG&+": [
     0
   ],
-  "Type7a.RC.H.2.KHD&": [
+  "Type7a.TB.DW.H.2.KHD&": [
     1,
     "=Ref8p73p10"
   ],
-  "Type7a.RC.H.4.KHD&": [
+  "Type7a.TB.DW.H.4.KHD&": [
     1,
     "=Ref8p73p10"
   ],
-  "Type7a.RC.L.2.KHD&": [
+  "Type7a.TB.DW.L.2.KHD&": [
     1,
     "=Ref8p73p10"
   ],
-  "Type7a.RC.L.4.KHD&": [
+  "Type7a.TB.DW.L.4.KHD&": [
     1,
     "=Ref8p73p10"
   ],
-  "Type7a.RC.M.2.KHD&": [
+  "Type7a.TB.DW.M.2.KHD&": [
     1,
     "=Ref8p73p10"
   ],
-  "Type7a.RC.M.4.KHD&": [
+  "Type7a.TB.DW.M.4.KHD&": [
     1,
     "=Ref8p73p10"
   ],
-  "Type7a.RC.Y.2.KHD&": [
+  "Type7a.TB.DW.Y.2.KHD&": [
     1,
     "=Ref8p73p10"
   ],
-  "Type7a.RC.Y.4.KHD&": [
+  "Type7a.TB.DW.Y.4.KHD&": [
     1,
     "=Ref8p73p10"
   ],
-  "Type7a.RDC.D.0.KCU&-": [
+  "Type7a.TB.DO.D.0.KCU&-": [
     1,
     "=Ref8p127p7"
   ],
-  "Type7a.RDC.D.1.TNG&+": [
+  "Type7a.TB.DO.D.1.TNG&+": [
     1,
     "=Ref8p81p1==Ref8p81p3"
   ],
-  "Type7a.RDC.D.2.KCU&-": [
+  "Type7a.TB.DO.D.2.KCU&-": [
     1,
     "=Ref8p127p7"
   ],
-  "Type7a.RDC.D.3.KCU&-": [
+  "Type7a.TB.DO.D.3.KCU&-": [
     1,
     "=Ref8p127p7"
   ],
-  "Type7a.RDC.D.4.KCU&-": [
+  "Type7a.TB.DO.D.4.KCU&-": [
     1,
     "=Ref8p127p7"
   ],
-  "Type7a.RDC.D.5.TNG&+": [
+  "Type7a.TB.DO.D.5.TNG&+": [
     1,
     "=Ref8p81p1==Ref8p81p3"
   ],
-  "Type7a.RDE.D.1.TNG&+": [
+  "Type7a.TB.7K.D.1.TNG&+": [
     1,
     "=Ref8p81p1"
   ],
-  "Type7a.RDE.D.5.TNG&+": [
+  "Type7a.TB.7K.D.5.TNG&+": [
     1,
     "=Ref8p81p1"
   ],
-  "Type7a.RDE.M.1.KDU&-": [
+  "Type7a.TB.7K.M.1.KDU&-": [
     1,
     "=Ref3p532p4"
   ],
-  "Type7a.RDE.M.2.KDU&": [
+  "Type7a.TB.7K.M.2.KDU&": [
     1,
     "=Ref8p172p12b"
   ],
-  "Type7a.RDE.M.4.KDU&": [
+  "Type7a.TB.7K.M.4.KDU&": [
     1,
     "=Ref8p172p12b"
   ],
-  "Type7a.RDE.M.5.KDU&-": [
+  "Type7a.TB.7K.M.5.KDU&-": [
     1,
     "=Ref3p532p4"
   ],
-  "Type7b.B.EE.D.2.KDU&+.+": [
+  "Type7b.B.F.D.2.KDU&+.+": [
     1,
     "=Parentb.20"
   ],
-  "Type7b.B.EE.D.4.KDU&+.+": [
+  "Type7b.B.F.D.4.KDU&+.+": [
     1,
     "=Parentb.20"
   ],
-  "Type7b.B.EE.H.1.LTH&": [
+  "Type7b.B.F.H.1.LTH&": [
     1,
     "=Persona.55a==Persona.55b"
   ],
-  "Type7b.B.EE.H.2.LTH&": [
+  "Type7b.B.F.H.2.LTH&": [
     1,
     "=Mariageb.22"
   ],
-  "Type7b.B.EE.H.4.LTH&": [
+  "Type7b.B.F.H.4.LTH&": [
     1,
     "=Mariageb.22"
   ],
-  "Type7b.B.EE.H.5.LTH&": [
+  "Type7b.B.F.H.5.LTH&": [
     1,
     "=Persona.55a==Persona.55b"
   ],
-  "Type7b.B.GC.D.2.KHD&": [
+  "Type7b.B.HO.D.2.KHD&": [
     1,
     "=Ref8p236p7"
   ],
-  "Type7b.B.GC.D.4.KHD&": [
+  "Type7b.B.HO.D.4.KHD&": [
     1,
     "=Ref8p236p7"
   ],
-  "Type7b.B.RC.D.1.LTH&-": [
+  "Type7b.B.DW.D.1.LTH&-": [
     1,
     "=Ref8p386p20"
   ],
-  "Type7b.B.RC.D.1.TDU&+": [
+  "Type7b.B.DW.D.1.TDU&+": [
     1,
     "=Ref8p417p4b"
   ],
-  "Type7b.B.RC.D.3.LTH&-": [
+  "Type7b.B.DW.D.3.LTH&-": [
     1,
     "=Ref8p386p20"
   ],
-  "Type7b.B.RC.D.5.LTH&-": [
+  "Type7b.B.DW.D.5.LTH&-": [
     1,
     "=Ref8p386p20"
   ],
-  "Type7b.B.RC.D.5.TDU&+": [
+  "Type7b.B.DW.D.5.TDU&+": [
     1,
     "=Ref8p417p4b"
   ],
-  "Type7b.B.RE.D.1.LTH&-": [
+  "Type7b.B.IW.D.1.LTH&-": [
     1,
     "=Ref8p386p20"
   ],
-  "Type7b.B.RE.D.1.TDU&+": [
+  "Type7b.B.IW.D.1.TDU&+": [
     1,
     "=Ref8p417p4b"
   ],
-  "Type7b.B.RE.D.1.TNG&": [
+  "Type7b.B.IW.D.1.TNG&": [
     1,
     "=Ref8p216p5b"
   ],
-  "Type7b.B.RE.D.3.LTH&-": [
+  "Type7b.B.IW.D.3.LTH&-": [
     1,
     "=Ref8p386p20"
   ],
-  "Type7b.B.RE.D.5.LTH&-": [
+  "Type7b.B.IW.D.5.LTH&-": [
     1,
     "=Ref8p386p20"
   ],
-  "Type7b.B.RE.D.5.TDU&+": [
+  "Type7b.B.IW.D.5.TDU&+": [
     1,
     "=Ref8p417p4b"
   ],
-  "Type7b.B.RE.D.5.TNG&": [
+  "Type7b.B.IW.D.5.TNG&": [
     1,
     "=Ref8p216p5b"
   ],
-  "Type7b.T.EE.H.1.LTH&": [
+  "Type7b.T.F.H.1.LTH&": [
     0
   ],
-  "Type7b.T.EE.H.2.LTH&": [
+  "Type7b.T.F.H.2.LTH&": [
     1,
     "=Mariageb.22"
   ],
-  "Type7b.T.EE.H.4.LTH&": [
+  "Type7b.T.F.H.4.LTH&": [
     1,
     "=Mariageb.22"
   ],
-  "Type7b.T.EE.H.5.LTH&": [
+  "Type7b.T.F.H.5.LTH&": [
     0
   ],
-  "Type8a.GC.D.AGE&": [
+  "Type8a.TB.HO.D.AGE&": [
     1,
     "=Ref3p502p5"
   ],
-  "Type8a.GC.H.AGE&": [
+  "Type8a.TB.HO.H.AGE&": [
     1,
     "=Ref3p502p5"
   ],
-  "Type8a.GC.H.BIRTH&+.+": [
+  "Type8a.TB.HO.H.BIRTH&+.+": [
     1,
     "=Ref3p478p1"
   ],
-  "Type8a.GDC.D.TOMB&-": [
+  "Type8a.TB.DR.D.TOMB&-": [
     1,
     "=Ref8p185p3"
   ],
-  "Type8a.GDC.H.AGE&+": [
+  "Type8a.TB.DR.H.AGE&+": [
     1,
     "=Ref8p184p1"
   ],
-  "Type8a.GDC.H.ATTIRE&+": [
+  "Type8a.TB.DR.H.ATTIRE&+": [
     1,
     "=Ref8p184p1"
   ],
-  "Type8a.GDC.H.BIRTH&+": [
+  "Type8a.TB.DR.H.BIRTH&+": [
     1,
     "=Ref8p184p1"
   ],
-  "Type8a.GDC.H.DEATH&-": [
+  "Type8a.TB.DR.H.DEATH&-": [
     1,
     "=Childb.20"
   ],
-  "Type8a.GDC.H.PROSPERITY&+": [
+  "Type8a.TB.DR.H.PROSPERITY&+": [
     1,
     "=Ref8p184p1"
   ],
-  "Type8a.GDC.M.AGE&": [
+  "Type8a.TB.DR.M.AGE&": [
     1,
     "=Ref8p188p16"
   ],
-  "Type8a.GDC.M.BIRTH&": [
+  "Type8a.TB.DR.M.BIRTH&": [
     1,
     "=Ref8p188p15"
   ],
-  "Type8a.GDC.M.PROSPERITY&": [
+  "Type8a.TB.DR.M.PROSPERITY&": [
     1,
     "=Ref8p188p12"
   ],
-  "Type8a.GDC.Y.AGE&": [
+  "Type8a.TB.DR.Y.AGE&": [
     1,
     "=Ref8p188p16"
   ],
-  "Type8a.GDC.Y.AGING&-.+": [
+  "Type8a.TB.DR.Y.AGING&-.+": [
     1,
     "=Origina.6"
   ],
-  "Type8a.GDC.Y.AGING&-.-": [
+  "Type8a.TB.DR.Y.AGING&-.-": [
     1,
     "=Origina.1"
   ],
-  "Type8a.GDC.Y.BIRTH&+": [
+  "Type8a.TB.DR.Y.BIRTH&+": [
     1,
     "=Ref3p434p7==Ref8p188p15"
   ],
-  "Type8a.GDC.Y.PROSPERITY&": [
+  "Type8a.TB.DR.Y.PROSPERITY&": [
     1,
     "=Ref8p188p12"
   ],
-  "Type8a.GDC.Y.REPOSE&-.+": [
+  "Type8a.TB.DR.Y.REPOSE&-.+": [
     1,
     "=Origina.6==Parentb.20"
   ],
-  "Type8a.GDC.Y.REPOSE&-.-": [
+  "Type8a.TB.DR.Y.REPOSE&-.-": [
     1,
     "=Origina.1==Parentb.20"
   ],
-  "Type8a.GDE.H.BIRTH&-": [
+  "Type8a.TB.IR.H.BIRTH&-": [
     1,
     "=Ref8p195p1"
   ],
-  "Type8a.GDE.M.BIRTH&": [
+  "Type8a.TB.IR.M.BIRTH&": [
     1,
     "=Ref8p195p1"
   ],
-  "Type8a.GDE.Y.BIRTH&": [
+  "Type8a.TB.IR.Y.BIRTH&": [
     1,
     "=Ref8p195p1"
   ],
-  "Type8a.GDE.Y.GESTATION&": [
+  "Type8a.TB.IR.Y.GESTATION&": [
     1,
     "=Ref8p195p1"
   ],
-  "Type8a.GE.H.BIRTH&+": [
+  "Type8a.TB.EG.H.BIRTH&+": [
     1,
     "=Origina.3"
   ],
-  "Type8a.GE.H.BIRTH&+.+": [
+  "Type8a.TB.EG.H.BIRTH&+.+": [
     1,
-    "=Type8a.GE.H.BIRTH&+==Ref3p478p1"
+    "=Type8a.TB.EG.H.BIRTH&+==Ref3p478p1"
   ],
-  "Type8a.GE.M.BIRTH&+": [
+  "Type8a.TB.EG.M.BIRTH&+": [
     1,
     "=Origina.3"
   ],
-  "Type8a.GE.Y.AGING&+": [
+  "Type8a.TB.EG.Y.AGING&+": [
     1,
     "=Ref8p225p2"
   ],
-  "Type8a.GE.Y.BIRTH&": [
+  "Type8a.TB.EG.Y.BIRTH&": [
     1,
     "=Parenta.4"
   ],
-  "Type8a.GE.Y.DEATH&+": [
+  "Type8a.TB.EG.Y.DEATH&+": [
     1,
     "=Ref8p225p2"
   ],
-  "Type8a.GE.Y.GESTATION&": [
+  "Type8a.TB.EG.Y.GESTATION&": [
     1,
     "=Parenta.4"
   ],
-  "Type8a.GE.Y.REPOSE&+": [
+  "Type8a.TB.EG.Y.REPOSE&+": [
     1,
     "=Ref8p225p2"
   ],
-  "Type8a.RC.D.TOMB&": [
+  "Type8a.TB.DW.D.TOMB&": [
     1,
     "=Ref3p520p11"
   ],
-  "Type8a.RC.M.TOMB&": [
+  "Type8a.TB.DW.M.TOMB&": [
     1,
     "=Ref8p207p5"
   ],
-  "Type8a.RDC.Y.BIRTH&+": [
+  "Type8a.TB.DO.Y.BIRTH&+": [
     1,
     "=Ref3p434p7"
   ],
-  "Type8a.RDE.D.DEATH&": [
+  "Type8a.TB.7K.D.DEATH&": [
     0
   ],
-  "Type8a.RDE.D.SICKNESS&": [
+  "Type8a.TB.7K.D.SICKNESS&": [
     0
   ],
-  "Type8a.RDE.D.TOMB&": [
+  "Type8a.TB.7K.D.TOMB&": [
     0
   ],
-  "Type8a.RDE.D.TOMB&-": [
+  "Type8a.TB.7K.D.TOMB&-": [
     1,
     "=Lifeb.28a"
   ],
-  "Type8a.RDE.Y.BIRTH&+": [
+  "Type8a.TB.7K.Y.BIRTH&+": [
     1,
     "=Ref3p434p7"
   ],
-  "Type8b.B.GE.M.AGE&": [
+  "Type8b.B.EG.M.AGE&": [
     1,
     "=Ref8p225p5"
   ],
-  "Type8b.B.GE.M.BIRTH&": [
+  "Type8b.B.EG.M.BIRTH&": [
     1,
     "=Ref8p225p5"
   ],
-  "Type8b.B.GE.M.PROSPERITY&": [
+  "Type8b.B.EG.M.PROSPERITY&": [
     1,
     "=Ref8p225p5"
   ],
-  "Type8b.B.RDC.D.DEATH&": [
+  "Type8b.B.DO.D.DEATH&": [
     1,
     "=Ref8p450p29"
   ],
-  "Type8b.T.EC.D.PROSPERITY&": [
+  "Type8b.T.RW.D.PROSPERITY&": [
     1,
     "=Ref3p527p8"
   ],
-  "Type8c.EC.BIRTH&": [
+  "Type8c.TB.TB.RW.BIRTH&": [
     0,
     "=Ref3p456p4"
   ],
-  "Type8c.EC.BIRTH&+": [
+  "Type8c.TB.TB.RW.BIRTH&+": [
     2,
     "=Ref3p456p4"
   ],
-  "Type8c.GC.PROSPERITY&": [
+  "Type8c.TB.TB.HO.PROSPERITY&": [
     0,
     "=Ref3p501p4"
   ],
-  "Type8c.RC.BIRTH&": [
+  "Type8c.TB.TB.DW.BIRTH&": [
     0,
     "=Ref8p422p41"
   ],
-  "Type8c.RC.DEATH&+.+": [
+  "Type8c.TB.TB.DW.DEATH&+.+": [
     3,
     "=Ref8p219p8"
   ],
-  "Type8c.RC.REPOSE&+.+": [
+  "Type8c.TB.TB.DW.REPOSE&+.+": [
     3,
     "=Ref8p219p8"
   ],
-  "Type8c.RC.REPOSE&-": [
+  "Type8c.TB.TB.DW.REPOSE&-": [
     0
   ],
-  "Type8c.RC.TOMB&+.+": [
+  "Type8c.TB.TB.DW.TOMB&+.+": [
     3,
     "=Ref8p219p8"
   ],
-  "Type8c.RC.TOMB&-": [
+  "Type8c.TB.TB.DW.TOMB&-": [
     0
   ],
-  "Type8c.RC.TOMB&-.+": [
+  "Type8c.TB.TB.DW.TOMB&-.+": [
     0
   ],
-  "Type8c.RE.BIRTH&": [
+  "Type8c.TB.TB.IW.BIRTH&": [
     0,
     "=Ref8p422p41"
   ],
-  "Type9a.GDE.Y.BIRTH.NVd&": [
+  "Type9a.TB.IR.Y.BIRTH.NVd&": [
     1,
     "=Parenta.4"
   ],
-  "Type9a.GDE.Y.GESTATION.NVd&": [
+  "Type9a.TB.IR.Y.GESTATION.NVd&": [
     1,
     "=Parenta.4"
   ],
-  "Type9a.RC.M.TOMB.NVd&": [
+  "Type9a.TB.DW.M.TOMB.NVd&": [
     1,
     "=Personb.63"
   ],
-  "Type9a.T.RE.Y.BIRTH&+": [
+  "Type9a.T.IW.Y.BIRTH&+": [
     1,
     "=Ref8p218p1"
   ],
-  "Type9a.T.RE.Y.PROSPERITY&+": [
+  "Type9a.T.IW.Y.PROSPERITY&+": [
     1,
     "=Ref8p218p1"
   ],
-  "Type9b.B.RDC.D.2.DEATH&": [
+  "Type9a.B.DO.D.SICKNESS.VD&": [
+    -1,
+    "=Ref8p165p4"
+  ],
+  "Type9a.B.DO.D.DEATH.VD&": [
+    -1,
+    "=Ref8p165p4"
+  ],
+  "Type9a.B.DO.D.TOMB.VD&": [
+    -1,
+    "=Ref8p165p4"
+  ],
+  "Type9a.B.DO.D.REPOSE.VD&": [
+    -1,
+    "=Ref8p165p4"
+  ],
+
+  "Type9b.B.DO.D.2.DEATH&": [
     0
   ],
-  "Type9b.B.RDC.D.2.REPOSE&": [
+  "Type9b.B.DO.D.2.REPOSE&": [
     0
   ],
-  "Type9b.B.RDC.D.2.SICKNESS&": [
+  "Type9b.B.DO.D.2.SICKNESS&": [
     0
   ],
-  "Type9b.B.RDC.D.2.TOMB&": [
+  "Type9b.B.DO.D.2.TOMB&": [
     0
   ],
-  "Type9b.B.RDC.D.4.DEATH&": [
+  "Type9b.B.DO.D.4.DEATH&": [
     0
   ],
-  "Type9b.B.RDC.D.4.REPOSE&": [
+  "Type9b.B.DO.D.4.REPOSE&": [
     0
   ],
-  "Type9b.B.RDC.D.4.SICKNESS&": [
+  "Type9b.B.DO.D.4.SICKNESS&": [
     0
   ],
-  "Type9b.B.RDC.D.4.TOMB&": [
+  "Type9b.B.DO.D.4.TOMB&": [
     0
   ],
-  "Type9b.T.GDC.Y.1.AGING&-": [
+  "Type9b.T.DR.Y.1.AGING&-": [
     1,
     "=Ref8p182p6"
   ],
-  "Type9b.T.GDC.Y.1.REPOSE&-": [
+  "Type9b.T.DR.Y.1.REPOSE&-": [
     1,
     "=Ref8p182p6"
   ],
-  "Type9b.T.GDC.Y.5.AGING&-": [
+  "Type9b.T.DR.Y.5.AGING&-": [
     1,
     "=Ref8p182p6"
   ],
-  "Type9b.T.GDC.Y.5.REPOSE&-": [
+  "Type9b.T.DR.Y.5.REPOSE&-": [
     1,
     "=Ref8p182p6"
   ],
-  "Type9b.T.GDE.Y.REPOSE&-.-": [
+  "Type9b.T.IR.Y.REPOSE&-.-": [
     1,
     "=Parentb.20"
   ],
@@ -42689,1266 +42848,993 @@
     2,
     "=Healthb.37"
   ],
-  "TypeTB.RDC.M.GDE.B&-": [
+  "TypeTB.DO.IR&-": [
     -2,
     "=Mariageb.23"
   ],
-  "TypeTB.RDC.M.GDE.B&-.-": [
+  "TypeTB.DO.IR&-.-": [
     0
   ],
-  "TypeTB.T.EC.EC.B&": [
+  "TypeTB.RW.RW&": [
     0,
     "=Ref8p264p4"
   ],
-  "TypeTB.T.EC.EE.B&": [
+  "TypeTB.RW.F&": [
     0,
     "=Ref8p264p5"
   ],
-  "TypeTB.T.EC.GDE.B&+": [
+  "TypeTB.RW.IR&+": [
     2,
     "=Ref8p263p3"
   ],
-  "TypeTB.T.EC.GE.B&": [
+  "TypeTB.RW.EG&": [
     0,
     "=Ref8p263p6"
   ],
-  "TypeTB.T.EC.RC.B&": [
+  "TypeTB.RW.DW&": [
     0,
     "=Ref8p381p19"
   ],
-  "TypeTB.T.EC.RC.B&+": [
+  "TypeTB.RW.DW&+": [
     2,
-    "=TypeTB.T.EC.RC.B&==Ref8p260p7==Ref8p263p4"
+    "=TypeTB.RW.DW&==Ref8p260p7==Ref8p263p4"
   ],
-  "TypeTB.T.EC.RDC.B&+": [
+  "TypeTB.RW.DO&+": [
     2,
     "=Ref8p262p6"
   ],
-  "TypeTB.T.EC.RE.B&+": [
+  "TypeTB.RW.IW&+": [
     2,
     "=Ref8p263p5"
   ],
-  "TypeTB.T.EE.EC.B&": [
+  "TypeTB.F.RW&": [
     0
   ],
-  "TypeTB.T.EE.EC.B&+": [
+  "TypeTB.F.RW&+": [
     2,
     "=Ref8p255p5"
   ],
-  "TypeTB.T.EE.EE.B&+": [
+  "TypeTB.F.F&+": [
     2,
     "=Ref8p255p6"
   ],
-  "TypeTB.T.EE.GC.B&-": [
+  "TypeTB.F.HO&-": [
     -2,
     "=Ref8p255p4"
   ],
-  "TypeTB.T.EE.GDC.B&": [
+  "TypeTB.F.DR&": [
     0,
     "=Ref8p254p7"
   ],
-  "TypeTB.T.EE.GDE.B&": [
+  "TypeTB.F.IR&": [
     0,
     "=Ref8p254p8"
   ],
-  "TypeTB.T.EE.GE.B&+": [
+  "TypeTB.F.EG&+": [
     2,
     "=Ref8p255p3"
   ],
-  "TypeTB.T.EE.RC.B&+": [
+  "TypeTB.F.DW&+": [
     2,
     "=Ref8p255p1"
   ],
-  "TypeTB.T.EE.RDC.B&": [
+  "TypeTB.F.DO&": [
     0,
     "=Ref8p254p4"
   ],
-  "TypeTB.T.EE.RDE.B&": [
+  "TypeTB.F.7K&": [
     0,
     "=Ref8p254p5"
   ],
-  "TypeTB.T.EE.RE.B&+": [
+  "TypeTB.F.IW&+": [
     2,
     "=Ref8p255p2b==Ref8p255p2a"
   ],
-  "TypeTB.T.GC.EC.B&": [
+  "TypeTB.HO.RW&": [
     0,
     "=Ref8p244p8"
   ],
-  "TypeTB.T.GC.EE.B&": [
+  "TypeTB.HO.F&": [
     0,
     "=Ref8p244p9"
   ],
-  "TypeTB.T.GC.GC.B&": [
+  "TypeTB.HO.HO&": [
     0,
     "=Ref8p244p2"
   ],
-  "TypeTB.T.GC.GDC.B&+": [
+  "TypeTB.HO.DR&+": [
     2,
     "=Ref8p243p5"
   ],
-  "TypeTB.T.GC.GDE.B&": [
+  "TypeTB.HO.IR&": [
     0,
     "=Ref8p241p5==Ref8p243p4==Ref8p243p6"
   ],
-  "TypeTB.T.GC.GE.B&": [
+  "TypeTB.HO.EG&": [
     0,
     "=Ref8p244p7"
   ],
-  "TypeTB.T.GC.RC.B&+": [
+  "TypeTB.HO.DW&+": [
     2,
     "=Ref8p243p7"
   ],
-  "TypeTB.T.GC.RDC.B&": [
+  "TypeTB.HO.DO&": [
     0,
     "=Ref8p421p31==Ref8p446p7"
   ],
-  "TypeTB.T.GC.RDC.B&+": [
-    2,
-    "=Ref8p238p6Bad==Ref8p243p3Bad==TypeTB.T.GC.RDC.B&"
-  ],
-  "TypeTB.T.GC.RDC.B&-": [
+  "TypeTB.HO.DO&+": [
     -2,
-    "=TypeTB.T.GC.RDC.B&==Ref8p447p6"
+    "=Ref8p238p6Bad==Ref8p243p3Bad==TypeTB.HO.DO&"
   ],
-  "TypeTB.T.GC.RDE.B&-": [
+  "TypeTB.HO.DO&-": [
     -2,
-    "=Ref8p447p6"
+    "=TypeTB.HO.DO&"
   ],
-  "TypeTB.T.GC.RE.B&+": [
+  "TypeTB.HO.IW&+": [
     2,
     "=Ref8p244p1"
   ],
-  "TypeTB.T.GDC.EE.B&+": [
+  "TypeTB.DR.F&+": [
     2,
     "=Ref8p192p5"
   ],
-  "TypeTB.T.GDC.GC.B&": [
+  "TypeTB.DR.HO&": [
     0,
     "=Ref8p192p4"
   ],
-  "TypeTB.T.GDC.GDC.B&-": [
+  "TypeTB.DR.DR&-": [
     -2,
     "=Ref8p191p3"
   ],
-  "TypeTB.T.GDC.GDE.B&-": [
+  "TypeTB.DR.IR&-": [
     -2,
     "=Ref8p191p4"
   ],
-  "TypeTB.T.GDC.GE.B&": [
+  "TypeTB.DR.EG&": [
     0,
     "=Ref8p192p3"
   ],
-  "TypeTB.T.GDC.RC.B&-": [
+  "TypeTB.DR.DW&-": [
     -2,
     "=Ref8p192p1a"
   ],
-  "TypeTB.T.GDC.RDC.B&": [
+  "TypeTB.DR.DO&": [
     0,
     "=Ref8p191p1"
   ],
-  "TypeTB.T.GDC.RDE.B&": [
+  "TypeTB.DR.7K&": [
     0,
     "=Ref8p191p2"
   ],
-  "TypeTB.T.GDC.RE.B&+": [
+  "TypeTB.DR.IW&+": [
     2,
     "=Ref8p192p2"
   ],
-  "TypeTB.T.GE.EC.B&": [
+  "TypeTB.EG.RW&": [
     0,
     "=Ref8p232p9"
   ],
-  "TypeTB.T.GE.EE.B&": [
+  "TypeTB.EG.F&": [
     0,
     "=Ref8p232p10"
   ],
-  "TypeTB.T.GE.GC.B&": [
+  "TypeTB.EG.HO&": [
     0,
     "=Ref8p232p8"
   ],
-  "TypeTB.T.GE.GDC.B&": [
+  "TypeTB.EG.DR&": [
     0,
     "=Ref8p232p3==Persona.9a==Persona.9b==Relationa.5"
   ],
-  "TypeTB.T.GE.GDC.B&+.+": [
+  "TypeTB.EG.DR&+.+": [
     3,
     "=Ref8p229p2==Persona.9a==Persona.9b==Persona.55a==Persona.290==Relationa.5==Careera.5"
   ],
-  "TypeTB.T.GE.GDE.B&": [
+  "TypeTB.EG.IR&": [
     0,
     "=Ref8p229p2==Persona.9a==Persona.9b==Persona.55a==Persona.290==Careera.5==Relationa.5"
   ],
-  "TypeTB.T.GE.GE.B&": [
+  "TypeTB.EG.EG&": [
     0,
     "=Ref8p232p7"
   ],
-  "TypeTB.T.GE.RDC.B&": [
+  "TypeTB.EG.DO&": [
     0,
     "=Ref8p229p2==Ref8p232p1a"
   ],
-  "TypeTB.T.GE.RDC.B&+": [
+  "TypeTB.EG.DO&+": [
     2,
     "=Ref8p229p2==Ref8p232p1a"
   ],
-  "TypeTB.T.GE.RDC.B&-": [
+  "TypeTB.EG.DO&-": [
     -2,
-    "=TypeTB.T.GE.RDC.B&==Ref8p447p6"
+    "=TypeTB.EG.DO&"
   ],
-  "TypeTB.T.GE.RDE.B&": [
+  "TypeTB.EG.7K&": [
     0,
     "=Ref8p229p10"
   ],
-  "TypeTB.T.GE.RDE.B&-": [
+  "TypeTB.EG.7K&-": [
     -2,
-    "=TypeTB.T.GE.RDE.B&==Ref8p447p6"
+    "=TypeTB.EG.7K&"
   ],
-  "TypeTB.T.RC.EC.B&": [
+  "TypeTB.DW.RW&": [
     0,
     "=Ref8p212p5a==Ref8p381p19"
   ],
-  "TypeTB.T.RC.EE.B&": [
+  "TypeTB.DW.F&": [
     0,
     "=Ref8p212p6"
   ],
-  "TypeTB.T.RC.GC.B&+": [
+  "TypeTB.DW.HO&+": [
     2,
     "=Ref8p212p3b"
   ],
-  "TypeTB.T.RC.GC.B&-": [
+  "TypeTB.DW.HO&-": [
     -2,
     "=Ref8p212p3a"
   ],
-  "TypeTB.T.RC.GDC.B&": [
+  "TypeTB.DW.DR&": [
     0,
     "=Ref8p211p3"
   ],
-  "TypeTB.T.RC.GDE.B&+": [
+  "TypeTB.DW.IR&+": [
     2,
     "=Ref8p211p4"
   ],
-  "TypeTB.T.RC.GE.B&+": [
+  "TypeTB.DW.EG&+": [
     2,
     "=Ref8p212p4b"
   ],
-  "TypeTB.T.RC.GE.B&-": [
+  "TypeTB.DW.EG&-": [
     -2,
     "=Ref8p212p4a"
   ],
-  "TypeTB.T.RC.RC.B&+": [
+  "TypeTB.DW.DW&+": [
     2,
     "=Ref8p211p5a"
   ],
-  "TypeTB.T.RC.RDC.B&+": [
+  "TypeTB.DW.DO&+": [
     2,
     "=Ref8p211p1"
   ],
-  "TypeTB.T.RC.RDE.B&+.+": [
+  "TypeTB.DW.7K&+.+": [
     3,
     "=Ref8p211p2"
   ],
-  "TypeTB.T.RC.RE.B&+": [
+  "TypeTB.DW.IW&+": [
     2,
     "=Ref8p212p2b==Ref8p212p2a"
   ],
-  "TypeTB.T.RC.RE.B&-": [
+  "TypeTB.DW.IW&-": [
     -2,
     "=Ref8p212p2a"
   ],
-  "TypeTB.T.RDC.D.RC.B&": [
+  "TypeTB.DO.D.DW&": [
     0,
     "=Ref8p145p8"
   ],
-  "TypeTB.T.RDC.D.RE.B&": [
+  "TypeTB.DO.D.IW&": [
     0,
     "=Ref8p145p8"
   ],
-  "TypeTB.T.RDC.EC.B&-": [
+  "TypeTB.DO.RW&-": [
     -2,
     "=Ref8p142p1b==Ref8p151p2b"
   ],
-  "TypeTB.T.RDC.EE.B&+": [
+  "TypeTB.DO.F&+": [
     2,
     "=Ref8p151p3a"
   ],
-  "TypeTB.T.RDC.EE.B&-": [
+  "TypeTB.DO.F&-": [
     0
   ],
-  "TypeTB.T.RDC.GC.B&": [
+  "TypeTB.DO.HO&": [
     0,
     "=Ref8p421p31==Ref8p446p7"
   ],
-  "TypeTB.T.RDC.GC.B&-": [
+  "TypeTB.DO.HO&-": [
     -2,
-    "=TypeTB.T.RDC.GC.B&==Ref8p447p6"
+    "=TypeTB.DO.HO&"
   ],
-  "TypeTB.T.RDC.GDC.B&": [
+  "TypeTB.DO.DR&": [
     0,
     "=Ref8p149p4"
   ],
-  "TypeTB.T.RDC.GE.B&": [
+  "TypeTB.DO.EG&": [
     0,
     "=Ref8p150p4a==Ref8p225p4"
   ],
-  "TypeTB.T.RDC.GE.B&-": [
+  "TypeTB.DO.EG&-": [
     -2,
-    "=TypeTB.T.RDC.GE.B&==Ref8p447p6"
+    "=TypeTB.DO.EG&"
   ],
-  "TypeTB.T.RDC.RDE.B&": [
+  "TypeTB.DO.7K&": [
     0,
     "=Ref8p149p3==Ref8p171p2a==Ref8p429p10"
   ],
-  "TypeTB.T.RDE.EE.B&": [
+  "TypeTB.7K.F&": [
     0
   ],
-  "TypeTB.T.RDE.EE.B&+": [
+  "TypeTB.7K.F&+": [
     2,
     "=Ref8p176p1a"
   ],
-  "TypeTB.T.RDE.EE.B&-": [
+  "TypeTB.7K.F&-": [
     -2,
     "=Ref8p176p1b"
   ],
-  "TypeTB.T.RDE.GC.B&": [
+  "TypeTB.7K.HO&": [
     0,
     "=Ref8p176p5==Fortuneb.31==Persona.175==Careerb.63"
   ],
-  "TypeTB.T.RDE.GC.B&-": [
+  "TypeTB.7K.HO&-": [
     -2,
-    "=TypeTB.T.RDE.GC.B&==Ref8p447p6"
+    "=TypeTB.7K.HO&"
   ],
-  "TypeTB.T.RDE.GDC.B&": [
+  "TypeTB.7K.DR&": [
     0,
     "=Ref8p170p3==Ref8p176p3==Ref8p171p3"
   ],
-  "TypeTB.T.RDE.GDE.B&": [
+  "TypeTB.7K.IR&": [
     0,
     "=Ref8p170p4==Ref8p176p4a"
   ],
-  "TypeTB.T.RDE.GE.B&+": [
+  "TypeTB.7K.EG&+": [
     2,
     "=Ref8p170p11==Ref8p225p4"
   ],
-  "TypeTB.T.RDE.GE.B&-": [
-    -2,
-    "=Ref8p447p6"
-  ],
-  "TypeTB.T.RDE.RC.B&+.+": [
+  "TypeTB.7K.DW&+.+": [
     3,
     "=Ref8p175p4a"
   ],
-  "TypeTB.T.RDE.RC.B&-.-": [
+  "TypeTB.7K.DW&-.-": [
     -3,
     "=Ref8p175p4b"
   ],
-  "TypeTB.T.RDE.RDC.B&": [
+  "TypeTB.7K.DO&": [
     0,
     "=Ref8p171p2a==Ref8p175p2a==Ref8p429p10"
   ],
-  "TypeTB.T.RDE.RDE&": [
+  "TypeTB.7K.7K&": [
     0,
     "=Ref8p172p7a"
   ],
-  "TypeTB.T.RDE.RDE.B&+": [
+  "TypeTB.7K.7K&+": [
     2,
-    "=TypeTB.T.RDE.RDE&==Ref8p175p1b"
+    "=TypeTB.7K.7K&==Ref8p175p1b"
   ],
-  "TypeTB.T.RDE.RE.B&": [
+  "TypeTB.7K.IW&": [
     0
   ],
-  "TypeTB.T.RDE.RE.B&+.-": [
+  "TypeTB.7K.IW&+.-": [
     1,
     "=Ref8p175p3a"
   ],
-  "TypeTB.T.RE.EC.B&": [
+  "TypeTB.IW.RW&": [
     0,
     "=Ref8p222p5"
   ],
-  "TypeTB.T.RE.EE.B&": [
+  "TypeTB.IW.F&": [
     0,
     "=Ref8p222p6"
   ],
-  "TypeTB.T.RE.GC.B&+": [
+  "TypeTB.IW.HO&+": [
     2,
     "=Ref8p222p3"
   ],
-  "TypeTB.T.RE.GC.B&-": [
+  "TypeTB.IW.HO&-": [
     -2,
     "=Ref8p222p4"
   ],
-  "TypeTB.T.RE.GDC.B&": [
+  "TypeTB.IW.DR&": [
     0,
     "=Ref8p221p2"
   ],
-  "TypeTB.T.RE.GDE.B&": [
+  "TypeTB.IW.IR&": [
     0,
     "=Ref8p221p3"
   ],
-  "TypeTB.T.RE.GE.B&+": [
+  "TypeTB.IW.EG&+": [
     2,
     "=Ref8p222p2"
   ],
-  "TypeTB.T.RE.RDC.B&-": [
-    -2,
-    "=Persona.3==Persona.5==Lifea.1017==Relationb.21"
-  ],
-  "TypeTB.T.RE.RDE.B&+": [
-    2,
-    "=Careera.5"
-  ],
-  "TypeTB.T.RE.RE.B&+": [
+  "TypeTB.IW.IW&+": [
     2,
     "=Ref8p221p7"
   ],
-  "TypeTB1.GC.H.RDC.D&-": [
+  "TypeTB1 .HO.DO&-": [
     -2,
     "=Ref8p447p6"
   ],
-  "TypeTB1.GC.H.RDE.D&-": [
-    -2,
-    "=Ref8p447p6"
-  ],
-  "TypeTB1.GC.M.RDC.D&-": [
-    -2,
-    "=Ref8p447p6"
-  ],
-  "TypeTB1.GC.M.RDE.D&-": [
-    -2,
-    "=Ref8p447p6"
-  ],
-  "TypeTB1.GE.H.RDC.D&-": [
-    -2,
-    "=Ref8p447p6"
-  ],
-  "TypeTB1.GE.H.RDE.D&-": [
-    -2,
-    "=Ref8p447p6"
-  ],
-  "TypeTB1.GE.M.RDC.D&-": [
-    -2,
-    "=Ref8p447p6"
-  ],
-  "TypeTB1.GE.M.RDE.D&-": [
-    -2,
-    "=Ref8p447p6"
-  ],
-  "TypeTB1.RDC.H.GC.D&-": [
-    -2,
-    "=Ref8p447p6"
-  ],
-  "TypeTB1.RDC.M.GE.D&-": [
-    -2,
-    "=Ref8p447p6"
-  ],
-  "TypeTB1.RE.Y.RC.H&": [
+  "TypeTB1.DW.H.IW.Y&": [
     0,
     "=Ref8p427p5"
   ],
-  "TypeTB1.RE.Y.RC.M&": [
+  "TypeTB1.DW.M.IW.Y&": [
     0,
     "=Ref8p427p5"
   ],
-  "TypeTB2.RC.M.RE.D&+": [
+  "TypeTB2.DW.M.IW.D&+": [
     2,
     "=Ref8p219p3"
   ],
-  "TypeTB2.RC.Y.RE.D&+": [
+  "TypeTB2.+.DW.Y.IW.D&+": [
     2,
     "=Ref8p219p3"
   ],
-  "TypeTBn.GE.1.RC.B&+": [
+  "Type1b.TB.EG.1.DW&+": [
     2,
     "=Ref8p232p5"
   ],
-  "TypeTBn.GE.1.RE.B&+": [
-    2,
-    "=Ref8p232p6"
-  ],
-  "TypeTBn.GE.5.RC.B&+": [
-    2,
-    "=Ref8p232p5"
-  ],
-  "TypeTBn.GE.5.RE.B&+": [
-    2,
-    "=Ref8p232p6"
-  ],
-  "TypeTBn.T.GDC.1.RC.B&+": [
-    2,
-    "=Lifea.15==Careera.15"
-  ],
-  "TypeTBn.T.GDC.1.RC.B&-": [
-    -2,
-    "=Lifeb.36"
-  ],
-  "TypeTBn.T.GDC.5.RC.B&+": [
-    2,
-    "=Lifea.15==Careera.15"
-  ],
-  "TypeTBn.T.GDC.5.RC.B&-": [
-    -2,
-    "=Lifeb.36"
-  ],
-  "TypeTBn.T.RC.1.RC.B&+": [
-    2,
-    "=Ref8p212p1"
-  ],
-  "TypeTBn.T.RC.5.RC.B&+": [
-    2,
-    "=Ref8p212p1"
-  ],
-  "TypeTBn.T.RDC.1.GC.B&": [
-    0,
-    "=Ref8p150p3a"
-  ],
-  "TypeTBn.T.RDC.1.GC.B&+": [
-    0
-  ],
-  "TypeTBn.T.RDC.1.GDC.B&+": [
-    2,
-    "=Ref8p153p4"
-  ],
-  "TypeTBn.T.RDC.1.GDE.B&+": [
-    2,
-    "=Ref8p153p4==Ref8p149p4b"
-  ],
-  "TypeTBn.T.RDC.1.RC.B&+": [
-    2,
-    "=Ref8p149p5"
-  ],
-  "TypeTBn.T.RDC.1.RDC.B&": [
-    0,
-    "=Ref8p149p1"
-  ],
-  "TypeTBn.T.RDC.1.RE.B&": [
-    0,
-    "=Ref8p150p2a==Ref8p150p2b"
-  ],
-  "TypeTBn.T.RDC.2.GDE.B&-": [
-    -2,
-    "=Ref8p149p4a"
-  ],
-  "TypeTBn.T.RDC.2.RC.B&-": [
-    -2,
-    "=Ref8p150p1"
-  ],
-  "TypeTBn.T.RDC.2.RDC.B&": [
-    0,
-    "=Ref8p149p2"
-  ],
-  "TypeTBn.T.RDC.4.GDE.B&-": [
-    -2,
-    "=Ref8p149p4a"
-  ],
-  "TypeTBn.T.RDC.4.RC.B&-": [
-    -2,
-    "=Ref8p150p1"
-  ],
-  "TypeTBn.T.RDC.4.RDC.B&": [
-    0,
-    "=Ref8p149p2"
-  ],
-  "TypeTBn.T.RDC.5.GC.B&": [
-    0
-  ],
-  "TypeTBn.T.RDC.5.GC.B&+": [
-    0
-  ],
-  "TypeTBn.T.RDC.5.GDC.B&+": [
-    2,
-    "=Ref8p153p4"
-  ],
-  "TypeTBn.T.RDC.5.GDE.B&+": [
-    2,
-    "=Ref8p153p4==Ref8p149p4b"
-  ],
-  "TypeTBn.T.RDC.5.RC.B&+": [
-    2,
-    "=Ref8p149p5"
-  ],
-  "TypeTBn.T.RDC.5.RDC.B&": [
-    0,
-    "=Ref8p149p1"
-  ],
-  "TypeTBn.T.RDC.5.RE.B&": [
-    0,
-    "=Ref8p150p2a==Ref8p150p2b"
-  ],
-  "TypeTBn.T.RDE.2.RE.B&": [
-    0
-  ],
-  "TypeTBn.T.RDE.2.RE.B&-": [
-    -2,
-    "=Parentb.26a"
-  ],
-  "TypeTBn.T.RDE.4.RE.B&": [
-    0
-  ],
-  "TypeTBn.T.RDE.4.RE.B&-": [
-    -2,
-    "=Parentb.26a"
-  ],
-  "TypeTBn.T.RE.1.RC.B&+": [
-    2,
-    "=Ref8p221p4"
-  ],
-  "TypeTBn.T.RE.1.RC.B&+.+": [
-    3,
-    "=Ref8p221p5"
-  ],
-  "TypeTBn.T.RE.1.RC.B&-": [
-    -2,
-    "=Ref8p221p4"
-  ],
-  "TypeTBn.T.RE.1.RC.B&-.+": [
-    -1,
-    "=Ref8p221p5"
-  ],
-  "TypeTBn.T.RE.1.RDC.B&": [
-    0,
-    "=Ref8p220p8"
-  ],
-  "TypeTBn.T.RE.2.RC.B&": [
-    0,
-    "=Ref8p221p6"
-  ],
-  "TypeTBn.T.RE.2.RDC.B&": [
-    0,
-    "=Ref8p220p9"
-  ],
-  "TypeTBn.T.RE.2.RDE.B&+": [
-    2,
-    "=Ref8p221p1Bad"
-  ],
-  "TypeTBn.T.RE.2.RDE.B&-": [
-    -2,
-    "=Ref8p221p1Good"
-  ],
-  "TypeTBn.T.RE.2.RE.B&+": [
-    2,
-    "=Ref8p222p1"
-  ],
-  "TypeTBn.T.RE.4.RC.B&": [
-    0,
-    "=Ref8p221p6"
-  ],
-  "TypeTBn.T.RE.4.RDC.B&": [
-    0,
-    "=Ref8p220p9"
-  ],
-  "TypeTBn.T.RE.4.RDE.B&+": [
-    2,
-    "=Ref8p221p1Bad"
-  ],
-  "TypeTBn.T.RE.4.RDE.B&-": [
-    -2,
-    "=Ref8p221p1Good"
-  ],
-  "TypeTBn.T.RE.4.RE.B&+": [
-    2,
-    "=Ref8p222p1"
-  ],
-  "TypeTBn.T.RE.5.RC.B&+": [
-    2,
-    "=Ref8p221p4"
-  ],
-  "TypeTBn.T.RE.5.RC.B&+.+": [
-    3,
-    "=Ref8p221p5"
-  ],
-  "TypeTBn.T.RE.5.RC.B&-": [
-    -2,
-    "=Ref8p221p4"
-  ],
-  "TypeTBn.T.RE.5.RC.B&-.+": [
-    -1,
-    "=Ref8p221p5"
-  ],
-  "TypeTBn.T.RE.5.RDC.B&": [
-    0,
-    "=Ref8p220p8"
-  ],
-  "TypeTBx.GE.M.GE.B&+": [
-    2,
-    "=Careerb.27"
-  ],
-  "TypeTBx.RE.Y.EE.B&": [
-    0,
-    "=Ref8p215p3"
-  ],
-  "TypeTBx.T.EC.H.GDC.B&": [
+  "Type2c.T.RW.H.DR.B&": [
     0,
     "=Ref8p184p3"
   ],
-  "TypeTBx.T.EC.H.GDC.B&-": [
+  "Type2c.T.RW.H.DR.B&-": [
     -2,
     "=Ref8p263p1"
   ],
-  "TypeTBx.T.EC.M.EC.B&+": [
+  "Type2c.T.RW.M.RW.B&+": [
     2,
     "=Ref8p258p1a"
   ],
-  "TypeTBx.T.EC.M.RDE.B&-": [
+  "Type2c.T.RW.M.7K.B&-": [
     -2,
     "=Ref8p262p7"
   ],
-  "TypeTBx.T.EC.Y.RDE.B": [
+  "Type2c.T.RW.Y.7K.B": [
     0,
     "=Ref8p262p7"
   ],
-  "TypeTBx.T.EE.H.GDC.B&": [
+  "Type2c.T.F.H.DR.B&": [
     0,
     "=Ref8p184p3"
   ],
-  "TypeTBx.T.EE.M.GDC.B&+": [
+  "Type2c.T.F.M.DR.B&+": [
     2,
     "=Origina.2"
   ],
-  "TypeTBx.T.EE.M.GDE.B&+": [
+  "Type2c.T.F.M.IR.B&+": [
     2,
     "=Origina.2"
   ],
-  "TypeTBx.T.EE.M.RDC.B&+": [
+  "Type2c.T.F.M.DO.B&+": [
     2,
     "=Origina.2"
   ],
-  "TypeTBx.T.EE.M.RDE.B&+": [
+  "Type2c.T.F.M.7K.B&+": [
     2,
     "=Ref8p254p6==Origina.2"
   ],
-  "TypeTBx.T.EE.Y.EE.B&+": [
+  "Type2c.T.F.Y.F.B&+": [
     2,
     "=Ref8p247p3"
   ],
-  "TypeTBx.T.EE.Y.RC.B&+": [
+  "Type2c.T.F.Y.DW.B&+": [
     2,
     "=Parentb.21"
   ],
-  "TypeTBx.T.EE.Y.RDE.B&": [
+  "Type2c.T.F.Y.7K.B&": [
     0,
     "=Ref8p247p2==Ref8p254p6"
   ],
-  "TypeTBx.T.GC.H.GC.B&": [
+  "Type2c.T.HO.H.HO.B&": [
     0,
     "=Ref8p244p6==Lifeb.23==Ref8p237p1"
   ],
-  "TypeTBx.T.GC.H.GDC.B&": [
+  "Type2c.T.HO.H.DR.B&": [
     0,
     "=Ref8p184p3"
   ],
-  "TypeTBx.T.GC.H.GDE.B&": [
+  "Type2c.T.HO.H.IR.B&": [
     0,
     "=Ref8p243p6"
   ],
-  "TypeTBx.T.GC.M.GC.B&+": [
+  "Type2c.T.HO.M.HO.B&+": [
     2,
     "=Ref8p235p7Bad==Ref8p244p4"
   ],
-  "TypeTBx.T.GC.M.GC.B&-": [
+  "Type2c.T.HO.M.HO.B&-": [
     -2,
     "=Ref8p235p7Good==Ref8p244p4"
   ],
-  "TypeTBx.T.GC.Y.EC.B&+": [
-    0
-  ],
-  "TypeTBx.T.GC.Y.EE.B&+": [
-    0
-  ],
-  "TypeTBx.T.GC.Y.GC.B&": [
+  "Type2c.T.HO.Y.HO.B&": [
     0,
     "=Ref8p244p3"
   ],
-  "TypeTBx.T.GDC.H.EC.B&+": [
+  "Type2c.T.DR.H.RW.B&+": [
     2,
     "=Ref8p192p6"
   ],
-  "TypeTBx.T.GDC.H.GDC.B&": [
+  "Type2c.T.DR.H.DR.B&": [
     0,
     "=Ref8p184p3"
   ],
-  "TypeTBx.T.GDC.M.GDC.B&": [
+  "Type2c.T.DR.M.DR.B&": [
     0,
     "=Ref8p183p5"
   ],
-  "TypeTBx.T.GDC.M.RC.B&-": [
+  "Type2c.T.DR.M.DW.B&-": [
     -2,
     "=Ref8p192p1b"
   ],
-  "TypeTBx.T.GDC.Y.RC.B&-": [
+  "Type2c.T.DR.Y.DW.B&-": [
     -2,
     "=Ref8p192p1b"
   ],
-  "TypeTBx.T.GDE.D.GC.B&+": [
+  "Type2c.T.IR.D.HO.B&+": [
     2,
     "=Ref8p203p5"
   ],
-  "TypeTBx.T.GDE.D.RC.B&+": [
+  "Type2c.T.IR.D.DW.B&+": [
     2,
     "=Ref8p203p3b"
   ],
-  "TypeTBx.T.GDE.D.RDC.B&+": [
+  "Type2c.T.IR.D.DO.B&+": [
     2,
     "=Ref8p203p1"
   ],
-  "TypeTBx.T.GDE.D.RDE.B&": [
+  "Type2c.T.IR.D.7K.B&": [
     0,
     "=Ref8p203p2"
   ],
-  "TypeTBx.T.GDE.H.GDC.B&": [
+  "Type2c.T.IR.H.DR.B&": [
     0,
     "=Ref8p184p3"
   ],
-  "TypeTBx.T.GDE.M.GDE.B&+": [
+  "Type2c.T.IR.M.IR.B&+": [
     2,
     "=Ref8p196p3"
   ],
-  "TypeTBx.T.GE.H.GDC.B&": [
+  "Type2c.T.EG.H.DR.B&": [
     0,
     "=Ref8p184p3"
   ],
-  "TypeTBx.T.RC.H.EC.B&": [
+  "Type2c.T.DW.H.RW.B&": [
     0,
     "=Ref8p212p5b"
   ],
-  "TypeTBx.T.RC.M.RC.B&+": [
+  "Type2c.T.DW.M.DW.B&+": [
     2,
     "=Ref8p207p4"
   ],
-  "TypeTBx.T.RDC.H.GDC.B&": [
+  "Type2c.T.DO.H.DR.B&": [
     0,
     "=Ref8p184p3"
   ],
-  "TypeTBx.T.RDC.M.GC.B&": [
+  "Type2c.T.DO.M.HO.B&": [
     0,
     "=Ref8p235p9"
   ],
-  "TypeTBx.T.RDC.Y.GDC.B&+": [
+  "Type2c.T.DO.Y.DR.B&+": [
     2,
     "=Ref8p143p6==Ref8p185p4"
   ],
-  "TypeTBx.T.RDE.H.GDC.B&": [
+  "Type2c.T.7K.H.DR.B&": [
     0,
     "=Ref8p184p3"
   ],
-  "TypeTBx.T.RDE.H.GDE.B&": [
+  "Type2c.T.7K.H.IR.B&": [
     0,
     "=Ref8p165p1"
   ],
-  "TypeTBx.T.RDE.H.RDE.B&+": [
+  "Type2c.T.7K.H.7K.B&+": [
     2,
     "=Ref8p175p1a"
   ],
-  "TypeTBx.T.RE.M.RE.B&": [
+  "Type2c.T.IW.M.IW.B&": [
     0,
     "=Ref8p216p2"
   ],
-  "TypeTBxn.T.GDE.D.1.RC.B&": [
+  "TypeTBxn.T.IR.D.1.DW.B&": [
     0,
     "=Ref8p203p3a"
   ],
-  "TypeTBxn.T.GDE.D.5.RC.B&": [
+  "TypeTBxn.T.IR.D.5.DW.B&": [
     0,
     "=Ref8p203p3a"
   ],
-  "TypeTBxn.T.GDE.Y.0.GDE.B&": [
+  "TypeTBxn.T.IR.Y.0.IR.B&": [
     0,
     "=Ref8p195p5"
   ],
-  "TypeTBxn.T.GDE.Y.2.GDE.B&": [
+  "TypeTBxn.T.IR.Y.2.IR.B&": [
     0,
     "=Ref8p195p5"
   ],
-  "TypeTBxn.T.GDE.Y.3.GDE.B&": [
+  "TypeTBxn.T.IR.Y.3.IR.B&": [
     0,
     "=Ref8p195p5"
   ],
-  "TypeTBxn.T.GDE.Y.4.GDE.B&": [
+  "TypeTBxn.T.IR.Y.4.IR.B&": [
     0,
     "=Ref8p195p5"
   ],
-  "TypeTBxn.T.GE.Y.1.EE.B&": [
+  "TypeTBxn.T.EG.Y.1.F.B&": [
     0,
     "=Ref8p225p1a"
   ],
-  "TypeTBxn.T.GE.Y.5.EE.B&": [
+  "TypeTBxn.T.EG.Y.5.F.B&": [
     0,
     "=Ref8p225p1a"
   ],
-  "TypeTBxn.T.RC.M.1.RC.B&+": [
+  "TypeTBxn.T.DW.M.1.DW.B&+": [
     2,
     "=Ref8p211p5b"
   ],
-  "TypeTBxn.T.RC.M.5.RC.B&+": [
+  "TypeTBxn.T.DW.M.5.DW.B&+": [
     2,
     "=Ref8p211p5b"
   ],
-  "TypeTBxn.T.RDC.Y.1.GDC.B&+": [
+  "TypeTBxn.T.DO.Y.1.DR.B&+": [
     2,
     "=Ref8p143p6"
   ],
-  "TypeTBxn.T.RDC.Y.1.RDC.B&+": [
+  "TypeTBxn.T.DO.Y.1.DO.B&+": [
     2,
     "=Ref8p143p5"
   ],
-  "TypeTBxn.T.RDC.Y.5.GDC.B&+": [
+  "TypeTBxn.T.DO.Y.5.DR.B&+": [
     2,
     "=Ref8p143p6"
   ],
-  "TypeTBxn.T.RDC.Y.5.RDC.B&+": [
+  "TypeTBxn.T.DO.Y.5.DO.B&+": [
     2,
     "=Ref8p143p5"
   ],
-  "TypeTTa.EC.Y.EC.M&+": [
+  "TypeTTa.RW.Y.RW.M&+": [
     1,
-    "=TypeTTa.EC.Y.EC.Y&+"
+    "=TypeTTa.RW.Y.RW.Y&+"
   ],
-  "TypeTTa.EC.Y.EC.Y&+": [
+  "TypeTTa.RW.Y.RW.Y&+": [
     1,
     "=Origina.1==Careera.6==Parentb.20==Parentb.21"
   ],
-  "TypeTTa.EC.Y.EE.M&+": [
+  "TypeTTa.RW.Y.F.M&+": [
     1,
-    "=TypeTTa.EC.Y.EC.Y&+"
+    "=TypeTTa.RW.Y.RW.Y&+"
   ],
-  "TypeTTa.EC.Y.RC.M&+": [
+  "TypeTTa.RW.Y.DW.M&+": [
     1,
     "=Ref8p207p7==Parentb.21"
   ],
-  "TypeTTa.EC.Y.RC.Y&+": [
+  "TypeTTa.RW.Y.DW.Y&+": [
     1,
     "=Parentb.21"
   ],
-  "TypeTTa.EC.Y.RDC.M&": [
+  "TypeTTa.RW.Y.DO.M&": [
     1,
     "=Originb.20"
   ],
-  "TypeTTa.EC.Y.RDE.M&": [
+  "TypeTTa.RW.Y.7K.M&": [
     1,
     "=Ref8p207p7==Parentb.21==BroSisb.20"
   ],
-  "TypeTTa.EC.Y.RDE.Y&": [
+  "TypeTTa.RW.Y.7K.Y&": [
     1,
-    "=TypeTTa.EC.Y.RDE.M&"
+    "=TypeTTa.RW.Y.7K.M&"
   ],
-  "TypeTTa.EC.Y.RE.M&+.+": [
+  "TypeTTa.RW.Y.IW.M&+.+": [
     1,
     "=Ref8p215p5"
   ],
-  "TypeTTa.EE.M.RE.D&": [
+  "TypeTTa.F.M.IW.D&": [
     1,
     "=Ref3p434p10"
   ],
-  "TypeTTa.EE.Y.EC.M&+": [
+  "TypeTTa.F.Y.RW.M&+": [
     1,
-    "=TypeTBx.T.EE.Y.EE.B&+"
+    "=Type2c.T.F.Y.F.B&+"
   ],
-  "TypeTTa.EE.Y.EE.M&+": [
+  "TypeTTa.F.Y.F.M&+": [
     1,
-    "=TypeTBx.T.EE.Y.EE.B&+"
+    "=Type2c.T.F.Y.F.B&+"
   ],
-  "TypeTTa.EE.Y.RC.M&+": [
+  "TypeTTa.F.Y.DW.M&+": [
     1,
     "=Parentb.21"
   ],
-  "TypeTTa.EE.Y.RDC.M&": [
+  "TypeTTa.F.Y.DO.M&": [
     1,
     "=Ref8p247p1b==Ref8p247p2"
   ],
-  "TypeTTa.EE.Y.RDE.M&": [
+  "TypeTTa.F.Y.7K.M&": [
     1,
     "=Ref8p247p2==BroSisb.20"
   ],
-  "TypeTTa.GC.D.RDC.H&": [
+  "TypeTTa.HO.D.DO.H&": [
     1,
     "=Ref8p238p7"
   ],
-  "TypeTTa.GC.M.RDC.D&": [
+  "TypeTTa.HO.M.DO.D&": [
     1,
     "=Ref8p238p7"
   ],
-  "TypeTTa.GC.Y.GC.M&": [
+  "TypeTTa.HO.Y.HO.M&": [
     1,
     "=Origina.1"
   ],
-  "TypeTTa.GC.Y.RDC.M&": [
+  "TypeTTa.HO.Y.DO.M&": [
     1,
     "=Ref8p238p7"
   ],
-  "TypeTTa.GDC.M.RDE.H&": [
+  "TypeTTa.DR.M.7K.H&": [
     1,
     "=Ref3p551p13"
   ],
-  "TypeTTa.GDC.Y.RDC.M&": [
+  "TypeTTa.DR.Y.DO.M&": [
     1,
     "=Ref8p144p1"
   ],
-  "TypeTTa.GDC.Y.RDC.M&+": [
+  "TypeTTa.DR.Y.DO.M&+": [
     1,
     "=Ref8p182p3==Ref8p182p4==Ref8p185p4"
   ],
-  "TypeTTa.GDC.Y.RDE.M&+": [
+  "TypeTTa.DR.Y.7K.M&+": [
     1,
     "=Ref8p164p2b==Ref8p182p3==Ref8p182p4==Ref8p185p4"
   ],
-  "TypeTTa.GDE.M.RDE.H&": [
+  "TypeTTa.IR.M.7K.H&": [
     1,
     "=Ref3p551p13"
   ],
-  "TypeTTa.GDE.Y.GDC.D&": [
+  "TypeTTa.IR.Y.DR.D&": [
     0
   ],
-  "TypeTTa.GDE.Y.RDC.M&": [
+  "TypeTTa.IR.Y.DO.M&": [
     1,
     "=Ref8p144p1"
   ],
-  "TypeTTa.GDE.Y.RDE.M&+": [
+  "TypeTTa.IR.Y.7K.M&+": [
     1,
     "=Ref8p164p2b"
   ],
-  "TypeTTa.RC.D.EE.H&": [
+  "TypeTTa.DW.D.F.H&": [
     1,
     "=Ref3p434p10"
   ],
-  "TypeTTa.RC.D.RDE.H&": [
+  "TypeTTa.DW.D.7K.H&": [
     1,
     "=Ref8p166p5"
   ],
-  "TypeTTa.RC.M.EC.H&": [
+  "TypeTTa.DW.M.RW.H&": [
     1,
     "=Ref8p207p8"
   ],
-  "TypeTTa.RC.M.RE.D&": [
+  "TypeTTa.DW.M.IW.D&": [
     1,
     "=Lifea.15==Fortunea.3"
   ],
-  "TypeTTa.RC.M.RE.H&-": [
+  "TypeTTa.DW.M.IW.H&-": [
     1,
     "=Ref8p207p8"
   ],
-  "TypeTTa.RC.Y.GDC.M&+": [
+  "TypeTTa.DW.Y.DR.M&+": [
     1,
     "=Ref8p186p3"
   ],
-  "TypeTTa.RC.Y.GDE.M&+": [
+  "TypeTTa.DW.Y.IR.M&+": [
     1,
     "=Ref8p186p3"
   ],
-  "TypeTTa.RC.Y.RC.M&+": [
+  "TypeTTa.DW.Y.DW.M&+": [
     1,
     "=Ref3p434p9"
   ],
-  "TypeTTa.RC.Y.RE.M&": [
+  "TypeTTa.DW.Y.IW.M&": [
     1,
     "=Fortunea.2"
   ],
-  "TypeTTa.RC.Y.RE.M&+": [
+  "TypeTTa.DW.Y.IW.M&+": [
     1,
-    "=Ref3p434p9==TypeTTa.RC.Y.RE.M&"
+    "=Ref3p434p9==TypeTTa.DW.Y.IW.M&"
   ],
-  "TypeTTa.RDC.D.GC.H&": [
-    1,
-    "=Ref8p238p7"
-  ],
-  "TypeTTa.RDC.M.GC.D&": [
+  "TypeTTa.DO.D.HO.H&": [
     1,
     "=Ref8p238p7"
   ],
-  "TypeTTa.RDC.M.RDE.H&-": [
+  "TypeTTa.DO.M.HO.D&": [
     1,
-    "=Type2c.T.RDC.M.2&-"
+    "=Ref8p238p7"
   ],
-  "TypeTTa.RDC.Y.EE.M&-": [
+  "TypeTTa.DO.M.7K.H&-": [
+    1,
+    "=Type2c.T.DO.M.2&-"
+  ],
+  "TypeTTa.DO.Y.F.M&-": [
     1,
     "=Origina.1"
   ],
-  "TypeTTa.RDC.Y.EE.M&-.-": [
+  "TypeTTa.DO.Y.F.M&-.-": [
     1,
-    "=TypeTTa.EE.Y.RDC.M&"
+    "=TypeTTa.F.Y.DO.M&"
   ],
-  "TypeTTa.RDC.Y.GC.M&": [
+  "TypeTTa.DO.Y.HO.M&": [
     1,
     "=Ref3p440p1==Ref8p235p8"
   ],
-  "TypeTTa.RDC.Y.GC.M&-": [
+  "TypeTTa.DO.Y.HO.M&-": [
     1,
     "=Ref8p238p7==Lifeb.25==Mariageb.22==BroSisb.25"
   ],
-  "TypeTTa.RDC.Y.GDC.M&+": [
+  "TypeTTa.DO.Y.DR.M&+": [
     1,
     "=Ref8p182p3==Mariageb.22"
   ],
-  "TypeTTa.RDC.Y.GE.M&": [
+  "TypeTTa.DO.Y.EG.M&": [
     1,
     "=Mariageb.22"
   ],
-  "TypeTTa.RDC.Y.RDE.M&+": [
+  "TypeTTa.DO.Y.7K.M&+": [
     1,
     "=Ref8p164p2b==Ref8p182p3==Ref8p182p4==Ref8p185p4"
   ],
-  "TypeTTa.RDE.D.GDE.H&": [
+  "TypeTTa.7K.D.IR.H&": [
     1,
     "=Ref8p170p4"
   ],
-  "TypeTTa.RDE.D.GDE.L&": [
+  "TypeTTa.7K.D.IR.L&": [
     1,
     "=Ref8p170p4"
   ],
-  "TypeTTa.RDE.D.RC.H&": [
+  "TypeTTa.7K.D.DW.H&": [
     1,
     "=Ref8p166p5"
   ],
-  "TypeTTa.RDE.D.RE.H&": [
+  "TypeTTa.7K.D.IW.H&": [
     1,
     "=Ref8p166p5"
   ],
-  "TypeTTa.RDE.M.GDC.D&": [
+  "TypeTTa.7K.M.DR.D&": [
     1,
     "=Ref8p171p3"
   ],
-  "TypeTTa.RDE.M.GDC.H&": [
+  "TypeTTa.7K.M.DR.H&": [
     1,
     "=Ref8p171p3"
   ],
-  "TypeTTa.RDE.M.GDC.L&": [
+  "TypeTTa.7K.M.DR.L&": [
     1,
     "=Ref8p171p3"
   ],
-  "TypeTTa.RDE.M.GDE.D&": [
+  "TypeTTa.7K.M.IR.D&": [
     1,
     "=Ref8p170p4"
   ],
-  "TypeTTa.RDE.M.GDE.H&": [
+  "TypeTTa.7K.M.IR.H&": [
     1,
     "=Ref3p551p13==Ref8p170p4"
   ],
-  "TypeTTa.RDE.M.GDE.L&": [
+  "TypeTTa.7K.M.IR.L&": [
     1,
     "=Ref8p170p4"
   ],
-  "TypeTTa.RDE.M.GE.H&+": [
+  "TypeTTa.7K.M.EG.H&+": [
     1,
     "=Ref8p170p11==Ref8p171p7bBad"
   ],
-  "TypeTTa.RDE.M.GE.H&-": [
+  "TypeTTa.7K.M.EG.H&-": [
     1,
     "=Ref8p170p11==Ref8p171p7bGood"
   ],
-  "TypeTTa.RDE.Y.EE.M&-": [
+  "TypeTTa.7K.Y.F.M&-": [
     1,
     "=Origina.1"
   ],
-  "TypeTTa.RDE.Y.GC.M&": [
+  "TypeTTa.7K.Y.HO.M&": [
     1,
     "=BroSisb.25"
   ],
-  "TypeTTa.RDE.Y.GDC.D&": [
+  "TypeTTa.7K.Y.DR.D&": [
     1,
     "=Ref8p171p3"
   ],
-  "TypeTTa.RDE.Y.GDC.H&": [
+  "TypeTTa.7K.Y.DR.H&": [
     1,
     "=Ref8p171p3"
   ],
-  "TypeTTa.RDE.Y.GDC.L&": [
+  "TypeTTa.7K.Y.DR.L&": [
     1,
     "=Ref8p171p3"
   ],
-  "TypeTTa.RDE.Y.GDC.M&": [
+  "TypeTTa.7K.Y.DR.M&": [
     1,
     "=Ref8p164p2b==Ref8p185p4"
   ],
-  "TypeTTa.RDE.Y.GDC.M&+": [
+  "TypeTTa.7K.Y.DR.M&+": [
     1,
     "=Ref8p182p3"
   ],
-  "TypeTTa.RDE.Y.GDE.D&": [
+  "TypeTTa.7K.Y.IR.D&": [
     1,
     "=Ref8p170p4"
   ],
-  "TypeTTa.RDE.Y.GDE.H&": [
+  "TypeTTa.7K.Y.IR.H&": [
     1,
     "=Ref8p170p4"
   ],
-  "TypeTTa.RDE.Y.GDE.L&": [
+  "TypeTTa.7K.Y.IR.L&": [
     1,
     "=Ref8p170p4"
   ],
-  "TypeTTa.RDE.Y.GDE.M&": [
+  "TypeTTa.7K.Y.IR.M&": [
     1,
     "=Ref8p164p2b==Ref8p170p4==Ref8p182p3"
   ],
-  "TypeTTa.RDE.Y.GE.H&+": [
+  "TypeTTa.7K.Y.EG.H&+": [
     1,
     "=Ref8p171p7bBad"
   ],
-  "TypeTTa.RDE.Y.GE.H&-": [
+  "TypeTTa.7K.Y.EG.H&-": [
     1,
     "=Ref8p171p7bGood"
   ],
-  "TypeTTa.RDE.Y.GE.M&+": [
+  "TypeTTa.7K.Y.EG.M&+": [
     1,
     "=Ref8p171p7bBad"
   ],
-  "TypeTTa.RDE.Y.GE.M&-": [
+  "TypeTTa.7K.Y.EG.M&-": [
     1,
     "=Ref8p171p7bGood"
   ],
-  "TypeTTa.RDE.Y.RDC.M&-": [
+  "TypeTTa.7K.Y.DO.M&-": [
     1,
-    "=Type2c.T.RDC.M.2&-"
+    "=Type2c.T.DO.M.2&-"
   ],
-  "TypeTTa.RE.M.EC.H&+": [
+  "TypeTTa.IW.M.RW.H&+": [
     1,
     "=Ref8p216p1"
   ],
-  "TypeTTa.RE.M.RDE.D&": [
+  "TypeTTa.IW.M.7K.D&": [
     1,
     "=Ref8p166p5"
   ],
-  "TypeTTa.RE.Y.GDC.M&+": [
+  "TypeTTa.IW.Y.DR.M&+": [
     1,
     "=Ref8p186p3"
   ],
-  "TypeTTa.RE.Y.GDE.M&+": [
+  "TypeTTa.IW.Y.IR.M&+": [
     1,
     "=Ref8p186p3"
   ],
-  "TypeTTa.RE.Y.RC.M&+": [
+  "TypeTTa.IW.Y.DW.M&+": [
     1,
     "=Ref3p434p9"
   ],
-  "TypeTTa.RE.Y.RE.M&": [
+  "TypeTTa.IW.Y.IW.M&": [
     1,
     "=Ref8p215p4"
   ],
-  "TypeTTa.RE.Y.RE.M&+": [
+  "TypeTTa.IW.Y.IW.M&+": [
     1,
-    "=TypeTTa.RE.Y.RE.M&==Ref3p434p9"
+    "=TypeTTa.IW.Y.IW.M&==Ref3p434p9"
   ],
-  "TypeTTa.T.GE.M.RDC.H&+": [
+  "TypeTTa.T.EG.M.DO.H&+": [
     1,
     "=Ref8p225p6"
   ],
-  "TypeTTa.T.GE.M.RDE.H&": [
+  "TypeTTa.T.EG.M.7K.H&": [
     1,
     "=Ref8p171p7a==Ref8p170p11"
   ],
-  "TypeTTa.T.GE.Y.RDE.H&": [
+  "TypeTTa.T.EG.Y.7K.H&": [
     1,
     "=Ref8p171p7a"
   ],
-  "TypeTTa.T.GE.Y.RDE.M&": [
+  "TypeTTa.T.EG.Y.7K.M&": [
     1,
     "=Ref8p171p7a"
   ],
-  "TypeTTa.T.GE.Y.RDE.M&+.+": [
+  "TypeTTa.T.EG.Y.7K.M&+.+": [
     1,
     "=Ref8p165p5b"
   ],
-  "TypeTTa.T.GE.Y.RDE.M&+.-": [
+  "TypeTTa.T.EG.Y.7K.M&+.-": [
     1,
     "=Ref8p165p5a"
   ],
-  "TypeTTb.RC.EC&": [
+  "TypeTTb.DW.RW&": [
     1,
     "=Ref8p378p2"
   ],
@@ -43956,195 +43842,43 @@
     2,
     "=Ref3p434p2"
   ],
-  "TypeTr2.Y.1&+": [
-    2,
-    "=Parenta.12"
-  ],
-  "TypeTr3.Y.AGE&": [
-    0,
-    "=Parenta.10"
-  ],
-  "TypeTr3.Y.BIRTH&": [
-    0,
-    "=TypeTr3.Y.AGE&==Parenta.11"
-  ],
-  "TypeTr3.Y.BIRTH&+.+": [
-    3,
-    "=Ref3p433a"
-  ],
-  "TypeTrunka.BING.GENG&": [
-    1,
-    "=Ref8p168p2a"
-  ],
-  "TypeTrunka.BING.JIA&": [
-    1,
-    "=Ref8p228p2"
-  ],
-  "TypeTrunka.BING.XIN&": [
+  "Type2b.T.DO.D.FIRE&": [
     1,
     "=Ref8p147p2"
   ],
-  "TypeTrunka.BING.YI&+": [
-    1,
-    "=Ref8p238p1b"
-  ],
-  "TypeTrunka.BING.YI&-": [
-    1,
-    "=Ref8p238p1a"
-  ],
-  "TypeTrunka.DING.GENG&": [
-    1,
-    "=Ref8p147p2"
-  ],
-  "TypeTrunka.DING.JIA&+": [
-    1,
-    "=Ref8p238p1b"
-  ],
-  "TypeTrunka.DING.JIA&-": [
-    1,
-    "=Ref8p238p1a"
-  ],
-  "TypeTrunka.DING.XIN&": [
-    1,
-    "=Ref8p168p2a"
-  ],
-  "TypeTrunka.DING.YI&": [
-    1,
-    "=Ref8p228p2"
-  ],
-  "TypeTrunka.GENG.JI&": [
+  "Type2b.T.DO.D.METAL&": [
     1,
     "=Ref8p147p4==Ref8p238p4"
   ],
-  "TypeTrunka.GENG.JIA&": [
-    1,
-    "=Ref8p168p3a"
-  ],
-  "TypeTrunka.GENG.WU&": [
-    1,
-    "=Ref8p228p6"
-  ],
-  "TypeTrunka.GUI.BING&": [
-    1,
-    "=Ref8p148p1"
-  ],
-  "TypeTrunka.GUI.DING&": [
-    1,
-    "=Ref8p168p1a"
-  ],
-  "TypeTrunka.GUI.GENG&": [
-    1,
-    "=Ref8p238p3"
-  ],
-  "TypeTrunka.GUI.XIN&": [
-    1,
-    "=Ref8p228p4"
-  ],
-  "TypeTrunka.JI.BING&": [
-    1,
-    "=Ref8p238p2"
-  ],
-  "TypeTrunka.JI.DING&": [
-    1,
-    "=Ref8p228p3"
-  ],
-  "TypeTrunka.JI.GUI&": [
-    1,
-    "=Ref8p169p2a"
-  ],
-  "TypeTrunka.JI.REN&": [
+  "Type2b.T.DO.D.EARTH&": [
     1,
     "=Ref8p147p3"
   ],
-  "TypeTrunka.JIA.JI&": [
+  "Type2b.T.DO.D.WOOD&": [
     1,
     "=Ref8p147p1"
   ],
-  "TypeTrunka.JIA.REN&": [
-    1,
-    "=Ref8p228p5"
-  ],
-  "TypeTrunka.JIA.WU&": [
-    1,
-    "=Ref8p169p1a"
-  ],
-  "TypeTrunka.REN.BING&": [
-    1,
-    "=Ref8p168p1a"
-  ],
-  "TypeTrunka.REN.DING&": [
+  "Type2b.T.DO.D.WATER&": [
     1,
     "=Ref8p148p1"
   ],
-  "TypeTrunka.REN.GENG&": [
-    1,
-    "=Ref8p228p4"
-  ],
-  "TypeTrunka.REN.XIN&": [
-    1,
-    "=Ref8p238p3"
-  ],
-  "TypeTrunka.WU.BING&": [
-    1,
-    "=Ref8p228p3"
-  ],
-  "TypeTrunka.WU.DING&": [
-    1,
-    "=Ref8p238p2"
-  ],
-  "TypeTrunka.WU.GUI&": [
-    1,
-    "=Ref8p147p3"
-  ],
-  "TypeTrunka.WU.REN&": [
-    1,
-    "=Ref8p169p2a"
-  ],
-  "TypeTrunka.XIN.JI&": [
-    1,
-    "=Ref8p228p6"
-  ],
-  "TypeTrunka.XIN.JIA&": [
-    1,
-    "=Ref8p147p4"
-  ],
-  "TypeTrunka.XIN.WU&": [
-    1,
-    "=Ref8p238p4"
-  ],
-  "TypeTrunka.XIN.YI&": [
-    1,
-    "=Ref8p168p3a"
-  ],
-  "TypeTrunka.YI.GUI&+": [
-    1,
-    "=Ref8p228p5"
-  ],
-  "TypeTrunka.YI.JI&": [
-    1,
-    "=Ref8p169p1a"
-  ],
-  "TypeTrunka.YI.WU&": [
-    1,
-    "=Ref8p147p1"
-  ],
-  "TypeUnique.B.RDC.Y&+": [
+  "TypeUnique.B.DO.Y&+": [
     2,
     "=Ref8p143p7"
   ],
-  "TypeUnique.B.RDE.M&": [
+  "TypeUnique.B.7K.M&": [
     0,
     "=Ref8p164p2a"
   ],
-  "TypeUnique.T.RDE.H&": [
+  "TypeUnique.T.7K.H&": [
     0,
     "=Ref8p164p6==Ref8p171p5"
   ],
-  "TypeX.RDE.2.TOMB.CURR_YEAR.EARTH&": [
+  "TypeX.7K.2.TOMB.CURR_YEAR.EARTH&": [
     0,
     "=Ref8p173p1"
   ],
-  "TypeX.RDE.4.TOMB.CURR_YEAR.EARTH&": [
+  "TypeX.7K.4.TOMB.CURR_YEAR.EARTH&": [
     0,
     "=Ref8p173p1"
   ],
@@ -44409,11 +44143,11 @@
   "Working.Travel.Act": [
     0
   ],
-  "XDtyGType1a.EC.+&+": [
+  "XDtyGType1a.RW.+&+": [
     1,
     "=Ref3p456p1a"
   ],
-  "XDtyGType1a.EC.+&-": [
+  "XDtyGType1a.RW.+&-": [
     1,
     "=Ref3p456p1b"
   ],
@@ -44496,39 +44230,39 @@
     2,
     "=Studya.7"
   ],
-  "Year.PIVOT_RESTRICT.EC.DEATH.EC&-": [
+  "Year.PIVOT_RESTRICT.RW.DEATH.RW&-": [
     -2,
     "=Healthb.2073"
   ],
-  "Year.PIVOT_RESTRICT.EC.EC&": [
+  "Year.PIVOT_RESTRICT.RW.RW&": [
     0,
     "=Ref8p354p5b"
   ],
-  "Year.PIVOT_RESTRICT.EE.DEATH.EC&-": [
+  "Year.PIVOT_RESTRICT.F.DEATH.RW&-": [
     -2,
     "=Healthb.2073"
   ],
-  "Year.PIVOT_RESTRICT.EE.EC&": [
+  "Year.PIVOT_RESTRICT.F.RW&": [
     0,
     "=Ref8p354p5b"
   ],
-  "Year.PIVOT_RESTRICT.GC.GC&": [
+  "Year.PIVOT_RESTRICT.HO.HO&": [
     0,
     "=Ref8p354p4b"
   ],
-  "Year.PIVOT_RESTRICT.GDC.GDC&": [
+  "Year.PIVOT_RESTRICT.DR.DR&": [
     0,
     "=Ref8p354p6b"
   ],
-  "Year.PIVOT_RESTRICT.RC.RC&": [
+  "Year.PIVOT_RESTRICT.DW.DW&": [
     0,
     "=Ref8p354p8"
   ],
-  "Year.PIVOT_RESTRICT.RDE.RDC&-.+": [
+  "Year.PIVOT_RESTRICT.7K.DO&-.+": [
     -1,
     "=Healthb.2073"
   ],
-  "Year.PIVOT_RESTRICT.RE.RC&": [
+  "Year.PIVOT_RESTRICT.IW.DW&": [
     0,
     "=Ref8p354p8"
   ],
@@ -44548,19 +44282,19 @@
     -2,
     "=Ref8p354p11"
   ],
-  "Year.PIVOT_YEAR.EC.EC&": [
+  "Year.PIVOT_YEAR.RW.RW&": [
     0,
     "=Ref8p354p5a"
   ],
-  "Year.PIVOT_YEAR.EC.RC.QuyNhan.-&": [
+  "Year.PIVOT_YEAR.RW.DW.QuyNhan.-&": [
     0,
     "=Ref8p354p10"
   ],
-  "Year.PIVOT_YEAR.EE.EC&": [
+  "Year.PIVOT_YEAR.F.RW&": [
     0,
     "=Ref8p354p5a"
   ],
-  "Year.PIVOT_YEAR.EE.RC.QuyNhan.-&": [
+  "Year.PIVOT_YEAR.F.DW.QuyNhan.-&": [
     0,
     "=Ref8p354p10"
   ],
@@ -44568,51 +44302,51 @@
     0,
     "=Ref3p558p18"
   ],
-  "Year.PIVOT_YEAR.GC.+&+": [
+  "Year.PIVOT_YEAR.HO.+&+": [
     2,
     "=Date.Status.Good==Fortunea.1051==Fortunea.1051==Healtha.1500"
   ],
-  "Year.PIVOT_YEAR.GC.GC&": [
+  "Year.PIVOT_YEAR.HO.HO&": [
     0,
     "=Ref3p558p14==Ref8p354p4a"
   ],
-  "Year.PIVOT_YEAR.GC.RDC.QuyNhan.-&": [
+  "Year.PIVOT_YEAR.HO.DO.QuyNhan.-&": [
     0,
     "=Ref8p354p10"
   ],
-  "Year.PIVOT_YEAR.GDC.GC.QuyNhan.-&": [
+  "Year.PIVOT_YEAR.DR.HO.QuyNhan.-&": [
     0,
     "=Ref8p354p10"
   ],
-  "Year.PIVOT_YEAR.GDC.GDC&": [
+  "Year.PIVOT_YEAR.DR.DR&": [
     0,
     "=Ref8p354p6a"
   ],
-  "Year.PIVOT_YEAR.GDC.RC&": [
+  "Year.PIVOT_YEAR.DR.DW&": [
     0,
     "=Ref8p354p9"
   ],
-  "Year.PIVOT_YEAR.GDE.GC&": [
+  "Year.PIVOT_YEAR.IR.HO&": [
     0,
     "=Ref3p560p3"
   ],
-  "Year.PIVOT_YEAR.GDE.GC.QuyNhan.-&": [
+  "Year.PIVOT_YEAR.IR.HO.QuyNhan.-&": [
     0,
     "=Ref8p354p10==Ref3p560p3"
   ],
-  "Year.PIVOT_YEAR.GDE.RC&": [
+  "Year.PIVOT_YEAR.IR.DW&": [
     0,
     "=Ref8p354p9"
   ],
-  "Year.PIVOT_YEAR.GE.+&+": [
+  "Year.PIVOT_YEAR.EG.+&+": [
     2,
-    "=Date.Status.Good==Year.PIVOT_YEAR.GC.+&+"
+    "=Date.Status.Good==Year.PIVOT_YEAR.HO.+&+"
   ],
-  "Year.PIVOT_YEAR.GE.GDC&": [
+  "Year.PIVOT_YEAR.EG.DR&": [
     0,
     "=Ref3p559p13==Ref8p354p6c"
   ],
-  "Year.PIVOT_YEAR.GE.RDC.QuyNhan.-&": [
+  "Year.PIVOT_YEAR.EG.DO.QuyNhan.-&": [
     0,
     "=Ref8p354p10"
   ],
@@ -44628,47 +44362,47 @@
     0,
     "=Ref3p559p14"
   ],
-  "Year.PIVOT_YEAR.RC.EC&+": [
+  "Year.PIVOT_YEAR.DW.RW&+": [
     2,
-    "=Year.PIVOT_YEAR.RE.EC&+"
+    "=Year.PIVOT_YEAR.IW.RW&+"
   ],
-  "Year.PIVOT_YEAR.RC.GDC.QuyNhan.-&": [
+  "Year.PIVOT_YEAR.DW.DR.QuyNhan.-&": [
     0,
     "=Ref8p354p10"
   ],
-  "Year.PIVOT_YEAR.RC.RC&": [
+  "Year.PIVOT_YEAR.DW.DW&": [
     0,
     "=Ref8p354p7==Ref3p559p10"
   ],
-  "Year.PIVOT_YEAR.RDC.GC&": [
+  "Year.PIVOT_YEAR.DO.HO&": [
     0,
-    "=Year.PIVOT_YEAR.GDC.RC&"
+    "=Year.PIVOT_YEAR.DR.DW&"
   ],
-  "Year.PIVOT_YEAR.RDC.GC.QuyNhan.-&": [
-    0,
-    "=Ref8p354p10"
-  ],
-  "Year.PIVOT_YEAR.RDE.GC&": [
-    0,
-    "=Year.PIVOT_YEAR.GDC.RC&"
-  ],
-  "Year.PIVOT_YEAR.RDE.GC.QuyNhan.-&": [
+  "Year.PIVOT_YEAR.DO.HO.QuyNhan.-&": [
     0,
     "=Ref8p354p10"
   ],
-  "Year.PIVOT_YEAR.RE.EC&+": [
+  "Year.PIVOT_YEAR.7K.HO&": [
+    0,
+    "=Year.PIVOT_YEAR.DR.DW&"
+  ],
+  "Year.PIVOT_YEAR.7K.HO.QuyNhan.-&": [
+    0,
+    "=Ref8p354p10"
+  ],
+  "Year.PIVOT_YEAR.IW.RW&+": [
     2,
     "=Fortuneb.2500"
   ],
-  "Year.PIVOT_YEAR.RE.GDC.QuyNhan.-&": [
+  "Year.PIVOT_YEAR.IW.DR.QuyNhan.-&": [
     0,
     "=Ref8p354p10"
   ],
-  "Year.PIVOT_YEAR.RE.RC&": [
+  "Year.PIVOT_YEAR.IW.DW&": [
     0,
     "=Ref8p354p7==Ref3p559p10"
   ],
-  "Year.PIVOT_YEAR.RE.RC&-": [
+  "Year.PIVOT_YEAR.IW.DW&-": [
     -2,
     "=Ref3p559p10"
   ],
@@ -44692,11 +44426,11 @@
     -2,
     "=Lifeb.2514"
   ],
-  "Year.SecDe.DHO.RDC&+": [
+  "Year.SecDe.DHO.DO&+": [
     2,
     "=Careera.1506"
   ],
-  "Year.SecDe.DHO.RDE&": [
+  "Year.SecDe.DHO.7K&": [
     0,
     "=Careera.1506"
   ],
@@ -44712,11 +44446,11 @@
     0,
     "=Healthb.33"
   ],
-  "Year.SecDe.KCU.RC&": [
+  "Year.SecDe.KCU.DW&": [
     0,
     "=Lifeb.63"
   ],
-  "Year.SecDe.KCU.RE&": [
+  "Year.SecDe.KCU.IW&": [
     0,
     "=Lifeb.63"
   ],
@@ -44784,15 +44518,15 @@
     -2,
     "=Year.YEAR_TRUNK_BRANCHE_YEAR.-&==Healthb.2501"
   ],
-  "Year.YEAR_TRUNK_BRANCHE_YEAR.EC.-&-": [
+  "Year.YEAR_TRUNK_BRANCHE_YEAR.RW.-&-": [
     -2,
     "=Lifeb.2508"
   ],
-  "Year.YEAR_TRUNK_BRANCHE_YEAR.RC.-&-": [
+  "Year.YEAR_TRUNK_BRANCHE_YEAR.DW.-&-": [
     -2,
     "=Healthb.2500"
   ],
-  "Year.YEAR_TRUNK_BRANCHE_YEAR.RDC.-&-.-": [
+  "Year.YEAR_TRUNK_BRANCHE_YEAR.DO.-&-.-": [
     -3,
     "=Year.YEAR_TRUNK_BRANCHE_YEAR.-&==Fatherb.2001==,==Motherb.2000"
   ],
@@ -44808,611 +44542,611 @@
     0,
     "=Ref8p158p3a"
   ],
-  "YearDtyType1a.RDC.RDE.+.-.CACH_CUC.RDE.CURR_YEAR.GC&": [
+  "YearDtyType1a.DO.7K.+.-.CACH_CUC.7K.CURR_YEAR.HO&": [
     1,
     "=Ref7_1bp28Cas3"
   ],
-  "YearDtyType1a.RDE.RDC.+.-.CACH_CUC.RDE.CURR_YEAR.GC&": [
+  "YearDtyType1a.7K.DO.+.-.CACH_CUC.7K.CURR_YEAR.HO&": [
     1,
     "=Ref7_1bp28Cas3"
   ],
-  "YearDtyType1b.GC.+.PIVOT.GC.MAIN_PERIOD.GDC&+": [
+  "YearDtyType1b.HO.+.PIVOT.HO.MAIN_PERIOD.DR&+": [
     1,
     "=Date.Status.Good==Ref7_1bp25Cas3"
   ],
-  "YearDtyType1b.GC.+.PIVOT.RDC.MAIN_PERIOD.GDC&+": [
+  "YearDtyType1b.HO.+.PIVOT.DO.MAIN_PERIOD.DR&+": [
     1,
     "=Date.Status.Good==Ref7_1bp25Cas2"
   ],
-  "YearDtyType1b.GC.+.PIVOT.RDC.MAIN_PERIOD.RC&+": [
+  "YearDtyType1b.HO.+.PIVOT.DO.MAIN_PERIOD.DW&+": [
     1,
     "=Date.Status.Good==Ref7_1bp25Cas2"
   ],
-  "YearDtyType1b.GC.-.PIVOT.GC.MAIN_PERIOD.GDC&+": [
+  "YearDtyType1b.HO.-.PIVOT.HO.MAIN_PERIOD.DR&+": [
     1,
     "=Date.Status.VeryBad==Ref7_1bp25Cas4"
   ],
-  "YearDtyType1b.GC.0.PIVOT.GC.MAIN_PERIOD.GDC&+": [
+  "YearDtyType1b.HO.0.PIVOT.HO.MAIN_PERIOD.DR&+": [
     1,
     "=Date.Status.VeryBad==Ref7_1bp25Cas4"
   ],
-  "YearDtyType1c.GDE.+.MAIN_PERIOD.RC&": [
+  "YearDtyType1c.IR.+.MAIN_PERIOD.DW&": [
     0,
     "=Ref8p202p2"
   ],
-  "YearDtyType1c.GE.+.CURR_YEAR.GC&&-": [
+  "YearDtyType1c.EG.+.CURR_YEAR.HO&&-": [
     0,
     "=Ref8p229p1"
   ],
-  "YearDtyType1c.GE.+.MAIN_PERIOD.GC&&-": [
+  "YearDtyType1c.EG.+.MAIN_PERIOD.HO&&-": [
     0,
     "=Ref8p229p1"
   ],
-  "YearDtyType1c.RE.+.MAIN_PERIOD.EC&+": [
+  "YearDtyType1c.IW.+.MAIN_PERIOD.RW&+": [
     2,
     "=Ref8p220p2"
   ],
-  "YearDtyType1c.RE.+.MAIN_PERIOD.EE&+": [
+  "YearDtyType1c.IW.+.MAIN_PERIOD.F&+": [
     2,
     "=Ref8p220p2"
   ],
-  "YearDtyType1c.RE.+.MAIN_PERIOD.GDC&-": [
+  "YearDtyType1c.IW.+.MAIN_PERIOD.DR&-": [
     -2,
     "=Ref8p219p1"
   ],
-  "YearDtyType1c.RE.+.MAIN_PERIOD.GDE&-": [
+  "YearDtyType1c.IW.+.MAIN_PERIOD.IR&-": [
     -2,
     "=Ref8p219p1"
   ],
-  "YearDtyType1c.RE.+.MAIN_PERIOD.RDC&+": [
+  "YearDtyType1c.IW.+.MAIN_PERIOD.DO&+": [
     2,
     "=Ref8p220p1"
   ],
-  "YearDtyType1c.RE.+.MAIN_PERIOD.RE&+": [
+  "YearDtyType1c.IW.+.MAIN_PERIOD.IW&+": [
     2,
     "=Ref8p218p6"
   ],
-  "YearDtyType1d.GE.+.CURR_YEAR.RC&+": [
+  "YearDtyType1d.EG.+.CURR_YEAR.DW&+": [
     2,
     "=Ref3p553p24"
   ],
-  "YearDtyType1d.RDC.+.CURR_YEAR.RDC&-": [
+  "YearDtyType1d.DO.+.CURR_YEAR.DO&-": [
     -2,
     "=Ref8p142p1b"
   ],
-  "YearDtyType1d.RE.+.CURR_YEAR.EC&+": [
+  "YearDtyType1d.IW.+.CURR_YEAR.RW&+": [
     2,
     "=Ref8p220p2"
   ],
-  "YearDtyType1d.RE.+.CURR_YEAR.EE&+": [
+  "YearDtyType1d.IW.+.CURR_YEAR.F&+": [
     2,
     "=Ref8p220p2"
   ],
-  "YearDtyType1d.RE.+.CURR_YEAR.GDC&-": [
+  "YearDtyType1d.IW.+.CURR_YEAR.DR&-": [
     -2,
     "=Ref8p219p1"
   ],
-  "YearDtyType1d.RE.+.CURR_YEAR.GDE&-": [
+  "YearDtyType1d.IW.+.CURR_YEAR.IR&-": [
     -2,
     "=Ref8p219p1"
   ],
-  "YearDtyType1d.RE.+.CURR_YEAR.RDC&+": [
+  "YearDtyType1d.IW.+.CURR_YEAR.DO&+": [
     2,
     "=Ref8p220p1"
   ],
-  "YearDtyType1d.RE.+.CURR_YEAR.RE&+": [
+  "YearDtyType1d.IW.+.CURR_YEAR.IW&+": [
     2,
     "=Ref8p218p6"
   ],
-  "YearDtyType2aCount.GC.GDE.+.-.CURR_YEAR.RC&": [
+  "YearDtyType2aCount.HO.IR.+.-.CURR_YEAR.DW&": [
     0,
     "=Ref3p502p7"
   ],
-  "YearDtyType2aCount.GC.GE.+.-.CURR_YEAR.RC&": [
+  "YearDtyType2aCount.HO.EG.+.-.CURR_YEAR.DW&": [
     0,
     "=Ref3p502p7"
   ],
-  "YearDtyType2aCount.RE.RDC.+.-.CURR_YEAR.RDC&": [
+  "YearDtyType2aCount.IW.DO.+.-.CURR_YEAR.DO&": [
     0,
     "=Ref8p217p8==Ref8p218p1"
   ],
-  "YearDtyType2aCount.RE.RDC.+.-.CURR_YEAR.RDE&": [
+  "YearDtyType2aCount.IW.DO.+.-.CURR_YEAR.7K&": [
     0,
     "=Ref8p217p8==Ref8p218p1"
   ],
-  "YearDtyType2aCount.RE.RDC.+.0.CURR_YEAR.RDC&": [
+  "YearDtyType2aCount.IW.DO.+.0.CURR_YEAR.DO&": [
     0,
     "=Ref8p217p8"
   ],
-  "YearDtyType2bCount.GC.RDC.+.-.MAIN_PERIOD.GC&": [
+  "YearDtyType2bCount.HO.DO.+.-.MAIN_PERIOD.HO&": [
     0,
     "=Ref8p447p1b"
   ],
-  "YearDtyType2bCount.RE.RDC.+.-.MAIN_PERIOD.RDC&": [
+  "YearDtyType2bCount.IW.DO.+.-.MAIN_PERIOD.DO&": [
     0,
     "=Ref8p217p8==Ref8p218p1"
   ],
-  "YearDtyType2bCount.RE.RDC.+.-.MAIN_PERIOD.RDE&": [
+  "YearDtyType2bCount.IW.DO.+.-.MAIN_PERIOD.7K&": [
     0,
     "=Ref8p217p8==Ref8p218p1"
   ],
-  "YearDtyType2bCount.RE.RDC.+.0.MAIN_PERIOD.RDC&": [
+  "YearDtyType2bCount.IW.DO.+.0.MAIN_PERIOD.DO&": [
     0,
     "=Ref8p217p8"
   ],
-  "YearDtyType2bForce.GC.+.RDC.-.MAIN_PERIOD.GC&": [
+  "YearDtyType2bForce.HO.+.DO.-.MAIN_PERIOD.HO&": [
     0,
     "=Ref8p447p1b"
   ],
-  "YearDtyType2cCount.GC.RC.+.0.MAIN_PERIOD.GC&": [
+  "YearDtyType2cCount.HO.DW.+.0.MAIN_PERIOD.HO&": [
     0,
     "=Ref8p447p1c"
   ],
-  "YearDtyType2cCount.GC.RC.-.0.MAIN_PERIOD.GC&": [
+  "YearDtyType2cCount.HO.DW.-.0.MAIN_PERIOD.HO&": [
     0,
     "=Ref8p447p1c"
   ],
-  "YearDtyType3a.GC.GDE.GE.+.+.-.CURR_YEAR.RC&": [
+  "YearDtyType3a.HO.IR.EG.+.+.-.CURR_YEAR.DW&": [
     1,
     "=Ref3p502p7"
   ],
-  "YearDtyType3a.GC.GE.GC.+.+.-.CURR_YEAR.RC&": [
+  "YearDtyType3a.HO.EG.HO.+.+.-.CURR_YEAR.DW&": [
     1,
     "=Ref3p502p7"
   ],
-  "YearDtyType3a.GC.RC.RDC.+.+.0.CURR_YEAR.RC&": [
+  "YearDtyType3a.HO.DW.DO.+.+.0.CURR_YEAR.DW&": [
     1,
     "=Ref8p236p12"
   ],
-  "YearDtyType3a.GC.RC.RDC.+.-.0.CURR_YEAR.RC&": [
+  "YearDtyType3a.HO.DW.DO.+.-.0.CURR_YEAR.DW&": [
     1,
     "=Ref8p236p12"
   ],
-  "YearDtyType3a.GE.RDC.RDE.+.0.0.CURR_YEAR.GC&": [
+  "YearDtyType3a.EG.DO.7K.+.0.0.CURR_YEAR.HO&": [
     1,
     "=Ref8p231p3"
   ],
-  "YearDtyType3a.GE.RDC.RDE.+.0.0.CURR_YEAR.RC&": [
+  "YearDtyType3a.EG.DO.7K.+.0.0.CURR_YEAR.DW&": [
     1,
     "=Ref8p231p3"
   ],
-  "YearDtyType3a.RC.RDC.RDE.+.+.-.CURR_YEAR.RC&-": [
+  "YearDtyType3a.DW.DO.7K.+.+.-.CURR_YEAR.DW&-": [
     1,
     "=Ref7_1bp27Cas7"
   ],
-  "YearDtyType3a.RC.RDC.RDE.+.+.-.CURR_YEAR.RDC&-": [
+  "YearDtyType3a.DW.DO.7K.+.+.-.CURR_YEAR.DO&-": [
     1,
     "=Ref7_1bp27Cas7"
   ],
-  "YearDtyType3a.RDC.RC.RDE.+.+.-.CURR_YEAR.RC&-": [
+  "YearDtyType3a.DO.DW.7K.+.+.-.CURR_YEAR.DW&-": [
     1,
     "=Ref7_1bp27Cas7"
   ],
-  "YearDtyType3a.RDC.RC.RDE.+.+.-.CURR_YEAR.RDC&-": [
+  "YearDtyType3a.DO.DW.7K.+.+.-.CURR_YEAR.DO&-": [
     1,
     "=Ref7_1bp27Cas7"
   ],
-  "YearDtyType3bForce.GC.+.RC.0.RDC.-.MAIN_PERIOD.EC&": [
+  "YearDtyType3bForce.HO.+.DW.0.DO.-.MAIN_PERIOD.RW&": [
     0,
     "=Ref8p449p24"
   ],
-  "YearDtyType3bForce.GC.+.RC.0.RDC.-.MAIN_PERIOD.GC&": [
+  "YearDtyType3bForce.HO.+.DW.0.DO.-.MAIN_PERIOD.HO&": [
     0,
     "=Ref8p449p24"
   ],
-  "YearDtyType3bForce.GC.+.RC.0.RDC.-.MAIN_PERIOD.GE&": [
+  "YearDtyType3bForce.HO.+.DW.0.DO.-.MAIN_PERIOD.EG&": [
     0,
     "=Ref8p449p24"
   ],
-  "YearDtyType4a.D.T.GC.CURR_YEAR.EC&": [
+  "YearDtyType4a.D.T.HO.CURR_YEAR.RW&": [
     1,
     "=Ref3p521p11"
   ],
-  "YearDtyType4a.D.T.GC.CURR_YEAR.EE&": [
+  "YearDtyType4a.D.T.HO.CURR_YEAR.F&": [
     1,
     "=Ref3p521p11"
   ],
-  "YearDtyType4a.D.T.RDE.CURR_YEAR.RDC&-": [
+  "YearDtyType4a.D.T.7K.CURR_YEAR.DO&-": [
     1,
     "=Ref3p559p19"
   ],
-  "YearDtyType4b.D.T.GC.MAIN_PERIOD.GC&": [
+  "YearDtyType4b.D.T.HO.MAIN_PERIOD.HO&": [
     1,
     "=Ref3p558p14"
   ],
-  "YearDtyType4c.D.B.GC.MAIN_PERIOD.GC.CURR_YEAR.GC&": [
+  "YearDtyType4c.D.B.HO.MAIN_PERIOD.HO.CURR_YEAR.HO&": [
     0,
     "=Ref3p564Vd1"
   ],
-  "YearDtyType4c.D.B.GC.MAIN_PERIOD.GC.CURR_YEAR.RDC&": [
+  "YearDtyType4c.D.B.HO.MAIN_PERIOD.HO.CURR_YEAR.DO&": [
     0,
     "=Ref3p564Vd1"
   ],
-  "YearDtyType4c.D.B.GDE.MAIN_PERIOD.GE.CURR_YEAR.GE&": [
+  "YearDtyType4c.D.B.IR.MAIN_PERIOD.EG.CURR_YEAR.EG&": [
     0,
     "=Ref8p196p9"
   ],
-  "YearDtyType4c.D.T.GC.MAIN_PERIOD.GC.CURR_YEAR.GC&": [
+  "YearDtyType4c.D.T.HO.MAIN_PERIOD.HO.CURR_YEAR.HO&": [
     0,
     "=Ref3p564Vd1"
   ],
-  "YearDtyType4c.D.T.GC.MAIN_PERIOD.GC.CURR_YEAR.RDC&": [
+  "YearDtyType4c.D.T.HO.MAIN_PERIOD.HO.CURR_YEAR.DO&": [
     0,
     "=Ref3p564Vd1"
   ],
-  "YearDtyType5a.D.AGE.CURR_YEAR.GDC&+": [
+  "YearDtyType5a.D.AGE.CURR_YEAR.DR&+": [
     1,
     "=Ref7_1bp26Cas12"
   ],
-  "YearDtyType5a.H.RDE.AGE.CURR_YEAR.GDC&+": [
+  "YearDtyType5a.H.7K.AGE.CURR_YEAR.DR&+": [
     1,
     "=Ref7_1bp26Cas12"
   ],
-  "YearDtyType5a.L.RDE.AGE.CURR_YEAR.GDC&+": [
+  "YearDtyType5a.L.7K.AGE.CURR_YEAR.DR&+": [
     1,
     "=Ref7_1bp26Cas12"
   ],
-  "YearDtyType5a.M.RDE.AGE.CURR_YEAR.GDC&+": [
+  "YearDtyType5a.M.7K.AGE.CURR_YEAR.DR&+": [
     1,
     "=Ref7_1bp26Cas12"
   ],
-  "YearDtyType5a.Y.RDE.AGE.CURR_YEAR.GDC&+": [
+  "YearDtyType5a.Y.7K.AGE.CURR_YEAR.DR&+": [
     1,
     "=Ref7_1bp26Cas12"
   ],
-  "YearDtyType6a.M.GC.CURR_YEAR.GC&": [
+  "YearDtyType6a.M.HO.CURR_YEAR.HO&": [
     1,
     "=Ref3p559p16"
   ],
-  "YearDtyType6a.M.RDC.CURR_YEAR.GC&": [
+  "YearDtyType6a.M.DO.CURR_YEAR.HO&": [
     1,
     "=Ref3p559p16"
   ],
-  "YearDtyType6a.M.RDE.CURR_YEAR.GC&": [
+  "YearDtyType6a.M.7K.CURR_YEAR.HO&": [
     1,
     "=Ref3p559p16"
   ],
-  "YearDtyType6b.H.EC.PIVOT.RC.MAIN_PERIOD.EC&+": [
+  "YearDtyType6b.H.RW.PIVOT.DW.MAIN_PERIOD.RW&+": [
     1,
     "=Ref8p259p4"
   ],
-  "YearDtyType6b.H.EC.PIVOT.RC.MAIN_PERIOD.EE&+": [
+  "YearDtyType6b.H.RW.PIVOT.DW.MAIN_PERIOD.F&+": [
     1,
     "=Ref8p259p4"
   ],
-  "YearDtyType6c.H.EC.PIVOT.RC.CURR_YEAR.EC&+": [
+  "YearDtyType6c.H.RW.PIVOT.DW.CURR_YEAR.RW&+": [
     2,
     "=Ref8p259p4"
   ],
-  "YearDtyType6c.H.EC.PIVOT.RC.CURR_YEAR.EE&+": [
+  "YearDtyType6c.H.RW.PIVOT.DW.CURR_YEAR.F&+": [
     2,
     "=Ref8p259p4"
   ],
-  "YearDtyType6d.H.EC.PIVOT.RC.MAIN_PERIOD.EE.CURR_YEAR.EC&+": [
+  "YearDtyType6d.H.RW.PIVOT.DW.MAIN_PERIOD.F.CURR_YEAR.RW&+": [
     2,
     "=Ref8p259p4"
   ],
-  "YearDtyType6d.H.EC.PIVOT.RC.MAIN_PERIOD.EE.CURR_YEAR.EE&+": [
+  "YearDtyType6d.H.RW.PIVOT.DW.MAIN_PERIOD.F.CURR_YEAR.F&+": [
     2,
     "=Ref8p259p4"
   ],
-  "YearGDTYType1a.GC.+.CURR_YEAR.GC&": [
+  "YearGDTYType1a.HO.+.CURR_YEAR.HO&": [
     1,
     "=Ref4p560p24"
   ],
-  "YearGDTYType1a.GDC.+.CURR_YEAR.GC&": [
+  "YearGDTYType1a.DR.+.CURR_YEAR.HO&": [
     1,
     "=Ref3p554p2"
   ],
-  "YearGDTYType1a.GDC.+.CURR_YEAR.RC&": [
+  "YearGDTYType1a.DR.+.CURR_YEAR.DW&": [
     1,
     "=Ref3p523p11==Ref3p521p6a"
   ],
-  "YearGDTYType1a.GDC.+.CURR_YEAR.RDC&": [
+  "YearGDTYType1a.DR.+.CURR_YEAR.DO&": [
     1,
     "=Ref3p521p6b"
   ],
-  "YearGDTYType1a.RC.+.CURR_YEAR.RC&-": [
+  "YearGDTYType1a.DW.+.CURR_YEAR.DW&-": [
     1,
     "=Ref3p526p1"
   ],
-  "YearGDTYType1a.RDC.+.CURR_YEAR.GDC&+": [
+  "YearGDTYType1a.DO.+.CURR_YEAR.DR&+": [
     1,
     "=Date.Status.Good==Ref7_1bp26Cas19"
   ],
-  "YearGDTYType1a.RDC.+.CURR_YEAR.RDC&-": [
+  "YearGDTYType1a.DO.+.CURR_YEAR.DO&-": [
     1,
     "=Ref3p527p1"
   ],
-  "YearGDTYType1a.RE.+.CURR_YEAR.RC&-": [
+  "YearGDTYType1a.IW.+.CURR_YEAR.DW&-": [
     1,
     "=Ref3p559p10"
   ],
-  "YearGDTYType1b.RDC.+.MAIN_PERIOD.GC&": [
+  "YearGDTYType1b.DO.+.MAIN_PERIOD.HO&": [
     1,
     "=Ref8p447p2"
   ],
-  "YearGDTYType1b.RDC.+.MAIN_PERIOD.RDC&": [
+  "YearGDTYType1b.DO.+.MAIN_PERIOD.DO&": [
     1,
     "=Ref8p447p2"
   ],
-  "YearGDTYType1b.RDC.+.MAIN_PERIOD.RDE&": [
+  "YearGDTYType1b.DO.+.MAIN_PERIOD.7K&": [
     1,
     "=Ref8p447p2"
   ],
-  "YearGDTYType1b.RE.+.MAIN_PERIOD.RC&-": [
+  "YearGDTYType1b.IW.+.MAIN_PERIOD.DW&-": [
     1,
     "=Ref3p559p10"
   ],
-  "YearGDTYType1c.EC.+.CACH_CUC.GC.CURR_YEAR.GC&+": [
+  "YearGDTYType1c.RW.+.CACH_CUC.HO.CURR_YEAR.HO&+": [
     2,
     "=Date.Status.Good==Ref7_1bp26Cas8"
   ],
-  "YearGDTYType1c.EC.+.CACH_CUC.GC.CURR_YEAR.RC&+": [
+  "YearGDTYType1c.RW.+.CACH_CUC.HO.CURR_YEAR.DW&+": [
     2,
     "=Date.Status.Good==Ref7_1bp26Cas8"
   ],
-  "YearGDTYType1c.EC.+.CACH_CUC.GDC.CURR_YEAR.RC&": [
+  "YearGDTYType1c.RW.+.CACH_CUC.DR.CURR_YEAR.DW&": [
     0,
     "=Ref7_1bp28Cas5"
   ],
-  "YearGDTYType1c.EC.-.CACH_CUC.GDC.CURR_YEAR.RC&": [
+  "YearGDTYType1c.RW.-.CACH_CUC.DR.CURR_YEAR.DW&": [
     0,
     "=Ref7_1bp28Cas5"
   ],
-  "YearGDTYType1c.EC.0.CACH_CUC.GDC.CURR_YEAR.RC&": [
+  "YearGDTYType1c.RW.0.CACH_CUC.DR.CURR_YEAR.DW&": [
     0,
     "=Ref7_1bp28Cas4"
   ],
-  "YearGDTYType1c.GC.+.CACH_CUC.GE.CURR_YEAR.GDC&+": [
+  "YearGDTYType1c.HO.+.CACH_CUC.EG.CURR_YEAR.DR&+": [
     2,
     "=Date.Status.Bad==Ref7_1bp26Cas20"
   ],
-  "YearGDTYType1c.GDC.+.CACH_CUC.GC.CURR_YEAR.GC&+": [
+  "YearGDTYType1c.DR.+.CACH_CUC.HO.CURR_YEAR.HO&+": [
     2,
     "=Date.Status.Good==Ref7_1bp26Cas8"
   ],
-  "YearGDTYType1c.GDC.+.CACH_CUC.GC.CURR_YEAR.RC&+": [
+  "YearGDTYType1c.DR.+.CACH_CUC.HO.CURR_YEAR.DW&+": [
     2,
     "=Date.Status.Good==Ref7_1bp26Cas8"
   ],
-  "YearGDTYType1c.RC.+.CACH_CUC.RDE.CURR_YEAR.GC&+": [
+  "YearGDTYType1c.DW.+.CACH_CUC.7K.CURR_YEAR.HO&+": [
     2,
     "=Ref7_1bp26Cas11"
   ],
-  "YearGDTYType1c.RC.-.CACH_CUC.RDE.CURR_YEAR.GC&+": [
+  "YearGDTYType1c.DW.-.CACH_CUC.7K.CURR_YEAR.HO&+": [
     2,
     "=Ref7_1bp26Cas11"
   ],
-  "YearGDTYType1c.RDC.0.CACH_CUC.GC.CURR_YEAR.RC&+": [
+  "YearGDTYType1c.DO.0.CACH_CUC.HO.CURR_YEAR.DW&+": [
     2,
     "=Ref7_1bp25Cas1"
   ],
-  "YearGDTYType1c.RDC.0.CACH_CUC.GE.CURR_YEAR.RC&+": [
+  "YearGDTYType1c.DO.0.CACH_CUC.EG.CURR_YEAR.DW&+": [
     2,
     "=Ref7_1bp25Cas1"
   ],
-  "YearGDTYType1d.GDC.-.CACH_CUC.GC.MAIN_PERIOD.RC&+": [
+  "YearGDTYType1d.DR.-.CACH_CUC.HO.MAIN_PERIOD.DW&+": [
     2,
     "=Ref7_1bp26Cas7"
   ],
-  "YearGDTYType1e.RC.+.CACH_CUC.RC.PIVOT.EC.CURR_YEAR.EC&-": [
+  "YearGDTYType1e.DW.+.CACH_CUC.DW.PIVOT.RW.CURR_YEAR.RW&-": [
     -2,
     "=Ref7_1bp28Cas12"
   ],
-  "YearGDTYType1e.RC.+.CACH_CUC.RC.PIVOT.EC.CURR_YEAR.GDC&-": [
+  "YearGDTYType1e.DW.+.CACH_CUC.DW.PIVOT.RW.CURR_YEAR.DR&-": [
     -2,
     "=Ref7_1bp28Cas12"
   ],
-  "YearGDTYType1e.RC.+.CACH_CUC.RC.PIVOT.GDC.CURR_YEAR.EC&-": [
+  "YearGDTYType1e.DW.+.CACH_CUC.DW.PIVOT.DR.CURR_YEAR.RW&-": [
     -2,
     "=Ref7_1bp28Cas12"
   ],
-  "YearGDTYType1e.RC.+.CACH_CUC.RC.PIVOT.GDC.CURR_YEAR.GDC&-": [
+  "YearGDTYType1e.DW.+.CACH_CUC.DW.PIVOT.DR.CURR_YEAR.DR&-": [
     -2,
     "=Ref7_1bp28Cas12"
   ],
-  "YearGDTYType1e.RC.+.CACH_CUC.RE.PIVOT.EC.CURR_YEAR.EC&-": [
+  "YearGDTYType1e.DW.+.CACH_CUC.IW.PIVOT.RW.CURR_YEAR.RW&-": [
     -2,
     "=Ref7_1bp28Cas12"
   ],
-  "YearGDTYType1e.RC.+.CACH_CUC.RE.PIVOT.EC.CURR_YEAR.GDC&-": [
+  "YearGDTYType1e.DW.+.CACH_CUC.IW.PIVOT.RW.CURR_YEAR.DR&-": [
     -2,
     "=Ref7_1bp28Cas12"
   ],
-  "YearGDTYType1e.RC.+.CACH_CUC.RE.PIVOT.GDC.CURR_YEAR.EC&-": [
+  "YearGDTYType1e.DW.+.CACH_CUC.IW.PIVOT.DR.CURR_YEAR.RW&-": [
     -2,
     "=Ref7_1bp28Cas12"
   ],
-  "YearGDTYType1e.RC.+.CACH_CUC.RE.PIVOT.GDC.CURR_YEAR.GDC&-": [
+  "YearGDTYType1e.DW.+.CACH_CUC.IW.PIVOT.DR.CURR_YEAR.DR&-": [
     -2,
     "=Ref7_1bp28Cas12"
   ],
-  "YearGDTYType1f.GDC.-.PIVOT.GC.MAIN_PERIOD.RC&+": [
+  "YearGDTYType1f.DR.-.PIVOT.HO.MAIN_PERIOD.DW&+": [
     2,
     "=Ref7_1bp26Cas7"
   ],
-  "YearGDTYType1f.RDC.+.PIVOT.GC.MAIN_PERIOD.GC&+": [
+  "YearGDTYType1f.DO.+.PIVOT.HO.MAIN_PERIOD.HO&+": [
     2,
     "=Ref7_1bp26Cas6"
   ],
-  "YearGDTYType1f.RDC.-.PIVOT.GC.MAIN_PERIOD.GC&+": [
+  "YearGDTYType1f.DO.-.PIVOT.HO.MAIN_PERIOD.HO&+": [
     2,
     "=Ref7_1bp26Cas6"
   ],
-  "YearGDTYType1f.RDC.0.PIVOT.GC.MAIN_PERIOD.RDC&+": [
+  "YearGDTYType1f.DO.0.PIVOT.HO.MAIN_PERIOD.DO&+": [
     2,
     "=Ref7_1bp25Cas5"
   ],
-  "YearGDTYType1g.RC.+.PIVOT.GC.CURR_YEAR.RC&+": [
+  "YearGDTYType1g.DW.+.PIVOT.HO.CURR_YEAR.DW&+": [
     2,
     "=Ref7_1bp26Cas9"
   ],
-  "YearGDTYType1g.RC.+.PIVOT.RC.CURR_YEAR.EC&+": [
+  "YearGDTYType1g.DW.+.PIVOT.DW.CURR_YEAR.RW&+": [
     2,
     "=Date.Status.VeryBad==Ref7_1bp26Cas10b"
   ],
-  "YearGDTYType1g.RC.+.PIVOT.RC.CURR_YEAR.RC&+": [
+  "YearGDTYType1g.DW.+.PIVOT.DW.CURR_YEAR.DW&+": [
     2,
     "=Ref7_1bp26Cas10a"
   ],
-  "YearGDTYType1g.RC.-.PIVOT.GC.CURR_YEAR.RC&+": [
+  "YearGDTYType1g.DW.-.PIVOT.HO.CURR_YEAR.DW&+": [
     2,
     "=Ref7_1bp26Cas9"
   ],
-  "YearGDTYType1g.RC.-.PIVOT.RC.CURR_YEAR.EC&+": [
+  "YearGDTYType1g.DW.-.PIVOT.DW.CURR_YEAR.RW&+": [
     2,
     "=Date.Status.VeryBad==Ref7_1bp26Cas10b"
   ],
-  "YearGDTYType1g.RC.-.PIVOT.RC.CURR_YEAR.RC&+": [
+  "YearGDTYType1g.DW.-.PIVOT.DW.CURR_YEAR.DW&+": [
     2,
     "=Ref7_1bp26Cas10a"
   ],
-  "YearGDTYType1g.RDC.+.PIVOT.GDC.CURR_YEAR.RC&-": [
+  "YearGDTYType1g.DO.+.PIVOT.DR.CURR_YEAR.DW&-": [
     -2,
     "=Ref7_1bp27Cas2"
   ],
-  "YearGDTYType1h.GDC.-.PIVOT.GDE.MAIN_PERIOD.GC.CURR_YEAR.RC&-": [
+  "YearGDTYType1h.DR.-.PIVOT.IR.MAIN_PERIOD.HO.CURR_YEAR.DW&-": [
     -2,
     "=Ref3p566Vd8"
   ],
-  "YearGDTYType2a.RC.RDC.+.+.CURR_YEAR.RDC&-": [
+  "YearGDTYType2a.DW.DO.+.+.CURR_YEAR.DO&-": [
     1,
     "=Ref7_1bp27Cas8"
   ],
-  "YearGDTYType2a.RDC.GC.+.0.CURR_YEAR.RDC&+": [
+  "YearGDTYType2a.DO.HO.+.0.CURR_YEAR.DO&+": [
     1,
     "=Ref7_1bp26Cas16"
   ],
-  "YearGDTYType2a.RDC.GDC.+.+.CURR_YEAR.GDC&": [
+  "YearGDTYType2a.DO.DR.+.+.CURR_YEAR.DR&": [
     1,
     "=Ref8p153p4a"
   ],
-  "YearGDTYType2a.RDC.GDC.+.+.CURR_YEAR.RDC&": [
+  "YearGDTYType2a.DO.DR.+.+.CURR_YEAR.DO&": [
     1,
     "=Ref8p153p4a"
   ],
-  "YearGDTYType2a.RDC.GDC.+.-.CURR_YEAR.GDC&": [
+  "YearGDTYType2a.DO.DR.+.-.CURR_YEAR.DR&": [
     1,
     "=Ref8p153p4a"
   ],
-  "YearGDTYType2a.RDC.GDC.+.-.CURR_YEAR.RC&-": [
+  "YearGDTYType2a.DO.DR.+.-.CURR_YEAR.DW&-": [
     1,
     "=Ref7_1bp27Cas6"
   ],
-  "YearGDTYType2a.RDC.GDC.+.-.CURR_YEAR.RDC&": [
+  "YearGDTYType2a.DO.DR.+.-.CURR_YEAR.DO&": [
     1,
     "=Ref8p153p4a"
   ],
-  "YearGDTYType2a.RDC.RC.+.+.CURR_YEAR.RDC&-": [
+  "YearGDTYType2a.DO.DW.+.+.CURR_YEAR.DO&-": [
     1,
     "=Ref7_1bp27Cas8"
   ],
-  "YearGDTYType2b.EC.RDC.+.-.MAIN_PERIOD.EC&+": [
+  "YearGDTYType2b.RW.DO.+.-.MAIN_PERIOD.RW&+": [
     1,
     "=Ref8p447p5"
   ],
-  "YearGDTYType2b.EC.RDC.+.-.MAIN_PERIOD.EE&+": [
+  "YearGDTYType2b.RW.DO.+.-.MAIN_PERIOD.F&+": [
     1,
     "=Ref8p447p5"
   ],
-  "YearGDTYType2b.GC.RDC.+.-.MAIN_PERIOD.EC&": [
+  "YearGDTYType2b.HO.DO.+.-.MAIN_PERIOD.RW&": [
     1,
     "=Ref8p447p4"
   ],
-  "YearGDTYType2b.GC.RDC.+.-.MAIN_PERIOD.RC&+": [
+  "YearGDTYType2b.HO.DO.+.-.MAIN_PERIOD.DW&+": [
     1,
     "=Ref7_1bp26Cas14"
   ],
-  "YearGDTYType2b.GDC.RDC.+.-.MAIN_PERIOD.RC&+": [
+  "YearGDTYType2b.DR.DO.+.-.MAIN_PERIOD.DW&+": [
     1,
     "=Ref7_1bp26Cas14"
   ],
-  "YearGDTYType2c.GC.RDC.+.-.PIVOT.GE.CURR_YEAR.RC&+": [
+  "YearGDTYType2c.HO.DO.+.-.PIVOT.EG.CURR_YEAR.DW&+": [
     2,
     "=Date.Status.Good==Ref7_1bp26Cas18"
   ],
-  "YearGDTYType2c.RDC.GC.+.-.PIVOT.GE.CURR_YEAR.GC&+": [
+  "YearGDTYType2c.DO.HO.+.-.PIVOT.EG.CURR_YEAR.HO&+": [
     2,
     "=Date.Status.Good==Ref7_1bp26Cas18"
   ],
-  "YearGDTYType2c.RDC.RC.+.+.PIVOT.GDC.CURR_YEAR.EC&-": [
+  "YearGDTYType2c.DO.DW.+.+.PIVOT.DR.CURR_YEAR.RW&-": [
     -2,
     "=Ref8p156p1"
   ],
-  "YearGDTYType2c.RDC.RC.+.+.PIVOT.GDC.CURR_YEAR.GDC&-": [
+  "YearGDTYType2c.DO.DW.+.+.PIVOT.DR.CURR_YEAR.DR&-": [
     -2,
     "=Ref8p155p8"
   ],
-  "YearGDTYType2c.RDC.RC.+.+.PIVOT.GDC.CURR_YEAR.RC&-": [
+  "YearGDTYType2c.DO.DW.+.+.PIVOT.DR.CURR_YEAR.DW&-": [
     -2,
     "=Ref8p156p2"
   ],
-  "YearGDTYType2c.RDC.RC.+.+.PIVOT.GDC.CURR_YEAR.RDC&-": [
+  "YearGDTYType2c.DO.DW.+.+.PIVOT.DR.CURR_YEAR.DO&-": [
     -2,
     "=Ref8p155p8"
   ],
-  "YearGDTYType3a.GC.RDE.RDC.+.+.0.CURR_YEAR.RDC&": [
+  "YearGDTYType3a.HO.7K.DO.+.+.0.CURR_YEAR.DO&": [
     1,
     "=Ref3p559p11"
   ],
-  "YearGDTYType3a.RDC.GDC.GC.+.0.0.CURR_YEAR.RDC&+": [
+  "YearGDTYType3a.DO.DR.HO.+.0.0.CURR_YEAR.DO&+": [
     1,
     "=Date.Status.Good==Ref7_1bp26Cas17"
   ],
-  "YearGDTYType3a.RDE.GC.RDC.+.+.0.CURR_YEAR.RDC&": [
+  "YearGDTYType3a.7K.HO.DO.+.+.0.CURR_YEAR.DO&": [
     1,
     "=Ref3p559p11"
   ],
-  "YearGDTYType3b.EC.RC.RDC.+.-.-.MAIN_PERIOD.EC.CURR_YEAR.EC&": [
+  "YearGDTYType3b.RW.DW.DO.+.-.-.MAIN_PERIOD.RW.CURR_YEAR.RW&": [
     1,
     "=Ref8p219p8"
   ],
-  "YearGDTYType3b.EC.RC.RDC.+.0.0.MAIN_PERIOD.EC.CURR_YEAR.EC&": [
+  "YearGDTYType3b.RW.DW.DO.+.0.0.MAIN_PERIOD.RW.CURR_YEAR.RW&": [
     1,
     "=Ref8p219p8"
   ],
-  "YearGDTYType4a.RDC.GDC.+.0.CURR_YEAR_LIFE_CYCLE.DEATH&-": [
+  "YearGDTYType4a.DO.DR.+.0.CURR_YEAR_LIFE_CYCLE.DEATH&-": [
     1,
     "=Ref7_1bp27Cas3"
   ],
-  "YearGDTYType4a.RDC.GDC.+.0.CURR_YEAR_LIFE_CYCLE.REPOSE&-": [
+  "YearGDTYType4a.DO.DR.+.0.CURR_YEAR_LIFE_CYCLE.REPOSE&-": [
     1,
     "=Ref7_1bp27Cas3"
   ],
-  "YearGDTYType4a.RDC.GDC.+.0.CURR_YEAR_LIFE_CYCLE.TOMB&-": [
+  "YearGDTYType4a.DO.DR.+.0.CURR_YEAR_LIFE_CYCLE.TOMB&-": [
     1,
     "=Ref7_1bp27Cas3"
   ],
-  "YearType1.RC.+&": [
+  "YearType1.DW.+&": [
     0,
     "=Ref8p430p1"
   ],
-  "YearType1.RC.-&": [
+  "YearType1.DW.-&": [
     0,
     "=Ref8p430p1"
   ],
-  "YearType1.RDC.+&": [
+  "YearType1.DO.+&": [
     0,
     "=Ref8p430p2"
   ],
-  "YearType1.RDC.-&": [
+  "YearType1.DO.-&": [
     0,
     "=Ref8p430p2"
   ],
-  "YearType1.RDE.+&": [
+  "YearType1.7K.+&": [
     0,
     "=Ref8p430p2"
   ],
-  "YearType1.RDE.-&": [
+  "YearType1.7K.-&": [
     0,
     "=Ref8p430p2"
   ],
-  "YearType1.RE.+&": [
+  "YearType1.IW.+&": [
     0,
     "=Ref8p430p1"
   ],
-  "YearType1.RE.-&": [
+  "YearType1.IW.-&": [
     0,
     "=Ref8p430p1"
   ],

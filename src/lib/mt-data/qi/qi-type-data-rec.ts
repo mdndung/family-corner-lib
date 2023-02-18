@@ -63,22 +63,24 @@ export class QiTypeDataRec {
       let val = 0;
       const force = data.getValue();
       let detail = "";
-      if (force >= QiForce.FAVORABLEFORCE) {
-        val = 1;
-      } else {
-        if (force < 0) {
-          val = -1;
-        }
-      }
-      val = val * reverse;
-      if (val != 0) {
-        detail=qiType+ ': ';
-        if ( val>0 ) {
-          detail+=MessageHelper.getMessage('Label.Favorable');
+      if (force !== null) {
+        if (force >= QiForce.FAVORABLEFORCE) {
+          val = 1;
         } else {
-          detail+=MessageHelper.getMessage('Label.Hostile');
+          if (force < 0) {
+            val = -1;
+          }
         }
-        return new DataWithLog(val, detail);
+        val = val * reverse;
+        if (val != 0) {
+          detail = qiType + ": ";
+          if (val > 0) {
+            detail += MessageHelper.getMessage("Label.Favorable");
+          } else {
+            detail += MessageHelper.getMessage("Label.Hostile");
+          }
+          return new DataWithLog(val, detail);
+        }
       }
     }
     return null;

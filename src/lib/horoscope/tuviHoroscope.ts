@@ -40,6 +40,7 @@ export class TuViHoroscope extends HoroscopeContributor {
     this.birthLunar = new Lunar(birthDate, isMan);
     this.studyLunar = new Lunar(studyDate, isMan);
     this.tuviPalaceStarMap = new TuViStarMap(this.birthLunar);
+    this.initBaseQiType(this.birthLunar);
   }
 
 

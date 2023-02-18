@@ -224,44 +224,44 @@ static existsecDeity( secondaryDeityPilar: SecondaryDeity[][], deity: SecondaryD
   }
 
   static getEnNRelation(fromEnE: ElementNEnergy, toEnE: ElementNEnergy) {
-    let res = ElementNEnergyRelation.EC;
+    let res = ElementNEnergyRelation.RW;
     const elRel = BaziHelper.getRelation(fromEnE.element,toEnE.element);
     const sameEnergy = fromEnE.energy.isEqual(toEnE.energy);
     switch (elRel) {
       case ElementRelation.NEUTRAL:
       case ElementRelation.ENFORCE:
         if (sameEnergy) {
-          res = ElementNEnergyRelation.EE;
+          res = ElementNEnergyRelation.F;
         } else {
-          res = ElementNEnergyRelation.EC;
+          res = ElementNEnergyRelation.RW;
         }
         break;
       case ElementRelation.GENERATED:
         if (sameEnergy) {
-          res = ElementNEnergyRelation.GDE;
+          res = ElementNEnergyRelation.EG;
         } else {
-          res = ElementNEnergyRelation.GDC;
+          res = ElementNEnergyRelation.HO;
         }
         break;
       case ElementRelation.GENERATE:
         if (sameEnergy) {
-          res = ElementNEnergyRelation.GE;
+          res = ElementNEnergyRelation.IR;
         } else {
-          res = ElementNEnergyRelation.GC;
+          res = ElementNEnergyRelation.DR;
         }
         break;
       case ElementRelation.RESTRICTED:
         if (sameEnergy) {
-          res = ElementNEnergyRelation.RDE;
+          res = ElementNEnergyRelation.IW;
         } else {
-          res = ElementNEnergyRelation.RDC;
+          res = ElementNEnergyRelation.DW;
         }
         break;
       case ElementRelation.RESTRICT:
         if (sameEnergy) {
-          res = ElementNEnergyRelation.RE;
+          res = ElementNEnergyRelation.K7;
         } else {
-          res = ElementNEnergyRelation.RC;
+          res = ElementNEnergyRelation.DO;
         }
         break;
     }

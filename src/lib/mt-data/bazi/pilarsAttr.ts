@@ -21,8 +21,7 @@ import { PivotHelper } from "../../helper/pivot-helper";
 import { SecondaryDeity } from "./secondaryDeity";
 import { QiHelper } from "../../helper/qiHelper";
 import { QiTypeDataRec } from "../qi/qi-type-data-rec";
-
-
+import { ElementLifeCycle } from "../feng-shui/elementLifeCycle";
 
 export class PilarsAttr {
   lunar: Lunar;
@@ -38,16 +37,19 @@ export class PilarsAttr {
   trunkRelation: ElementNEnergyRelation[][] = null;
   brancheRelation: ElementNEnergyRelation[][] = null;
   dayHiddenRelation: ElementNEnergyRelation[][] = null;
-  secondaryDeityPilars: SecondaryDeity[][]= null;
+
+  secondaryDeityPilars: SecondaryDeity[][] = null;
+  secDeityForceArr: number[] = null;
 
   elementNEnergyForce: DataWithLog[] = null;
   elementForce: DataWithLog[] = null;
   majorElement: Element = null;
   sumElementForce: number = null;
   averageElementForce: number = null;
-  majorElementForce: number = null;
+
   weakThreshHold: number = 0;
   favorableThreshHold: number = 0;
+
   combList: CombinationList;
   specialStructure: DataWithLog;
   structure: DataWithLog;
@@ -57,13 +59,47 @@ export class PilarsAttr {
   constructor(lunar: Lunar) {
     lunar.pilarsAttr = this;
     this.lunar = lunar;
-    this.secondaryDeityPilars=SecondaryDeity.evalSecondaryDeity(lunar,lunar);
     this.initEE();
     this.evalRootPresent();
     this.evalPilarRelation();
-    this.qiTypeData=QiHelper.getLunarQiForce(lunar);
+    this.qiTypeData = QiHelper.getLunarQiForce(lunar);
+    this.secondaryDeityPilars = SecondaryDeity.evalSecondaryDeity(lunar, lunar);
     this.initStructure();
     this.initPivot();
+
+    this.countSecDeities();
+  }
+
+  countSecDeities() {
+    const secDeities = SecondaryDeity.AMDUONGLECH.getValues();
+    const pilarWeightArr = [1, 2, 5, 2, 3];
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const trunkArr = this.lunar.trunkArr;
+    const brancheArr = this.lunar.brancheArr;
+    this.secDeityForceArr = ObjectHelper.newArray(secDeities.length, 0);
+    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
+      const lifeCycle = ElementLifeCycle.getElementLifeCycle(
+        trunkArr[pilarIdx],
+        brancheArr[LunarBase.DINDEX]
+      );
+      let deityForce =
+        pilarWeightArr[pilarIdx] *
+        (pilarsAttr.trunkForceArr[pilarIdx].getValue() +
+          pilarsAttr.trunkForceArr[pilarIdx].getValue());
+      if (!lifeCycle.isFavorable()) deityForce = -deityForce;
+      for (
+        let index = 0;
+        index < this.secondaryDeityPilars[pilarIdx].length;
+        index++
+      ) {
+        const secDeity = this.secondaryDeityPilars[pilarIdx][index];
+        if (secDeity.isFavorable()) {
+          this.secDeityForceArr[secDeity.ordinal()] += deityForce;
+        } else {
+          this.secDeityForceArr[secDeity.ordinal()] -= deityForce;
+        }
+      }
+    }
   }
 
   getHiddenTrunkName(branche: Branche, trunk: Trunk, element: Element) {
@@ -109,12 +145,13 @@ export class PilarsAttr {
 
   logMe(message1: any, message2?: any) {
     if (CombListHelper.logMe) {
-      if (typeof message2 === "undefined") message2 = '';
+      if (typeof message2 === "undefined") message2 = "";
       console.log(message1, message2);
     }
   }
 
   log() {
+    // this.logMe(this.secondaryDeityPilars);
   }
 
   static getTransformable(trunk1: Trunk, trunk2: Trunk, checkELement: Element) {
@@ -371,6 +408,13 @@ export class PilarsAttr {
     return false;
   }
 
+  hasSecDeity(pilarIdx: number, secDeity: SecondaryDeity) {
+    return ObjectHelper.hasItem(
+      this.lunar.pilarsAttr.secondaryDeityPilars[pilarIdx],
+      secDeity
+    );
+  }
+
   setOnlyPrincipalForce(pilarIdx: number, force: number, detail?: string) {
     if (typeof detail === "undefined") {
       detail = "";
@@ -381,20 +425,17 @@ export class PilarsAttr {
     let currIdx = 0;
     this.hiddenTrunkForceArr[currIdx][pilarIdx] = new DataWithLog(
       force,
-      pilarName +
-        detail
+      pilarName + detail
     );
     currIdx++;
     this.hiddenTrunkForceArr[currIdx][pilarIdx] = new DataWithLog(
       0,
-      pilarName +
-        detail
+      pilarName + detail
     );
     currIdx++;
     this.hiddenTrunkForceArr[currIdx][pilarIdx] = new DataWithLog(
       0,
-      pilarName +
-        detail
+      pilarName + detail
     );
   }
 
@@ -598,7 +639,7 @@ export class PilarsAttr {
 
     if (usePrincipalHiddenForce) {
       const hiddenLog = this.getMainHiddenForceData(pilarIdx);
-      this.setOnlyPrincipalForce(pilarIdx,hiddenLog.getValue());
+      this.setOnlyPrincipalForce(pilarIdx, hiddenLog.getValue());
       points.updateValue(
         hiddenLog.getValue(),
         sourceName + usePrincipaleHiddenForceReason,
@@ -645,22 +686,27 @@ export class PilarsAttr {
       }
     }
     // Ref3p344 Clash
-    const clashCombList = this.combList.getCombTypeAttrList(CombAttr.BRANCHECLASHTYPE,pilarIdx);
-    if (clashCombList.length>0) {
+    const clashCombList = this.combList.getCombTypeAttrList(
+      CombAttr.BRANCHECLASHTYPE,
+      pilarIdx
+    );
+    if (clashCombList.length > 0) {
       // Assume no any transformed combination kind  for this pilar
       //Ref3p344. Keep only the principal force
-      let fraction= 1/3;
-      let force = Math.trunc(points.value*fraction);
+      let fraction = 1 / 3;
+      let force = Math.trunc(points.value * fraction);
       points.updateValue(force, " Clash ");
       const pilarElement = brancheArr[pilarIdx].getElement();
       if (pilarElement != Element.EARTH) {
         // Ref3p345: Update if principal hidden month element not dragon, ox, dog, goat which are earth
-        fraction= BaziHelper.getClashHiddenTrunkReduceFactor(lunar,clashCombList[0].branchAttrs);
+        fraction = BaziHelper.getClashHiddenTrunkReduceFactor(
+          lunar,
+          clashCombList[0].branchAttrs
+        );
         force = this.getMainHiddenForceData(pilarIdx).getValue();
-        force = Math.trunc(force*fraction);
-        this.setOnlyPrincipalForce(pilarIdx, force," Clash ");
+        force = Math.trunc(force * fraction);
+        this.setOnlyPrincipalForce(pilarIdx, force, " Clash ");
       }
-
     }
 
     this.avoidZeroForce(points, sourceName);
@@ -699,7 +745,7 @@ export class PilarsAttr {
       );
 
       const branche = this.lunar.brancheArr[pilarIdx];
-      const brancheElement =branche.getElement();
+      const brancheElement = branche.getElement();
       const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(branche);
       for (let i = 0; i < hiddenTrunkArr.length; i++) {
         checkElement = hiddenTrunkArr[i].getElement();
@@ -714,11 +760,12 @@ export class PilarsAttr {
           checkName,
           checkForceAttr
         );
-        if ( brancheElement.isDestructive(checkElement)) {
+        if (brancheElement.isDestructive(checkElement)) {
           // Cas branche lukewarm branche. See Ref8p543 Sữu ẩm
           currBrancheForceAttr.addData(
             -checkForceAttr.getValue(),
-            checkName+ " incompatible ");
+            checkName + " incompatible "
+          );
         }
       }
     }
@@ -787,7 +834,10 @@ export class PilarsAttr {
         this.addEEForce(
           ee,
           this.brancheForceArr[pilarIdx].getValue(),
-          this.getBrSrc(pilarIdx) + '. Transformed. Use transformed element '+ ee+' force'
+          this.getBrSrc(pilarIdx) +
+            ". Transformed. Use transformed element " +
+            ee +
+            " force"
         );
       } else {
         // Use only hidden trunk force. Example Ref3p347 cas 1.4
@@ -795,37 +845,38 @@ export class PilarsAttr {
           brancheArr[pilarIdx]
         );
         const hLen = hiddenTrunkArr.length;
-        let addDetail =  " 's Main Hidden Trunk ";
+        let addDetail = " 's Main Hidden Trunk ";
         for (let i = 0; i < hLen; i++) {
           this.addEEForce(
             hiddenTrunkArr[i].elementNEnergy,
             this.hiddenTrunkForceArr[i][pilarIdx].getValue(),
             this.getBrSrc(pilarIdx) +
-            'NOT transformed element. Use '+
-            addDetail +
+              "NOT transformed element. Use " +
+              addDetail +
               hiddenTrunkArr[i]
           );
-          addDetail =  " 's non Main Hidden Trunk "
+          addDetail = " 's non Main Hidden Trunk ";
         }
       }
     }
     this.weakThreshHold = this.sumElementForce * QiForce.FORCEWEAKTHESHHOLD;
-    this.favorableThreshHold = this.sumElementForce * QiForce.FORCEFAVORABLETHESHHOLD;
+    this.favorableThreshHold =
+      this.sumElementForce * QiForce.FORCEFAVORABLETHESHHOLD;
   }
 
   initMajorElement(lunar: Lunar) {
     this.evalElementForce(lunar);
     const elementValues = Element.getValues();
     this.majorElement = null;
-    this.majorElementForce = 0;
+    let majorElementForce = 0;
 
     elementValues.forEach((element) => {
       if (
         (100 * this.elementForce[element.ordinal()].getValue()) /
           this.sumElementForce >
-        this.majorElementForce
+        majorElementForce
       ) {
-        this.majorElementForce =
+        majorElementForce =
           (100 * this.elementForce[element.ordinal()].getValue()) /
           this.sumElementForce;
         this.majorElement = element as Element;
@@ -836,7 +887,7 @@ export class PilarsAttr {
   }
 
   evalPilarRelation() {
-    const lunar=this.lunar;
+    const lunar = this.lunar;
     const MAX_LEN = LunarBase.PILARS_LEN;
     const brancheArr = lunar.brancheArr;
     const trunkArr = lunar.trunkArr;
@@ -859,23 +910,23 @@ export class PilarsAttr {
 
     for (let pilarCol = 0; pilarCol < MAX_LEN; pilarCol++) {
       const toBranche = brancheArr[pilarCol];
-      const currTrunkEE = trunkArr[pilarCol].elementNEnergy
       for (let pilarBranche = 0; pilarBranche < MAX_LEN; pilarBranche++) {
         const fromBranche = brancheArr[pilarBranche];
         // Use original element
-        this.brancheRelation[pilarBranche][pilarCol] = BaziHelper.getEnNRelation(
-          fromBranche.elementNEnergy,toBranche.elementNEnergy
+        this.brancheRelation[pilarBranche][pilarCol] =
+          BaziHelper.getEnNRelation(
+            fromBranche.elementNEnergy,
+            toBranche.elementNEnergy
+          );
+        brancheBrRelation[pilarBranche][pilarCol] =
+          BrancheHelper.getUniqueRelation(fromBranche, toBranche);
+      }
+      const hiddenTrunk = BrancheHelper.getHiddenTrunk(brancheArr[pilarCol]);
+      for (let i = 0; i < hiddenTrunk.length; i++) {
+        this.dayHiddenRelation[pilarCol][i] = BaziHelper.eNeTrunkRelation(
+          hiddenTrunk[i],
+          trunkArr[LunarBase.DINDEX]
         );
-        brancheBrRelation[pilarBranche][pilarCol] = BrancheHelper.getUniqueRelation(
-          fromBranche,
-          toBranche
-        );
-        const hiddenTrunk = BrancheHelper.getHiddenTrunk(fromBranche);
-        for (let i = 0; i < hiddenTrunk.length; i++) {
-          this.dayHiddenRelation[pilarBranche][i]=(BaziHelper.eNeTrunkRelation(
-           hiddenTrunk[i], trunkArr[LunarBase.DINDEX]
-          ));
-        }
       }
     }
 
@@ -884,71 +935,107 @@ export class PilarsAttr {
 
   // Ref8p5 Thong can
   evalRootPresent() {
-    const lunar=this.lunar;
+    const lunar = this.lunar;
     const MAX_LEN = LunarBase.PILARS_LEN;
     const brancheArr = lunar.brancheArr;
-    const trunkArr= lunar.trunkArr;
+    const trunkArr = lunar.trunkArr;
 
     this.rootPresent = ObjectHelper.newArray(MAX_LEN, false);
     for (let pilarCol = 0; pilarCol < MAX_LEN; pilarCol++) {
       const branche = brancheArr[pilarCol];
-      const currOriginTrunkEE = trunkArr[pilarCol].elementNEnergy
-      const currTrfTrunkEE = this.trunkEE[pilarCol].getValue()
+      const currOriginTrunkEE = trunkArr[pilarCol].elementNEnergy;
+      const currTrfTrunkEE = this.trunkEE[pilarCol].getValue();
       this.rootPresent[pilarCol] =
         currOriginTrunkEE === branche.elementNEnergy &&
-        currTrfTrunkEE === branche.elementNEnergy
-        ;
+        currTrfTrunkEE === branche.elementNEnergy;
       this.rootPresent[pilarCol] =
         this.rootPresent[pilarCol] ||
-        currOriginTrunkEE === this.brancheEE[pilarCol].getValue()&&
-        currTrfTrunkEE === this.brancheEE[pilarCol].getValue()
-        ;
+        (currOriginTrunkEE === this.brancheEE[pilarCol].getValue() &&
+          currTrfTrunkEE === this.brancheEE[pilarCol].getValue());
 
       const hiddenTrunk = BrancheHelper.getHiddenTrunk(branche);
       for (let i = 0; i < hiddenTrunk.length; i++) {
         this.rootPresent[pilarCol] =
           this.rootPresent[pilarCol] ||
-          currOriginTrunkEE === hiddenTrunk[i].elementNEnergy&&
-          currTrfTrunkEE === hiddenTrunk[i].elementNEnergy;
+          (currOriginTrunkEE === hiddenTrunk[i].elementNEnergy &&
+            currTrfTrunkEE === hiddenTrunk[i].elementNEnergy);
       }
     }
   }
 
   initStructure() {
-    this.specialStructure=BaziStructureHelper.getCachCuc(this.lunar);
-    this.structure=BaziStructureHelper.getMainCachCuc(this.lunar);
+    this.specialStructure = BaziStructureHelper.getCachCuc(this.lunar);
+    this.structure = BaziStructureHelper.getMainCachCuc(this.lunar);
   }
 
-  addEmptyElementPivotEE ( currSelectElements: ElementNEnergy[], currDetails: string ) {
+  addEmptyElementPivotEE(
+    currSelectElements: ElementNEnergy[],
+    currDetails: string
+  ) {
     // Finally add missing elements
-    const eeForceArr=this.elementForce;
+    const eeForceArr = this.elementForce;
     const elementValue = Element.getValues();
     for (let index = 0; index < elementValue.length; index++) {
-      const element = elementValue[index]
+      const element = elementValue[index];
       const elementforceAttr = eeForceArr[element.ordinal()];
-      if ( elementforceAttr.getValue()===0 ) {
-        ObjectHelper.pushIfNotExist(currSelectElements,element);
-        currDetails +="<li> Missing "+element + " proposed </li>";
+      if (elementforceAttr.getValue() === 0) {
+        ObjectHelper.pushIfNotExist(currSelectElements, element);
+        currDetails += "<li> Missing " + element + " proposed </li>";
       }
     }
-    return {selectPivotElements: currSelectElements, details: currDetails};
+    return { selectPivotElements: currSelectElements, details: currDetails };
   }
 
   initPivot() {
     const pivotAttr = PivotHelper.getElligiblePivotAttr(this.lunar);
-    this.pivotForce=pivotAttr.matchCount;
-    const details =     "<li> Provided from trunk "+
-    pivotAttr.selectTrunk +
-    " present in bazi from elligible deities {" + pivotAttr.elligiblePivotData.getValue() + "} based on <ol>" +
-    pivotAttr.elligiblePivotData.detail +
-    "</ol></li>";
-    const currPivotAttr = this.addEmptyElementPivotEE(pivotAttr.selectPivotElements,details);
-    this.elligiblePivotData= new DataWithLog(currPivotAttr.selectPivotElements,currPivotAttr.details);
+    this.pivotForce = pivotAttr.matchCount;
+    const details =
+      "<li> Provided from trunk " +
+      pivotAttr.selectTrunk +
+      " present in bazi from elligible deities {" +
+      pivotAttr.elligiblePivotData.getValue() +
+      "} based on <ol>" +
+      pivotAttr.elligiblePivotData.detail +
+      "</ol></li>";
+    const currPivotAttr = this.addEmptyElementPivotEE(
+      pivotAttr.selectPivotElements,
+      details
+    );
+    this.elligiblePivotData = new DataWithLog(
+      currPivotAttr.selectPivotElements,
+      currPivotAttr.details
+    );
   }
 
+  isElligilePivotElement(element: Element) {
+    return ObjectHelper.hasItem(this.elligiblePivotData.getValue(), element);
+  }
+
+  getPivotStatus(element: Element) {
+    const isElligible=this.isElligilePivotElement(element);
+    const strongSupport = 5;
+    const pivotSupport  = 1
+    const strongHostile = 4;
+    const pivotHostile  = 2
+    let res = 0;
+    if (isElligible) {
+      if ( this.isFavorableElement(element) )  {
+        res = strongSupport;
+      } else {
+        res = pivotSupport
+      }
+    } else {
+      if ( this.isFavorableElement(element) )  {
+        res = strongHostile;
+      } else {
+        res = pivotHostile
+      }
+    }
+    return res;
+  }
 
   initEE() {
-    const lunar=this.lunar;
+    const lunar = this.lunar;
     // First pass for brMonthElement
     this.brMonthElement = lunar.brancheArr[LunarBase.MINDEX].getElement();
     CombListHelper.setupAllCombinations(lunar);
@@ -967,21 +1054,26 @@ export class PilarsAttr {
     this.evalBrancheForce(lunar);
   }
 
-
-
-  getPairedRelationCount(relation: ElementNEnergyRelation, toIndex: number): number {
+  getPairedRelationCount(
+    relation: ElementNEnergyRelation,
+    toIndex: number
+  ): number {
     let count = this.getRelationCount(relation, toIndex);
-    count+=this.getRelationCount(relation.getEnumNextNElement(1), toIndex);
+    count += this.getRelationCount(relation.getEnumNextNElement(1), toIndex);
     return count;
   }
 
-
-  getTrunkPairedRelationCount(relation: ElementNEnergyRelation, toIndex: number) {
-    let count = this.getTrunkRelationCount(relation,toIndex)
-    count+= this.getTrunkRelationCount(relation.getEnumNextNElement(1),toIndex)
-    return count
+  getTrunkPairedRelationCount(
+    relation: ElementNEnergyRelation,
+    toIndex: number
+  ) {
+    let count = this.getTrunkRelationCount(relation, toIndex);
+    count += this.getTrunkRelationCount(
+      relation.getEnumNextNElement(1),
+      toIndex
+    );
+    return count;
   }
-
 
   getTrunkRelationCount(relation: ElementNEnergyRelation, toIndex: number) {
     let count = 0;
@@ -990,47 +1082,64 @@ export class PilarsAttr {
         count++;
       }
     }
-    if ( relation===ElementNEnergyRelation.EE) count-= 1; // -1 to exclude Day Relation against himself)
+    if (relation === ElementNEnergyRelation.F) count -= 1; // -1 to exclude Day Relation against himself)
     return count;
   }
-
 
   getHiddenRelationCount(relation: ElementNEnergyRelation) {
     let count = 0;
 
-    for (let branchePilarIdx = 0; branchePilarIdx < LunarBase.LINDEX; branchePilarIdx++) {
+    for (
+      let branchePilarIdx = 0;
+      branchePilarIdx < LunarBase.LINDEX;
+      branchePilarIdx++
+    ) {
       const hTrunkArr = BrancheHelper.getHiddenTrunk(
         this.lunar.brancheArr[branchePilarIdx]
       );
       for (let i = 0; i < hTrunkArr.length; i++) {
         if (relation === this.dayHiddenRelation[branchePilarIdx][i]) {
-            count++;
+          count++;
         }
       }
     }
     return count;
   }
 
+  getDayElement() {
+    return this.trunkEE[LunarBase.DINDEX].getValue().element;
+  }
   // Ref3p352. Nhat chu
-  getDayElementNFriendForce(){
+  getDayElementNFriendForce() {
     // Must use friend element force
-    let dayPilarForce = BaziHelper.getFavorableForce(this.lunar, this.trunkEE[LunarBase.DINDEX].getValue().element);
+    let dayPilarForce = BaziHelper.getFavorableForce(
+      this.lunar,
+      this.getDayElement()
+    );
+    return dayPilarForce;
+  }
+
+  getDayElementNHostileForce() {
+    // Must use friend element force
+    let dayPilarForce = BaziHelper.getHostileForce(
+      this.lunar,
+      this.getDayElement()
+    );
     return dayPilarForce;
   }
 
   isDayElementNFriendForceFavorable() {
-    const dayForce=this.getDayElementNFriendForce();
-    return dayForce>this.favorableThreshHold;
+    const dayForce = this.getDayElementNFriendForce();
+    return dayForce > this.favorableThreshHold;
   }
 
-  isFavorable(force:number) {
-    return force>this.averageElementForce;
+  isFavorable(force: number) {
+    return force > this.averageElementForce;
   }
-
 
   getDayForceLabel(): string {
-    const force=this.getDayElementNFriendForce();
-    if ( this.isFavorable(force) ) return "Label.Day.Favorable";
+    const force = this.getDayElementNFriendForce();
+    if (this.isFavorable(force)) return "Label.Day.Favorable";
     return "Label.Day.Weak";
   }
 
@@ -1042,13 +1151,14 @@ export class PilarsAttr {
 
   isVeryWeakedElement(element: Element) {
     return (
-      this.elementForce[element.ordinal()].getValue() <= this.weakThreshHold/2
+      this.elementForce[element.ordinal()].getValue() <= this.weakThreshHold / 2
     );
   }
 
   isFavorableElement(element: Element) {
     return (
-      this.elementForce[element.ordinal()].getValue() >= this.favorableThreshHold
+      this.elementForce[element.ordinal()].getValue() >=
+      this.favorableThreshHold
     );
   }
 
@@ -1057,5 +1167,4 @@ export class PilarsAttr {
     count += this.getHiddenRelationCount(relation);
     return count;
   }
-
 }

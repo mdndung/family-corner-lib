@@ -19,12 +19,18 @@ export class BaziHoroscope extends HoroscopeContributor {
     ) {
         super(birthDate, studyDate, isMan);
         this.studyBazi=new Bazi(this.studyDate, this.isMan);
-        this.observation=new BaziObservationBase(this.studyBazi);
+        this.birthLunar = new Lunar(birthDate, isMan);
+        this.observation=new BaziObservationBase(this.birthLunar);
+        this.initBaseQiType(this.birthLunar);
     }
 
     init(currAge: number): void {
-      console.log(' BaziHoroscope init ', currAge)
-      this.observation.initPoint();
+      console.log(' BaziHoroscope init. Update the baseQiTypeData for the current period depending on currAge ', currAge);
+    }
+
+    override initBaseQiType(lunar: Lunar) {
+      this.baseQiTypeData = [];
+      this.baseQiTypeData.push(lunar.pilarsAttr.qiTypeData);
     }
 
 
@@ -38,10 +44,11 @@ export class BaziHoroscope extends HoroscopeContributor {
     }
 
     genBirthTheme(currAge: number): void {
-      // this.commentPrincipalDeityPilar();
+      this.observation.comment();
+
     }
 
     finalizeSession(currAge: number): void {
-
+      this.observation.convertRawProp2Prop();
     }
 }

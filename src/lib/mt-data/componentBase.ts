@@ -4,6 +4,7 @@ import { MessageHelper } from "../helper/messageHelper";
 import { StringHelper } from "../helper/stringHelper";
 import { EnumBaseClass } from "./enumBaseClass";
 import { ElementNEnergy } from "./feng-shui/elementNenergy";
+import { DataWithLog } from "./qi/dataWithLog";
 
 // Base class for component
 export class ComponentBase {
@@ -42,7 +43,7 @@ export class ComponentBase {
     }
   }
 
-  getItemNameValue(item: any) {
+  getItemNameValue(item: any): string {
     if ( item===null ) return this.getMessage("Label.NA")
     if (this.isArray(item)) {
       let res = "";
@@ -56,7 +57,11 @@ export class ComponentBase {
     } else {
       let key = item;
       if ( this.isEnum(item) ) {
-      return key;
+        return key;
+      } else {
+        if (  item instanceof DataWithLog) {
+          return this.getItemNameValue(item.getValue())
+        }
       }
       return this.getMessage(key);
     }

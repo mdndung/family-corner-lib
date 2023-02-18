@@ -17,6 +17,7 @@ import { Bazi } from '../mt-data/bazi/bazi';
 import { CombAttr } from '../mt-data/bazi/combinationList';
 import { DataWithLog } from '../mt-data/qi/dataWithLog';
 import { MessageHelper } from './messageHelper';
+import { SSL_OP_NETSCAPE_CHALLENGE_BUG } from 'constants';
 
 
 
@@ -422,9 +423,9 @@ export class QiHelper {
     if ( qiForce===QiForce.NONE ) { return null ; }
       let detail='';
       if (qiForce.isFavorable()) {
-        detail='Birth in compatible time'
+        detail='Birth in compatible time period'
       } else {
-          detail='Birth in incompatible time'
+          detail='Birth in incompatible time period'
       }
       return new DataWithLog(qiForce.force,detail);
 
@@ -462,7 +463,7 @@ export class QiHelper {
           const cycle=BaziHelper.elementLifeCycle(dTrunk, branche);
           if ( cycle===ElementLifeCycle.BIRTH ) {
             qiForce= QiForce.FAVORABLE;
-            detail ="Branche "+MessageHelper.getMessage(LunarBase.getLabel(index)) + " cycle is "+ cycle;
+            detail ="Branche "+MessageHelper.getMessage(LunarBase.getPilarLabel(index)) + " cycle is "+ cycle;
             break;
           }
         }
@@ -480,9 +481,9 @@ export class QiHelper {
           for (let index = 0; index < hiddenTrunk.length; index++) {
             const htr = hiddenTrunk[index];
             temp = BaziHelper.eNeTrunkRelation(htr, dTrunk);
-            if (temp===ElementNEnergyRelation.EE || temp===ElementNEnergyRelation.EC) {
+            if (temp===ElementNEnergyRelation.F || temp===ElementNEnergyRelation.RW) {
               qiForce= QiForce.FAVORABLE;
-              detail ="Branche "+MessageHelper.getMessage(LunarBase.getLabel(pilarIdx)) + " deity is "+ temp;
+              detail ="Branche "+MessageHelper.getMessage(LunarBase.getPilarLabel(pilarIdx)) + " deity is "+ temp;
               break;
             }
           }
@@ -492,7 +493,7 @@ export class QiHelper {
           temp=BaziHelper.elementLifeCycle(dTrunk, branche)
           if ( temp===ElementLifeCycle.TOMB ) {
             qiForce= QiForce.FAVORABLE;
-            detail ="Branche "+MessageHelper.getMessage(LunarBase.getLabel(pilarIdx)) + " cycle is "+ temp;
+            detail ="Branche "+MessageHelper.getMessage(LunarBase.getPilarLabel(pilarIdx)) + " cycle is "+ temp;
             break;
           }
         }
@@ -510,8 +511,8 @@ export class QiHelper {
   static getDayGrowSupportForce(lunar: Lunar) {
     let qiForce = QiForce.NONE;
     const pilarsAttr = lunar.pilarsAttr;
-    let step = pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.GC,LunarBase.DINDEX)-
-    pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.RC,LunarBase.DINDEX);
+    let step = pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.DR,LunarBase.DINDEX)-
+    pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.DO,LunarBase.DINDEX);
     // Case Trunk
     qiForce= qiForce.getEnumNextNElement(step);
     if ( qiForce===QiForce.NONE ) { return null ; }
@@ -530,8 +531,8 @@ export class QiHelper {
     // Duoc tro giup (Soutien par les troncs enracinés)
     static getDayPilarsConfigurationSupporStatus(lunar: Lunar) {
       const pilarsAttr = lunar.pilarsAttr;
-      const countECEE = pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.EC,LunarBase.DINDEX);
-      const countRCRE =pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.RC,LunarBase.DINDEX);
+      const countECEE = pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.RW,LunarBase.DINDEX);
+      const countRCRE =pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.DO,LunarBase.DINDEX);
       let qiForce: QiForce = QiForce.NONE;
       const count = countECEE  - countRCRE ;
       if ( count>0 ) {
@@ -587,17 +588,17 @@ export class QiHelper {
   static countFavorableDeities(lunar: Lunar) {
     let pilarsAttr = lunar.pilarsAttr;
     const dPilar = LunarBase.DINDEX;
-    const count = pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.EC,dPilar ) +
-    pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.GC,dPilar ) ;
+    const count = pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.RW,dPilar ) +
+    pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.DR,dPilar ) ;
     return count;
   }
 
   static countNonFavorableDeities (lunar: Lunar) {
     let pilarsAttr = lunar.pilarsAttr;
     const dPilar = LunarBase.DINDEX;
-    const count = pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.GDC,dPilar ) +
-    pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.RDC,dPilar ) +
-    pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.RC,dPilar );
+    const count = pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.HO,dPilar ) +
+    pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.DW,dPilar ) +
+    pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.DO,dPilar );
     return count;
   }
 
@@ -611,9 +612,7 @@ export class QiHelper {
     dayForceData.addData(qiTypeData.getQiTypeDirection(QiType.EARTHDAYTRUNKSUPPORT));
     dayForceData.addData(qiTypeData.getQiTypeDirection(QiType.GROWDAYTRUNKSUPPORT));
     dayForceData.addData(qiTypeData.getQiTypeDirection(QiType.PILARDAYTRUNKSUPPORT));
-    dayForceData.addData(qiTypeData.getQiTypeDirection(
-      QiType.MONTHBRANCHEDAYTRUNKLIFECYCLE
-    ));
+    dayForceData.addData(qiTypeData.getQiTypeDirection(QiType.MONTHBRANCHEDAYTRUNKLIFECYCLE));
     dayForceData.addData(qiTypeData.getQiTypeDirection(QiType.SEASONCOMBINAISON));
     dayForceData.addData(qiTypeData.getQiTypeDirection(QiType.COMBINATIONOF3));
 
@@ -621,7 +620,7 @@ export class QiHelper {
     //
 
     let pilarsAttr = lunar.pilarsAttr;
-    const dayTrunkElement = pilarsAttr.trunkEE[LunarBase.DINDEX].getValue().element;
+    const dayTrunkElement = pilarsAttr.getDayElement();
     let favorableForce=BaziHelper.getFavorableForce(lunar,dayTrunkElement );
     let hostileForce=BaziHelper.getHostileForce(lunar,dayTrunkElement );
 
@@ -639,7 +638,23 @@ export class QiHelper {
       dayForceData.addData(1,'Favorable deities count '+ favorableForce + ' > '+hostileForce );
     }
 
-    dayForceData.addData(qiTypeData.getQiTypeDirection(QiType.BRANCHECLASHDAY,-1));
+    // Support by day branche
+    const dayBrancheElement = pilarsAttr.brancheEE[LunarBase.DINDEX].getValue().element;
+    if ( dayBrancheElement.isFavorable(dayTrunkElement) ) {
+      dayForceData.addData(1,'Favorable day branche Element '+ dayBrancheElement  );
+    } else {
+      dayForceData.addData(-1,'Non Favorable day branche Element '+ dayBrancheElement  );
+    }
+
+    // Support by Month Element
+    if ( pilarsAttr.brMonthElement.isFavorable(dayTrunkElement) ) {
+      dayForceData.addData(1,'Favorable month branche element '+ pilarsAttr.brMonthElement  );
+    } else {
+      dayForceData.addData(-1,'Non Favorable month branche element '+ pilarsAttr.brMonthElement  );
+    }
+
+    // Clash
+    dayForceData.addData(qiTypeData.getQiTypeDirection(QiType.BRANCHECLASH,-1));
 
     return dayForceData;
   }
@@ -672,81 +687,12 @@ export class QiHelper {
     force=QiHelper.getCombinationForce(lunar,CombAttr.BRANCHESEASONCOMBTYPE);
     qiTypeData.addQiTypeForce(QiType.MIDSEASONCOMBINAISON, force);
     force=QiHelper.getCombinationForce(lunar,CombAttr.BRANCHECLASHTYPE);
-    qiTypeData.addQiTypeForce(QiType.BRANCHECLASHDAY, force);
+    qiTypeData.addQiTypeForce(QiType.BRANCHECLASH, force);
+
 
     force = QiHelper.getDayTrunkForce(lunar, qiTypeData);
     qiTypeData.addQiTypeForce(QiType.DAYSTATUS, force);
     return qiTypeData;
   }
 
-
-   // Eval Mid Sesson against day element
-    // See Ref3 p 71
-    static getMidSeasonForce(bazi: Bazi) {
-      let force = QiForce.NONE;
-
-      let qiType = QiType.MIDSEASONCOMBINAISON;
-      let  dayTrunk = bazi.getdTrunk();
-
-      let brancheArr = bazi.brancheArr;
-      let dayElement = dayTrunk.getElement();
-      const combList = bazi.pilarsAttr.combList;
-      let combTypeAttrList =
-            combList.getCombTypeAttrList(CombAttr.BRANCHESEASONCOMBTRANSFORMABLETYPE,LunarBase.DINDEX);
-      if ( combTypeAttrList.length>0 ) {
-        // Day pilar has season combination with transformation
-        const trElement = combTypeAttrList[0].detail;
-        for (let pilarIdx = 0; pilarIdx < brancheArr.length; pilarIdx++) {
-            if (pilarIdx != LunarBase.DINDEX) {
-                combTypeAttrList =
-                  combList.getCombTypeAttrList(CombAttr.BRANCHESEASONCOMBTRANSFORMABLETYPE,pilarIdx);
-                if ( combTypeAttrList.length>0 ) {
-                  // Theorically should has then same season combination with day pilar
-                  const trElement = combTypeAttrList[0].resultData;
-                  const elementRelation = trElement.getRelation(dayElement);
-                    if (elementRelation.isFavorable()) {
-                        force = force.getEnumNextNElement(1);
-                    } else {
-                        force = force.getEnumNextNElement(-1);
-                    }
-                }
-            }
-
-        }
-    }
-    let detail = 'Mid Season force ';
-    if (force.isFavorable() ) {
-      detail += 'favorable '
-    } else {
-      detail += 'non favorable '
-    }
-    return new DataWithLog(force.force,detail);
-  }
-
-
-  static getCombinationTypeForce(bazi: Bazi, type: number) {
-    let qiForce = QiForce.NONE;
-    const combList = bazi.pilarsAttr.combList;
-
-    if ( combList.existRelationType(type)) {
-      qiForce = QiForce.FAVORABLE;
-    }
-    let detail = 'Combination ';
-    if (qiForce.isFavorable() ) {
-      detail += 'favorable '
-    } else {
-      detail += 'non favorable '
-    }
-    return new DataWithLog(qiForce.force,detail);
-
-  }
-
-  static initBaseQiType(bazi: Bazi) {
-    const qiTypeData = QiHelper.getLunarQiForce(bazi);
-    let force = this.getMidSeasonForce(bazi);
-    qiTypeData.addQiTypeForce(QiType.MIDSEASONCOMBINAISON,force);
-    force = this.getCombinationTypeForce(bazi,CombAttr.BRANCHECOMB3WITHTRANSFORMTYPE);
-    qiTypeData.addQiTypeForce(QiType.COMBINATIONOF3,force);
-
-  }
 }

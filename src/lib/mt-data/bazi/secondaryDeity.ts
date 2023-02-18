@@ -288,16 +288,13 @@ export class SecondaryDeity extends EnumBaseClass {
   ];
 
   static nguyetDucArr = [Trunk.REN, Trunk.GENG, Trunk.BING, Trunk.JIA];
+  static quyNhanArr = [SecondaryDeity.THIENKHOI, SecondaryDeity.THIENVIET,SecondaryDeity.THIENDUC,SecondaryDeity.NGUYETDUC,
+    SecondaryDeity.THAICUC,SecondaryDeity.QUOCAN ];
 
   isQuyNhan() {
-    if (this === SecondaryDeity.THIENKHOI) {return true;}
-    if (this === SecondaryDeity.THIENVIET) {return true;}
-    if (this === SecondaryDeity.THIENDUC) {return true;}
-    if (this === SecondaryDeity.NGUYETDUC) {return true;}
-    if (this === SecondaryDeity.THAICUC) {return true;}
-    if (this === SecondaryDeity.QUOCAN) {return true;}
-    return false;
+    return ObjectHelper.findIndex(SecondaryDeity.quyNhanArr,this)>=0 ;
   }
+
 
   static getPhucTinh(trunk: Trunk, branche: Branche) {
     if (Trunk.JIA === trunk && Branche.TIGER === branche)
@@ -851,21 +848,26 @@ export class SecondaryDeity extends EnumBaseClass {
       }
       secDeityPilars[i]=deitySet;
     }
-    SecondaryDeity.addVoidSecDeity(secDeityPilars,LunarBase.DINDEX,trunkArr,brancheArr,SecondaryDeity.getFirstVoidBranche(dayTrunk,dayBranche));
-    SecondaryDeity.addVoidSecDeity(secDeityPilars,LunarBase.YINDEX,trunkArr,brancheArr,SecondaryDeity.getFirstVoidBranche(yearTrunk,yearBranche));
+    SecondaryDeity.addVoidSecDeity(lunar,secDeityPilars,LunarBase.DINDEX,trunkArr,brancheArr,SecondaryDeity.getFirstVoidBranche(dayTrunk,dayBranche));
+    SecondaryDeity.addVoidSecDeity(lunar,secDeityPilars,LunarBase.YINDEX,trunkArr,brancheArr,SecondaryDeity.getFirstVoidBranche(yearTrunk,yearBranche));
 
     return secDeityPilars;
 }
 
-static addVoidSecDeity(secDeityPilars: any[], fromPilarIdx: number,tArr: Trunk[], bArr: Branche[],  fstVoidBranche: Branche) {
+static addVoidSecDeity(lunar: Lunar, secDeityPilars: any[], fromPilarIdx: number,tArr: Trunk[], bArr: Branche[],  fstVoidBranche: Branche) {
   if(fstVoidBranche!==null) {
     const oVoidBranche=fstVoidBranche.getEnumNextNElement(1);
     for (let i = 0; i < LunarBase.PILARS_LEN; i++) {
+      if ( lunar.pilarsAttr.combList.existCombRelation(i) || lunar.pilarsAttr.combList.existClashRelation(i) ) {
+        //No void if clash or combined
+        //Ref7a_p35
+        continue;
+      }
       if ( i!== fromPilarIdx ) {
-        const iBr = bArr[i];
-        if ( iBr===fstVoidBranche || iBr===oVoidBranche ) {
-          ObjectHelper.pushIfNotExist(secDeityPilars[i],SecondaryDeity.VOID);
-        }
+          const iBr = bArr[i];
+          if ( iBr===fstVoidBranche || iBr===oVoidBranche ) {
+            ObjectHelper.pushIfNotExist(secDeityPilars[i],SecondaryDeity.VOID);
+          }
       }
     }
   }

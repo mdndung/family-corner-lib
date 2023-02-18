@@ -2,6 +2,7 @@ import { ObjectHelper } from '../helper/objectHelper';
 import { PropertyHelper } from '../helper/PropertyHelper';
 import { QiHelper } from '../helper/qiHelper';
 import { Bazi } from '../mt-data/bazi/bazi';
+import { Lunar } from '../mt-data/bazi/lunar';
 import { MyCalendar } from '../mt-data/date/mycalendar';
 import { QiTypeDataRec } from '../mt-data/qi/qi-type-data-rec';
 
@@ -38,10 +39,9 @@ export abstract class HoroscopeContributor {
       return null;
   }
 
-  initBaseQiType(bazi: Bazi) {
+  initBaseQiType(lunar: Lunar) {
     this.baseQiTypeData = [];
-    this.baseQiTypeData.push(QiHelper.getLunarQiForce(bazi));
-
+    this.baseQiTypeData.push(QiHelper.getLunarQiForce(lunar));
   }
 
     abstract init(currAge: number): void ;
