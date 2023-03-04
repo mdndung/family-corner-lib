@@ -306,12 +306,12 @@ static existsecDeity( secondaryDeityPilar: SecondaryDeity[][], deity: SecondaryD
 	}
 
   static getProgressSign(bazi: Bazi): number {
-    let res = bazi.getyBranche().getEnergy().getSign() ;
+    let res = bazi.getyTrunk().getEnergy().getSign() ;
 		// Return -1 if
-		//   male and year branch 'sign negatif
-		//   female and year branch 'sign positif
-		if ( (!bazi.isMan) && (res===-1) ) {
-			res = -res;
+		//   male and year trunk 'sign negatif
+		//   female and year trunk 'sign positif
+		if ( (!bazi.isMan) && (res===1) ) {
+			res = -1;
 		}
 		return res ;
   }

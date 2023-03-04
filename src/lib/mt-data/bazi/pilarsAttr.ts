@@ -22,6 +22,7 @@ import { SecondaryDeity } from "./secondaryDeity";
 import { QiHelper } from "../../helper/qiHelper";
 import { QiTypeDataRec } from "../qi/qi-type-data-rec";
 import { ElementLifeCycle } from "../feng-shui/elementLifeCycle";
+import { QiType } from "../qi/qi-type";
 
 export class PilarsAttr {
   lunar: Lunar;
@@ -56,6 +57,11 @@ export class PilarsAttr {
   pivotForce: number;
   elligiblePivotData: DataWithLog;
 
+  deityPilarCount: number[] = null;
+  hiddenDeityPilarCount: number[] = null;
+  deityForce: number[] = null;
+  deityElements: Element[] = null;
+
   constructor(lunar: Lunar) {
     lunar.pilarsAttr = this;
     this.lunar = lunar;
@@ -64,10 +70,24 @@ export class PilarsAttr {
     this.evalPilarRelation();
     this.qiTypeData = QiHelper.getLunarQiForce(lunar);
     this.secondaryDeityPilars = SecondaryDeity.evalSecondaryDeity(lunar, lunar);
-    this.initStructure();
     this.initPivot();
-
+    this.initStructure();
     this.countSecDeities();
+    this.evalDeityCount();
+    this.evalDeityForce();
+    this.evalDeityElement();
+    this.evalDeityLeverage();
+  }
+
+  public getDeityCount(deity: ElementNEnergyRelation) {
+    if (deity === null) return 0;
+    const index = deity.ordinal();
+    return this.deityPilarCount[index] + this.hiddenDeityPilarCount[index];
+  }
+
+  public getDeityeeRCount(eeR: ElementNEnergyRelation) {
+    const index = eeR.ordinal();
+    return this.deityPilarCount[index] + this.hiddenDeityPilarCount[index];
   }
 
   countSecDeities() {
@@ -363,6 +383,108 @@ export class PilarsAttr {
       this.avoidZeroForce(pilarForce[pilarIdx1], pilarName);
     }
     this.trunkForceArr = pilarForce;
+  }
+
+  private evalDeityElement() {
+    const eNERValues = ElementNEnergyRelation.DR.getValues();
+    const len = eNERValues.length;
+    const dayMasterElement = this.lunar.getDayMasterElement();
+    const pilarsAttr = this.lunar.pilarsAttr;
+    pilarsAttr.deityElements = ObjectHelper.newArray(len, null);
+    let currElement = dayMasterElement;
+    let currEE = ElementNEnergyRelation.RW;
+    for (let index = 0; index < len; index++) {
+      const eeIndex = currEE.ordinal();
+      pilarsAttr.deityElements[eeIndex] = currElement;
+      if (index % 2 === 1) currElement = currElement.getEnumNextNElement(1);
+      currEE = currEE.getEnumNextNElement(1);
+    }
+  }
+
+  private evalDeityLeverage() {
+    // Deity force statuses
+    const do7kForce = this.getDeityGroupElementForce(ElementNEnergyRelation.DO);
+    const rwfForce = this.getDeityGroupElementForce(ElementNEnergyRelation.RW);
+    const hoegForce = this.getDeityGroupElementForce(ElementNEnergyRelation.HO);
+    const ctrThreshold = rwfForce / 3;
+    let qiForce = QiForce.HOSTILE;
+    let diff = do7kForce - rwfForce - hoegForce ;
+    let detail = "DO, 7K group - RW F group = diff ";
+    if (diff < 0) {
+      qiForce = QiForce.NONE;
+    } else {
+      if (diff < ctrThreshold) {
+        qiForce = QiForce.MEDIUM;
+      }
+    }
+    detail += ". Influence = " + qiForce.getName();
+
+    let force = new DataWithLog(qiForce, detail);
+    this.qiTypeData.addQiTypeForce(QiType.DO7K2RWFLEVERAGE, force);
+    const drirCount = this.getDeityGroupCount(ElementNEnergyRelation.DR);
+    qiForce = QiForce.NONE;
+    if (drirCount < 1) {
+      qiForce = QiForce.MEDIUM;
+    } else {
+      qiForce = QiForce.FAVORABLE;
+    }
+    detail =
+      "DR, IR count: " + drirCount + " . Influence = " + qiForce.getName();
+    force = new DataWithLog(qiForce, detail);
+    this.qiTypeData.addQiTypeForce(QiType.DRIR2RWFLEVERAGE, force);
+
+  }
+
+  private evalDeityCount() {
+    const eNERValues = ElementNEnergyRelation.DR.getValues();
+    const len = eNERValues.length;
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const dIndex = LunarBase.DINDEX;
+    pilarsAttr.deityPilarCount = ObjectHelper.newArray(len, 0);
+    pilarsAttr.hiddenDeityPilarCount = ObjectHelper.newArray(len, 0);
+    for (let index = 0; index < len; index++) {
+      const eNER = ElementNEnergyRelation.DR.getEnum(
+        index
+      ) as ElementNEnergyRelation;
+      pilarsAttr.deityPilarCount[index] = pilarsAttr.getTrunkRelationCount(
+        eNER,
+        dIndex
+      );
+      pilarsAttr.hiddenDeityPilarCount[index] =
+        pilarsAttr.getHiddenRelationCount(eNER);
+    }
+  }
+
+  private evalDeityForce() {
+    const eNERValues =
+      ElementNEnergyRelation.DR.getValues() as ElementNEnergyRelation[];
+    const len = eNERValues.length;
+    const pilarsAttr = this.lunar.pilarsAttr;
+    pilarsAttr.deityForce = ObjectHelper.newArray(len, 0);
+
+    for (let index = 0; index < len; index++) {
+      // First force is count
+      pilarsAttr.deityForce[index] = pilarsAttr.getDeityCount(
+        eNERValues[index]
+      );
+      // Secondly add with generate and subtract with generated
+      const eNeR = eNERValues[index];
+      const eneRPrevProdElement = eNeR.getPrevProductiveElement();
+      const eneRProdElement = eNeR.getNextProductiveElement();
+      pilarsAttr.deityForce[index] +=
+        pilarsAttr.getDeityeeRCount(eneRPrevProdElement) -
+        pilarsAttr.getDeityeeRCount(eneRProdElement);
+      const eneRPrevControlElement = eNeR.getPrevControlElement();
+      const eneRNextControlElement = eNeR.getNextControlElement();
+      pilarsAttr.deityForce[index] -=
+        pilarsAttr.getDeityeeRCount(eneRPrevControlElement) +
+        pilarsAttr.getDeityeeRCount(eneRNextControlElement);
+    }
+    // ToBeDone: take the element lifecycle situation;
+    console.log(
+      "Deity Force ToBeDone: take the element lifecycle situation",
+      pilarsAttr.deityForce
+    );
   }
 
   // Ref3p342-343
@@ -872,13 +994,11 @@ export class PilarsAttr {
 
     elementValues.forEach((element) => {
       if (
-        (100 * this.elementForce[element.ordinal()].getValue()) /
-          this.sumElementForce >
+        (100 * this.getElementForce(element)) / this.sumElementForce >
         majorElementForce
       ) {
         majorElementForce =
-          (100 * this.elementForce[element.ordinal()].getValue()) /
-          this.sumElementForce;
+          (100 * this.getElementForce(element)) / this.sumElementForce;
         this.majorElement = element as Element;
       }
     });
@@ -1012,23 +1132,23 @@ export class PilarsAttr {
   }
 
   getPivotStatus(element: Element) {
-    const isElligible=this.isElligilePivotElement(element);
+    const isElligible = this.isElligilePivotElement(element);
     const strongSupport = 5;
-    const pivotSupport  = 1
+    const pivotSupport = 1;
     const strongHostile = 4;
-    const pivotHostile  = 2
+    const pivotHostile = 2;
     let res = 0;
     if (isElligible) {
-      if ( this.isFavorableElement(element) )  {
+      if (this.isFavorableElement(element)) {
         res = strongSupport;
       } else {
-        res = pivotSupport
+        res = pivotSupport;
       }
     } else {
-      if ( this.isFavorableElement(element) )  {
+      if (this.isFavorableElement(element)) {
         res = strongHostile;
       } else {
-        res = pivotHostile
+        res = pivotHostile;
       }
     }
     return res;
@@ -1075,6 +1195,57 @@ export class PilarsAttr {
     return count;
   }
 
+  getElementPlusDeitieForce(deityElement: Element) {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const deity = pilarsAttr.getDeityByElement(deityElement);
+    const elementForce = this.lunar.pilarsAttr.getElementForce(deityElement);
+    const count = pilarsAttr.getDeityCount(deity);
+    return elementForce * count;
+  }
+
+  getDeitiePlusElementForce(deity: ElementNEnergyRelation) {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const deityElement = this.getDeityElement(deity);
+    const elementForce = this.lunar.pilarsAttr.getElementForce(deityElement);
+    const count = pilarsAttr.getDeityCount(deity);
+    return elementForce * count;
+  }
+
+  getDeityGroupElementForce(deity: ElementNEnergyRelation) {
+    let pairedDeity = (deity = deity.getBaseGroup());
+    if (pairedDeity === deity) {
+      pairedDeity = deity.getEnumNextNElement(1);
+    }
+    return (
+      this.getDeitiePlusElementForce(deity) +
+      this.getDeitiePlusElementForce(pairedDeity)
+    );
+  }
+
+  getDeityGroupCount(deity: ElementNEnergyRelation) {
+    let pairedDeity = (deity = deity.getBaseGroup());
+    if (pairedDeity === deity) {
+      pairedDeity = deity.getEnumNextNElement(1);
+    }
+    return this.getDeityCount(deity) + this.getDeityCount(pairedDeity);
+  }
+
+  getDeityElement(deity: ElementNEnergyRelation) {
+    return this.deityElements[deity.ordinal()];
+  }
+
+  getDeityByElement(checkElement: Element) {
+    for (let index = 0; index < this.deityElements.length; index++) {
+      const element = this.deityElements[index];
+      if (element === checkElement) {
+        const deity = ElementNEnergyRelation.EG.getEnum(
+          index
+        ) as ElementNEnergyRelation;
+        return deity.getBaseGroup();
+      }
+    }
+    return null;
+  }
   getTrunkRelationCount(relation: ElementNEnergyRelation, toIndex: number) {
     let count = 0;
     for (let i = 0; i < LunarBase.LINDEX; i++) {
@@ -1109,6 +1280,7 @@ export class PilarsAttr {
   getDayElement() {
     return this.trunkEE[LunarBase.DINDEX].getValue().element;
   }
+
   // Ref3p352. Nhat chu
   getDayElementNFriendForce() {
     // Must use friend element force
@@ -1144,22 +1316,19 @@ export class PilarsAttr {
   }
 
   isWeakedElement(element: Element) {
-    return (
-      this.elementForce[element.ordinal()].getValue() <= this.weakThreshHold
-    );
+    return this.getElementForce(element) <= this.weakThreshHold;
   }
 
   isVeryWeakedElement(element: Element) {
-    return (
-      this.elementForce[element.ordinal()].getValue() <= this.weakThreshHold / 2
-    );
+    return this.getElementForce(element) <= this.weakThreshHold / 2;
+  }
+
+  getElementForce(element: Element) {
+    return this.elementForce[element.ordinal()].getValue();
   }
 
   isFavorableElement(element: Element) {
-    return (
-      this.elementForce[element.ordinal()].getValue() >=
-      this.favorableThreshHold
-    );
+    return this.getElementForce(element) >= this.favorableThreshHold;
   }
 
   getRelationCount(relation: ElementNEnergyRelation, toIndex: number) {

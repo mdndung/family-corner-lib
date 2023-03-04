@@ -64,34 +64,52 @@ export class ObservationBase {
     return PropertyHelper.isArrayElementPresent(this.rawPropCache, key) ;
   }
 
-   isPropExist ( propKey: string) {
-    const keyAttr1 = PropertyHelper.getPropertyAttr(propKey);
-    return !keyAttr1.isUndef();
-  }
-
    insertRawKeyifExistProp(rawKey: string,postFix:string ) {
-    if (this.isPropExist(rawKey+postFix)) {
+    const propAttr =  PropertyHelper.getPropertyAttr(rawKey+postFix);
+    if (!propAttr.isUndef()) {
       console.log('Insert defined Raw key ', rawKey)
+      const force = propAttr.force;
+      if ( force!==0 )  {
+        this.incPoints(this.force2Point(force))
+      }
       this.rawPropCache.push(rawKey);
       return true ;
     }
     return false;
   }
 
-
-
-  addBaseComment(rawKey: string) {
+  addBaseComment(rawKey: string): boolean {
     //console.log("addBaseComment ", rawKey);
-    if ( this.isRawKeyExist(rawKey) ) return  ;
+    if ( this.isRawKeyExist(rawKey) ) return true;
     // Insert if exist property
-    if ( this.insertRawKeyifExistProp(rawKey,'&') ) return ;
-    if ( this.insertRawKeyifExistProp(rawKey,'&-') ) return ;
-    if ( this.insertRawKeyifExistProp(rawKey,'&+') ) return ;
-    if ( this.insertRawKeyifExistProp(rawKey,'&-.-') ) return ;
-    if ( this.insertRawKeyifExistProp(rawKey,'&-.+') ) return ;
-    if ( this.insertRawKeyifExistProp(rawKey,'&+.-') ) return ;
-    if ( this.insertRawKeyifExistProp(rawKey,'&+.+') ) return ;
+    if ( this.insertRawKeyifExistProp(rawKey,'&') ) return true;;
+    if ( this.insertRawKeyifExistProp(rawKey,'&-') ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'&+') ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'&-.-') ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'&-.+') ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'&+.-') ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'&+.+') ) return true;
+    return false;
+  }
 
+  force2Point(force: number) {
+    if (force <= -3) {
+      return 2;
+    }
+    if (force == -2) {
+      return 3;
+    }
+
+    if (force == -1) {
+      return 4;
+    }
+    if (force == 1) {
+      return 6;
+    }
+    if (force == 2) {
+      return 8;
+    }
+    return 10;
   }
 
   point2force(degree1_10: number) {
@@ -118,11 +136,12 @@ export class ObservationBase {
   }
 
   addSupportBaseComment(degree: number, rawKey: string) {
-    if (degree !== 0) {
-      degree = this.adjustDegree(degree);
-      this.incPoints(degree);
-    }
-    this.addBaseComment(rawKey);
+    if ( this.addBaseComment(rawKey) ) {
+      if (degree !== 0) {
+        degree = this.adjustDegree(degree);
+        this.incPoints(degree);
+      }
+    };
   }
 
   getName() {

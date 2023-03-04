@@ -96,7 +96,7 @@ export class ZodiacHoroscope extends HoroscopeContributor {
     this.genMansionsDestiny();
   }
 
-  genYearTheme(currAge: number): void {
+  genYearTheme(currAge: number,currDate: MyCalendar): void {
     this.genPeriodTheme(currAge,this.birthDate.getMonth(), this.birthDate.getDay());
   }
 

@@ -193,13 +193,12 @@ export class PivotHelper {
     }
 
       // Check if there is an element force null
-      const generatedCount = pilarsAttr.getPairedRelationCount(
+      const drirCount = pilarsAttr.getPairedRelationCount(
         ElementNEnergyRelation.DR,
         LunarBase.DINDEX
       );
 
       let favorableDayPilar = false;
-      pilarsAttr.logMe("qiTypeData",qiTypeData);
 
       if (!qiTypeData.isHostile(QiType.DAYSTATUS)) {
         details += "<li>Non Hostile Day Trunk status</li>";
@@ -214,48 +213,106 @@ export class PivotHelper {
         details += PivotHelper.addEligibleDeityElement(pivotRelationSet,tempElement,trunkDayEer,header);
       }
       if (favorableDayPilar) {
-        if (generatedCount > FAVORABLE_LIMIT) {
-          details += "<li>Lot of " + generatedCount + " DR, IR deities support.</li>";
+        if (drirCount > FAVORABLE_LIMIT) {
           // Ref8 p484 case 1
-          details += PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DO);
+          details += PivotHelper.addPairedIfNotPresent(
+            pivotRelationSet,
+            ElementNEnergyRelation.DW,
+            "Lot of " + drirCount + " DR, IR deities support. Add DW,IW to reduce force"
+            );
         } else {
-          let relationCount = pilarsAttr.getPairedRelationCount(
+          const do7kCount = pilarsAttr.getPairedRelationCount(
             ElementNEnergyRelation.DO,
             LunarBase.DINDEX
           );
+          const dwiwCount = pilarsAttr.getPairedRelationCount(
+            ElementNEnergyRelation.DW,
+            LunarBase.DINDEX
+          );
+          const rwfCount =
+          pilarsAttr.getPairedRelationCount(
+            ElementNEnergyRelation.RW,
+            LunarBase.DINDEX
+          )  ;
+          const hoegCount =
+          pilarsAttr.getPairedRelationCount(
+            ElementNEnergyRelation.RW,
+            LunarBase.DINDEX
+          )  ;
           const isDayStatusStrong = qiTypeData.hasStrongForce(QiType.DAYSTATUS);
-          if (isDayStatusStrong && generatedCount > 0 && relationCount !== 0) {
-            // Ref8 p484-485 case 3
-            details +=
-              "<li>Too Strong Trunk. Try to use DW or IW deities to control day pilar force</li>";
-              details +=PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DW);
-          } else {
-            relationCount =
-              pilarsAttr.getPairedRelationCount(
-                ElementNEnergyRelation.RW,
-                LunarBase.DINDEX
-              ) ;
-            if (relationCount > 2) {
-              details +=
-                "<li>Lot of " + relationCount + " deities RW, F supports.</li>";
-              if (isDayStatusStrong) {
-                // Ref8 p484-485 case 3, case 5
-                details +=
-                  "<li>Too Strong Trunk. Try to use deities DW or IW to control this strong force</li>";
-                details += PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DW);
-
-              } else {
-                // Ref8 p484-485 case 4 case 2
-                details += "<li>Try to use deities DR or IR to reduce day force</li>";
-                details += PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DR);
-              }
+          if ( isDayStatusStrong   ) {
+            const prefix="Too Strong Day Status";
+            if ( drirCount!==0 && dwiwCount===0 ) {
+              // Ref8 p484-485 case 2
+                details +=PivotHelper.addPairedIfNotPresent(
+                  pivotRelationSet,
+                  ElementNEnergyRelation.HO,
+                  prefix+"Add HO or EG deities to control day pilar force");
             } else {
-              details +=
-                "<li>Only (" + relationCount + ") support from deities RW, F</li>";
-              // Ref8 p484-485 case 6
-              details +=PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DO,"Add DO, 7K to reduce lost force");
+              if ( rwfCount>2 ) {
+                // Ref8 p484-485 case 4
+                details +=PivotHelper.addPairedIfNotPresent(
+                  pivotRelationSet,
+                  ElementNEnergyRelation.HO,
+                  prefix+". Lot of RW, F. Try to use HO or EG deities to reduce force"
+                  );
+              } else {
+                if ( do7kCount===0 && hoegCount===0 ) {
+                  // Ref8 p484-485 case 6
+                  details +=PivotHelper.addPairedIfNotPresent(
+                    pivotRelationSet,
+                    ElementNEnergyRelation.DW,
+                    prefix+"Add DW, IW to reduce force");
+                }
+              }
+            }
+          } else {
+            if ( qiTypeData.isFavorable(QiType.DAYSTATUS)) {
+              const prefix="Strong Day Status";
+              if ( drirCount!==0 && dwiwCount===0 ) {
+                // Ref8 p484-485 case 3
+                details +=PivotHelper.addPairedIfNotPresent(
+                  pivotRelationSet,
+                  ElementNEnergyRelation.DO,
+                  prefix+"Add DO, 7K to reduce force");
+              } else {
+                if ( rwfCount>2 ) {
+                    // Ref8 p484-485 case 5
+                    details +=PivotHelper.addPairedIfNotPresent(
+                            pivotRelationSet,
+                            ElementNEnergyRelation.DO,
+                            prefix+".Lot of RW, F. Add DO, 7K to reduce force");
+                } else {
+                  if ( do7kCount===0 && hoegCount===0 ) {
+                    // Ref8 p484-485 case 6
+                    details +=PivotHelper.addPairedIfNotPresent(
+                      pivotRelationSet,
+                      ElementNEnergyRelation.DO,prefix+". Add DO, 7K to reduce force");
+                  }
+                }
+              }
+          } else {
+            const prefix="Weak Day Status";
+            if ( do7kCount>2 ) {
+                // Ref8 p482 case 1
+                details +=PivotHelper.addPairedIfNotPresent(
+                      pivotRelationSet,
+                      ElementNEnergyRelation.DR,prefix+". Lot of DO, 7K. Add DR, IR to enforce");
+            }
+            if ( hoegCount>2 ) {
+              // Ref8 p482 case 2
+              details +=PivotHelper.addPairedIfNotPresent(
+                    pivotRelationSet,
+                    ElementNEnergyRelation.DR,prefix+". Lot of HO EG. Add DR, IR to enforce");
+            }
+            if ( dwiwCount>2 ) {
+              // Ref8 p483 case 1
+              details +=PivotHelper.addPairedIfNotPresent(
+                    pivotRelationSet,
+                    ElementNEnergyRelation.RW,prefix+". Lot of DW IW. Add RW, F to enforce");
             }
           }
+        }
         }
       } else {
         details += "<li>Weak Day Trunk</li>";
@@ -275,7 +332,7 @@ export class PivotHelper {
         const RESTRICT_LIMIT = FAVORABLE_LIMIT;
         if (restrictCaseCount > RESTRICT_LIMIT) {
           details += "<li>Lot of " + restrictCaseCount + " dominate deities </li>";
-          if (generatedCount > 0) {
+          if (drirCount > 0) {
             // Ref3 p99 Cas 1 p182
             details += "<li>Try to use DR, IR to reduce lost forces </li>";
             details +=PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DR);

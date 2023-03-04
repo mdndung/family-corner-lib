@@ -117,6 +117,9 @@ export class QiType extends EnumBaseClass {
   // Ref3 p257				Tuong hai
   static  BRANCHECLASH= new QiType('BRANCHECLASH',true,'TUH');
 
+  // Evaluation purpose
+  static  DO7K2RWFLEVERAGE= new QiType('DO7KRWFGRP',false,'DO7KRWF');
+  static  DRIR2RWFLEVERAGE= new QiType('DRIRRWFGRP',false,'DRIRRWF');
 
   isGeneralType: boolean ;
   key: string ;

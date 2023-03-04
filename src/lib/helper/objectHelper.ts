@@ -14,6 +14,15 @@ export class ObjectHelper {
  */
 
 
+  static cloneArray(originArr: any[]) {
+    const arr = [];
+    for (let i = 0; i < originArr.length; ++i) {
+        arr[i] =  originArr[i];
+    }
+    return arr;
+  }
+
+
   static newArray(numrows: number, initial: any) {
     const arr = [];
     for (let i = 0; i < numrows; ++i) {

@@ -44,7 +44,22 @@
  "CareerGooda.11": [ 0 , "=Lifea.48a" ],
  "Careerb.24": [ 0 , "=Lifeb.2068==Careerb.24.0" ],
 
-
+ "Year.DayMaster.-.DO7K.+.DRIR.+.Hostile&": [
+  0,
+  "=Year.Bad==Ref3p182p1b"
+],
+ "DayMaster.-.DO7K.+.DRIR.+&": [
+  0,
+  "=Ref3p182p1a"
+],
+"Ref3p182p1a": [
+  0,
+  "=Lifec.1003==Careerb.61"
+],
+"Ref3p182p1b": [
+  0,
+  "=Careerb.61==Mariageb.28==Lifeb.39==Lifeb.172==Lifeb.70b"
+],
  "Ref13p62_1Detail":
  [ 0 , "=Ref13p62_1Title==DotNewLine==Mountain.Favorable" ],
      "Ref13p62_2Detail":
@@ -1116,11 +1131,11 @@
   ],
   "CachCucType1.DR&+": [
     2,
-    "=Ref8p185p1Bad"
+    "=Ref8p185p1b"
   ],
   "CachCucType1.DR&-": [
     -2,
-    "=Ref8p185p1Good"
+    "=Ref8p185p1a"
   ],
   "CachCucType1.IR&": [
     0,
@@ -1150,15 +1165,11 @@
     3,
     "=CachCucType1.IW&==Ref8p219p2"
   ],
-  "CachCucType2.RW&": [
+  "CachCucType1.KDKL&": [
     0,
     "=Ref8p386p21"
   ],
-  "CachCucType2.IR.DW.DO.+.+&": [
-    0,
-    "=Ref8p201p1"
-  ],
-  "CachCucType2.IR.IW.DO.+.+&": [
+  "CachCucType2.IR.DW.+.DO.+&": [
     0,
     "=Ref8p201p1"
   ],
@@ -1471,6 +1482,7 @@
   "Date.Status.VeryGood": [
     10
   ],
+
   "DayMaster.BING&": [
     0,
     "=Ref25p576FeuBingp2"
@@ -2745,56 +2757,53 @@
     1,
     "=Ref8p424p60"
   ],
-  "Element.FIRE.METAL.+.-&": [
+  "Element.FIRE.METAL.-&": [
     0,
     "=Ref3p558p8"
   ],
-  "Element.FIRE.METAL.+.0&-": [
+  "Element.FIRE.METAL.0&-": [
     -2,
     "=Ref3p558p8"
   ],
-  "Element.METAL.WOOD.+.-&-": [
+  "Element.METAL.WOOD.-&-": [
     -2,
     "=Healthb.28"
   ],
-  "Element.METAL.WOOD.+.0&-": [
+  "Element.METAL.WOOD.0&-": [
     -2,
     "=Healthb.28"
   ],
-  "Element.WATER.EARTH.+.-&-.-": [
+  "Element.WATER.EARTH.-&-.-": [
     -3,
     "=Healthb.65==Healthb.69"
   ],
-  "Element.WATER.EARTH.+.0&-": [
+  "Element.WATER.EARTH.0&-": [
     -2,
     "=Healthb.65==Healthb.69"
   ],
-  "Element.WATER.FIRE.+.-&-": [
+  "Element.WATER.FIRE.-&-": [
     -2,
     "=Healthb.27"
   ],
-  "Element.WATER.FIRE.+.0&-": [
+  "Element.WATER.FIRE.0&-": [
     -2,
     "=Healthb.27"
   ],
-  "Element.WATER.METAL.+.-&-.-": [
+  "Element.WATER.METAL.-&-.-": [
     -3,
     "=Healthb.66==Healthb.70"
   ],
-  "Element.WATER.METAL.+.0&-": [
+  "Element.WATER.METAL.0&-": [
     -2,
     "=Healthb.66==Healthb.70"
   ],
-  "Element.WOOD.EARTH.+.-&-": [
+  "Element.WOOD.EARTH.-&-": [
     -2,
     "=Healthb.26"
   ],
-  "Element.WOOD.EARTH.+.0&-": [
+  "Element.WOOD.EARTH.0&-": [
     -2,
     "=Healthb.26"
-  ],
-  "Except.For": [
-    0
   ],
   "F.DtyType2b.EG.HO.+.-&": [
     1,
@@ -33186,6 +33195,7 @@
     0,
     "=Fortuneb.31"
   ],
+
   "Ref3p227p1": [
     0,
     "=Healthb.33"
@@ -35098,17 +35108,13 @@
     0,
     "=Fortunea.5a"
   ],
-  "Ref8p185p1": [
+  "Ref8p185p1a": [
     0,
     "=Persona.203==Persona.55b==Careera.86==Careera.125"
   ],
-  "Ref8p185p1Bad": [
+  "Ref8p185p1b": [
     0,
-    "=Ref8p185p1"
-  ],
-  "Ref8p185p1Good": [
-    0,
-    "=Ref8p185p1==Persona.55a==Careera.124==Careera.123"
+    "=Ref8p185p1a==Persona.55a==Careera.124==Careera.123"
   ],
   "Ref8p185p2": [
     0,

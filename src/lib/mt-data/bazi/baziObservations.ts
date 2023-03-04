@@ -7,7 +7,7 @@ import { ObservationBase } from "../../observations/observationBase";
 import { Element } from "../feng-shui/element";
 import { ElementLifeCycle } from "../feng-shui/elementLifeCycle";
 import { ElementNEnergyRelation } from "../feng-shui/elementNEnergyRelation";
-import { QiForce } from "../qi/qi-force";
+import { DataWithLog } from "../qi/dataWithLog";
 import { QiType } from "../qi/qi-type";
 import { QiTypeDataRec } from "../qi/qi-type-data-rec";
 import { Bazi } from "./bazi";
@@ -25,96 +25,14 @@ export class BaziObservationBase extends ObservationBase {
   lunar: Lunar;
   hasQuyNhan: boolean;
   noQuyNhanSuffix = "";
-  deityPilarCount: number[] = null;
-  hiddenDeityPilarCount: number[] = null;
-  deityForce: number[] = null;
-  deityElements: Element[] = null;
 
   constructor(bazi: Lunar) {
     super();
     this.lunar = bazi;
     this.evalQuyNhan();
-    this.evalDeityCount();
-    this.evalDeityForce();
-    this.evalDeityElement();
   }
 
-  private evalDeityElement() {
-    const eNERValues = ElementNEnergyRelation.DR.getValues();
-    const len = eNERValues.length;
-    const dayMasterElement = this.lunar.getDayMasterElement();
-    this.deityElements = ObjectHelper.newArray(len, null);
-    let currElement = dayMasterElement;
-    let currEE = ElementNEnergyRelation.RW;
-    for (let index = 0; index < len; index++) {
-      const eeIndex = currEE.ordinal();
-      this.deityElements[eeIndex] = currElement;
-      if (index % 2 === 1) currElement = currElement.getEnumNextNElement(1);
-      currEE = currEE.getEnumNextNElement(1);
-    }
-  }
 
-  private evalDeityCount() {
-    const eNERValues = ElementNEnergyRelation.DR.getValues();
-    const len = eNERValues.length;
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const dIndex = LunarBase.DINDEX;
-    this.deityPilarCount = ObjectHelper.newArray(len, 0);
-    this.hiddenDeityPilarCount = ObjectHelper.newArray(len, 0);
-    for (let index = 0; index < len; index++) {
-      const eNER = ElementNEnergyRelation.DR.getEnum(
-        index
-      ) as ElementNEnergyRelation;
-      this.deityPilarCount[index] = pilarsAttr.getTrunkRelationCount(
-        eNER,
-        dIndex
-      );
-      this.hiddenDeityPilarCount[index] =
-        pilarsAttr.getHiddenRelationCount(eNER);
-    }
-  }
-
-  private getDeityCount(index: number) {
-    return this.deityPilarCount[index] + this.hiddenDeityPilarCount[index];
-  }
-
-  private getDeityeeRCount(eeR: ElementNEnergyRelation) {
-    const index = eeR.ordinal();
-    return this.deityPilarCount[index] + this.hiddenDeityPilarCount[index];
-  }
-
-  private evalDeityForce() {
-    const eNERValues = ElementNEnergyRelation.DR.getValues();
-    const len = eNERValues.length;
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const dIndex = LunarBase.DINDEX;
-    this.deityForce = ObjectHelper.newArray(len, 0);
-    // First force is count
-    for (let index = 0; index < len; index++) {
-      this.deityForce[index] = this.getDeityCount(index);
-    }
-    // Secondly add with generate and subtract with generated
-    for (let index = 0; index < len; index++) {
-      const eNeR = ElementNEnergyRelation.DR.getEnum(
-        index
-      ) as ElementNEnergyRelation;
-      const eneRPrevProdElement = eNeR.getPrevProductiveElement();
-      const eneRProdElement = eNeR.getNextProductiveElement();
-      this.deityForce[index] +=
-        this.getDeityeeRCount(eneRPrevProdElement) -
-        this.getDeityeeRCount(eneRProdElement);
-      const eneRPrevControlElement = eNeR.getPrevControlElement();
-      const eneRNextControlElement = eNeR.getNextControlElement();
-      this.deityForce[index] -=
-        this.getDeityeeRCount(eneRPrevControlElement) +
-        this.getDeityeeRCount(eneRNextControlElement);
-    }
-    // ToBeDone: take the element lifecycle situation;
-    console.log(
-      "Deity Force ToBeDone: take the element lifecycle situation",
-      this.deityForce
-    );
-  }
 
   private evalQuyNhan() {
     const pilarsAttr = this.lunar.pilarsAttr;
@@ -140,9 +58,9 @@ export class BaziObservationBase extends ObservationBase {
     this.baseQiTypeData.push(this.lunar.pilarsAttr.qiTypeData);
   }
 
-  override addBaseComment(rawKey: string) {
-    console.log("BaziObservationBase addBase comment ", rawKey);
-    super.addBaseComment(rawKey);
+  override addBaseComment(rawKey: string) : boolean {
+    //console.log("BaziObservationBase addBase comment ", rawKey);
+    return super.addBaseComment(rawKey);
   }
 
   //Ref8p61-
@@ -166,7 +84,7 @@ export class BaziObservationBase extends ObservationBase {
           "SecDeType1a." + secDeity1.getName() + temp + this.noQuyNhanSuffix
         );
         if (secDeity1 === SecondaryDeity.KIMTHAN) {
-          if (pilarsAttr.elementForce[Element.FIRE.ordinal()].getValue() > 0) {
+          if (pilarsAttr.getElementForce(Element.FIRE) > 0) {
             this.addBaseComment("SP.KTH.Ref7_2ap21a" + this.noQuyNhanSuffix);
           } else {
             if (
@@ -457,11 +375,12 @@ export class BaziObservationBase extends ObservationBase {
   }
 
   private commentOnOneDeityCount(maxCount: number) {
-    const len = this.deityPilarCount.length;
+    const pilarsAttr=this.lunar.pilarsAttr;
+    const len = pilarsAttr.deityPilarCount.length;
     const DOT = ".";
     const suffix = ".+";
     for (let index = 0; index < len; index++) {
-      const count = this.deityPilarCount[index];
+      const count = pilarsAttr.deityPilarCount[index];
       if (count === maxCount) {
         const eNER = ElementNEnergyRelation.DR.getEnum(
           index
@@ -475,7 +394,7 @@ export class BaziObservationBase extends ObservationBase {
         if (eNERBase !== eNER) {
           this.addBaseComment("DtyGType1a." + eNERBase.getName() + suffix);
         }
-        const eerElement = this.deityElements[eNER.ordinal()];
+        const eerElement = pilarsAttr.getDeityElement(eNER);
         const pivotStatus = this.lunar.pilarsAttr.getPivotStatus(eerElement);
         // DtyOnPilar2.EE.{0,1,2,3}.{0,-,+}&
         this.addBaseComment("DtyOnPilar2." + key + DOT + pivotStatus + suffix);
@@ -485,8 +404,9 @@ export class BaziObservationBase extends ObservationBase {
 
   private commentOnZeroDeityCount() {
     const suffix = ".0";
-    for (let index = 0; index < this.deityPilarCount.length; index++) {
-      const count = this.deityPilarCount[index];
+    const pilarsAttr=this.lunar.pilarsAttr;
+    for (let index = 0; index < pilarsAttr.deityPilarCount.length; index++) {
+      const count = pilarsAttr.deityPilarCount[index];
       if (count === 0) {
         const eNER = ElementNEnergyRelation.DR.getEnum(
           index
@@ -498,7 +418,7 @@ export class BaziObservationBase extends ObservationBase {
         if (eNERBase !== eNER) {
           this.addBaseComment("DtyGType1a." + eNERBase.getName() + suffix);
         }
-        const hiddenCount = this.hiddenDeityPilarCount[index];
+        const hiddenCount = pilarsAttr.hiddenDeityPilarCount[index];
         if (hiddenCount > 0) {
           // DtyHidden.EE.{0,-,+}&
           const temp = key + suffix;
@@ -514,7 +434,7 @@ export class BaziObservationBase extends ObservationBase {
   // DtyGType2a.EE.ECGroup.{+}.{0,-,+}&
   private commentOnTwoDeitiesCount(count1: number, count2: number) {
     const pilarsAttr = this.lunar.pilarsAttr;
-    const len = this.deityPilarCount.length;
+    const len = pilarsAttr.deityPilarCount.length;
     const DOT = ".";
     let suffix = ".+.";
     if (count2 === count1) {
@@ -527,9 +447,9 @@ export class BaziObservationBase extends ObservationBase {
       }
     }
     for (let index1 = 0; index1 < len; index1++) {
-      if (count1 === this.deityPilarCount[index1]) {
+      if (count1 === pilarsAttr.deityPilarCount[index1]) {
         for (let index2 = 0; index2 < len; index2++) {
-          if (index1 != index2 && this.deityPilarCount[index2] === count2) {
+          if (index1 != index2 && pilarsAttr.deityPilarCount[index2] === count2) {
             const eNER1 = ElementNEnergyRelation.DR.getEnum(
               index1
             ) as ElementNEnergyRelation;
@@ -594,7 +514,8 @@ export class BaziObservationBase extends ObservationBase {
     count2: number,
     count3: number
   ) {
-    const len = this.deityPilarCount.length;
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const len = pilarsAttr.deityPilarCount.length;
     const DOT = ".";
     const sameOrder = count2 === count3;
     let suffix = ".+.";
@@ -609,7 +530,7 @@ export class BaziObservationBase extends ObservationBase {
       suffix += "0.";
     }
     for (let index1 = 0; index1 < len; index1++) {
-      if (count1 === this.deityPilarCount[index1]) {
+      if (count1 === pilarsAttr.deityPilarCount[index1]) {
         const eNER1 = ElementNEnergyRelation.DR.getEnum(
           index1
         ) as ElementNEnergyRelation;
@@ -618,7 +539,7 @@ export class BaziObservationBase extends ObservationBase {
             if (
               index1 != index2 &&
               index3 != index2 &&
-              this.deityPilarCount[index3] === count3
+              pilarsAttr.deityPilarCount[index3] === count3
             ) {
               const eNER2 = ElementNEnergyRelation.DR.getEnum(
                 index2
@@ -655,7 +576,7 @@ export class BaziObservationBase extends ObservationBase {
               const dayForce = StringHelper.bool2Str(
                 pilarsAttr.qiTypeData.isFavorable(QiType.DAYSTATUS)
               );
-              const eNeRElement = this.deityElements[eNER1Base.ordinal()];
+              const eNeRElement = pilarsAttr.getDeityElement(eNER1Base);
               const pivotStatus = pilarsAttr.getPivotStatus(eNeRElement);
               // DtyGType4a.DayForce.EE.PivorStatus.EX.EY& EX>EY
               // Suffix is not necessary assuming count EE>=EX>=EY
@@ -840,23 +761,21 @@ export class BaziObservationBase extends ObservationBase {
 
   private commentOnDeitiesCount() {
     this.commentOnZeroDeityCount();
-    const len = this.deityPilarCount.length;
-    const sortedDeityCount = ObjectHelper.newArray(len, 0);
-    for (let index = 0; index < len; index++) {
-      sortedDeityCount[index] = this.deityPilarCount[index];
-    }
+    const pilarsAttr=this.lunar.pilarsAttr;
+    const len = pilarsAttr.deityPilarCount.length;
+    const sortedDeityCount = ObjectHelper.cloneArray(pilarsAttr.deityPilarCount);
     ObjectHelper.sortNumber(sortedDeityCount, true);
     console.log(sortedDeityCount);
     this.commentOnOneDeityCount(sortedDeityCount[len - 1]);
 
-    for (let index = 0; index<len; index++) {
+    for (let index = 0; index < len; index++) {
       this.commentOnTwoDeitiesCount(
         sortedDeityCount[len - 1],
         sortedDeityCount[len - 2 - index]
       );
     }
 
-    for (let index = 0; index<len; index++) {
+    for (let index = 0; index < len; index++) {
       this.commentOnThreeDeitiesCount(
         sortedDeityCount[len - 1],
         sortedDeityCount[len - 2 - index],
@@ -902,7 +821,7 @@ export class BaziObservationBase extends ObservationBase {
     let pilarType;
     let isUnique = false;
     const DOT = ".";
-    const eNeRElement = this.deityElements[eNeR.ordinal()];
+    const eNeRElement = pilarsAttr.getDeityElement(eNeR);
     const dayElement = pilarsAttr.getDayElement();
     const pivotStatus = pilarsAttr.getPivotStatus(eNeRElement);
     const eNeRKey = eNeR.getName();
@@ -928,9 +847,13 @@ export class BaziObservationBase extends ObservationBase {
     }
 
     // Type1a.EE.1&
-    this.addBaseComment("Type1a." + pilarType+ DOT + eNeRKey + DOT + pivotStatus);
+    this.addBaseComment(
+      "Type1a." + pilarType + DOT + eNeRKey + DOT + pivotStatus
+    );
     // Type2a.EE.Y&
-    this.addBaseComment("Type2a." + + pilarType+DOT+ eNeRKey + DOT + pilarKey);
+    this.addBaseComment(
+      "Type2a." + +pilarType + DOT + eNeRKey + DOT + pilarKey
+    );
     // Type2b.{T.B}.EE.{H,M,D,Y}&
     this.addBaseComment("Type2b." + pilarType + DOT + eNeRKey + DOT + pilarKey);
 
@@ -939,7 +862,7 @@ export class BaziObservationBase extends ObservationBase {
       "Type2b." + pilarType + DOT + eNeRKey + DOT + pilarKey + DOT + eNeRElement
     );
     const supportElement = eNeRElement.getNextProductiveElement();
-    if (pilarsAttr.elementForce[supportElement.ordinal()]) {
+    if (pilarsAttr.getElementForce(supportElement)>0 ) {
       // Type2b.{T.B}.EE.{H,M,D,Y}.Element.ExistSupportElement&
       this.addBaseComment(
         "Type2b." +
@@ -956,7 +879,14 @@ export class BaziObservationBase extends ObservationBase {
     }
     // Type10a1.EE.{H,M,D,Y}.{0..3}&{-,+}.{-,+}
     this.addBaseComment(
-      "Type10a1." +  pilarType +DOT+ eNeRKey + DOT + pilarKey + DOT + pivotStatus
+      "Type10a1." +
+        pilarType +
+        DOT +
+        eNeRKey +
+        DOT +
+        pilarKey +
+        DOT +
+        pivotStatus
     );
     // Type10a2.{T.B}.EE.{H,M,D,Y}.{0..3}& EE on Trunk or Branche
     this.addBaseComment(
@@ -971,7 +901,7 @@ export class BaziObservationBase extends ObservationBase {
     );
     // Type11a.TB.EE.{H,M,D,Y}.{+,-}& + ou - ==
     const deityForce = StringHelper.bool2Str(
-      this.deityForce[eNeR.ordinal()] >= 0
+      pilarsAttr.deityForce[eNeR.ordinal()] >= 0
     );
     this.addBaseComment(
       "Type11a.TB." + eNeRKey + DOT + pilarKey + DOT + deityForce
@@ -998,11 +928,18 @@ export class BaziObservationBase extends ObservationBase {
       const otherENERKey = otherENER.getName();
       const otherBaseENERKey = otherENER.getBaseGroup().getName();
       const otherDeityForce = StringHelper.number2Str(
-        this.deityForce[otherENER.ordinal()]
+        pilarsAttr.deityForce[otherENER.ordinal()]
       );
       // Type2c.{T.B}.EE.PilarKey.EX&
       this.addBaseComment(
-        "Type2c." + pilarType + DOT + eNeRKey + DOT + pilarKey + DOT +  otherENERKey
+        "Type2c." +
+          pilarType +
+          DOT +
+          eNeRKey +
+          DOT +
+          pilarKey +
+          DOT +
+          otherENERKey
       );
       // Type2d.{T.B}.EE.{H,M,D,Y}.{0..3}.EX.{0,-,+}&
       this.addBaseComment(
@@ -1055,12 +992,24 @@ export class BaziObservationBase extends ObservationBase {
           otherDeityForce
       );
       // Type1d.EE.EX(.N0Quy)&
-      if ( this.deityForce[otherENER.ordinal()]!==0 ) {
+      if (pilarsAttr.deityForce[otherENER.ordinal()] !== 0) {
         this.addBaseComment(
-          "Type1d." + pilarType +DOT +eNeRKey + DOT + otherENERKey + this.noQuyNhanSuffix
+          "Type1d." +
+            pilarType +
+            DOT +
+            eNeRKey +
+            DOT +
+            otherENERKey +
+            this.noQuyNhanSuffix
         );
         this.addBaseComment(
-          "Type1b.TB." + eNeRKey + DOT + pivotStatus +DOT+otherENERKey + this.noQuyNhanSuffix
+          "Type1b.TB." +
+            eNeRKey +
+            DOT +
+            pivotStatus +
+            DOT +
+            otherENERKey +
+            this.noQuyNhanSuffix
         );
       }
       // Type1g.{T.B}.EE.DAyforce.pivotStatus{0,1,2,3,4,5)&
@@ -1080,7 +1029,14 @@ export class BaziObservationBase extends ObservationBase {
       );
       // Type1i.EE.DayForce.EX
       this.addBaseComment(
-        "Type1i." + pilarType +DOT +eNeRKey + DOT + dayForce + DOT + otherENERKey
+        "Type1i." +
+          pilarType +
+          DOT +
+          eNeRKey +
+          DOT +
+          dayForce +
+          DOT +
+          otherENERKey
       );
       // TypeTB.EE.EX.B&
       this.addBaseComment("TypeTB." + eNeRKey + DOT + otherENERKey);
@@ -1112,7 +1068,9 @@ export class BaziObservationBase extends ObservationBase {
       );
     }
     // Type4.TB.EE.{H,M,D,Y}.{NVd,Vd}&{-,+}.{-,+}
-    this.addBaseComment("Type4.TB." + eNeRKey + DOT + pilarKey + DOT + voidInfo);
+    this.addBaseComment(
+      "Type4.TB." + eNeRKey + DOT + pilarKey + DOT + voidInfo
+    );
 
     // With secondary Deity
     const secDeities = pilarsAttr.secondaryDeityPilars[pilarIdx];
@@ -1126,7 +1084,9 @@ export class BaziObservationBase extends ObservationBase {
         "Type5e.TB." + eNeRKey + DOT + pilarKey + DOT + secDeitykey
       );
       // Type5b.TB.EE.{TKH, TKI, ... }.{Vd, NVd}&{-,+}.{-,+}
-      this.addBaseComment("Type5b.TB." + eNeRKey + DOT + secDeitykey + voidInfo);
+      this.addBaseComment(
+        "Type5b.TB." + eNeRKey + DOT + secDeitykey + voidInfo
+      );
       // Type5c.{T.B}.EE.{TKH, TKI, ... }&{-,+}.{-,+}
       this.addBaseComment(
         "Type5c." + pilarType + DOT + eNeRKey + DOT + secDeitykey
@@ -1167,7 +1127,9 @@ export class BaziObservationBase extends ObservationBase {
     const lfName = lifeCycle.getName();
 
     // Type8a.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
-    this.addBaseComment("Type8a.TB." + eneBaseKey + DOT + pilarKey + DOT + lfName);
+    this.addBaseComment(
+      "Type8a.TB." + eneBaseKey + DOT + pilarKey + DOT + lfName
+    );
     this.addBaseComment("Type8a.TB" + eNeRKey + DOT + pilarKey + DOT + lfName);
     // Type8b.{T.B}.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
     this.addBaseComment(
@@ -1207,11 +1169,11 @@ export class BaziObservationBase extends ObservationBase {
         lifeCycle.toString()
     );
 
-    for (let index = 0; index < this.deityPilarCount.length; index++) {
+    for (let index = 0; index < pilarsAttr.deityPilarCount.length; index++) {
       const elementENeR = ElementNEnergyRelation.DR.getEnum(index);
       if (elementENeR !== eNeR) {
         let suffix = ".0";
-        if (this.deityPilarCount[index] > 0) {
+        if (pilarsAttr.deityPilarCount[index] > 0) {
           suffix = ".+";
         }
         // Type10b.{T.B}.EE.D.{0..3}.EX.{0,+}&
@@ -1239,7 +1201,7 @@ export class BaziObservationBase extends ObservationBase {
     fromENeR: ElementNEnergyRelation,
     frompilarIdx: number,
     toENeR: ElementNEnergyRelation,
-    toPilarIdx: number,
+    toPilarIdx: number
   ) {
     const pilarsAttr = this.lunar.pilarsAttr;
     const dIndex = LunarBase.DINDEX;
@@ -1264,10 +1226,11 @@ export class BaziObservationBase extends ObservationBase {
     const dayForce = StringHelper.bool2Str(
       pilarsAttr.qiTypeData.isFavorable(QiType.DAYSTATUS)
     );
-    let temp = fromENeRKey + DOT+fromPilarKey+DOT + toENeRKey+DOT+toPilarKey;
-    this.addBaseComment("TypeTB1." + temp );
+    let temp =
+      fromENeRKey + DOT + fromPilarKey + DOT + toENeRKey + DOT + toPilarKey;
+    this.addBaseComment("TypeTB1." + temp);
     this.addBaseComment("TypeTB1." + fromBaseENeRKey + DOT + toBaseENeRKey);
-    this.addBaseComment("TypeTB2." + dayForce+DOT+temp );
+    this.addBaseComment("TypeTB2." + dayForce + DOT + temp);
   }
 
   private commentPilarDeities() {
@@ -1288,19 +1251,23 @@ export class BaziObservationBase extends ObservationBase {
         }
       }
 
-      if ( pilarIdx < pLen-1 ) {
-        const nearPilarIdx = pilarIdx+1;
+      if (pilarIdx < pLen - 1) {
+        const nearPilarIdx = pilarIdx + 1;
         const nearEneR = pilarsAttr.trunkRelation[nearPilarIdx][dIndex];
-        this.commentOnNearPilarDeity(eNeR,pilarIdx,nearEneR,nearPilarIdx);
-         hiddenEnERArr = pilarsAttr.dayHiddenRelation[nearPilarIdx];
+        this.commentOnNearPilarDeity(eNeR, pilarIdx, nearEneR, nearPilarIdx);
+        hiddenEnERArr = pilarsAttr.dayHiddenRelation[nearPilarIdx];
         for (let hiddenIdx = 0; hiddenIdx < hiddenEnERArr.length; hiddenIdx++) {
           const hiddenEnER = hiddenEnERArr[hiddenIdx];
           if (hiddenEnER !== null) {
-            this.commentOnNearPilarDeity(eNeR,pilarIdx,hiddenEnER,nearPilarIdx);
+            this.commentOnNearPilarDeity(
+              eNeR,
+              pilarIdx,
+              hiddenEnER,
+              nearPilarIdx
+            );
           }
         }
       }
-
     }
   }
 
@@ -1323,13 +1290,120 @@ export class BaziObservationBase extends ObservationBase {
     this.commentBrancheName();
   }
 
+  //Element.MAXElement.Other.(0,-)
+  private commentOnElement() {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const DOT = ".";
+    const len = pilarsAttr.elementForce.length;
+    const elementForce=ObjectHelper.newArray(len,0);
+    for (let index = 0; index < len; index++) {
+      elementForce[index]=pilarsAttr.elementForce[index].getValue();
+    }
+    const sortedElementForce = ObjectHelper.cloneArray(elementForce);
+    ObjectHelper.sortNumber(sortedElementForce, true);
+    const max = sortedElementForce[len - 1];
+    for (let index = 0; index < len; index++) {
+      const currForce = sortedElementForce[index];
+      if (currForce === max) break;
+      let suffix = ".";
+      if (currForce === 0) {
+        suffix += "0";
+      } else {
+        suffix += "-";
+      }
+      for (let index2 = 0; index2 < len; index2++) {
+        const currForce2 = elementForce[index2];
+        if (currForce2 === max) {
+          for (let index3 = 0; index3 < len; index3++) {
+            const currForce3 = elementForce[index3];
+            if (currForce3 === currForce) {
+              this.addBaseComment(
+                "Element." +
+                  Element.EARTH.getEnum(index2) +
+                  DOT +
+                  Element.EARTH.getEnum(index3) +
+                  suffix
+              );
+            }
+          }
+        }
+      }
+    }
+  }
+
+  private commentOnThisStructure(structureData: DataWithLog) {
+    if (structureData === null) return;
+    const structure = structureData.getValue() as BaziStructure;
+    const structName = structure.getName();
+    this.addBaseComment("CachCucType1." + structure.getName());
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const eleRValues = ElementNEnergyRelation.getValues();
+    const dIndex = LunarBase.DINDEX;
+    const DOT = ".";
+    for (let index = 0; index < eleRValues.length; index += 2) {
+      const eeR = eleRValues[index];
+      if (eeR.getName() != structName) {
+        const count = pilarsAttr.getPairedRelationCount(eeR, dIndex);
+        for (let index2 = index + 2; index2 < eleRValues.length; index2 += 2) {
+          const eeR2 = eleRValues[index2];
+          if (eeR2.getName() != structName) {
+            const count2 = pilarsAttr.getPairedRelationCount(eeR, dIndex);
+            this.addBaseComment(
+              "CachCucType2." +
+                structure.getName() +
+                DOT +
+                eeR.getName() +
+                DOT +
+                StringHelper.number2Str(count) +
+                DOT +
+                eeR2.getName() +
+                DOT +
+                StringHelper.number2Str(count2)
+            );
+          }
+        }
+      }
+    }
+  }
+
+  //Element.MAXElement.Other.(0,-)
+  private commentOnStructure() {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    this.commentOnThisStructure(pilarsAttr.specialStructure);
+    if (pilarsAttr.specialStructure !== pilarsAttr.structure) {
+      this.commentOnThisStructure(pilarsAttr.structure);
+    }
+  }
+
+  private commentOnBaziDayMaster() {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const dayForce = StringHelper.bool2Str(
+      pilarsAttr.qiTypeData.isFavorable(QiType.DAYSTATUS)
+    );
+    const dIndex = LunarBase.DINDEX;
+    const DOT = ".";
+    const dTrunk = this.lunar.trunkArr[dIndex];
+    const dElement = pilarsAttr.trunkEE[dIndex].getValue().element;
+    this.addBaseComment("DayMaster." + dElement.getName()+DOT+dayForce);
+    this.addBaseComment("DayMaster." + dTrunk.getName()+DOT+dayForce);
+    // Ref3p182 DayMaster.-.DO7K.+.DRIR.+&"
+    const do7KForce = StringHelper.bool2Str(
+      !pilarsAttr.qiTypeData.isFavorable(QiType.DO7K2RWFLEVERAGE)
+    );
+    const drIRForce = StringHelper.bool2Str(
+      pilarsAttr.qiTypeData.isFavorable(QiType.DRIR2RWFLEVERAGE)
+    );
+    const temp = "DayMaster." + dayForce+'.DO7K.'+do7KForce+'.DRIR.'+drIRForce;
+    this.addBaseComment(temp);
+  }
+
+
   override getName() {
     return "bazi Observation";
   }
 
   override initPoint() {
     const pilarsAttr = this.lunar.pilarsAttr;
-    console.log("InitPoint");
     super.initPoint();
     this.evalInitialPoints();
     if (this.hasQuyNhan) {
@@ -1357,5 +1431,56 @@ export class BaziObservationBase extends ObservationBase {
     this.commentOnDeitiesCount();
     this.commentPilarDeities();
     this.commentOnDayForceCombination();
+    this.commentOnElement();
+    this.commentOnStructure();
+    this.commentOnBaziDayMaster();
+  }
+
+  commentOnYearDayMaster(currLunarYear: Bazi) {
+    const DOT = ".";
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const dayForce = StringHelper.bool2Str(
+      pilarsAttr.qiTypeData.isFavorable(QiType.DAYSTATUS)
+    );
+    const do7KForce = StringHelper.bool2Str(
+      !pilarsAttr.qiTypeData.isFavorable(QiType.DO7K2RWFLEVERAGE)
+    );
+    const drIRForce = StringHelper.bool2Str(
+      pilarsAttr.qiTypeData.isFavorable(QiType.DRIR2RWFLEVERAGE)
+    );
+    // Ref3p182.
+    const pivotElements=pilarsAttr.elligiblePivotData.getValue();
+    const yearElement=currLunarYear.getyBranche().getElement();
+    for (let index = 0; index < pivotElements.length; index++) {
+      const pivotElement = pivotElements[index];
+      if(yearElement.isDestructive(pivotElement)) {
+         // Ref3p182 DayMaster.-.DO7K.+.DRIR.+.Hostile&"
+         const temp = "Year.DayMaster." + dayForce+'.DO7K.'+do7KForce+'.DRIR.'+drIRForce+DOT+'Hostile';
+         this.addSupportBaseComment(2,temp)
+      }
+    }
+  }
+
+  commentOnThisYearStructure(currLunarYear: Bazi,structureData: DataWithLog) {
+    if (structureData===null) return ;
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const yTrunkEE=currLunarYear.getyTrunk().elementNEnergy;
+    const birthBaziDTrunkEE = pilarsAttr.trunkEE[LunarBase.DINDEX].getValue()
+    const currYTrunkDeity = BaziHelper.getEnNRelation(yTrunkEE,birthBaziDTrunkEE);
+
+  }
+
+  commentOnYearStructure(currLunarYear: Bazi) {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    this.commentOnThisYearStructure(currLunarYear,pilarsAttr.specialStructure);
+    if (pilarsAttr.specialStructure !== pilarsAttr.structure) {
+      this.commentOnThisYearStructure(currLunarYear,pilarsAttr.structure);
+    }
+  }
+
+  commentOnYear(currLunarYear: Bazi) {
+    this.commentOnYearDayMaster(currLunarYear);
+    this.commentOnYearStructure(currLunarYear);
+
   }
 }

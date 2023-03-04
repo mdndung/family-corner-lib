@@ -145,7 +145,7 @@ export class HalacHoroscope extends HoroscopeContributor {
         }
     }
 
-    genYearTheme(currAge: number): void{
+    genYearTheme(currAge: number,currDate: MyCalendar): void{
         const iterator = new HalacThemeIterator(this.birthTheme);
         iterator.initAgeHexagramIterator(currAge);
         const yearTheme = YiJing.getInstanceFromHexaArr(
@@ -184,14 +184,14 @@ export class HalacHoroscope extends HoroscopeContributor {
 
     }
 
-    prepareQiDataType(currAge: number) {
+    prepareQiDataType(currAge: number,currDate: MyCalendar) {
         this.genMainDestinyPeriod(this.birthTheme.principalPeriodArr, currAge, true);
         this.genMainDestinyPeriod(
             this.birthTheme.secondaryPeriodArr,
             currAge,
             false
         );
-        this.genYearTheme(currAge);
+        this.genYearTheme(currAge,currDate);
         this.genMonthTheme(currAge);
         this.genDayTheme(currAge);
     }
@@ -199,7 +199,7 @@ export class HalacHoroscope extends HoroscopeContributor {
 
     init(currAge: number): void {
       // First pass init baseQiTypeData
-       this.prepareQiDataType(currAge);
+       this.prepareQiDataType(currAge, this.studyDate);
     }
 
     genBirthTheme(currAge: number): void {

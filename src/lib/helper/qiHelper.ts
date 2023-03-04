@@ -692,6 +692,7 @@ export class QiHelper {
 
     force = QiHelper.getDayTrunkForce(lunar, qiTypeData);
     qiTypeData.addQiTypeForce(QiType.DAYSTATUS, force);
+
     return qiTypeData;
   }
 

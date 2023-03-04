@@ -73,7 +73,7 @@ export class HoroscopeGenerator {
   genYearTheme() {
     PropertyHelper.initHelper(ObsPeriod.YEARTHEME,this.studyDate);
     this.contributors.forEach((contrib) => {
-      contrib.genYearTheme(this.studyAge);
+      contrib.genYearTheme(this.studyAge,this.studyDate);
     });
     this.finalizeSession();
   }
@@ -121,7 +121,6 @@ export class HoroscopeGenerator {
 
   generateTo(toPeriod: ObsPeriod, debugMode:number) {
     HoroscopeHelper.debug=debugMode;
-    console.log('debugMode',debugMode);
     this.init();
     const toIdx = toPeriod.ordinal();
     if (toIdx >= ObsPeriod.BIRTHTHEME.ordinal()) {

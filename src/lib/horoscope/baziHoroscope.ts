@@ -4,6 +4,7 @@ import { BaziObservationBase } from "../mt-data/bazi/baziObservations";
 import { Lunar } from "../mt-data/bazi/lunar";
 import { MyCalendar } from "../mt-data/date/mycalendar";
 import { HoroscopeContributor } from "./horoscopeContributor";
+import { Temporal } from 'temporal-polyfill';
 
 export class BaziHoroscope extends HoroscopeContributor {
 
@@ -34,7 +35,9 @@ export class BaziHoroscope extends HoroscopeContributor {
     }
 
 
-    genYearTheme(currAge: number): void {
+    genYearTheme(currAge: number, currDate: MyCalendar): void {
+      const currAgeBazi=new Bazi(currDate, this.isMan);
+      this.observation.commentOnYear(currAgeBazi);
     }
 
     genMonthTheme(currAge: number) {

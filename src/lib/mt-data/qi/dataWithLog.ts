@@ -94,17 +94,17 @@ export class DataWithLog {
       }
     }
     if (this.value === null) this.value = 0;
-
     if (force !== 0) {
       const currValue = this.getValue();
       this.value += force;
       if ( currValue===0 ) {
-        this.detail = subDetail ;
+        this.detail = detail ;
       } else {
       if ( detail.length===0 ) {
         detail = subDetail ;
         subDetail='';
       }
+    }
       this.detail +=
         "<li>" + currValue + " + (<ol>" +
         detail +
@@ -113,7 +113,6 @@ export class DataWithLog {
         this.value +
         subDetail+
         " </li>" ;
-    }
     }
   }
 

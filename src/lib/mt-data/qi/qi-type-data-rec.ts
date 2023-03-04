@@ -37,7 +37,7 @@ export class QiTypeDataRec {
     if (this.qiTypeForceArr[cIdx] === null) {
       return 0;
     }
-    return this.qiTypeForceArr[cIdx].getValue();
+    return this.qiTypeForceArr[cIdx].getValue().force;
   }
 
   isForceGEThan(qiType: QiType, force: number) {

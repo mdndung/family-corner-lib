@@ -81,11 +81,10 @@ export class BaziStructureHelper {
           ElementNEnergyRelation.DR,
           LunarBase.MINDEX
         );
-        const countFriendFav =
-          pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.RW,
-            LunarBase.DINDEX
-          )
+        const countFriendFav = pilarsAttr.getPairedRelationCount(
+          ElementNEnergyRelation.RW,
+          LunarBase.DINDEX
+        );
         //Ref8p539 case 7
         if (countFav + countFriendFav > BaziStructureHelper.FAVTHRESHHOLD) {
           let structure = null;
@@ -163,7 +162,7 @@ export class BaziStructureHelper {
           "HOA KHI is weak controle element " + restrictElment,
           pilarsAttr.isWeakedElement(restrictElment) +
             " value " +
-            pilarsAttr.elementForce[restrictElment.ordinal()].getValue() +
+            pilarsAttr.getElementForce(restrictElment) +
             " Weak threshold " +
             pilarsAttr.weakThreshHold
         );
@@ -243,11 +242,10 @@ export class BaziStructureHelper {
                 ElementNEnergyRelation.HO
               ) +
               "</li>";
-            const countEC =
-              pilarsAttr.getTrunkPairedRelationCount(
-                ElementNEnergyRelation.RW,
-                LunarBase.DINDEX
-              )
+            const countEC = pilarsAttr.getTrunkPairedRelationCount(
+              ElementNEnergyRelation.RW,
+              LunarBase.DINDEX
+            );
             pilarsAttr.logMe("Tong Sat countEC NE 0", countEC);
             if (countEC !== 0) {
               // See Ref9p284
@@ -315,9 +313,7 @@ export class BaziStructureHelper {
           "<li> with presence " +
           countGDC +
           " of " +
-          BaziStructureHelper.getPairedENumFullName(
-            ElementNEnergyRelation.HO
-          ) +
+          BaziStructureHelper.getPairedENumFullName(ElementNEnergyRelation.HO) +
           "</li>";
         const countRDC = pilarsAttr.getPairedRelationCount(
           ElementNEnergyRelation.DW,
@@ -357,11 +353,10 @@ export class BaziStructureHelper {
                 ElementNEnergyRelation.DO
               );
             ("</li>");
-            const countEC =
-              pilarsAttr.getPairedRelationCount(
-                ElementNEnergyRelation.RW,
-                LunarBase.DINDEX
-              )
+            const countEC = pilarsAttr.getPairedRelationCount(
+              ElementNEnergyRelation.RW,
+              LunarBase.DINDEX
+            );
             if (countEC < countGDC) {
               if (
                 bazi.brancheArr[LunarBase.MINDEX].elementNEnergy !==
@@ -474,11 +469,10 @@ export class BaziStructureHelper {
           ElementNEnergyRelation.DR,
           LunarBase.DINDEX
         );
-        countNonFav =
-          pilarsAttr.getTrunkPairedRelationCount(
-            ElementNEnergyRelation.RW,
-            LunarBase.DINDEX
-          )
+        countNonFav = pilarsAttr.getTrunkPairedRelationCount(
+          ElementNEnergyRelation.RW,
+          LunarBase.DINDEX
+        );
         pilarsAttr.logMe(
           "Tong Tai DR, IR, F, RW count<2",
           countAvoid + countNonFav
@@ -649,9 +643,6 @@ export class BaziStructureHelper {
     let trunkArr = bazi.trunkArr;
     let brancheArr = bazi.brancheArr;
 
-    let dayTrunk = trunkArr[LunarBase.DINDEX];
-    let monthBranche = brancheArr[LunarBase.MINDEX];
-
     let res = null;
 
     res = BaziStructureHelper.getVerySpecialCach(bazi);
@@ -733,6 +724,30 @@ export class BaziStructureHelper {
               "<li>Hidden and Day Trunk Element Energy Relation " +
                 eeR.getMsgFullName()
             );
+          }
+        }
+      }
+    }
+    // Try using pivot
+    if (pilarsAttr.elligiblePivotData !== null) {
+      const elligibleElements = pilarsAttr.elligiblePivotData.getValue();
+      for (let index = 0; index < elligibleElements.length; index++) {
+        const element = elligibleElements[index];
+        for (let i = 0; i < hiddenTrunkArr.length; i++) {
+          const hiddenTrunk = hiddenTrunkArr[i];
+          //
+          for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
+            if (hiddenTrunk.getElement() === element) {
+              const eeR = BaziHelper.getEnNRelation(
+                hiddenTrunk.elementNEnergy,
+                dayTrunkEnE
+              );
+              return BaziStructureHelper.getDataLog(
+                BaziStructure.THUONG_QUAN.getEnum(eeR.ordinal()),
+                "<li>Hidden and Day Trunk Element Energy Relation from pivot element " +
+                  eeR.getMsgFullName()
+              );
+            }
           }
         }
       }
