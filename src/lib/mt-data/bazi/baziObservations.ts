@@ -17,16 +17,17 @@ import { CombAttr } from "./combinationList";
 import { Lunar } from "./lunar";
 import { LunarBase } from "./lunarBase";
 import { SecondaryDeity } from "./secondaryDeity";
+import { Trunk } from "./trunk";
 
 export class BaziObservationBase extends ObservationBase {
   // See to update it for each period
   currPeriodComplementForceFactor = 0.0;
   baseQiTypeData: QiTypeDataRec[];
-  lunar: Lunar;
+  lunar: Bazi;
   hasQuyNhan: boolean;
   noQuyNhanSuffix = "";
 
-  constructor(bazi: Lunar) {
+  constructor(bazi: Bazi) {
     super();
     this.lunar = bazi;
     this.evalQuyNhan();
@@ -1451,22 +1452,35 @@ export class BaziObservationBase extends ObservationBase {
     // Ref3p182.
     const pivotElements=pilarsAttr.elligiblePivotData.getValue();
     const yearElement=currLunarYear.getyBranche().getElement();
+    let temp = '';
+    const tempFix=dayForce+'.DO7K.'+do7KForce+'.DRIR.'+drIRForce+DOT;
     for (let index = 0; index < pivotElements.length; index++) {
       const pivotElement = pivotElements[index];
       if(yearElement.isDestructive(pivotElement)) {
          // Ref3p182 DayMaster.-.DO7K.+.DRIR.+.Hostile&"
-         const temp = "Year.DayMaster." + dayForce+'.DO7K.'+do7KForce+'.DRIR.'+drIRForce+DOT+'Hostile';
+        temp = "Year.DayMaster." +tempFix+'Hostile';
          this.addSupportBaseComment(2,temp)
       }
     }
+    const periodNb=this.lunar.getPeriodNb(currLunarYear.birthDate)
+    const currYTrunkDeity = this.lunar.getPeriodTrunkDeity(periodNb);
+    temp="Period.DayMaster."+tempFix+currYTrunkDeity.getName();
+    console.log("periodNb",periodNb);
+    console.log("Trunk",this.lunar.periodTrunkArr);
+    console.log(temp);
+    this.addUpdatePtsBaseComment(temp);
+  }
+
+  getTrunkDeity(trunk: Trunk) {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const birthBaziDTrunkEE = pilarsAttr.trunkEE[LunarBase.DINDEX].getValue()
+    return BaziHelper.getEnNRelation(trunk.elementNEnergy,birthBaziDTrunkEE);
   }
 
   commentOnThisYearStructure(currLunarYear: Bazi,structureData: DataWithLog) {
     if (structureData===null) return ;
     const pilarsAttr = this.lunar.pilarsAttr;
-    const yTrunkEE=currLunarYear.getyTrunk().elementNEnergy;
-    const birthBaziDTrunkEE = pilarsAttr.trunkEE[LunarBase.DINDEX].getValue()
-    const currYTrunkDeity = BaziHelper.getEnNRelation(yTrunkEE,birthBaziDTrunkEE);
+    const currYTrunkDeity = this.getTrunkDeity(currLunarYear.getyTrunk());
 
   }
 
@@ -1479,8 +1493,8 @@ export class BaziObservationBase extends ObservationBase {
   }
 
   commentOnYear(currLunarYear: Bazi) {
+    this.lunar.evalPeriodData();
     this.commentOnYearDayMaster(currLunarYear);
     this.commentOnYearStructure(currLunarYear);
-
   }
 }

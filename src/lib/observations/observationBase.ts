@@ -64,31 +64,38 @@ export class ObservationBase {
     return PropertyHelper.isArrayElementPresent(this.rawPropCache, key) ;
   }
 
-   insertRawKeyifExistProp(rawKey: string,postFix:string ) {
+  insertRawKeyifExistProp(rawKey: string,postFix:string,updPts?: boolean) {
     const propAttr =  PropertyHelper.getPropertyAttr(rawKey+postFix);
     if (!propAttr.isUndef()) {
-      console.log('Insert defined Raw key ', rawKey)
-      const force = propAttr.force;
-      if ( force!==0 )  {
-        this.incPoints(this.force2Point(force))
-      }
+      console.log("Insert Raw key "+ rawKey, ' Post Fix '+ postFix);
       this.rawPropCache.push(rawKey);
+      if (! (typeof updPts === 'undefined' ) ) {
+        if ( updPts ) {
+          let force = propAttr.force;
+          if (force !== 0) {
+            let points  = this.force2Point(force)
+            points = this.adjustDegree(points);
+            this.incPoints(points);
+            console.log(' Points ' + points)
+          }
+        }
+      }
       return true ;
     }
     return false;
   }
 
-  addBaseComment(rawKey: string): boolean {
+  addBaseComment(rawKey: string,updPts?: boolean): boolean {
     //console.log("addBaseComment ", rawKey);
     if ( this.isRawKeyExist(rawKey) ) return true;
     // Insert if exist property
-    if ( this.insertRawKeyifExistProp(rawKey,'&') ) return true;;
-    if ( this.insertRawKeyifExistProp(rawKey,'&-') ) return true;
-    if ( this.insertRawKeyifExistProp(rawKey,'&+') ) return true;
-    if ( this.insertRawKeyifExistProp(rawKey,'&-.-') ) return true;
-    if ( this.insertRawKeyifExistProp(rawKey,'&-.+') ) return true;
-    if ( this.insertRawKeyifExistProp(rawKey,'&+.-') ) return true;
-    if ( this.insertRawKeyifExistProp(rawKey,'&+.+') ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'&',updPts) ) return true;;
+    if ( this.insertRawKeyifExistProp(rawKey,'&-',updPts) ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'&+',updPts) ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'&-.-',updPts) ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'&-.+',updPts) ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'&+.-',updPts) ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'&+.+',updPts) ) return true;
     return false;
   }
 
@@ -135,8 +142,14 @@ export class ObservationBase {
     return degree;
   }
 
+
+  addUpdatePtsBaseComment(rawKey: string) {
+    this.addBaseComment(rawKey,true);
+  }
+
+
   addSupportBaseComment(degree: number, rawKey: string) {
-    if ( this.addBaseComment(rawKey) ) {
+    if ( this.addBaseComment(rawKey,true) ) {
       if (degree !== 0) {
         degree = this.adjustDegree(degree);
         this.incPoints(degree);

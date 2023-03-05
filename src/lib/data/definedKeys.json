@@ -44,6 +44,14 @@
  "CareerGooda.11": [ 0 , "=Lifea.48a" ],
  "Careerb.24": [ 0 , "=Lifeb.2068==Careerb.24.0" ],
 
+ "Period.DayMaster.-.DO7K.+.DRIR.+.DW&":[
+  -1,
+  "=Period.Bad==Ref3p182p2a"
+],
+ "Period.DayMaster.-.DO7K.+.DRIR.+.IW&":[
+  -1,
+  "=Period.Bad==Ref3p182p2b"
+],
  "Year.DayMaster.-.DO7K.+.DRIR.+.Hostile&": [
   0,
   "=Year.Bad==Ref3p182p1b"
@@ -54,11 +62,19 @@
 ],
 "Ref3p182p1a": [
   0,
-  "=Lifec.1003==Careerb.61"
+  "=General.1==Careerb.61"
 ],
 "Ref3p182p1b": [
   0,
-  "=Careerb.61==Mariageb.28==Lifeb.39==Lifeb.172==Lifeb.70b"
+  "=Careerb.61==Lifeb.39==Lifeb.172==Lifeb.70b"
+],
+"Ref3p182p2a": [
+  0,
+  "=Relationb.2056==Relationb.2081==Mariageb.28"
+],
+"Ref3p182p2b": [
+  0,
+  "=Careerb.61"
 ],
  "Ref13p62_1Detail":
  [ 0 , "=Ref13p62_1Title==DotNewLine==Mountain.Favorable" ],
@@ -45159,9 +45175,13 @@
   "Yin.Act": [
     0
   ],
-  "alac.3.6.ymd.all&-": [
+  "Halac.3.6.ymd.all&-": [
     -2,
     "=Date.Status.Middle==Halac.3.6.ymd.all&"
+  ],
+  "ch.familycorner.bazi.CommentGeneral.Key.Headers": [
+    0,
+    "=General"
   ],
   "ch.familycorner.bazi.CommentCareer.Key.Headers": [
     0,

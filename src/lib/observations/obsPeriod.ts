@@ -3,6 +3,7 @@ import { EnumBaseClass } from '../mt-data/enumBaseClass';
 export class ObsPeriod extends EnumBaseClass {
 
   static BIRTHCATEGORY = [
+    "ch.familycorner.bazi.CommentGeneral",
     "ch.familycorner.bazi.CommentPersonality",
     "ch.familycorner.bazi.CommentFamily",
     "ch.familycorner.bazi.CommentHealth",

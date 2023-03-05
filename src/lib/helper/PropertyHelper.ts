@@ -182,7 +182,7 @@ export class PropertyHelper {
     let key = attr.key;
     switch (attr.keyType) {
       case PropertyType.BASE:
-        console.log('Calling getProperty for base key');
+        //console.log('Calling getProperty for base key');
         break;
       case PropertyType.DEFINED:
         res = PropertyHelper.getJsonElementProperty(definedKeysJson, key);

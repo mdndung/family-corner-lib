@@ -24,6 +24,7 @@ import { QiTypeDataRec } from "../qi/qi-type-data-rec";
 import { ElementLifeCycle } from "../feng-shui/elementLifeCycle";
 import { QiType } from "../qi/qi-type";
 
+
 export class PilarsAttr {
   lunar: Lunar;
   qiTypeData: QiTypeDataRec;

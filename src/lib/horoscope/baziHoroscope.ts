@@ -21,7 +21,8 @@ export class BaziHoroscope extends HoroscopeContributor {
         super(birthDate, studyDate, isMan);
         this.studyBazi=new Bazi(this.studyDate, this.isMan);
         this.birthLunar = new Lunar(birthDate, isMan);
-        this.observation=new BaziObservationBase(this.birthLunar);
+        this.birthBazi = new Bazi(birthDate, isMan);
+        this.observation=new BaziObservationBase(this.birthBazi);
         this.initBaseQiType(this.birthLunar);
     }
 

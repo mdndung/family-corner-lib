@@ -1,4 +1,5 @@
 import { Console } from 'console';
+import { BaziHelper } from '../../helper/baziHelper';
 import { BrancheHelper } from '../../helper/brancheHelper';
 import { DateHelper } from '../../helper/dateHelper';
 import { TrunkHelper } from '../../helper/trunkHelper';
@@ -8,18 +9,75 @@ import { Lunar } from './lunar';
 import { LunarBase } from './lunarBase';
 import { SecondaryDeity } from './secondaryDeity';
 import { Trunk } from './trunk';
-
+import { Temporal } from 'temporal-polyfill';
 
 export class Bazi extends Lunar {
 
   static monthSectTermDate = [6,4,6,5,6,6,7,8,8,8,7,7 ];
   locThanTrunks: Trunk[]= null;
 
+  startPeriodDate: MyCalendar;
+  periodTrunkArr: Trunk[] = [];
+  periodBrancheArr: Branche[] = [];
+  periodDate: MyCalendar[] = [];
+
   constructor(birthDate: MyCalendar, isMan: boolean, trArr?: Trunk[], brArr?: Branche[]) {
     super(birthDate, isMan, trArr, brArr);
     this.locThanTrunks=SecondaryDeity.evalLocThanTrunk(this,this);
   }
 
+  getPeriodDateFromPeriondNb(periodNb: number) {
+    const currPeriod = this.startPeriodDate.getCopy();
+    currPeriod.add(Temporal.Duration.from({ years: periodNb * 10 }));
+    return currPeriod;
+  }
+
+  getPeriodNb(fromDate: MyCalendar) {
+    let res = 0 ;
+    for (let index = 0; index < this.periodDate.length; index++) {
+      const currDate = this.periodDate[index];
+      if ( currDate.afterDate(fromDate) ) break ;
+      res = index;
+    }
+    return res;
+  }
+
+  evalPeriodData() {
+    const maxPeriod=11;
+    this.startPeriodDate = BaziHelper.getStartPeriodDate(this);
+    const direction = BaziHelper.getProgressSign(this);
+
+    this.periodTrunkArr.push(
+      this.getmTrunk().getEnumNextNElement(direction)
+    );
+    this.periodBrancheArr.push(
+      this.getmBranche().getEnumNextNElement(direction)
+    );
+    let datePeriodNb = 0;
+    this.periodDate.push(this.getPeriodDateFromPeriondNb(datePeriodNb));
+    for (let index = 1; index < maxPeriod; index++) {
+      this.periodTrunkArr.push(
+        this.periodTrunkArr[index - 1].getEnumNextNElement(direction)
+      );
+      this.periodBrancheArr.push(
+        this.periodBrancheArr[index - 1].getEnumNextNElement(direction)
+      );
+      datePeriodNb++;
+      this.periodDate.push(this.getPeriodDateFromPeriondNb(datePeriodNb));
+    }
+  }
+
+
+  getTrunkDeity(trunk: Trunk) {
+    return BaziHelper.eNeTrunkRelation(
+      trunk,
+      this.getdTrunk()
+    );
+  }
+
+  getPeriodTrunkDeity(periodNb: number) {
+    return this.getTrunkDeity(this.periodTrunkArr[periodNb])
+  }
 
   override initTrunkBranche() {
     if ( this.trunkArr===null ) {

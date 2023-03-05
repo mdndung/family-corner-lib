@@ -187,6 +187,7 @@ static existsecDeity( secondaryDeityPilar: SecondaryDeity[][], deity: SecondaryD
     };
     return trunkELCArr;
   }
+
   static eNeTrunkRelation(fromTrunk: Trunk, toTrunk: Trunk) {
     return BaziHelper.getEnNRelation(
       fromTrunk.elementNEnergy,
