@@ -53,7 +53,7 @@ export class ZodiacHoroscope extends HoroscopeContributor {
   }
 
   //Ref32p38-p.. Pour révolution solaire et Ref32p159-.. pour thème progressé
-  genPeriodTheme(currAge: number, currMonth: number, currDay: number) {
+  genThisYearTheme(currAge: number, currMonth: number, currDay: number) {
 
     const currPlanetSunRevolutionDate = ZodiacHelper.getPlanetRevolution(
       this.birthTheme,
@@ -96,8 +96,11 @@ export class ZodiacHoroscope extends HoroscopeContributor {
     this.genMansionsDestiny();
   }
 
+  genPeriodTheme(currAge: number,currDate: MyCalendar): void {
+  }
+
   genYearTheme(currAge: number,currDate: MyCalendar): void {
-    this.genPeriodTheme(currAge,this.birthDate.getMonth(), this.birthDate.getDay());
+    this.genThisYearTheme(currAge,this.birthDate.getMonth(), this.birthDate.getDay());
   }
 
   genMonthTheme(currAge: number) {

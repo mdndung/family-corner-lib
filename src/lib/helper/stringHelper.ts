@@ -1,3 +1,4 @@
+import { QiForce } from "../mt-data/qi/qi-force";
 
 export class StringHelper {
 
@@ -5,6 +6,12 @@ export class StringHelper {
 
   static bool2Str(b: boolean) {
     if ( b ) {return '+';}
+    return '-';
+  }
+
+  static  qiForce2Str(qiForce:QiForce) {
+    if ( qiForce===QiForce.NONE) {return '0';}
+    if ( qiForce.isFavorable()) {return '+';}
     return '-';
   }
 

@@ -48,6 +48,8 @@ export abstract class HoroscopeContributor {
 
     abstract genBirthTheme(currAge: number): void;
 
+    abstract genPeriodTheme(currAge: number,currDate: MyCalendar): void;
+
     abstract genYearTheme(currAge: number,currDate: MyCalendar): void;
 
     abstract genMonthTheme(currAge: number): void;

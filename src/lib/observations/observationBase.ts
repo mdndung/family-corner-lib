@@ -76,7 +76,6 @@ export class ObservationBase {
             let points  = this.force2Point(force)
             points = this.adjustDegree(points);
             this.incPoints(points);
-            console.log(' Points ' + points)
           }
         }
       }

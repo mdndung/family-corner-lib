@@ -70,6 +70,15 @@ export class HoroscopeGenerator {
     this.finalizeSession();
   }
 
+
+  genPeriodTheme() {
+    PropertyHelper.initHelper(ObsPeriod.PERIODTHEME,this.studyDate);
+    this.contributors.forEach((contrib) => {
+      contrib.genPeriodTheme(this.studyAge,this.studyDate);
+    });
+    this.finalizeSession();
+  }
+
   genYearTheme() {
     PropertyHelper.initHelper(ObsPeriod.YEARTHEME,this.studyDate);
     this.contributors.forEach((contrib) => {

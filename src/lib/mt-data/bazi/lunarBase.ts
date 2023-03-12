@@ -7,7 +7,7 @@ export class LunarBase {
   static DINDEX=2;
   static HINDEX=3;
   static LINDEX=4;
-  static  ymdhCharArr = [ 'Y', 'M', 'D', 'H' , 'L' ] ;
+  static  ymdhCharArr = [ 'Y', 'M', 'D', 'H' ] ;
 
   static getPilarLabel(index: number) {
     if (index===LunarBase.YINDEX) return "Label.Year";

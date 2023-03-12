@@ -120,6 +120,7 @@ export class QiType extends EnumBaseClass {
   // Evaluation purpose
   static  DO7K2RWFLEVERAGE= new QiType('DO7KRWFGRP',false,'DO7KRWF');
   static  DRIR2RWFLEVERAGE= new QiType('DRIRRWFGRP',false,'DRIRRWF');
+  static  DWIWCOUNT= new QiType('DWIWGRP',false,'DWIW');
 
   isGeneralType: boolean ;
   key: string ;

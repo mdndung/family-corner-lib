@@ -37,7 +37,6 @@ export class PilarsAttr {
   brMonthElement?: Element = null;
 
   trunkRelation: ElementNEnergyRelation[][] = null;
-  brancheRelation: ElementNEnergyRelation[][] = null;
   dayHiddenRelation: ElementNEnergyRelation[][] = null;
 
   secondaryDeityPilars: SecondaryDeity[][] = null;
@@ -53,8 +52,7 @@ export class PilarsAttr {
   favorableThreshHold: number = 0;
 
   combList: CombinationList;
-  specialStructure: DataWithLog;
-  structure: DataWithLog;
+  structure: DataWithLog[];
   pivotForce: number;
   elligiblePivotData: DataWithLog;
 
@@ -410,8 +408,8 @@ export class PilarsAttr {
     const ctrThreshold = rwfForce / 3;
     let qiForce = QiForce.HOSTILE;
     let diff = do7kForce - rwfForce - hoegForce ;
-    let detail = "DO, 7K group - RW F group = diff ";
-    if (diff < 0) {
+    let detail = "DO, 7K group - RW F group = "+diff ;
+    if (diff < 0 ) {
       qiForce = QiForce.NONE;
     } else {
       if (diff < ctrThreshold) {
@@ -422,19 +420,36 @@ export class PilarsAttr {
 
     let force = new DataWithLog(qiForce, detail);
     this.qiTypeData.addQiTypeForce(QiType.DO7K2RWFLEVERAGE, force);
-    const drirCount = this.getDeityGroupCount(ElementNEnergyRelation.DR);
-    qiForce = QiForce.NONE;
-    if (drirCount < 1) {
-      qiForce = QiForce.MEDIUM;
-    } else {
-      qiForce = QiForce.FAVORABLE;
-    }
+
+
+    qiForce =this.getFavorableDeityGroupQiForce(ElementNEnergyRelation.DR);
     detail =
-      "DR, IR count: " + drirCount + " . Influence = " + qiForce.getName();
+      "DR, IR  Influence = " + qiForce.getName();
     force = new DataWithLog(qiForce, detail);
     this.qiTypeData.addQiTypeForce(QiType.DRIR2RWFLEVERAGE, force);
 
+    qiForce = this.getFavorableDeityGroupQiForce(ElementNEnergyRelation.DW);
+    detail =
+      "DW, IW  Influence = " + qiForce.getName();
+    force = new DataWithLog(qiForce, detail);
+    this.qiTypeData.addQiTypeForce(QiType.DWIWCOUNT, force);
+
+
   }
+
+  getFavorableDeityGroupQiForce(ener: ElementNEnergyRelation) {
+    const count = this.getDeityGroupCount(ener);
+    let qiForce = QiForce.NONE;
+    if (count !== 0) {
+      if (count <= 1) {
+        qiForce = QiForce.MEDIUM;
+      } else {
+        qiForce = QiForce.FAVORABLE;
+      }
+    }
+    return qiForce;
+  }
+
 
   private evalDeityCount() {
     const eNERValues = ElementNEnergyRelation.DR.getValues();
@@ -1014,7 +1029,6 @@ export class PilarsAttr {
     const trunkArr = lunar.trunkArr;
     this.dayHiddenRelation = ObjectHelper.newMatrix(MAX_LEN, MAX_LEN, null);
     this.trunkRelation = ObjectHelper.newMatrix(MAX_LEN, MAX_LEN, null);
-    this.brancheRelation = ObjectHelper.newMatrix(MAX_LEN, MAX_LEN, null);
     const brancheBrRelation = ObjectHelper.newMatrix(MAX_LEN, MAX_LEN, null);
 
     for (let pilarCol = 0; pilarCol < MAX_LEN; pilarCol++) {
@@ -1033,12 +1047,6 @@ export class PilarsAttr {
       const toBranche = brancheArr[pilarCol];
       for (let pilarBranche = 0; pilarBranche < MAX_LEN; pilarBranche++) {
         const fromBranche = brancheArr[pilarBranche];
-        // Use original element
-        this.brancheRelation[pilarBranche][pilarCol] =
-          BaziHelper.getEnNRelation(
-            fromBranche.elementNEnergy,
-            toBranche.elementNEnergy
-          );
         brancheBrRelation[pilarBranche][pilarCol] =
           BrancheHelper.getUniqueRelation(fromBranche, toBranche);
       }
@@ -1085,8 +1093,8 @@ export class PilarsAttr {
   }
 
   initStructure() {
-    this.specialStructure = BaziStructureHelper.getCachCuc(this.lunar);
-    this.structure = BaziStructureHelper.getMainCachCuc(this.lunar);
+    const specialStructure = BaziStructureHelper.getCachCucList(this.lunar);
+    this.structure = BaziStructureHelper.getMainCachCucList(this.lunar,specialStructure);
   }
 
   addEmptyElementPivotEE(
@@ -1131,6 +1139,19 @@ export class PilarsAttr {
   isElligilePivotElement(element: Element) {
     return ObjectHelper.hasItem(this.elligiblePivotData.getValue(), element);
   }
+
+  isFavororablePivotElement( checkElement: Element ) {
+
+    const elligibleElements = this.elligiblePivotData.getValue();
+    for (let index = 0; index < elligibleElements.length; index++) {
+      const pivotElement = elligibleElements[index];
+      if ( checkElement=== pivotElement ) return true ;
+      if ( checkElement.isFavorable(pivotElement) ) return true;
+      if ( checkElement.isDestructive(pivotElement) ) return false;
+    }
+    return false
+  }
+
 
   getPivotStatus(element: Element) {
     const isElligible = this.isElligilePivotElement(element);
@@ -1312,7 +1333,8 @@ export class PilarsAttr {
 
   getDayForceLabel(): string {
     const force = this.getDayElementNFriendForce();
-    if (this.isFavorable(force)) return "Label.Day.Favorable";
+    const dayStatusFavorable = this.qiTypeData.isFavorable(QiType.DAYSTATUS)
+    if (this.isFavorable(force)&&dayStatusFavorable) return "Label.Day.Favorable";
     return "Label.Day.Weak";
   }
 

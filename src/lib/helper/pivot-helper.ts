@@ -1,4 +1,3 @@
-
 import { Lunar } from "../mt-data/bazi/lunar";
 import { LunarBase } from "../mt-data/bazi/lunarBase";
 import { SecondaryDeity } from "../mt-data/bazi/secondaryDeity";
@@ -27,7 +26,7 @@ export class PivotHelper {
     const pilarsAttr = lunar.pilarsAttr;
     // Doing iteratively.
     const trunkRelationArr = pilarsAttr.trunkRelation;
-    const dayHiddenRelation= pilarsAttr.dayHiddenRelation;
+    const dayHiddenRelation = pilarsAttr.dayHiddenRelation;
     const eeForceArr = pilarsAttr.elementNEnergyForce;
     const trunkEEArr = pilarsAttr.trunkEE;
     const brancheArr = lunar.brancheArr;
@@ -44,88 +43,148 @@ export class PivotHelper {
 
     for (let index = 0; index < elligiblePivotEERSet.length; index++) {
       const checkRelation = elligiblePivotEERSet[index];
-      let currdiffDayForce;
-      pilarsAttr.logMe(
-        "Pilar " + currPilarIdx + " Check trunk relation " + relation,
-        "Elligible relation " + checkRelation
-      );
+      let currdiffDayForce;;
       if (relation === checkRelation) {
         currdiffDayForce = Math.abs(currEEForce - dayPilarForce);
         if (currdiffDayForce < diffDayPilarForce) {
-          ObjectHelper.pushIfNotExist(selectPivotElements,currEE.element);
-          ObjectHelper.pushIfNotExist(selectTrunk,trunkArr[currPilarIdx])
+          ObjectHelper.pushIfNotExist(selectPivotElements, currEE.element);
+          ObjectHelper.pushIfNotExist(selectTrunk, trunkArr[currPilarIdx]);
           diffDayPilarForce = currdiffDayForce;
         }
         matchCount++;
       }
-      pilarsAttr.logMe(
-        "Pilar " + currPilarIdx + " Check branche hidden relation " + dayHiddenRelation[currPilarIdx],
-        "Elligible relation " + checkRelation
+      const findIdx = ObjectHelper.findIndex(
+        dayHiddenRelation[currPilarIdx],
+        checkRelation
       );
-      const findIdx = ObjectHelper.findIndex(dayHiddenRelation[currPilarIdx],checkRelation);
-      if (findIdx>=0) {
-        const branche =brancheArr[currPilarIdx];
-        const hiddenTrunkArr= BrancheHelper.getHiddenTrunk(branche);
-        currEE = hiddenTrunkArr[findIdx].elementNEnergy
+      if (findIdx >= 0) {
+        const branche = brancheArr[currPilarIdx];
+        const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(branche);
+        currEE = hiddenTrunkArr[findIdx].elementNEnergy;
         currEEForce = eeForceArr[currEE.ordinal()].getValue();
         currdiffDayForce = Math.abs(currEEForce - dayPilarForce);
         if (currdiffDayForce < diffDayPilarForce) {
-          ObjectHelper.pushIfNotExist(selectPivotElements,currEE.element);
-          ObjectHelper.pushIfNotExist(selectTrunk,hiddenTrunkArr[currPilarIdx])
+          ObjectHelper.pushIfNotExist(selectPivotElements, currEE.element);
+          ObjectHelper.pushIfNotExist(
+            selectTrunk,
+            hiddenTrunkArr[currPilarIdx]
+          );
           diffDayPilarForce = currdiffDayForce;
         }
         matchCount++;
       }
-    };
+    }
     return {
-      matchCount, index: currPilarIdx,
-      selectPivotElements: selectPivotElements, selectTrunk,
+      matchCount,
+      index: currPilarIdx,
+      selectPivotElements: selectPivotElements,
+      selectTrunk,
       elligiblePivotData: elligiblePivotData,
     };
   }
 
-  static addIfNotPresent ( pivotRelationSet: ElementNEnergyRelation[],deity: ElementNEnergyRelation) {
+  static addIfNotPresent(
+    pivotRelationSet: ElementNEnergyRelation[],
+    deity: ElementNEnergyRelation
+  ) {
     let res = "";
-    if ( !ObjectHelper.hasItem(pivotRelationSet,deity) ) {
+    if (!ObjectHelper.hasItem(pivotRelationSet, deity)) {
       pivotRelationSet.push(deity);
       res = deity.getName();
-    };
-    return res ;
+    }
+    return res;
   }
 
-  static addEligibleDeityElement(pivotRelationSet:ElementNEnergyRelation[], element: Element, trunkDayEER: ElementNEnergy, header:string) {
-    let eer = ElementNEnergy.getElementNEnergy(element,trunkDayEER.energy.getOpposite());
-    const deity =  BaziHelper.getEnNRelation(eer, trunkDayEER);
-    return PivotHelper.addPairedIfNotPresent(pivotRelationSet,deity,header);
+  static addEligibleDeityEE(
+    pivotRelationSet: ElementNEnergyRelation[],
+    eer: ElementNEnergy,
+    trunkDayEER: ElementNEnergy,
+    header: string
+  ) {
+    const deity = BaziHelper.getEnNRelation(eer, trunkDayEER);
+    return PivotHelper.addElligibleDeity(pivotRelationSet, deity, header);
   }
 
-  static addPairedIfNotPresent ( pivotRelationSet: ElementNEnergyRelation[],deity: ElementNEnergyRelation, header?: string) {
+  static addPairedEligibleDeityElement(
+    pivotRelationSet: ElementNEnergyRelation[],
+    element: Element,
+    trunkDayEER: ElementNEnergy,
+    header: string
+  ) {
+    let eer = ElementNEnergy.getElementNEnergy(
+      element,
+      trunkDayEER.energy.getOpposite()
+    );
+    const deity = BaziHelper.getEnNRelation(eer, trunkDayEER);
+    return PivotHelper.addPairedIfNotPresent(pivotRelationSet, deity, header);
+
+  }
+
+  static addElligibleDeity(
+    pivotRelationSet: ElementNEnergyRelation[],
+    deity: ElementNEnergyRelation,
+    header?: string
+  ) {
     let res = "";
-    let sep = "" ;
     if (typeof header === "undefined") header = "";
-    if ( !ObjectHelper.hasItem(pivotRelationSet,deity) ) {
+    if (!ObjectHelper.hasItem(pivotRelationSet, deity)) {
       pivotRelationSet.push(deity);
-      res = "<li>"+header+" ==>Add deities ("+ deity.getName(); sep = ", ";
-    };
-    const nextDeity = deity.getEnumNextNElement(1);
-    if ( !ObjectHelper.hasItem(pivotRelationSet,nextDeity) ) {
-      pivotRelationSet.push(nextDeity);
-      res += sep + nextDeity.getName() +") in the elligible pivot deities list </li>";
-    };
-    return res ;
+      res = "<li>" + header + " ==>Add deity (" + deity.getName() + ")";
+    }
+    return res;
   }
 
+  static addDeity(pivotRelationSet: ElementNEnergyRelation[], deity: ElementNEnergyRelation, atBeginOfList: boolean ) {
+    if ( atBeginOfList ) {
+      pivotRelationSet.unshift(deity);
+    } else {
+      pivotRelationSet.push(deity);
+    }
+  }
+
+  static addPairedIfNotPresent(
+    pivotRelationSet: ElementNEnergyRelation[],
+    deity: ElementNEnergyRelation,
+    header?: string,
+    atBeginOfList?: boolean
+  ) {
+    let res = "";
+    let sep = "";
+    let count = 0;
+    if (typeof header === "undefined") header = "";
+
+
+    if (typeof atBeginOfList === "undefined") atBeginOfList = false;
+
+    if (!ObjectHelper.hasItem(pivotRelationSet, deity)) {
+     this.addDeity( pivotRelationSet, deity,atBeginOfList );
+      res =  header + " ==>Add deities (" + deity.getName();
+      sep = ", ";
+      count++;
+    }
+    const nextDeity = deity.getEnumNextNElement(1);
+    if (!ObjectHelper.hasItem(pivotRelationSet, nextDeity)) {
+      this.addDeity( pivotRelationSet, nextDeity,atBeginOfList );
+      res += sep + nextDeity.getName();
+      count++;
+    }
+    if (count > 0) {
+      res = "<li>"+res + ") in the elligible pivot deities list </li>";
+    }
+    return res;
+  }
 
   static addElligiblePivotEER(
     lunar: Lunar,
     ee: ElementNEnergy,
     pivotRelationSet: ElementNEnergyRelation[]
-  ) : string {
-
-    const deity =  BaziHelper.getEnNRelation(ee, lunar.getdTrunk().elementNEnergy);
-    return PivotHelper.addIfNotPresent(pivotRelationSet,deity)
+  ): string {
+    const deity = BaziHelper.getEnNRelation(
+      ee,
+      lunar.getdTrunk().elementNEnergy
+    );
+    return PivotHelper.addIfNotPresent(pivotRelationSet, deity);
   }
-
 
   // REF 7a page 97 p7.1: MONTHBRANCHEDAYTRUNKLIFECYCLE (Dụng thần)
   //
@@ -135,26 +194,26 @@ export class PivotHelper {
     const FAVORABLE_LIMIT = 5; // Ref8 p768 give 4 and is not favorable
     const qiTypeData = pilarsAttr.qiTypeData;
     const trunkDayEer = lunar.trunkArr[LunarBase.DINDEX].elementNEnergy;
-    const trunkDayElement=trunkDayEer.element;
+    const trunkDayElement = trunkDayEer.element;
     let details = "<li>Weak Day Trunk Element And Friends Force</li>";
-    let currAddedeer="";
-    let tempElement: Element ;
+    let tempElement: Element;
     if (pilarsAttr.isDayElementNFriendForceFavorable()) {
-      details = "<li>Favorable Day Trunk Element And Friends Force</li>";
-      currAddedeer = PivotHelper.addElligiblePivotEER(
-        lunar,
+      details = PivotHelper.addEligibleDeityEE(
+        pivotRelationSet,
         pilarsAttr.trunkEE[LunarBase.DINDEX].getValue(),
-        pivotRelationSet
+        trunkDayEer,
+        "Favorable Day Trunk Element And Friends Force. "
       );
-      if ( currAddedeer.length>0 ) {
-        details += "<li>Add "+ currAddedeer+" in the elligible pivot deities list</li>"
-      }
     } else {
       //Ref3p398 Enforce a controlled weak day force
-      if ( trunkDayElement.isLostForceRelation(pilarsAttr.brMonthElement)) {
-        details += "<li> Day trunk element is weakened by month branche element </li>";
+      if (trunkDayElement.isLostForceRelation(pilarsAttr.brMonthElement)) {
         tempElement = trunkDayElement.getPrevProductiveElement();
-        details += PivotHelper.addEligibleDeityElement(pivotRelationSet,tempElement,trunkDayEer,'Enforce weak day force');
+        details += PivotHelper.addPairedEligibleDeityElement(
+          pivotRelationSet,
+          tempElement,
+          trunkDayEer,
+          "Day trunk element is weakened by month branche element. Enforce weak day force."
+        );
       }
     }
     //Ref8p129()
@@ -166,187 +225,226 @@ export class PivotHelper {
         SecondaryDeity.KIMTHAN
       )
     ) {
-      details =
-        "<li>Found deity " +
-        SecondaryDeity.KIMTHAN +
-        "Pivot element must be Fire if Found</li>";
       // Pivot must be first on Fire Yang pilar
-      currAddedeer = PivotHelper.addElligiblePivotEER(
-        lunar,
+      const detailKimThan = PivotHelper.addEligibleDeityEE(
+        pivotRelationSet,
         ElementNEnergy.FIREYANG,
-        pivotRelationSet
+        trunkDayEer,
+        "Found deity " +
+          SecondaryDeity.KIMTHAN +
+          "Pivot element must be Fire Yang if Found"
       );
-      if ( currAddedeer.length>0 ) {
-        details += "<li>Add "+ currAddedeer+" in the elligible pivot deities list</li>"
-      }
-      if (pivotRelationSet.length === 0) {
-        // Other wise Pivot must be on Fire Yin pilar
-        currAddedeer = PivotHelper.addElligiblePivotEER(
-          lunar,
+      if (detailKimThan.length === 0) {
+        // Otherwise Pivot must be on Fire Yin pilar
+        details += PivotHelper.addEligibleDeityEE(
+          pivotRelationSet,
           ElementNEnergy.FIREYIN,
-          pivotRelationSet
+          trunkDayEer,
+          "Found deity " +
+            SecondaryDeity.KIMTHAN +
+            "Pivot element must be Fire Yin if Found"
         );
-        if ( currAddedeer.length>0 ) {
-          details += "<li>Add "+ currAddedeer+" in the elligible pivot deities list</li>"
-        }
+      } else {
+        details += detailKimThan;
       }
     }
 
-      // Check if there is an element force null
-      const drirCount = pilarsAttr.getPairedRelationCount(
-        ElementNEnergyRelation.DR,
-        LunarBase.DINDEX
+    // Check if there is an element force null
+    const drirCount = pilarsAttr.getPairedRelationCount(
+      ElementNEnergyRelation.DR,
+      LunarBase.DINDEX
+    );
+
+    let favorableDayPilar = false;
+
+    if (!qiTypeData.isHostile(QiType.DAYSTATUS)) {
+      details += "<li>Non Hostile Day Trunk status</li>";
+      favorableDayPilar = true;
+    }
+
+    if (pilarsAttr.isFavorableElement(trunkDayElement)) {
+      favorableDayPilar = true;
+      tempElement = trunkDayElement.getPrevControlElement();
+      const header =
+        "Favorable Day Element " +
+        trunkDayElement +
+        ". Use " +
+        tempElement +
+        " element to control";
+      details += PivotHelper.addPairedEligibleDeityElement(
+        pivotRelationSet,
+        tempElement,
+        trunkDayEer,
+        header
       );
-
-      let favorableDayPilar = false;
-
-      if (!qiTypeData.isHostile(QiType.DAYSTATUS)) {
-        details += "<li>Non Hostile Day Trunk status</li>";
-        favorableDayPilar = true;
-      }
-
-      if (pilarsAttr.isFavorableElement(trunkDayElement)) {
-        details += "<li>Favorable Day Element " + trunkDayElement + " </li>";
-        favorableDayPilar = true;
-        tempElement = trunkDayElement.getPrevControlElement();
-        const header = "Use control " + tempElement + " deities element";
-        details += PivotHelper.addEligibleDeityElement(pivotRelationSet,tempElement,trunkDayEer,header);
-      }
-      if (favorableDayPilar) {
-        if (drirCount > FAVORABLE_LIMIT) {
-          // Ref8 p484 case 1
-          details += PivotHelper.addPairedIfNotPresent(
-            pivotRelationSet,
-            ElementNEnergyRelation.DW,
-            "Lot of " + drirCount + " DR, IR deities support. Add DW,IW to reduce force"
+    }
+    if (favorableDayPilar) {
+      if (drirCount > FAVORABLE_LIMIT) {
+        // Ref8 p484 case 1
+        details += PivotHelper.addPairedIfNotPresent(
+          pivotRelationSet,
+          ElementNEnergyRelation.DW,
+          "Lot of " +
+            drirCount +
+            " DR, IR deities support. Add DW,IW to reduce force",
+            true
+        );
+      } else {
+        const do7kCount = pilarsAttr.getPairedRelationCount(
+          ElementNEnergyRelation.DO,
+          LunarBase.DINDEX
+        );
+        const dwiwCount = pilarsAttr.getPairedRelationCount(
+          ElementNEnergyRelation.DW,
+          LunarBase.DINDEX
+        );
+        const rwfCount = pilarsAttr.getPairedRelationCount(
+          ElementNEnergyRelation.RW,
+          LunarBase.DINDEX
+        );
+        const hoegCount = pilarsAttr.getPairedRelationCount(
+          ElementNEnergyRelation.RW,
+          LunarBase.DINDEX
+        );
+        const isDayStatusStrong = qiTypeData.hasStrongForce(QiType.DAYSTATUS);
+        if (isDayStatusStrong) {
+          const prefix = "Too Strong Day Status";
+          if (drirCount !== 0 && dwiwCount === 0) {
+            // Ref8 p484-485 case 2
+            details += PivotHelper.addPairedIfNotPresent(
+              pivotRelationSet,
+              ElementNEnergyRelation.HO,
+              prefix + "Add HO or EG deities to control day pilar force",
+              true
             );
-        } else {
-          const do7kCount = pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.DO,
-            LunarBase.DINDEX
-          );
-          const dwiwCount = pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.DW,
-            LunarBase.DINDEX
-          );
-          const rwfCount =
-          pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.RW,
-            LunarBase.DINDEX
-          )  ;
-          const hoegCount =
-          pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.RW,
-            LunarBase.DINDEX
-          )  ;
-          const isDayStatusStrong = qiTypeData.hasStrongForce(QiType.DAYSTATUS);
-          if ( isDayStatusStrong   ) {
-            const prefix="Too Strong Day Status";
-            if ( drirCount!==0 && dwiwCount===0 ) {
-              // Ref8 p484-485 case 2
-                details +=PivotHelper.addPairedIfNotPresent(
-                  pivotRelationSet,
-                  ElementNEnergyRelation.HO,
-                  prefix+"Add HO or EG deities to control day pilar force");
+          } else {
+            if (rwfCount > 2) {
+              // Ref8 p484-485 case 4
+              details += PivotHelper.addPairedIfNotPresent(
+                pivotRelationSet,
+                ElementNEnergyRelation.HO,
+                prefix +
+                  ". Lot of RW, F. Try to use HO or EG deities to reduce force",
+                  true
+              );
             } else {
-              if ( rwfCount>2 ) {
-                // Ref8 p484-485 case 4
-                details +=PivotHelper.addPairedIfNotPresent(
+              if (do7kCount === 0 && hoegCount === 0) {
+                // Ref8 p484-485 case 6
+                details += PivotHelper.addPairedIfNotPresent(
                   pivotRelationSet,
-                  ElementNEnergyRelation.HO,
-                  prefix+". Lot of RW, F. Try to use HO or EG deities to reduce force"
-                  );
-              } else {
-                if ( do7kCount===0 && hoegCount===0 ) {
-                  // Ref8 p484-485 case 6
-                  details +=PivotHelper.addPairedIfNotPresent(
-                    pivotRelationSet,
-                    ElementNEnergyRelation.DW,
-                    prefix+"Add DW, IW to reduce force");
-                }
+                  ElementNEnergyRelation.DW,
+                  prefix + "Add DW, IW to reduce force",
+                  true
+                );
               }
             }
-          } else {
-            if ( qiTypeData.isFavorable(QiType.DAYSTATUS)) {
-              const prefix="Strong Day Status";
-              if ( drirCount!==0 && dwiwCount===0 ) {
-                // Ref8 p484-485 case 3
-                details +=PivotHelper.addPairedIfNotPresent(
+          }
+        } else {
+          if (qiTypeData.isFavorable(QiType.DAYSTATUS)) {
+            const prefix = "Strong Day Status";
+            if (drirCount !== 0 && dwiwCount === 0) {
+              // Ref8 p484-485 case 3
+              details += PivotHelper.addPairedIfNotPresent(
+                pivotRelationSet,
+                ElementNEnergyRelation.DO,
+                prefix + "Add DO, 7K to reduce force"
+              );
+            } else {
+              if (rwfCount > 2) {
+                // Ref8 p484-485 case 5
+                details += PivotHelper.addPairedIfNotPresent(
                   pivotRelationSet,
                   ElementNEnergyRelation.DO,
-                  prefix+"Add DO, 7K to reduce force");
+                  prefix + ".Lot of RW, F. Add DO, 7K to reduce force"
+                );
               } else {
-                if ( rwfCount>2 ) {
-                    // Ref8 p484-485 case 5
-                    details +=PivotHelper.addPairedIfNotPresent(
-                            pivotRelationSet,
-                            ElementNEnergyRelation.DO,
-                            prefix+".Lot of RW, F. Add DO, 7K to reduce force");
-                } else {
-                  if ( do7kCount===0 && hoegCount===0 ) {
-                    // Ref8 p484-485 case 6
-                    details +=PivotHelper.addPairedIfNotPresent(
-                      pivotRelationSet,
-                      ElementNEnergyRelation.DO,prefix+". Add DO, 7K to reduce force");
-                  }
+                if (do7kCount === 0 && hoegCount === 0) {
+                  // Ref8 p484-485 case 6
+                  details += PivotHelper.addPairedIfNotPresent(
+                    pivotRelationSet,
+                    ElementNEnergyRelation.DO,
+                    prefix + ". Add DO, 7K to reduce force"
+                  );
                 }
               }
-          } else {
-            const prefix="Weak Day Status";
-            if ( do7kCount>2 ) {
-                // Ref8 p482 case 1
-                details +=PivotHelper.addPairedIfNotPresent(
-                      pivotRelationSet,
-                      ElementNEnergyRelation.DR,prefix+". Lot of DO, 7K. Add DR, IR to enforce");
             }
-            if ( hoegCount>2 ) {
+          } else {
+            const prefix = "Weak Day Status";
+            if (do7kCount > 2) {
+              // Ref8 p482 case 1
+              details += PivotHelper.addPairedIfNotPresent(
+                pivotRelationSet,
+                ElementNEnergyRelation.DR,
+                prefix + ". Lot of DO, 7K. Add DR, IR to enforce",
+                true
+              );
+            }
+            if (hoegCount > 2) {
               // Ref8 p482 case 2
-              details +=PivotHelper.addPairedIfNotPresent(
-                    pivotRelationSet,
-                    ElementNEnergyRelation.DR,prefix+". Lot of HO EG. Add DR, IR to enforce");
+              details += PivotHelper.addPairedIfNotPresent(
+                pivotRelationSet,
+                ElementNEnergyRelation.DR,
+                prefix + ". Lot of HO EG. Add DR, IR to enforce",
+                true
+              );
             }
-            if ( dwiwCount>2 ) {
+            if (dwiwCount > 2) {
               // Ref8 p483 case 1
-              details +=PivotHelper.addPairedIfNotPresent(
-                    pivotRelationSet,
-                    ElementNEnergyRelation.RW,prefix+". Lot of DW IW. Add RW, F to enforce");
+              details += PivotHelper.addPairedIfNotPresent(
+                pivotRelationSet,
+                ElementNEnergyRelation.RW,
+                prefix + ". Lot of DW IW. Add RW, F to enforce",
+                true
+              );
             }
           }
-        }
-        }
-      } else {
-        details += "<li>Weak Day Trunk</li>";
-        const restrictCaseCount =
-          pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.DR,
-            LunarBase.DINDEX
-          ) +
-          pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.DO,
-            LunarBase.DINDEX
-          ) +
-          pilarsAttr.getPairedRelationCount(
-            ElementNEnergyRelation.DW,
-            LunarBase.DINDEX
-          );
-        const RESTRICT_LIMIT = FAVORABLE_LIMIT;
-        if (restrictCaseCount > RESTRICT_LIMIT) {
-          details += "<li>Lot of " + restrictCaseCount + " dominate deities </li>";
-          if (drirCount > 0) {
-            // Ref3 p99 Cas 1 p182
-            details += "<li>Try to use DR, IR to reduce lost forces </li>";
-            details +=PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DR);
-          } else {
-            // Ref3 p99 Cas 2
-            details += "<li>Try to use RW, F to reduce lost forces </li>";
-            details += PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.RW);
-          }
-        } else {
-          //
-          details += "<li>Not too many " + restrictCaseCount + " dominate deities</li>";
-          details +=PivotHelper.addPairedIfNotPresent(pivotRelationSet, ElementNEnergyRelation.DR);
         }
       }
+    } else {
+      details += "<li>Weak Day Trunk</li>";
+      const restrictCaseCount =
+        pilarsAttr.getPairedRelationCount(
+          ElementNEnergyRelation.DR,
+          LunarBase.DINDEX
+        ) +
+        pilarsAttr.getPairedRelationCount(
+          ElementNEnergyRelation.DO,
+          LunarBase.DINDEX
+        ) +
+        pilarsAttr.getPairedRelationCount(
+          ElementNEnergyRelation.DW,
+          LunarBase.DINDEX
+        );
+      const RESTRICT_LIMIT = FAVORABLE_LIMIT;
+      if (restrictCaseCount > RESTRICT_LIMIT) {
+        details +=
+          "<li>Lot of " + restrictCaseCount + " dominate deities </li>";
+        if (drirCount > 0) {
+          // Ref3 p99 Cas 1 p182
+          details += PivotHelper.addPairedIfNotPresent(
+            pivotRelationSet,
+            ElementNEnergyRelation.DR,
+            "Try to use DR, IR to reduce lost forces",
+            true
+          );
+        } else {
+          // Ref3 p99 Cas 2
+          details += "<li>Try to use RW, F to reduce lost forces </li>";
+          details += PivotHelper.addPairedIfNotPresent(
+            pivotRelationSet,
+            ElementNEnergyRelation.RW
+          );
+        }
+      } else {
+        //
+        details +=
+          "<li>Not too many " + restrictCaseCount + " dominate deities</li>";
+        details += PivotHelper.addPairedIfNotPresent(
+          pivotRelationSet,
+          ElementNEnergyRelation.DR
+        );
+      }
+    }
     return new DataWithLog(pivotRelationSet, details);
   }
 
@@ -382,8 +480,10 @@ export class PivotHelper {
         "<li>Try to use pivot from trunk " + trunks2Search + " </li>";
       trunks2Search.forEach((trunkPivot) => {
         const ee = trunkPivot.elementNEnergy;
-        details +=PivotHelper.addElligiblePivotEER(
-          lunar, ee, elligiblePivotEERData.getValue()
+        details += PivotHelper.addElligiblePivotEER(
+          lunar,
+          ee,
+          elligiblePivotEERData.getValue()
         );
       });
       elligiblePivotEERData.detail +=

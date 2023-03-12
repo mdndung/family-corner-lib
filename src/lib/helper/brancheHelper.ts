@@ -336,7 +336,7 @@ export class BrancheHelper {
 
 
   static getBrancheRelation( brancheRow: Branche,  brancheCol: Branche) {
-    return BrancheRelation.RELATIONARR[brancheRow.ordinal()][brancheCol.ordinal()];
+    return BrancheRelation.RELATIONARR[brancheRow.ordinal()][brancheCol.ordinal()] ;
   }
 
   static getHiddenTrunk(branche: Branche) {

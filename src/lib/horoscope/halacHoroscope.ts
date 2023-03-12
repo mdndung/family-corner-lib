@@ -145,6 +145,10 @@ export class HalacHoroscope extends HoroscopeContributor {
         }
     }
 
+    genPeriodTheme(currAge: number,currDate: MyCalendar): void {
+    }
+
+
     genYearTheme(currAge: number,currDate: MyCalendar): void{
         const iterator = new HalacThemeIterator(this.birthTheme);
         iterator.initAgeHexagramIterator(currAge);

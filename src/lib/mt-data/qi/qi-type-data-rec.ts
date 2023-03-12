@@ -32,6 +32,14 @@ export class QiTypeDataRec {
     return this.qiTypeForceArr[this.getIndex(qiType)];
   }
 
+  getQiForce(qiType: QiType) {
+    const cIdx = this.getIndex(qiType);
+    if (this.qiTypeForceArr[cIdx] === null) {
+      return QiForce.NONE;
+    }
+    return this.qiTypeForceArr[cIdx].getValue();
+  }
+
   getForce(qiType: QiType) {
     const cIdx = this.getIndex(qiType);
     if (this.qiTypeForceArr[cIdx] === null) {

@@ -8,7 +8,6 @@ export class ObsPeriod extends EnumBaseClass {
     "ch.familycorner.bazi.CommentFamily",
     "ch.familycorner.bazi.CommentHealth",
     "ch.familycorner.bazi.CommentCareer",
-    "ch.familycorner.bazi.CommentRelation",
     "ch.familycorner.bazi.CommentFortune"];
     static YEARCATEGORY = [
       "ch.familycorner.bazi.CommentYear"

@@ -1,6 +1,7 @@
 
 import { ColorViewHelper } from "../helper/colorViewHelper";
 import { MessageHelper } from "../helper/messageHelper";
+import { ObjectHelper } from "../helper/objectHelper";
 import { StringHelper } from "../helper/stringHelper";
 import { EnumBaseClass } from "./enumBaseClass";
 import { ElementNEnergy } from "./feng-shui/elementNenergy";
@@ -44,7 +45,7 @@ export class ComponentBase {
   }
 
   getItemNameValue(item: any): string {
-    if ( item===null ) return this.getMessage("Label.NA")
+    if ( ObjectHelper.isNaN(item) ) return this.getMessage("Label.NA")
     if (this.isArray(item)) {
       let res = "";
       let sep = "";
@@ -63,7 +64,9 @@ export class ComponentBase {
           return this.getItemNameValue(item.getValue())
         }
       }
-      return this.getMessage(key);
+      let msg = this.getMessage(key);
+      if ( msg.length===0) msg = key;
+      return msg;
     }
   }
 

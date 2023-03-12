@@ -207,6 +207,10 @@ export class TuViHoroscope extends HoroscopeContributor {
     this.yDaihan = this.tuviPalaceStarMap.getTuViStudyYearBrancheDaiHan(currAge,this.daihan);
   }
 
+  genPeriodTheme(currAge: number,currDate: MyCalendar): void {
+  }
+
+
    genYearTheme(currAge:number,currDate: MyCalendar): void {
     this.initHanPalace(currAge);
     const isDaihanEndPeriod = this.daihan.bigPeriodFromYear+5>currAge;

@@ -54,15 +54,12 @@ export class HoroscopeHelper {
         xcelDoc.addCell(1, res);
       }
     }
-    const currDebug = HoroscopeHelper.debug;
-    HoroscopeHelper.debug=2;
     const otherRes = HoroscopeHelper.getMessagesByCategory(session, attrList, null,displayedKeyArr,displayCategory);
     if ( otherRes.length>0 ) {
         xcelDoc.genEmptyRow();
         xcelDoc.addCellTitle1(0,  MessageHelper.getMessage('Label.Other.Categories'));
         xcelDoc.addCell(1, otherRes);
     }
-    HoroscopeHelper.debug=currDebug;
   }
 
   static addRowLine(
@@ -184,8 +181,11 @@ export class HoroscopeHelper {
         let currMessage='';
         let sep='';
         key1AttrList.forEach(keyAttr => {
+          const temp = HoroscopeHelper.getBaseKeyMessage(session,keyAttr);
+          if ( temp.length>0 ) {
             currMessage+=sep+HoroscopeHelper.getBaseKeyMessage(session,keyAttr) ;
             sep='. ';
+          }
         });
         if ( currMessage.length>0 ) {
           res+=currMessage+'\n';
@@ -198,7 +198,7 @@ export class HoroscopeHelper {
     let res = '';
     if ( !keyAttr.isBase() ) return res ;
     const key = keyAttr.key;
-    if ( HoroscopeHelper.debug==0 ) {
+    if ( HoroscopeHelper.debug===0 ) {
       if ( PropertyHelper.isCandidate(session,keyAttr) ) {
        //res += key+'='+MessageHelper.getMessage(key) ;
        res += MessageHelper.getMessage(key) ;

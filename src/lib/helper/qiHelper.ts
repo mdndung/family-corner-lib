@@ -469,7 +469,7 @@ export class QiHelper {
         }
       }
     }
-    if (! qiForce.isFavorable ) {
+    if (! qiForce.isFavorable() ) {
       for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
         // Examine only month, hour and day. Year is too far and has no influence
         if ( pilarIdx!==LunarBase.YINDEX ) {

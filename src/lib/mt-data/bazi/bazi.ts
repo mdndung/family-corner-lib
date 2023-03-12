@@ -43,6 +43,7 @@ export class Bazi extends Lunar {
   }
 
   evalPeriodData() {
+    if ( this.periodTrunkArr.length>0 ) return ;
     const maxPeriod=11;
     this.startPeriodDate = BaziHelper.getStartPeriodDate(this);
     const direction = BaziHelper.getProgressSign(this);
@@ -77,6 +78,14 @@ export class Bazi extends Lunar {
 
   getPeriodTrunkDeity(periodNb: number) {
     return this.getTrunkDeity(this.periodTrunkArr[periodNb])
+  }
+
+  getPeriodTrunk(periodNb: number) {
+    return this.periodTrunkArr[periodNb]
+  }
+
+  getPeriodBranche(periodNb: number) {
+    return this.periodBrancheArr[periodNb]
   }
 
   override initTrunkBranche() {

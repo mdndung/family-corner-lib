@@ -10,6 +10,7 @@ import { BrancheHelper } from "./brancheHelper";
 import { Lunar } from "../mt-data/bazi/lunar";
 import { DataWithLog } from "../mt-data/qi/dataWithLog";
 import { EnumBaseClass } from "../mt-data/enumBaseClass";
+import { ObjectHelper } from "./objectHelper";
 
 export class BaziStructureHelper {
   static FAVTHRESHHOLD = 3;
@@ -639,42 +640,36 @@ export class BaziStructureHelper {
     return null;
   }
 
-  static getCachCuc(bazi: Lunar): DataWithLog {
-    let trunkArr = bazi.trunkArr;
-    let brancheArr = bazi.brancheArr;
 
-    let res = null;
-
-    res = BaziStructureHelper.getVerySpecialCach(bazi);
-    if (null !== res) return res;
-
-    res = BaziStructureHelper.getChuyenVuongCach(bazi);
-    if (null != res) return res;
-
-    res = BaziStructureHelper.getHoaKhiCach(bazi);
-    if (null != res) return res;
-
-    res = BaziStructureHelper.getTongNhuocCach(bazi);
-    if (null != res) return res;
-
-    res = BaziStructureHelper.getKinhDuongKienLoc(bazi);
-    if (null != res) return res;
-
-    res = BaziStructureHelper.getThienDiaHopCach(bazi);
-    if (null != res) return res;
-
-    res = BaziStructureHelper.getRCRECach(bazi);
-    if (null != res) return res;
-
-    return null;
+  static pushIfNotExist(arr: DataWithLog[],item: DataWithLog) {
+    if ( item===null ) return ;
+    const checkStructure = item.getValue();
+    for (let index = 0; index < arr.length; index++) {
+      const structure = arr[index].getValue();
+      if ( structure===checkStructure) return ;
+    }
+     arr.push(item);
   }
 
-  static getMainCachCuc(bazi: Lunar): DataWithLog {
+  static getCachCucList(bazi: Lunar): DataWithLog[] {
+
+    const res: DataWithLog[] = [];
+    this.pushIfNotExist(res,BaziStructureHelper.getVerySpecialCach(bazi));
+    this.pushIfNotExist(res,BaziStructureHelper.getChuyenVuongCach(bazi));
+    this.pushIfNotExist(res,BaziStructureHelper.getHoaKhiCach(bazi));
+    this.pushIfNotExist(res,BaziStructureHelper.getTongNhuocCach(bazi));
+    this.pushIfNotExist(res,BaziStructureHelper.getKinhDuongKienLoc(bazi));
+    this.pushIfNotExist(res,BaziStructureHelper.getThienDiaHopCach(bazi));
+    this.pushIfNotExist(res, BaziStructureHelper.getRCRECach(bazi));
+    return res;
+  }
+
+  static getMainCachCucList(bazi: Lunar,specialSruct:DataWithLog[]): DataWithLog[] {
     let trunkArr = bazi.trunkArr;
     let brancheArr = bazi.brancheArr;
     let monthBranche = brancheArr[LunarBase.MINDEX];
 
-    let res = null;
+    const res: DataWithLog[] = specialSruct;
 
     // Other Cases: Ref3P356-p367
     // Case Day Trunk Element
@@ -697,11 +692,11 @@ export class BaziStructureHelper {
             monthEnE,
             dayTrunkEnE
           );
-          return BaziStructureHelper.getDataLog(
+          this.pushIfNotExist(res, BaziStructureHelper.getDataLog(
             BaziStructure.THUONG_QUAN.getEnum(monthDayEERelation.ordinal()),
             "<li>Month branche and Day Trunk Element Energy Relation " +
               monthDayEERelation.getMsgFullName()
-          );
+          ));
         }
       }
     }
@@ -719,11 +714,11 @@ export class BaziStructureHelper {
               hiddenTrunk.elementNEnergy,
               dayTrunkEnE
             );
-            return BaziStructureHelper.getDataLog(
+            this.pushIfNotExist(res, BaziStructureHelper.getDataLog(
               BaziStructure.THUONG_QUAN.getEnum(eeR.ordinal()),
               "<li>Hidden and Day Trunk Element Energy Relation " +
                 eeR.getMsgFullName()
-            );
+            ));
           }
         }
       }
@@ -742,17 +737,17 @@ export class BaziStructureHelper {
                 hiddenTrunk.elementNEnergy,
                 dayTrunkEnE
               );
-              return BaziStructureHelper.getDataLog(
+              this.pushIfNotExist(res, BaziStructureHelper.getDataLog(
                 BaziStructure.THUONG_QUAN.getEnum(eeR.ordinal()),
                 "<li>Hidden and Day Trunk Element Energy Relation from pivot element " +
                   eeR.getMsgFullName()
-              );
+              ));
             }
           }
         }
       }
     }
-    return null;
+    return res;
   }
 
   static getPivot(bazi: Lunar) {}

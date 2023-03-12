@@ -23,7 +23,7 @@ export class ElementNEnergyRelation extends EnumBaseClass {
   static  DR= new ElementNEnergyRelation('DR');
   static  IR= new ElementNEnergyRelation('IR');
 
-
+//Ref3p81
   static PRODUCTIVE_CYCLE = [
     ElementNEnergyRelation.RW,
     ElementNEnergyRelation.HO,
@@ -32,6 +32,7 @@ export class ElementNEnergyRelation extends EnumBaseClass {
     ElementNEnergyRelation.DR,
   ];
 
+  //Ref3p81
   static CONTROLLING_CYCLE = [
     ElementNEnergyRelation.RW,
     ElementNEnergyRelation.DO,

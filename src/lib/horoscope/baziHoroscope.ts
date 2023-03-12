@@ -35,6 +35,10 @@ export class BaziHoroscope extends HoroscopeContributor {
       this.baseQiTypeData.push(lunar.pilarsAttr.qiTypeData);
     }
 
+    genPeriodTheme(currAge: number,currDate: MyCalendar): void {
+      const currAgeBazi=new Bazi(currDate, this.isMan);
+      this.observation.commentOnPeriod(currAgeBazi);
+    }
 
     genYearTheme(currAge: number, currDate: MyCalendar): void {
       const currAgeBazi=new Bazi(currDate, this.isMan);

@@ -6,16 +6,16 @@ export class BaziStructure extends EnumBaseClass {
   // Must have the same order as in ElementNEnergyRelation for the
   // Ten first one
   //
-  static  CHINH_AN= new BaziStructure('DR');
-  static  THIEN_AN= new BaziStructure('IR');
-  static  THUONG_QUAN= new BaziStructure('HO');
-  static  THUC_THAN= new BaziStructure('EG');
-  static  CHINH_QUAN= new BaziStructure('DO');
-  static  THAT_SAT= new BaziStructure('7K');
-  static  CHINH_TAI= new BaziStructure('DW');
-  static  THIEN_TAI= new BaziStructure('IW');
   static  KIEP_TAI= new BaziStructure('RW');
   static  TY_KIEN= new BaziStructure('F');
+  static  THUONG_QUAN= new BaziStructure('HO');
+  static  THUC_THAN= new BaziStructure('EG');
+  static  CHINH_TAI= new BaziStructure('DW');
+  static  THIEN_TAI= new BaziStructure('IW');
+  static  CHINH_QUAN= new BaziStructure('DO');
+  static  THAT_SAT= new BaziStructure('7K');
+  static  CHINH_AN= new BaziStructure('DR');
+  static  THIEN_AN= new BaziStructure('IR');
 
   static  KINH_DUONG_KIEN_LOC= new BaziStructure('KDKL');
   static  KHUC_TRUC= new BaziStructure('KT');

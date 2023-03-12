@@ -1,43 +1,43 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { EnumBaseClass } from '../enumBaseClass';
-import { Element } from '../feng-shui/element';
-import { DataWithLog } from '../qi/dataWithLog';
-import { Branche } from './branche';
+import { EnumBaseClass } from "../enumBaseClass";
+import { Element } from "../feng-shui/element";
+import { DataWithLog } from "../qi/dataWithLog";
+import { Branche } from "./branche";
 
 export class BrancheRelation extends EnumBaseClass {
-  static ELEMENTCLASH = new BrancheRelation('EC');
+  static ELEMENTCLASH = new BrancheRelation("EC");
   // Clash. Opposite by center
   // Luc xung
-  static CLASH = new BrancheRelation('C');
+  static CLASH = new BrancheRelation("C");
   // INJURY. Vertical direction
   // Luc Hai
-  static INJURY = new BrancheRelation('I');
+  static INJURY = new BrancheRelation("I");
   // Punition.
   // Hinh
-  static AGRESSIVE = new BrancheRelation('A'); // Tri the
-  static DISRESPECFUL = new BrancheRelation('D'); // Vo an
-  static SCANDALOUS = new BrancheRelation('S');
-  static AUTOPUNITION = new BrancheRelation('T');
+  static AGRESSIVE = new BrancheRelation("A"); // Tri the, Vo An
+  static DISRESPECFUL = new BrancheRelation("D"); // Vo Le
+  static SCANDALOUS = new BrancheRelation("S");
+  static AUTOPUNITION = new BrancheRelation("T");
   //
   // DESTROY,
-  static DESTROY = new BrancheRelation('K');
+  static DESTROY = new BrancheRelation("K");
 
-  static TRANSFORMRESTRICT = new BrancheRelation('TS');
+  static TRANSFORMRESTRICT = new BrancheRelation("TS");
   // FAVORABLE relation
   // Group of 2 with transformation
   // Luc Hop hoa
-  static TRANSFORMPLUS = new BrancheRelation('TF');
+  static TRANSFORMPLUS = new BrancheRelation("TF");
   // Part of Group of 3 (by Season or Direction) With transformation to the related direction's element
   // Tam hoi
-  static SEASON = new BrancheRelation('SE');
-  static MIDSEASON = new BrancheRelation('M'); // Ban Hoi
+  static SEASON = new BrancheRelation("SE");
+  static MIDSEASON = new BrancheRelation("M"); // Ban Hoi
   // Part of Group of 3 to transform to an element
   // Tam hop hoa
-  static COMBINATION = new BrancheRelation('B');
-  static MIDCOMBINATION = new BrancheRelation('N');
+  static COMBINATION = new BrancheRelation("B");
+  static MIDCOMBINATION = new BrancheRelation("N");
 
-  static ELEMENTFAVORABLE = new BrancheRelation('EF');
+  static ELEMENTFAVORABLE = new BrancheRelation("EF");
 
   static RELATIONARR = [
     [
@@ -232,15 +232,20 @@ export class BrancheRelation extends EnumBaseClass {
     super(name);
   }
 
-
-
-  static isRelationPresent(br1: Branche, br2: Branche,relation: BrancheRelation ) {
-    const br1br2RelArr=BrancheRelation.RELATIONARR[br1.ordinal()][br2.ordinal()];
-for (let index = 0; index < br1br2RelArr.length; index++) {
-  const brRel = br1br2RelArr[index];
-    if ( brRel.isEqual(relation)) {return true;}
-}
-return false;
+  static isRelationPresent(
+    br1: Branche,
+    br2: Branche,
+    relation: BrancheRelation
+  ) {
+    const br1br2RelArr =
+      BrancheRelation.RELATIONARR[br1.ordinal()][br2.ordinal()];
+    for (let index = 0; index < br1br2RelArr.length; index++) {
+      const brRel = br1br2RelArr[index];
+      if (brRel.isEqual(relation)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   // Ref3p254
@@ -274,24 +279,21 @@ return false;
   // Ref3p254
   //Ref9p137
   static getCombinaisonResultElement(branche: Branche) {
-    const name='Branche ' +  branche;
+    const name = "Branche " + branche;
     let element = BrancheRelation.getComb3Element(branche);
-    return new DataWithLog(element,name+'Combination of 3 (san he)');
+    return new DataWithLog(element, name + "Combination of 3 (san he)");
   }
-
 
   //Ref3p255
-  static getTransformableSeasonCombination(branche: Branche) : DataWithLog{
-    const name='Branche ' +  branche;
-    return new DataWithLog(branche.season.element,name+' Season element');
+  static getTransformableSeasonCombination(branche: Branche): DataWithLog {
+    const name = "Branche " + branche;
+    return new DataWithLog(branche.season.element, name + " Season element");
   }
-
 
   static getMidCombinaisonResultElement(branche: Branche) {
     let element = BrancheRelation.getComb3Element(branche);
-    return new DataWithLog(element,'Mid Combination of 3 (san he)');
+    return new DataWithLog(element, "Mid Combination of 3 (san he)");
   }
-
 
   //REF3 P253
   //REF9 P140
@@ -321,10 +323,10 @@ return false;
         element = Element.WATER;
         break;
     }
-    return new DataWithLog(element,'Combination of 2');
+    return new DataWithLog(element, "Combination of 2");
   }
 
   isFavorable() {
-    return this.ordinal()>=BrancheRelation.TRANSFORMPLUS.ordinal();
+    return this.ordinal() >= BrancheRelation.TRANSFORMPLUS.ordinal();
   }
 }

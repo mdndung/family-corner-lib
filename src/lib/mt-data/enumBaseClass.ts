@@ -58,6 +58,22 @@ export class EnumBaseClass {
     return res;
   }
 
+  getEnumByName(name: string) {
+    const values=  this.getValues();
+    if (ObjectHelper.isNaN(values)) {
+      console.log('getEnumByName null problem class ', this.getClassName(),
+      ' name ', name);
+    }
+    for (let index = 0; index < values.length; index++) {
+      const element = values[index];
+      if ( element.getName()==name ) return element;
+    }
+    console.log('getEnumByName null problem class ', this.getClassName(),
+      ' not found ', name);
+    return null;
+  }
+
+
   private addNewEnum() {
     const eIdx = this.ordinal();
     if ( eIdx===-1 ) {

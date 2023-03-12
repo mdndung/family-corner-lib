@@ -52,6 +52,49 @@
   -1,
   "=Period.Bad==Ref3p182p2b"
 ],
+
+
+"Period.Hostile&":[-3,"=Ref3p281p1"],
+"Period.Hostile.ATTIRE.DW&":[-1,"=Ref3p281p2"],
+"Ref3p281p1":[0,"=Lifeb.2059==Lifeb.2515"],
+"Ref3p281p2":[0,"=Healthb.21==Lifeb.2515"],
+
+"Period.Hostile.Year.JIA&": [-1,"=Ref3p185p1"],
+"Period.Hostile.Year.DOG&": [-1,"=Ref3p185p2"],
+
+"Period.7k.7k.Y&": [-1,"=Ref3p184p1"],
+"TypeTB1.HO.7K.IR&":  [-2,"=Ref3p184p2"],
+"TypeTB1.IW.7K.IR&":  [3,"=Ref8p467p4"],
+"Ref8p467p4":  [0,"=phuquy"],
+
+"Period.ATTIRE.DR&": [1,"=Familya.1==StudyGooda.4"],
+
+"Year.7k.Cach.7k.EG.0&":[-2,"=Ref8p464p4"],
+"Year.DW.-.Cach.DW.1&":[-1,"=Ref8p466p1"],
+"Ref8p466p1":[0,"=Lifeb.25"],
+
+"Year.DW.Cach.DW&":[1,"Ref8p465p2"],
+"Ref8p465p2":[1,"=Fortunea.1051"],
+"Year.DO.Cach.EG&":[-1,"Ref8p466p2"],
+"Year.DR.Cach.EG&":[-1,"Ref8p466p2"],
+"Year.RW.Cach.EG&":[-1,"Ref8p466p2"],
+"Ref8p466p2":[0,"=General.4"],
+
+"Year.EW.Cach.EG&":[1,"Ref8p466p3"],
+"Ref8p466p3":[0,"=Careera.1029"],
+
+"Type2a.Y.DO&": [1,"=Ref3p89p1"],
+"Type2a.M.DO&": [1,"=Ref3p90p1"],
+
+"Type10b.Y.7K.HO.+&": [1,"=Ref3p91p1"],
+"Type10b.Y.7K.HO.0&": [1,"=Ref3p91p2"],
+"TypeTB1.HO.Y.7K.M&": [2,"=Ref3p91p3"],
+"TypeTB1.HO.H.7K.M&": [2,"=Ref3p91p3"],
+
+"TypeTB1.DO.Y.DR.M&": [1,"=Ref3p92p1"],
+"TypeTB1.DO.H.DR.M&": [1,"=Ref3p92p1"],
+
+
  "Year.DayMaster.-.DO7K.+.DRIR.+.Hostile&": [
   0,
   "=Year.Bad==Ref3p182p1b"
@@ -60,6 +103,33 @@
   0,
   "=Ref3p182p1a"
 ],
+
+"Ref3p89p1": [
+  0,
+  "=Parenta.1026b"
+],
+"Ref3p90p1": [
+  0,
+  "=Persona.5==Parenta.3==Lifea.37a==Lifea.54"
+],
+"Ref3p91p1": [
+  0,
+  "=Careera.120==Careera.16a"
+],
+"Ref3p91p2": [
+  0,
+  "=Origina.6"
+],
+"Ref3p91p3": [
+  0,
+  "=Lifea.55"
+],
+
+"Ref3p92p1": [
+  0,
+  "=Persona.80"
+],
+
 "Ref3p182p1a": [
   0,
   "=General.1==Careerb.61"
@@ -76,6 +146,24 @@
   0,
   "=Careerb.61"
 ],
+"Ref3p184p1": [
+  0,
+  "=Lifeb.2073"
+],
+"Ref3p184p2": [
+  0,
+  "=General.2"
+],
+
+"Ref3p185p1": [
+  0,
+  "=Healthb.2007"
+],
+"Ref3p185p2": [
+  0,
+  "=Healthb.2076"
+],
+
  "Ref13p62_1Detail":
  [ 0 , "=Ref13p62_1Title==DotNewLine==Mountain.Favorable" ],
      "Ref13p62_2Detail":
@@ -160,21 +248,29 @@
     -2,
     "=Ref8p188p11"
   ],
+  "BRType1.S&":[
+    -2,
+    "=Ref8p43p1a"
+  ],
+  "BRType1.S.DEAD&":[
+    -2,
+    "Ref8p43p1b"
+  ],
+  "BRType1.S.REPOSE&":[
+    -2,
+    "Ref8p43p1b"
+  ],
   "BRType1.D&":[
     -2,
-    "TOBECOMPLETED Ref8p43p1a"
+    "=Ref8p43p2"
   ],
-  "F.BRType1.D&":[
-    -2,
-    "TOBECOMPLETED Ref8p43p1a"
+  "BRType1.A&-": [
+    1,
+    "=Ref8p44p3Bad"
   ],
-  "BRType1.D.DEAD&":[
-    -2,
-    "TOBECOMPLETED Ref8p43p1b"
-  ],
-  "BRType1.D.REPOSE&":[
-    -2,
-    "TOBECOMPLETED Ref8p43p1b"
+  "BRType4a.A&+": [
+    1,
+    "=Ref8p44p3Good"
   ],
   "BRType2.B.D.H&+": [
     2,
@@ -227,62 +323,6 @@
     0,
     "=Ref8p39p3"
   ],
-  "BRType3.COCK.RABBIT&-": [
-    -2,
-    "=Lifeb.28a==Healthb.68"
-  ],
-  "BRType3.DOG.DRAGON&-": [
-    -2,
-    "=Ref8p42p5"
-  ],
-  "BRType3.DRAGON.DOG&-": [
-    -2,
-    "=Ref8p42p5"
-  ],
-  "BRType3.GOAT.OX&-": [
-    -2,
-    "=Ref8p42p2"
-  ],
-  "BRType3.HORSE.RAT&-": [
-    -2,
-    "=Ref8p42p1"
-  ],
-  "BRType3.MONKEY.TIGER&-": [
-    -2,
-    "=Ref8p42p3"
-  ],
-  "BRType3.OX.GOAT&-": [
-    -2,
-    "=Ref8p42p2"
-  ],
-  "BRType3.PIG.SNAKE&+": [
-    2,
-    "=Ref8p42p6"
-  ],
-  "BRType3.RABBIT.COCK&-": [
-    -2,
-    "=Ref8p42p4"
-  ],
-  "BRType3.RAT.HORSE&-": [
-    -2,
-    "=Ref8p42p1"
-  ],
-  "BRType3.RAT.RABBIT&+": [
-    2,
-    "=Ref8p43p1Bad"
-  ],
-  "BRType3.RAT.RABBIT&-": [
-    -2,
-    "=Ref8p43p1Good"
-  ],
-  "BRType3.SNAKE.PIG&+": [
-    2,
-    "=Ref8p42p6"
-  ],
-  "BRType3.TIGER.MONKEY&-": [
-    -2,
-    "=Ref8p42p3"
-  ],
   "BRType1.B.WATER&+": [
     1,
     "=Ref8p38p2a"
@@ -303,30 +343,7 @@
     1,
     "=Ref8p39p1"
   ],
-  "BRType4a.TIGER.SNAKE.MONKEY&+": [
-    1,
-    "=Ref8p44p3Good"
-  ],
-  "BRType4a.TIGER.SNAKE.MONKEY&-": [
-    1,
-    "=Ref8p44p3Bad"
-  ],
-  "BRType4b.OX.DOG.GOAT.+&+": [
-    1,
-    "=Ref8p43p2Bad"
-  ],
-  "BRType4b.OX.DOG.GOAT.+&-": [
-    1,
-    "=Ref8p43p2Good"
-  ],
-  "BRType4b.OX.DOG.GOAT.-&+": [
-    1,
-    "=Ref8p43p2Good"
-  ],
-  "BRType4b.OX.DOG.GOAT.-&-": [
-    1,
-    "=Ref8p43p2Bad"
-  ],
+
   "BRType5a.-.D&+": [
     1,
     "=Ref3p470p21Bad==Ref3p471p7"
@@ -1145,48 +1162,130 @@
     -1,
     "=Ref29p409p3"
   ],
-  "CachCucType1.DR&+": [
+
+"Ref8p484p2b":[
+  0,
+  "=Lifea.1019"
+],
+
+
+"Ref8p484p2c":[
+  0,
+  "=Lifeb.28a"
+],
+"Cach.DR.+.1.DO.1.DW.1&":[
+  1,
+  "=Ref8p464p1a"
+],
+"Cach.DR.+.1.DO.1.DW.2&":[
+    -1,
+    ""
+  ],
+  "Cach.DR.+.2.DO.1.DW.2&":[
+    -1,
+    ""
+  ],
+  "Cach.7k.H.2&":[
+    -1,
+    "=Ref8p484p2c"
+  ],
+  "Cach.7k.1.EG.1&":[
+    1,
+    "=Ref8p464p2a"
+  ],
+
+  "Cach.7k.H.1.EG.1&":[
+    1,
+    "=Ref8p484p2b"
+  ],
+  "Cach.7k.H.1.EG.2":[
+    1,
+    "=Cach.7k.H.1.EG.1"
+  ],
+
+  "Ref8p464p1a":[
+    0,
+    "=Lifea.1015"
+  ],
+  "Ref8p464p1b":[
+    -1,
+    "=Lifeb.71"
+  ],
+  "Ref8p464p2a":[
+    0,
+    "=Lifea.1018"
+  ],
+  "Ref8p464p2b":[
+    0,
+    "=Lifeb.28a"
+  ],
+
+  "Ref8p464p4":[
+    0,
+    "=Lifeb.2515"
+  ],
+"Cach.HO.DO.1&-":[-2,"=Ref8p466p4"],
+"Cach.HO.DO.0&":[1,""],
+"Ref8p466p4":[ 0,"=Lifeb.78"],
+
+"Year.DW.Cach.HO.2.+.DW.1&": [1,"=Ref8p466p5"],
+"Ref8p466p5":[ 0,"=Fortunea.12"],
+
+"Year.HO.Cach.HO.1.DW.0&": [-1,"=Ref8p466p6"],
+"Ref8p466p6":[ 0,"=Lifea.231"],
+
+"Year.HO.Cach.7K.1.HO.2&":[-1,"=Ref8p468p1b"],
+"Ref8p468p1b":[ 0,"=Lifeb.2096"],
+"Year.7k.Cach.7K.1.HO.2&-":[-1,"=Ref8p468p2"],
+"Ref8p468p2":[ 0,"=Lifeb.2096==Healthb.30"],
+
+"Year.DW.AGING.Cach.HO.DW.1&":[-1,"=Ref8p467p1"],
+"Year.DW.DEATH.Cach.HO.DW.1&":[-1,"=Ref8p467p1"],
+"Year.DW.REPOSE.Cach.HO.DW.1&":[-1,"=Ref8p467p1"],
+"Ref8p467p1":[ 0,"=Lifeb.111b"],
+
+  "CachType1.DR&+": [
     2,
     "=Ref8p185p1b"
   ],
-  "CachCucType1.DR&-": [
+  "CachType1.DR&-": [
     -2,
     "=Ref8p185p1a"
   ],
-  "CachCucType1.IR&": [
+  "CachType1.IR&": [
     0,
     "=Ref8p185p2==Ref8p186p7"
   ],
-  "CachCucType1.EG&+": [
+  "CachType1.EG&+": [
     2,
     "=Ref8p228p1"
   ],
-  "CachCucType1.DW&": [
+  "CachType1.DW&": [
     0,
     "=Ref8p378p3"
   ],
-  "CachCucType1.DO&": [
+  "CachType1.DO&": [
     0,
     "=Ref8p447p8"
   ],
-  "CachCucType1.7K&": [
+  "CachType1.7K&": [
     0,
     "=Ref8p445p1==Ref8p447p8"
   ],
-  "CachCucType1.IW&": [
+  "CachType1.IW&": [
     0,
     "=Ref8p217p1==Ref8p218p2"
   ],
-  "CachCucType1.IW&+.+": [
+  "CachType1.IW&+.+": [
     3,
-    "=CachCucType1.IW&==Ref8p219p2"
+    "=CachType1.IW&==Ref8p219p2"
   ],
-  "CachCucType1.KDKL&": [
+  "CachType1.KDKL&": [
     0,
     "=Ref8p386p21"
   ],
-  "CachCucType2.IR.DW.+.DO.+&": [
-    0,
+  "CachType2.IR.DW.+.DO.+&": [
+    1,
     "=Ref8p201p1"
   ],
   "Careera.Act": [
@@ -4353,7 +4452,7 @@
     0,
     "=Ref8p175p3b"
   ],
-  "F.TypeTTa.IR.Y.DR.D&": [
+  "F.TypeTB1.IR.Y.DR.D&": [
     1,
     "=Wifeb.33"
   ],
@@ -11743,7 +11842,7 @@
   ],
   "Halac.54.3.ymd.age&": [
     0,
-    "=Lifeb.64b==Lifeb.2513"
+    "=Lifeb.64b==General.2"
   ],
   "Halac.54.3.ymd.all&": [
     0,
@@ -30305,7 +30404,7 @@
   ],
   "Ref28p127p3": [
     0,
-    "=Relationa.3==Personc.16==Persona.174d===Persona.164"
+    "=Relationa.3==Personc.16==Persona.174d==Persona.164"
   ],
   "Ref28p127p4": [
     0,
@@ -36638,30 +36737,6 @@
   "Ref8p429p6b": [
     0
   ],
-  "Ref8p42p1": [
-    0,
-    "=Lifeb.30"
-  ],
-  "Ref8p42p2": [
-    0,
-    "=Careerb.30"
-  ],
-  "Ref8p42p3": [
-    0,
-    "=Relationb.29"
-  ],
-  "Ref8p42p4": [
-    0,
-    "=Lifeb.28a==Healthb.68"
-  ],
-  "Ref8p42p5": [
-    0,
-    "=Personb.317"
-  ],
-  "Ref8p42p6": [
-    0,
-    "=Relationa.8"
-  ],
   "Ref8p430p1": [
     0
   ],
@@ -36676,21 +36751,21 @@
     0,
     "=Origina.1"
   ],
-  "Ref8p43p1Bad": [
+  "Ref8p43p1a": [
     0,
     "=Personb.104==Personb.105==Relationb.27==Relationb.67==Healthb.20==Ref8p43Common"
   ],
-  "Ref8p43p1Good": [
+  "F.Ref8p43p1a": [
     0,
-    "=Ref8p43Common==Persona.55a==Persona.290==Persona.290==Persona.282"
+    "=Husbandb.37==Husbandb.37b==Childb.23==Husbandb.37c"
   ],
-  "Ref8p43p2Bad": [
+  "Ref8p43p1b": [
     0,
-    "=Careerb.30==Relationb.31==Relationb.32==Healthb.20==Ref8p43Common"
+    "=Personb.2005b==Personb.2005c"
   ],
-  "Ref8p43p2Good": [
+  "Ref8p43p2": [
     0,
-    "=Persona.257==Persona.132==Persona.258==Ref8p43Common"
+    "=Relationb.32==Lifea.14==CareerBadb.24"
   ],
   "Ref8p445p1": [
     0
@@ -38033,7 +38108,7 @@
   ],
   "SecDeType1a.KDU.+&": [
     1,
-    "=Ref7_2ap20a===Ref7_2ap39b"
+    "=Ref7_2ap20a==Ref7_2ap39b"
   ],
   "SecDeType1a.KHD.+&": [
     1,
@@ -43265,7 +43340,7 @@
     2,
     "=Ref8p221p7"
   ],
-  "TypeTB1 .HO.DO&-": [
+  "TypeTB1.HO.DO&-": [
     -2,
     "=Ref8p447p6"
   ],
@@ -43505,354 +43580,350 @@
     2,
     "=Ref8p143p5"
   ],
-  "TypeTTa.RW.Y.RW.M&+": [
-    1,
-    "=TypeTTa.RW.Y.RW.Y&+"
-  ],
-  "TypeTTa.RW.Y.RW.Y&+": [
+  "TypeTB1.RW.Y.RW.M&+": [
     1,
     "=Origina.1==Careera.6==Parentb.20==Parentb.21"
   ],
-  "TypeTTa.RW.Y.F.M&+": [
+  "TypeTB1.RW.Y.F.M&+": [
     1,
-    "=TypeTTa.RW.Y.RW.Y&+"
+    "=TypeTB1.RW.Y.RW.M&+"
   ],
-  "TypeTTa.RW.Y.DW.M&+": [
+  "TypeTB1.RW.Y.DW.M&+": [
     1,
     "=Ref8p207p7==Parentb.21"
   ],
-  "TypeTTa.RW.Y.DW.Y&+": [
+  "TypeTB1.RW.Y.DW.Y&+": [
     1,
     "=Parentb.21"
   ],
-  "TypeTTa.RW.Y.DO.M&": [
+  "TypeTB1.RW.Y.DO.M&": [
     1,
     "=Originb.20"
   ],
-  "TypeTTa.RW.Y.7K.M&": [
+  "TypeTB1.RW.Y.7K.M&": [
     1,
     "=Ref8p207p7==Parentb.21==BroSisb.20"
   ],
-  "TypeTTa.RW.Y.7K.Y&": [
+  "TypeTB1.RW.Y.7K.Y&": [
     1,
-    "=TypeTTa.RW.Y.7K.M&"
+    "=TypeTB1.RW.Y.7K.M&"
   ],
-  "TypeTTa.RW.Y.IW.M&+.+": [
+  "TypeTB1.RW.Y.IW.M&+.+": [
     1,
     "=Ref8p215p5"
   ],
-  "TypeTTa.F.M.IW.D&": [
+  "TypeTB1.F.M.IW.D&": [
     1,
     "=Ref3p434p10"
   ],
-  "TypeTTa.F.Y.RW.M&+": [
+  "TypeTB1.F.Y.RW.M&+": [
     1,
     "=Type2c.T.F.Y.F.B&+"
   ],
-  "TypeTTa.F.Y.F.M&+": [
+  "TypeTB1.F.Y.F.M&+": [
     1,
     "=Type2c.T.F.Y.F.B&+"
   ],
-  "TypeTTa.F.Y.DW.M&+": [
+  "TypeTB1.F.Y.DW.M&+": [
     1,
     "=Parentb.21"
   ],
-  "TypeTTa.F.Y.DO.M&": [
+  "TypeTB1.F.Y.DO.M&": [
     1,
     "=Ref8p247p1b==Ref8p247p2"
   ],
-  "TypeTTa.F.Y.7K.M&": [
+  "TypeTB1.F.Y.7K.M&": [
     1,
     "=Ref8p247p2==BroSisb.20"
   ],
-  "TypeTTa.HO.D.DO.H&": [
+  "TypeTB1.HO.D.DO.H&": [
     1,
     "=Ref8p238p7"
   ],
-  "TypeTTa.HO.M.DO.D&": [
+  "TypeTB1.HO.M.DO.D&": [
     1,
     "=Ref8p238p7"
   ],
-  "TypeTTa.HO.Y.HO.M&": [
+  "TypeTB1.HO.Y.HO.M&": [
     1,
     "=Origina.1"
   ],
-  "TypeTTa.HO.Y.DO.M&": [
+  "TypeTB1.HO.Y.DO.M&": [
     1,
     "=Ref8p238p7"
   ],
-  "TypeTTa.DR.M.7K.H&": [
+  "TypeTB1.7K.H.DR.M&": [
     1,
     "=Ref3p551p13"
   ],
-  "TypeTTa.DR.Y.DO.M&": [
+  "TypeTB1.DO.M.DR.Y&": [
     1,
     "=Ref8p144p1"
   ],
-  "TypeTTa.DR.Y.DO.M&+": [
+  "TypeTB1.DO.M.DR.Y&+": [
     1,
     "=Ref8p182p3==Ref8p182p4==Ref8p185p4"
   ],
-  "TypeTTa.DR.Y.7K.M&+": [
+  "TypeTB1.7K.M.DR.Y&+": [
     1,
     "=Ref8p164p2b==Ref8p182p3==Ref8p182p4==Ref8p185p4"
   ],
-  "TypeTTa.IR.M.7K.H&": [
+  "TypeTB1.7K.H.IR.M&": [
     1,
     "=Ref3p551p13"
   ],
-  "TypeTTa.IR.Y.DR.D&": [
+  "TypeTB1.DR.D.IR.Y&": [
     0
   ],
-  "TypeTTa.IR.Y.DO.M&": [
+  "TypeTB1.DO.M.IR.Y&": [
     1,
     "=Ref8p144p1"
   ],
-  "TypeTTa.IR.Y.7K.M&+": [
+  "TypeTB1.7K.M.IR.Y&+": [
     1,
     "=Ref8p164p2b"
   ],
-  "TypeTTa.DW.D.F.H&": [
+  "TypeTB1.F.H.DW.D&": [
     1,
     "=Ref3p434p10"
   ],
-  "TypeTTa.DW.D.7K.H&": [
+  "TypeTB1.DW.D.7K.H&": [
     1,
     "=Ref8p166p5"
   ],
-  "TypeTTa.DW.M.RW.H&": [
+  "TypeTB1.RW.H.DW.M&": [
     1,
     "=Ref8p207p8"
   ],
-  "TypeTTa.DW.M.IW.D&": [
+  "TypeTB1.DW.M.IW.D&": [
     1,
     "=Lifea.15==Fortunea.3"
   ],
-  "TypeTTa.DW.M.IW.H&-": [
+  "TypeTB1.DW.M.IW.H&-": [
     1,
     "=Ref8p207p8"
   ],
-  "TypeTTa.DW.Y.DR.M&+": [
+  "TypeTB1.DW.Y.DR.M&+": [
     1,
     "=Ref8p186p3"
   ],
-  "TypeTTa.DW.Y.IR.M&+": [
+  "TypeTB1.DW.Y.IR.M&+": [
     1,
     "=Ref8p186p3"
   ],
-  "TypeTTa.DW.Y.DW.M&+": [
+  "TypeTB1.DW.Y.DW.M&+": [
     1,
     "=Ref3p434p9"
   ],
-  "TypeTTa.DW.Y.IW.M&": [
+  "TypeTB1.DW.Y.IW.M&": [
     1,
     "=Fortunea.2"
   ],
-  "TypeTTa.DW.Y.IW.M&+": [
+  "TypeTB1.DW.Y.IW.M&+": [
     1,
-    "=Ref3p434p9==TypeTTa.DW.Y.IW.M&"
+    "=Ref3p434p9==TypeTB1.DW.Y.IW.M&"
   ],
-  "TypeTTa.DO.D.HO.H&": [
-    1,
-    "=Ref8p238p7"
-  ],
-  "TypeTTa.DO.M.HO.D&": [
+  "TypeTB1.HO.H.DO.D&": [
     1,
     "=Ref8p238p7"
   ],
-  "TypeTTa.DO.M.7K.H&-": [
+  "TypeTB1.HO.D.DO.M&": [
+    1,
+    "=Ref8p238p7"
+  ],
+  "TypeTB1.DO.M.7K.H&-": [
     1,
     "=Type2c.T.DO.M.2&-"
   ],
-  "TypeTTa.DO.Y.F.M&-": [
+  "TypeTB1.F.M.DO.Y&-": [
     1,
     "=Origina.1"
   ],
-  "TypeTTa.DO.Y.F.M&-.-": [
+  "TypeTB1.F.M.DO.Y&-.-": [
     1,
-    "=TypeTTa.F.Y.DO.M&"
+    "=TypeTB1.F.Y.DO.M&"
   ],
-  "TypeTTa.DO.Y.HO.M&": [
+  "TypeTB1.HO.M.DO.Y&": [
     1,
     "=Ref3p440p1==Ref8p235p8"
   ],
-  "TypeTTa.DO.Y.HO.M&-": [
+  "TypeTB1.HO.M.DO.Y&-": [
     1,
     "=Ref8p238p7==Lifeb.25==Mariageb.22==BroSisb.25"
   ],
-  "TypeTTa.DO.Y.DR.M&+": [
+  "TypeTB1.DO.Y.DR.M&+": [
     1,
     "=Ref8p182p3==Mariageb.22"
   ],
-  "TypeTTa.DO.Y.EG.M&": [
+  "TypeTB1.EG.M.DO.Y&": [
     1,
     "=Mariageb.22"
   ],
-  "TypeTTa.DO.Y.7K.M&+": [
+  "TypeTB1.7K.M.DO.Y&+": [
     1,
     "=Ref8p164p2b==Ref8p182p3==Ref8p182p4==Ref8p185p4"
   ],
-  "TypeTTa.7K.D.IR.H&": [
+  "TypeTB1.7K.D.IR.H&": [
     1,
     "=Ref8p170p4"
   ],
-  "TypeTTa.7K.D.IR.L&": [
+  "TypeTB1.7K.D.IR.L&": [
     1,
     "=Ref8p170p4"
   ],
-  "TypeTTa.7K.D.DW.H&": [
+  "TypeTB1.DW.H.7K.D&": [
     1,
     "=Ref8p166p5"
   ],
-  "TypeTTa.7K.D.IW.H&": [
+  "TypeTB1.IW.H.7K.D&": [
     1,
     "=Ref8p166p5"
   ],
-  "TypeTTa.7K.M.DR.D&": [
+  "TypeTB1.7K.M.DR.D&": [
     1,
     "=Ref8p171p3"
   ],
-  "TypeTTa.7K.M.DR.H&": [
+  "TypeTB1.7K.M.DR.H&": [
     1,
     "=Ref8p171p3"
   ],
-  "TypeTTa.7K.M.DR.L&": [
+  "TypeTB1.7K.M.DR.L&": [
     1,
     "=Ref8p171p3"
   ],
-  "TypeTTa.7K.M.IR.D&": [
+  "TypeTB1.7K.M.IR.D&": [
     1,
     "=Ref8p170p4"
   ],
-  "TypeTTa.7K.M.IR.H&": [
+  "TypeTB1.7K.M.IR.H&": [
     1,
     "=Ref3p551p13==Ref8p170p4"
   ],
-  "TypeTTa.7K.M.IR.L&": [
+  "TypeTB1.7K.M.IR.L&": [
     1,
     "=Ref8p170p4"
   ],
-  "TypeTTa.7K.M.EG.H&+": [
+  "TypeTB1.EG.H.7K.M&+": [
     1,
     "=Ref8p170p11==Ref8p171p7bBad"
   ],
-  "TypeTTa.7K.M.EG.H&-": [
+  "TypeTB1.EG.H.7K.M&-": [
     1,
     "=Ref8p170p11==Ref8p171p7bGood"
   ],
-  "TypeTTa.7K.Y.F.M&-": [
+  "TypeTB1.F.M.7K.Y&-": [
     1,
     "=Origina.1"
   ],
-  "TypeTTa.7K.Y.HO.M&": [
+  "TypeTB1.HO.M.7K.Y&": [
     1,
     "=BroSisb.25"
   ],
-  "TypeTTa.7K.Y.DR.D&": [
+  "TypeTB1.7K.Y.DR.D&": [
     1,
     "=Ref8p171p3"
   ],
-  "TypeTTa.7K.Y.DR.H&": [
+  "TypeTB1.7K.Y.DR.H&": [
     1,
     "=Ref8p171p3"
   ],
-  "TypeTTa.7K.Y.DR.L&": [
+  "TypeTB1.7K.Y.DR.L&": [
     1,
     "=Ref8p171p3"
   ],
-  "TypeTTa.7K.Y.DR.M&": [
+  "TypeTB1.7K.Y.DR.M&": [
     1,
     "=Ref8p164p2b==Ref8p185p4"
   ],
-  "TypeTTa.7K.Y.DR.M&+": [
+  "TypeTB1.7K.Y.DR.M&+": [
     1,
     "=Ref8p182p3"
   ],
-  "TypeTTa.7K.Y.IR.D&": [
+  "TypeTB1.7K.Y.IR.D&": [
     1,
     "=Ref8p170p4"
   ],
-  "TypeTTa.7K.Y.IR.H&": [
+  "TypeTB1.7K.Y.IR.H&": [
     1,
     "=Ref8p170p4"
   ],
-  "TypeTTa.7K.Y.IR.L&": [
+  "TypeTB1.7K.Y.IR.L&": [
     1,
     "=Ref8p170p4"
   ],
-  "TypeTTa.7K.Y.IR.M&": [
+  "TypeTB1.7K.Y.IR.M&": [
     1,
     "=Ref8p164p2b==Ref8p170p4==Ref8p182p3"
   ],
-  "TypeTTa.7K.Y.EG.H&+": [
+  "TypeTB1.EG.H.7K.Y&+": [
     1,
     "=Ref8p171p7bBad"
   ],
-  "TypeTTa.7K.Y.EG.H&-": [
+  "TypeTB1.EG.H.7K.Y&-": [
     1,
     "=Ref8p171p7bGood"
   ],
-  "TypeTTa.7K.Y.EG.M&+": [
+  "TypeTB1.EG.M.7K.Y&+": [
     1,
     "=Ref8p171p7bBad"
   ],
-  "TypeTTa.7K.Y.EG.M&-": [
+  "TypeTB1.EG.M.7K.Y&-": [
     1,
     "=Ref8p171p7bGood"
   ],
-  "TypeTTa.7K.Y.DO.M&-": [
+  "TypeTB1.DO.M.7K.Y&-": [
     1,
     "=Type2c.T.DO.M.2&-"
   ],
-  "TypeTTa.IW.M.RW.H&+": [
+  "TypeTB1.RW.H.IW.M&+": [
     1,
     "=Ref8p216p1"
   ],
-  "TypeTTa.IW.M.7K.D&": [
+  "TypeTB1.IW.M.7K.D&": [
     1,
     "=Ref8p166p5"
   ],
-  "TypeTTa.IW.Y.DR.M&+": [
+  "TypeTB1.IW.Y.DR.M&+": [
     1,
     "=Ref8p186p3"
   ],
-  "TypeTTa.IW.Y.IR.M&+": [
+  "TypeTB1.IW.Y.IR.M&+": [
     1,
     "=Ref8p186p3"
   ],
-  "TypeTTa.IW.Y.DW.M&+": [
+  "TypeTB1.DW.M.IW.Y&+": [
     1,
     "=Ref3p434p9"
   ],
-  "TypeTTa.IW.Y.IW.M&": [
+  "TypeTB1.IW.Y.IW.M&": [
     1,
     "=Ref8p215p4"
   ],
-  "TypeTTa.IW.Y.IW.M&+": [
+  "TypeTB1.IW.Y.IW.M&+": [
     1,
-    "=TypeTTa.IW.Y.IW.M&==Ref3p434p9"
+    "=TypeTB1.IW.Y.IW.M&==Ref3p434p9"
   ],
-  "TypeTTa.T.EG.M.DO.H&+": [
+  "TypeTB1.T.EG.M.DO.H&+": [
     1,
     "=Ref8p225p6"
   ],
-  "TypeTTa.T.EG.M.7K.H&": [
+  "TypeTB1.T.EG.M.7K.H&": [
     1,
     "=Ref8p171p7a==Ref8p170p11"
   ],
-  "TypeTTa.T.EG.Y.7K.H&": [
+  "TypeTB1.T.EG.Y.7K.H&": [
     1,
     "=Ref8p171p7a"
   ],
-  "TypeTTa.T.EG.Y.7K.M&": [
+  "TypeTB1.T.EG.Y.7K.M&": [
     1,
     "=Ref8p171p7a"
   ],
-  "TypeTTa.T.EG.Y.7K.M&+.+": [
+  "TypeTB1.T.EG.Y.7K.M&+.+": [
     1,
     "=Ref8p165p5b"
   ],
-  "TypeTTa.T.EG.Y.7K.M&+.-": [
+  "TypeTB1.T.EG.Y.7K.M&+.-": [
     1,
     "=Ref8p165p5a"
   ],
@@ -44462,7 +44533,7 @@
   ],
   "Year.SecDe.DMA&-": [
     -2,
-    "=Lifeb.2513==Lifea.41"
+    "=General.2==Lifea.41"
   ],
   "Year.SecDe.DMA.KLD&": [
     0,
@@ -45181,7 +45252,7 @@
   ],
   "ch.familycorner.bazi.CommentGeneral.Key.Headers": [
     0,
-    "=General"
+    "=General,Life"
   ],
   "ch.familycorner.bazi.CommentCareer.Key.Headers": [
     0,
@@ -45189,15 +45260,11 @@
   ],
   "ch.familycorner.bazi.CommentFamily.Key.Headers": [
     0,
-    "=Child,Parent,Husband,Wife,BroSis,Mariage,Father,Mother"
+    "=Family,Child,Parent,Husband,Wife,BroSis,Mariage,Father,Mother"
   ],
   "ch.familycorner.bazi.CommentFortune.Key.Headers": [
     0,
     "=Fortune"
-  ],
-  "ch.familycorner.bazi.CommentRelation.Key.Headers": [
-    0,
-    "=Life"
   ],
   "ch.familycorner.bazi.CommentHealth.Key.Headers": [
     0,
@@ -45253,7 +45320,11 @@
   ],
   "phuquyphuctho": [
     0,
-    "=Persona.207a==Persona.1groudddudu74a"
+    "=Persona.207a==Persona.174a"
+  ],
+  "phuquy": [
+    0,
+    "=Persona.207a"
   ],
   "phuquyuyquyentiengtam": [
     0,
