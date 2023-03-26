@@ -7,6 +7,7 @@ import { DateHelper } from './dateHelper';
 import { Element } from '../mt-data/feng-shui/element';
 import { Energy } from '../mt-data/feng-shui/energy';
 import { ElementNEnergy } from '../mt-data/feng-shui/elementNenergy';
+import { ObjectHelper } from './objectHelper';
 
 export class TrunkHelper {
 
@@ -16,6 +17,26 @@ export class TrunkHelper {
 					Trunk.BING,Trunk.WU,Trunk.GENG,Trunk.REN,Trunk.JIA
   ];
 
+  //Ref8p32
+  static TRUNK_HOSTILE = [
+    [Trunk.GENG,Trunk.BING],
+    [Trunk.XIN,Trunk.JI],
+    [Trunk.REN,Trunk.WU],
+    [Trunk.GUI,Trunk.JI],
+    [Trunk.JIA,Trunk.GENG],
+    [Trunk.YI,Trunk.XIN],
+    [Trunk.BING,Trunk.REN],
+    [Trunk.DING,Trunk.GUI],
+    [Trunk.WU,Trunk.JIA],
+    [Trunk.JI,Trunk.YI],
+  ]
+
+  static isTrunkClashed ( trunk1: Trunk, trunk2: Trunk) {
+    const ord1=trunk1.ordinal();
+    const ord2=trunk2.ordinal();
+    return ObjectHelper.hasItem(TrunkHelper.TRUNK_HOSTILE[ord1],trunk2) ||
+    ObjectHelper.hasItem(TrunkHelper.TRUNK_HOSTILE[ord2],trunk1)
+  }
 
   static getYearTrunk( cYear: number ): Trunk{
     while (cYear<=0 ) {cYear+=10;}

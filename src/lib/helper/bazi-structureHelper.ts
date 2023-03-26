@@ -68,10 +68,6 @@ export class BaziStructureHelper {
     const trunkArr = bazi.trunkArr;
     let details = "";
     const trunkDayElement = trunkArr[LunarBase.DINDEX].getElement();
-    pilarsAttr.logMe(
-      "Chuyen Vuong favorable day element ",
-      pilarsAttr.isFavorableElement(trunkDayElement)
-    );
     if (pilarsAttr.isFavorableElement(trunkDayElement)) {
       details +=
         "<li> Favorable trunk day element " + trunkDayElement + "</li>";
@@ -137,17 +133,9 @@ export class BaziStructureHelper {
       CombAttr.TRUNKCOMB5WITHTRANSFORMTYPE,
       LunarBase.DINDEX
     );
-    pilarsAttr.logMe("HOA KHI Transformable Combination 5  ", combAttrList);
     if (combAttrList.length > 0) {
       // Ngũ hợp can ngay
       const trElement = combAttrList[0].resultData;
-      pilarsAttr.logMe(
-        "HOA KHI trElement " + trElement + " in Month Hidden trunk",
-        pilarsAttr.isElementInNonNullForceHiddenTrunk(
-          LunarBase.MINDEX,
-          trElement
-        )
-      );
       if (
         pilarsAttr.isElementInNonNullForceHiddenTrunk(
           LunarBase.MINDEX,
@@ -159,14 +147,6 @@ export class BaziStructureHelper {
           trElement +
           " part of month Element </li>";
         const restrictElment = trElement.getPrevControlElement();
-        pilarsAttr.logMe(
-          "HOA KHI is weak controle element " + restrictElment,
-          pilarsAttr.isWeakedElement(restrictElment) +
-            " value " +
-            pilarsAttr.getElementForce(restrictElment) +
-            " Weak threshold " +
-            pilarsAttr.weakThreshHold
-        );
         if (pilarsAttr.isWeakedElement(restrictElment)) {
           details += "<li>Control element " + restrictElment + " is weak </li>";
           let structure = null;
@@ -199,27 +179,15 @@ export class BaziStructureHelper {
     const pilarsAttr = bazi.pilarsAttr;
 
     let details = "";
-    pilarsAttr.logMe(
-      "TongSat 1 weak day force ",
-      !pilarsAttr.isDayElementNFriendForceFavorable()
-    );
     if (!pilarsAttr.isDayElementNFriendForceFavorable()) {
       details = "<li>Weak Day Force </li>";
       // Ref8p495
-      pilarsAttr.logMe(
-        "TongSat 2 Day trunk not present in day branche ",
-        !pilarsAttr.rootPresent[LunarBase.DINDEX]
-      );
       if (!pilarsAttr.rootPresent[LunarBase.DINDEX]) {
         // Ref8p495 Cas Tong Sat
         details += "<li> day trunk element not present in day branche </li>";
         const countRC = pilarsAttr.getPairedRelationCount(
           ElementNEnergyRelation.DO,
           LunarBase.DINDEX
-        );
-        pilarsAttr.logMe(
-          "Tong Sat countRC >= " + BaziStructureHelper.FAVTHRESHHOLD,
-          countRC
         );
         if (countRC >= BaziStructureHelper.FAVTHRESHHOLD) {
           details +=
@@ -235,7 +203,6 @@ export class BaziStructureHelper {
             ElementNEnergyRelation.HO,
             LunarBase.DINDEX
           );
-          pilarsAttr.logMe("Tong Sat countRC EQ 0", countGDC);
           if (countGDC === 0) {
             details +=
               "<li> absence of " +
@@ -247,7 +214,6 @@ export class BaziStructureHelper {
               ElementNEnergyRelation.RW,
               LunarBase.DINDEX
             );
-            pilarsAttr.logMe("Tong Sat countEC NE 0", countEC);
             if (countEC !== 0) {
               // See Ref9p284
               details +=
@@ -288,10 +254,6 @@ export class BaziStructureHelper {
   static getTongNhiCach(bazi: Lunar): DataWithLog {
     const pilarsAttr = bazi.pilarsAttr;
     let details = "";
-    pilarsAttr.logMe(
-      "TONG NHI 1 weak day force ",
-      !pilarsAttr.isDayElementNFriendForceFavorable()
-    );
     if (!pilarsAttr.isDayElementNFriendForceFavorable()) {
       details = "<li> Weak Day Force</li>";
       let structure = BaziStructure.TONG_NHI;
@@ -305,10 +267,6 @@ export class BaziStructureHelper {
         ElementNEnergyRelation.HO,
         LunarBase.MINDEX
       );
-      pilarsAttr.logMe(
-        "TONG NHI countGDC GT " + BaziStructureHelper.FAVTHRESHHOLD,
-        countGDC
-      );
       if (countGDC > BaziStructureHelper.FAVTHRESHHOLD) {
         details +=
           "<li> with presence " +
@@ -320,7 +278,6 @@ export class BaziStructureHelper {
           ElementNEnergyRelation.DW,
           LunarBase.DINDEX
         );
-        pilarsAttr.logMe("TONG NHI countRDC GT 0 ", countRDC);
         if (countRDC > 0) {
           details +=
             "<li> with presence " +
@@ -339,8 +296,6 @@ export class BaziStructureHelper {
               ElementNEnergyRelation.DO,
               LunarBase.DINDEX
             );
-
-          pilarsAttr.logMe("TONG NHI countGC+CountRC LT 2 ", countGCRC);
           if (countGCRC < 2) {
             details +=
               "<li>with no or litte presence " +
@@ -458,10 +413,6 @@ export class BaziStructureHelper {
     if (!pilarsAttr.isDayElementNFriendForceFavorable()) {
       details = "<li>Weak Day Force </li>";
       let structure = BaziStructure.TONG_TAI;
-      pilarsAttr.logMe(
-        "Tong Tai Day trunk element not present in day branch ",
-        !BaziHelper.isTrunkInBranche(bazi, LunarBase.DINDEX, LunarBase.DINDEX)
-      );
       if (
         !BaziHelper.isTrunkInBranche(bazi, LunarBase.DINDEX, LunarBase.DINDEX)
       ) {
@@ -473,10 +424,6 @@ export class BaziStructureHelper {
         countNonFav = pilarsAttr.getTrunkPairedRelationCount(
           ElementNEnergyRelation.RW,
           LunarBase.DINDEX
-        );
-        pilarsAttr.logMe(
-          "Tong Tai DR, IR, F, RW count<2",
-          countAvoid + countNonFav
         );
 
         if (countAvoid + countNonFav <= 1) {
@@ -538,7 +485,7 @@ export class BaziStructureHelper {
         ElementNEnergyRelation.DO,
       ];
     } else {
-      details = "<li> weak day force </>";
+      details = "<li>Weak day force </>";
       eeRtocheck = [
         ElementNEnergyRelation.DW,
         ElementNEnergyRelation.DO,
@@ -601,17 +548,12 @@ export class BaziStructureHelper {
     const trunkArr = bazi.trunkArr;
     let details = "";
     const trunkDayElement = trunkArr[LunarBase.DINDEX].getElement();
-    pilarsAttr.logMe(
-      "RC favorable day element ",
-      pilarsAttr.isFavorableElement(trunkDayElement)
-    );
     if (pilarsAttr.isFavorableElement(trunkDayElement)) {
       details += "<li> Favorable day Element </li>";
       const countRE = pilarsAttr.getTrunkRelationCount(
         ElementNEnergyRelation.K7,
         LunarBase.DINDEX
       );
-      pilarsAttr.logMe("RC countRC ", countRE);
       if (countRE > 0) {
         details +=
           "<li> presence (" +
@@ -624,7 +566,6 @@ export class BaziStructureHelper {
           ElementNEnergyRelation.EG,
           LunarBase.DINDEX
         );
-        pilarsAttr.logMe("RC countGDC ", countGDC);
         if (countGDC > 0) {
           structure = BaziStructure.CHINH_QUAN;
           details +=

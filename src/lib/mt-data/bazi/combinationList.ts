@@ -26,6 +26,7 @@ export class CombAttr {
   static TRUNKISSUPPORTEDTYPE1 = 20;
   static BRANCHESEASONCOMBTRANSFORMABLETYPE = 21;
   static MIDBRANCHECOMB3TRANSFORMABLETYPE = 22;
+  static TRUNKCLASHTYPE=23;
 
   static STRUCTURETYPE = 0;
 
@@ -275,6 +276,7 @@ export class CombinationList {
   // Reg3p344
   existClashRelation(pilarIdx: number) {
     if ( this.existBrancheRelationType(CombAttr.BRANCHECLASHTYPE,pilarIdx) ) return true;
+    if ( this.existTrunkRelationType(CombAttr.TRUNKCLASHTYPE,pilarIdx) ) return true;
     if ( this.existBrancheRelationType(CombAttr.BRANCHEINJURYTYPE,pilarIdx) ) return true;
     if ( this.existBrancheRelationType(CombAttr.BRANCHEUNGRATEFUL,pilarIdx) ) return true;
     if ( this.existBrancheRelationType(CombAttr.BRANCHEBULLYINGTYPE,pilarIdx) ) return true;

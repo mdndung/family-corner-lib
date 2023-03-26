@@ -1,3 +1,15 @@
+Lưu niên: Năm xem   Ref3p286
+Thái tuế: Địa chi lưu niên Ref3p286
+ElementLifeCycle tab: Ref3p267
+Nagia, Vòng giáp tý: Ref2p18, Ref3p264
+
+TamTai //Ref2p331
+
+Cha Me Pliar year, month
+Vo chong pilar day
+Con cai Pilar Hour
+
+
 Ref 1 . Tu xem bat tu (Ly cu minh)
 Ref 2 . Bi an cua ha do lac thu qua bat tu
 Ref 3 . Du doan theo tu tru thieu vy hoa

@@ -9,14 +9,16 @@ export class ObservationBase {
   points: number = 0;
   isInit: boolean = false ;
   rawPropCache: string[] = [];
+  prefixGenre: string;
 
-  constructor() {
+  constructor(genrePrefix: string) {
     // Initialized when generated only
     this.supportDetail = '?';
     this.points = 0.0;
     this.maxPoints = 0.0;
     this.isInit=false;
     this.rawPropCache=[];
+    this.prefixGenre=genrePrefix;
   }
 
 
@@ -50,7 +52,7 @@ export class ObservationBase {
   evalForceString() {
     const note = this.getNote();
     let res = '&+';
-    if (note <= 65) {
+    if (note <= 60) {
       res = '&';
     }
     if (note < 45) {
@@ -67,16 +69,15 @@ export class ObservationBase {
   insertRawKeyifExistProp(rawKey: string,postFix:string,updPts?: boolean) {
     const propAttr =  PropertyHelper.getPropertyAttr(rawKey+postFix);
     if (!propAttr.isUndef()) {
-      console.log("Insert Raw key "+ rawKey, ' Post Fix '+ postFix);
+      console.log("Insert Raw key "+ rawKey);
       this.rawPropCache.push(rawKey);
       if (! (typeof updPts === 'undefined' ) ) {
         if ( updPts ) {
           let force = propAttr.force;
-          if (force !== 0) {
             let points  = this.force2Point(force)
             points = this.adjustDegree(points);
+            console.log("force ", force, " points "+ points);
             this.incPoints(points);
-          }
         }
       }
       return true ;
@@ -84,7 +85,8 @@ export class ObservationBase {
     return false;
   }
 
-  addBaseComment(rawKey: string,updPts?: boolean): boolean {
+
+  addBaseComment0(rawKey: string,updPts?: boolean): boolean {
     //console.log("addBaseComment ", rawKey);
     if ( this.isRawKeyExist(rawKey) ) return true;
     // Insert if exist property
@@ -95,8 +97,16 @@ export class ObservationBase {
     if ( this.insertRawKeyifExistProp(rawKey,'&-.+',updPts) ) return true;
     if ( this.insertRawKeyifExistProp(rawKey,'&+.-',updPts) ) return true;
     if ( this.insertRawKeyifExistProp(rawKey,'&+.+',updPts) ) return true;
+
     return false;
   }
+
+  addBaseComment(rawKey: string,updPts?: boolean): boolean {
+    let res = this.addBaseComment0(rawKey,updPts);
+    res = res || this.addBaseComment0(this.prefixGenre + rawKey,updPts);
+    return res ;
+  }
+
 
   force2Point(force: number) {
     if (force <= -3) {
@@ -109,8 +119,13 @@ export class ObservationBase {
     if (force == -1) {
       return 4;
     }
-    if (force == 1) {
+
+    if (force == 0) {
       return 6;
+    }
+
+    if (force == 1) {
+      return 7 ;
     }
     if (force == 2) {
       return 8;
@@ -143,6 +158,7 @@ export class ObservationBase {
 
 
   addUpdatePtsBaseComment(rawKey: string) {
+    // adBaseComment with true to update pts
     this.addBaseComment(rawKey,true);
   }
 
@@ -162,6 +178,7 @@ export class ObservationBase {
 
  convertRawProp2Prop() {
   const postFix = this.evalForceString();
+
   const postFixWithoutSep = postFix.substring(1);
   this.rawPropCache.forEach(rawKey => {
     let currKey = rawKey;

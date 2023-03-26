@@ -6,9 +6,9 @@ import { HouseObservation } from './houseObservation';
 
 export class House1Observation extends HouseObservation {
 
-    constructor(house: House, theme: ZodiacTheme) {
-        super(house, theme);
-    }
+  constructor(house: House, theme: ZodiacTheme) {
+    super(house, theme);
+}
 
     commentOnHousePlanet() {
         if (this.house.contains(Planet.SUN)) {

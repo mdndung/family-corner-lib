@@ -112,8 +112,6 @@ export class Element extends EnumBaseClass {
   }
 
   isLostForceRelation(otherElement: Element) {
-    const thisCtrlIdx = ObjectHelper.findIndex(Element.CONTROLLING_CYCLE,this);
-    const otherCtrlIdx = ObjectHelper.findIndex(Element.CONTROLLING_CYCLE,otherElement);
-    return Math.abs(thisCtrlIdx-otherCtrlIdx)===1
+    return this.isProductive(otherElement) || otherElement.isDestructive(this);
   }
 }

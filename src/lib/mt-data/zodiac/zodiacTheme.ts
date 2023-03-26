@@ -76,8 +76,8 @@ export class ZodiacTheme extends ZodiacObservationBase {
 
 
 
-  constructor(themeDate: MyCalendar, coord: CoordinateSystem) {
-    super();
+  constructor(themeDate: MyCalendar, coord: CoordinateSystem,genrePrefix: string) {
+    super(genrePrefix);
     this.themeDate = themeDate;
     this.themeGpsCoord = coord;
     this.themeGpsCoord = coord;
@@ -103,8 +103,8 @@ export class ZodiacTheme extends ZodiacObservationBase {
     return this;
   }
 
-  getInstance(themeDate: MyCalendar, coord: CoordinateSystem) {
-    return new ZodiacTheme(themeDate, coord);
+  getInstance(themeDate: MyCalendar, coord: CoordinateSystem,genrePrefix: string) {
+    return new ZodiacTheme(themeDate, coord,genrePrefix);
   }
 
   getZodiacHoroscope(themeDate: MyCalendar, coord: CoordinateSystem) {
@@ -523,27 +523,22 @@ export class ZodiacTheme extends ZodiacObservationBase {
         let distance = CalcHelper.MinDistanceD(position, bpos);
 
         if (this.isInTolerance(distance, tolerance)) {
-          console.log(prefix+bpStr);
           this.addBaseComment(prefix +bpStr);
         }
         distance = CalcHelper.MinDistanceD(position, birthTheme.getBlackMoonD());
         if ( this.isInTolerance(distance, tolerance)) {
-          console.log(prefix+'Black.Moon');
                 this.addBaseComment(prefix+'Black.Moon');
         };
         distance = CalcHelper.MinDistanceD(position, birthTheme.getFortunePartD());
         if ( this.isInTolerance(distance, tolerance)) {
-          console.log(prefix+'Fortune.Part');
             this.addBaseComment(prefix+'Fortune.Part');
         };
         distance = CalcHelper.MinDistanceD(position, birthTheme.getNorthNodeD());
         if ( this.isInTolerance(distance, tolerance)) {
-          console.log(prefix+'North.Node');
             this.addBaseComment(prefix+'North.Node');
         };
         distance = CalcHelper.MinDistanceD(position, birthTheme.getSouthNodeD());
         if ( this.isInTolerance(distance, tolerance)) {
-          console.log(prefix+'South.Node');
             this.addBaseComment(prefix+'South.Node');
         };
       }

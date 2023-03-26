@@ -14,7 +14,7 @@ export class HouseObservation extends ZodiacObservationBase {
      planetList: Planet[]= null;
 
      constructor( house: House,  theme: ZodiacTheme) {
-         super();
+         super(theme.prefixGenre);
          this.house=house;
          this.theme=theme;
          this.planetAspectList=[];

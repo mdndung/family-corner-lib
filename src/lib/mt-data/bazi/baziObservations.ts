@@ -1,9 +1,12 @@
 import { BaziStructureHelper } from "../../helper/bazi-structureHelper";
 import { BaziHelper } from "../../helper/baziHelper";
 import { BrancheHelper } from "../../helper/brancheHelper";
+import { NagiaHelper } from "../../helper/nagiaHelper";
 import { ObjectHelper } from "../../helper/objectHelper";
+import { QiHelper } from "../../helper/qiHelper";
 import { StringHelper } from "../../helper/stringHelper";
 import { TrunkHelper } from "../../helper/trunkHelper";
+import { BaziHoroscope } from "../../horoscope/baziHoroscope";
 import { ObservationBase } from "../../observations/observationBase";
 import { Element } from "../feng-shui/element";
 import { ElementLifeCycle } from "../feng-shui/elementLifeCycle";
@@ -11,6 +14,8 @@ import { ElementNEnergyRelation } from "../feng-shui/elementNEnergyRelation";
 import { DataWithLog } from "../qi/dataWithLog";
 import { QiType } from "../qi/qi-type";
 import { QiTypeDataRec } from "../qi/qi-type-data-rec";
+import { HalacTheme } from "../yi-jing/halacTheme";
+import { YiJing } from "../yi-jing/yijing";
 import { Bazi } from "./bazi";
 import { BaziStructure } from "./bazi-structure";
 import { Branche } from "./branche";
@@ -27,15 +32,15 @@ export class BaziObservationBase extends ObservationBase {
   lunar: Bazi;
   hasQuyNhan: boolean;
   noQuyNhanSuffix = "";
-  currAttr : any ;
+  currAttr: any;
+  currStudyPeriodQi: any;
+  currStudyYearQi: any;
 
   constructor(bazi: Bazi) {
-    super();
+    super(bazi.getGenrePrefix());
     this.lunar = bazi;
     this.evalQuyNhan();
   }
-
-
 
   private evalQuyNhan() {
     const pilarsAttr = this.lunar.pilarsAttr;
@@ -83,13 +88,13 @@ export class BaziObservationBase extends ObservationBase {
         );
         if (secDeity1 === SecondaryDeity.KIMTHAN) {
           if (pilarsAttr.getElementForce(Element.FIRE) > 0) {
-            this.addBaseComment("SP.KTH.Ref7_2ap21a" + this.noQuyNhanSuffix);
+            this.addUpdatePtsBaseComment("SP.KTH.Ref7_2ap21a" + this.noQuyNhanSuffix);
           } else {
             if (
               pilarsAttr.isFavorableElement(Element.WATER) ||
               pilarsAttr.isFavorableElement(Element.METAL)
             ) {
-              this.addBaseComment("SP.KTH.Ref7_2ap21b" + this.noQuyNhanSuffix);
+              this.addUpdatePtsBaseComment("SP.KTH.Ref7_2ap21b" + this.noQuyNhanSuffix);
             }
           }
         }
@@ -103,7 +108,7 @@ export class BaziObservationBase extends ObservationBase {
           SecondaryDeity.quyNhanArr[index]
         )
       ) {
-        this.addBaseComment("TypeTr1.Y.Quy");
+        this.addUpdatePtsBaseComment("TypeTr1.Y.Quy");
         break;
       }
     }
@@ -135,19 +140,19 @@ export class BaziObservationBase extends ObservationBase {
           DOT +
           StringHelper.number2Str(count);
         // EnERType1.EE.{0,-,+}.EC.{0,-,+}&
-        this.addBaseComment("EnERType1." + temp2);
+        this.addUpdatePtsBaseComment("EnERType1." + temp2);
         for (let index3 = index2 + 1; index3 < len; index3++) {
           count = pilarsAttr.secDeityForceArr[index3];
           const secDeity3 = ElementNEnergyRelation.DR.getEnum(
             index3
           ) as SecondaryDeity;
-          this.addBaseComment(
+          this.addUpdatePtsBaseComment(
             "EnERType1." +
               temp2 +
               DOT +
               secDeity3.getName() +
               DOT +
-              StringHelper.number2Str(count)
+              StringHelper.number2Str(count, BaziStructureHelper.FAVTHRESHHOLD)
           );
         }
       }
@@ -161,7 +166,7 @@ export class BaziObservationBase extends ObservationBase {
     for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
       if (pilarsAttr.hasSecDeity(pilarIdx, SecondaryDeity.VOID)) {
         const lab = LunarBase.getPilarShortLabel(pilarIdx);
-        this.addBaseComment("Vd." + lab);
+        this.addUpdatePtsBaseComment("Vd." + lab);
         pilars += lab;
         count++;
         if (this.hasQuyNhan) {
@@ -169,12 +174,12 @@ export class BaziObservationBase extends ObservationBase {
             this.lunar.pilarsAttr.secondaryDeityPilars[pilarIdx];
           for (let index = 0; index < secDeities.length; index++) {
             const secDeity = secDeities[index];
-            this.addBaseComment("DtyHidden2." + secDeity.getName() + ".Vd.Quy");
+            this.addUpdatePtsBaseComment("DtyHidden2." + secDeity.getName() + ".Vd.Quy");
           }
         }
       }
     }
-    if (count > 0) this.addBaseComment("Vd." + pilars);
+    if (count > 0) this.addUpdatePtsBaseComment("Vd." + pilars);
   }
 
   private commentOnTrunkTransform() {
@@ -194,9 +199,9 @@ export class BaziObservationBase extends ObservationBase {
         const eer = pilarsAttr.trunkRelation[pilarIdx][otherPilar];
         const baseGroupName = eer.getBaseGroup().getName();
         // NGHType1a.eeR.TrfElement&
-        this.addBaseComment("NGHType1c." + baseGroupName + DOT + transfElement);
+        this.addUpdatePtsBaseComment("NGHType1c." + baseGroupName + DOT + transfElement);
         // NGHType1b.{H,M,D,Y}.eeR.Element.{H,M,D,Y}&
-        this.addBaseComment(
+        this.addUpdatePtsBaseComment(
           "NGHType1d." +
             LunarBase.getPilarShortLabel(pilarIdx) +
             DOT +
@@ -214,7 +219,7 @@ export class BaziObservationBase extends ObservationBase {
                 LunarBase.DINDEX
               ) > 0
             ) {
-              this.addBaseComment(
+              this.addUpdatePtsBaseComment(
                 "NGHType2a." +
                   baseGroupName +
                   DOT +
@@ -228,7 +233,7 @@ export class BaziObservationBase extends ObservationBase {
               this.lunar.brancheArr[LunarBase.DINDEX]
             );
             // NGHType2b.eeR.Element.{+,-}.LifeCycle&
-            this.addBaseComment(
+            this.addUpdatePtsBaseComment(
               "NGHType2b." +
                 baseGroupName +
                 DOT +
@@ -256,7 +261,7 @@ export class BaziObservationBase extends ObservationBase {
       const key = QiType.SEASONCOMBINAISON.getName();
       for (let index = 0; index < compAttrList.length; index++) {
         const transfElement = compAttrList[index].resultData;
-        this.addBaseComment(key + DOT + transfElement);
+        this.addUpdatePtsBaseComment(key + DOT + transfElement);
       }
     }
   }
@@ -291,28 +296,28 @@ export class BaziObservationBase extends ObservationBase {
             if (trElement !== null) {
               key =
                 "BRType1" + DOT + relationTypeKey + DOT + trElement.getName();
-              this.addBaseComment(key);
+              this.addUpdatePtsBaseComment(key);
             }
             key = "BRType1" + DOT + relationTypeKey;
-            this.addBaseComment(key);
+            this.addUpdatePtsBaseComment(key);
 
             const lifeCycle = ElementLifeCycle.getElementLifeCycle(
               trunkArr[pilarIdx],
               brancheArr[LunarBase.DINDEX]
             );
             key = "BRType1" + DOT + relationTypeKey + DOT + lifeCycle.getName();
-            this.addBaseComment(key);
+            this.addUpdatePtsBaseComment(key);
 
             key = "BRType1" + DOT + relationTypeKey + DOT + relation.getName();
-            this.addBaseComment(key);
+            this.addUpdatePtsBaseComment(key);
 
             key = "BRType2" + DOT + relationTypeKey + DOT + pilarsFromTo;
-            this.addBaseComment(key);
+            this.addUpdatePtsBaseComment(key);
             if (relation.isProductive()) {
               key = "BRType5a.-." + toPilar;
-              this.addBaseComment(key);
+              this.addUpdatePtsBaseComment(key);
               key = "BRType5b.-." + pilarsFromTo;
-              this.addBaseComment(key);
+              this.addUpdatePtsBaseComment(key);
             }
           }
         }
@@ -320,55 +325,57 @@ export class BaziObservationBase extends ObservationBase {
     }
   }
 
-  private commentOnOneDeityCount(maxCount: number) {
-    const pilarsAttr=this.lunar.pilarsAttr;
+  // DtyType1a.EE.DeityCountThresHold{0,-,+}&
+  // DtyType1a.DayForce.EE.{0,-,+}&
+  // DtyHidden.EE.DeityCountThresHold{0,-,+}&
+  // DtyGType1a.DayForce.EE.DeityCountThresHold{0,-,+}&
+  // DtyGType1a.DayForce.EE.{0,-,+}&
+  private commentOnOneDeityCount() {
+    const pilarsAttr = this.lunar.pilarsAttr;
     const len = pilarsAttr.deityPilarCount.length;
     const DOT = ".";
-    const suffix = ".+";
+    let suffix = "";
     for (let index = 0; index < len; index++) {
       const count = pilarsAttr.deityPilarCount[index];
-      if (count === maxCount) {
-        const eNER = ElementNEnergyRelation.DR.getEnum(
-          index
-        ) as ElementNEnergyRelation;
-        const key = eNER.getName();
-        // DtyOnPilar1.EE.{-,+}&
-        this.addBaseComment("DtyOnPilar1." + key + suffix);
-        // DtyType1a.EE.{0,-,+}&
-        this.addBaseComment("DtyType1a." + key + suffix);
-        const eNERBase = eNER.getBaseGroup();
-        if (eNERBase !== eNER) {
-          this.addBaseComment("DtyGType1a." + eNERBase.getName() + suffix);
-        }
-        const eerElement = pilarsAttr.getDeityElement(eNER);
-        const pivotStatus = this.lunar.pilarsAttr.getPivotStatus(eerElement);
-        // DtyOnPilar2.EE.{0,1,2,3}.{0,-,+}&
-        this.addBaseComment("DtyOnPilar2." + key + DOT + pivotStatus + suffix);
-      }
-    }
-  }
+      suffix =
+        DOT +
+        StringHelper.number2Str(count, BaziStructureHelper.FAVTHRESHHOLD - 1);
 
-  private commentOnZeroDeityCount() {
-    const suffix = ".0";
-    const pilarsAttr=this.lunar.pilarsAttr;
-    for (let index = 0; index < pilarsAttr.deityPilarCount.length; index++) {
-      const count = pilarsAttr.deityPilarCount[index];
+      const eNER = ElementNEnergyRelation.DR.getEnum(
+        index
+      ) as ElementNEnergyRelation;
+      const key = eNER.getName();
+      // DtyType1a.EE.{0,-,+}&
+      let temp = "DtyType1a." + key + suffix;
+      this.addUpdatePtsBaseComment(temp);
+      const eNERBase = eNER.getBaseGroup();
+      // DtyType1a.DayForce.EE.{0,-,+}&
+      temp = "DtyType1a." + this.currAttr.dayForce + DOT + key + suffix;
+      this.addUpdatePtsBaseComment(temp);
+      // DtyGType1a.DayForce.EE.{0,-,+}&
+      temp =
+        "DtyGType1a." +
+        this.currAttr.dayForce +
+        DOT +
+        eNERBase.getName() +
+        suffix;
+      this.addUpdatePtsBaseComment(temp);
+      // DtyGType1a.EE.{0,-,+}&
+      temp = "DtyGType1a." + eNERBase.getName() + suffix;
+      this.addUpdatePtsBaseComment(temp);
+
       if (count === 0) {
-        const eNER = ElementNEnergyRelation.DR.getEnum(
-          index
-        ) as ElementNEnergyRelation;
-        const key = eNER.getName();
-        // DtyType1a.EE.{0,-,+}&
-        this.addBaseComment("DtyType1a." + key + suffix);
-        const eNERBase = eNER.getBaseGroup();
-        if (eNERBase !== eNER) {
-          this.addBaseComment("DtyGType1a." + eNERBase.getName() + suffix);
-        }
         const hiddenCount = pilarsAttr.hiddenDeityPilarCount[index];
         if (hiddenCount > 0) {
           // DtyHidden.EE.{0,-,+}&
+          suffix =
+            DOT +
+            StringHelper.number2Str(
+              count,
+              BaziStructureHelper.FAVTHRESHHOLD - 1
+            );
           const temp = key + suffix;
-          this.addBaseComment("DtyHidden1." + temp);
+          this.addUpdatePtsBaseComment("DtyHidden1." + temp);
         }
       }
     }
@@ -395,7 +402,10 @@ export class BaziObservationBase extends ObservationBase {
     for (let index1 = 0; index1 < len; index1++) {
       if (count1 === pilarsAttr.deityPilarCount[index1]) {
         for (let index2 = 0; index2 < len; index2++) {
-          if (index1 != index2 && pilarsAttr.deityPilarCount[index2] === count2) {
+          if (
+            index1 != index2 &&
+            pilarsAttr.deityPilarCount[index2] === count2
+          ) {
             const eNER1 = ElementNEnergyRelation.DR.getEnum(
               index1
             ) as ElementNEnergyRelation;
@@ -405,10 +415,10 @@ export class BaziObservationBase extends ObservationBase {
             const temp = eNER1.getName() + DOT + eNER2.getName();
             // DtyType2a.EE.EC&
             if (count2 > 0) {
-              this.addBaseComment("DtyType2a." + temp);
+              this.addUpdatePtsBaseComment("DtyType2a." + temp);
             }
             // DtyType2b.EE.EC.{0,-,+}.{0,-,+}&
-            this.addBaseComment("DtyType2b." + temp + suffix);
+            this.addUpdatePtsBaseComment("DtyType2b." + temp + suffix);
             const eNER1Base = eNER1.getBaseGroup() as ElementNEnergyRelation;
             const eNER2Base = eNER2.getBaseGroup() as ElementNEnergyRelation;
             const gCount1 = pilarsAttr.getPairedRelationCount(
@@ -430,7 +440,7 @@ export class BaziObservationBase extends ObservationBase {
               }
             }
             // DtyGType2a.EEGroup.ECGroup.{+}.{0,-,+}&
-            this.addBaseComment(
+            this.addUpdatePtsBaseComment(
               "DtyGType2a." +
                 eNER1Base.getName() +
                 DOT +
@@ -439,7 +449,7 @@ export class BaziObservationBase extends ObservationBase {
                 gSuffix
             );
             // DtyGType2a.EE.ECGroup.{+}.{0,-,+}&
-            this.addBaseComment(
+            this.addUpdatePtsBaseComment(
               "DtyGType2a." +
                 eNER1.getName() +
                 DOT +
@@ -455,6 +465,7 @@ export class BaziObservationBase extends ObservationBase {
 
   // DtyType3a.EE.EC.EY.{0,-,+}.{0,-,+}.{0,-,+}&
   /// DtyGType3a.EE.EC.EY.{0,-,+}.{0,-,+}.{0,-,+}&
+  // DtyGType4a.DayForce.EE.PivorStatus.EX.EY& EX>EY
   private commentOnThreeDeitiesCount(
     count1: number,
     count2: number,
@@ -500,7 +511,7 @@ export class BaziObservationBase extends ObservationBase {
                 temp += eNER2.getName() + DOT + eNER3.getName();
               }
               // DtyType3a.EE.EC.EY.{0,-,+}.{0,-,+}.{0,-,+}&
-              this.addBaseComment("DtyType3a." + temp + suffix);
+              this.addUpdatePtsBaseComment("DtyType3a." + temp + suffix);
               const eNER1Base = eNER1.getBaseGroup() as ElementNEnergyRelation;
               const eNER1BaseKey = eNER1Base.getName();
               const eNER2Base = eNER2.getBaseGroup() as ElementNEnergyRelation;
@@ -508,7 +519,7 @@ export class BaziObservationBase extends ObservationBase {
               const eNER3Base = eNER3.getBaseGroup() as ElementNEnergyRelation;
               const eNER3BaseKey = eNER3Base.getName();
               /// DtyGType3a.EE.EC.EY.{0,-,+}.{0,-getBase,+}.{0,-,+}&
-              this.addBaseComment(
+              this.addUpdatePtsBaseComment(
                 "DtyGType2a." +
                   eNER1BaseKey +
                   DOT +
@@ -521,10 +532,11 @@ export class BaziObservationBase extends ObservationBase {
               const pilarsAttr = this.lunar.pilarsAttr;
               const dayForce = this.currAttr.dayForce;
               const eNeRElement = pilarsAttr.getDeityElement(eNER1Base);
-              const pivotStatus = pilarsAttr.getPivotStatus(eNeRElement);
+              const pivotStatus = pilarsAttr.getPivotStatusStr(eNeRElement);
               // DtyGType4a.DayForce.EE.PivorStatus.EX.EY& EX>EY
               // Suffix is not necessary assuming count EE>=EX>=EY
-              this.addBaseComment(
+
+              this.addUpdatePtsBaseComment(
                 "DtyGType4a." +
                   dayForce +
                   DOT +
@@ -587,7 +599,7 @@ export class BaziObservationBase extends ObservationBase {
       favThresHold
     );
     //DayForce1a.DayForce.DRIRCountForce.HOEGCountForce.DO7KCountForce+
-    this.addBaseComment(
+    this.addUpdatePtsBaseComment(
       "DayForce1a." +
         dayForce +
         DOT +
@@ -598,7 +610,7 @@ export class BaziObservationBase extends ObservationBase {
         DO7KControlBaseGroupSuffix
     );
     //DayForce1b.DayForce.RWFCountForce.DRIRCountForce.HOEGCountForce.DO7KCountForce+
-    this.addBaseComment(
+    this.addUpdatePtsBaseComment(
       "DayForce1b." +
         dayForce +
         DOT +
@@ -617,12 +629,12 @@ export class BaziObservationBase extends ObservationBase {
       )
     ) {
       //DayForce1c.DayForce.+KHD
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "DayForce1c." + dayForce + DOT + SecondaryDeity.KINHDUONG.getName()
       );
     } else {
       //DayForce1c.DayForce
-      this.addBaseComment("DayForce1c." + dayForce);
+      this.addUpdatePtsBaseComment("DayForce1c." + dayForce);
     }
   }
 
@@ -665,7 +677,7 @@ export class BaziObservationBase extends ObservationBase {
       ) {
         if (isInOneTrunk) {
           //Type12a.EX.{Y,M,D,H}.{-,+}.EE.0.DR.+
-          this.addBaseComment(
+          this.addUpdatePtsBaseComment(
             "Type12a." +
               checkeNeRKey +
               DOT +
@@ -684,7 +696,7 @@ export class BaziObservationBase extends ObservationBase {
       ) {
         if (isInOneTrunk) {
           //Type12a.EX.{Y,M,D,H}.{-,+}.EE.0.DR.+
-          this.addBaseComment(
+          this.addUpdatePtsBaseComment(
             "Type12a." +
               checkeNeRKey +
               DOT +
@@ -701,13 +713,36 @@ export class BaziObservationBase extends ObservationBase {
     }
   }
 
+  // Pilar.D.ElementLifeCycle
+  // Pilar.D.SecDeity
+  private commentOnPilar() {
+    const dIndex = LunarBase.DINDEX;
+    const currAttr = this.currAttr;
+    const pilarsAttr = this.lunar.pilarsAttr;
+    //
+    const DOT = ".";
+    let temp = '';
+    if ( currAttr.dLifeCycle!==null ) {
+      temp = "Pilar.D." + currAttr.dLifeCycle.getName();
+      this.addUpdatePtsBaseComment(temp);
+    }
+    const secDeities = this.lunar.pilarsAttr.secondaryDeityPilars[dIndex];
+    for (let index = 0; index < secDeities.length; index++) {
+      const secDeity = secDeities[index];
+      temp = "Pilar.D." + secDeity.getName();
+      this.addUpdatePtsBaseComment(temp);
+    }
+  }
+
   private commentOnDeitiesCount() {
-    this.commentOnZeroDeityCount();
-    const pilarsAttr=this.lunar.pilarsAttr;
+    const pilarsAttr = this.lunar.pilarsAttr;
     const len = pilarsAttr.deityPilarCount.length;
-    const sortedDeityCount = ObjectHelper.cloneArray(pilarsAttr.deityPilarCount);
+    const sortedDeityCount = ObjectHelper.cloneArray(
+      pilarsAttr.deityPilarCount
+    );
     ObjectHelper.sortNumber(sortedDeityCount, true);
-    this.commentOnOneDeityCount(sortedDeityCount[len - 1]);
+
+    this.commentOnOneDeityCount();
 
     for (let index = 0; index < len; index++) {
       this.commentOnTwoDeitiesCount(
@@ -732,7 +767,6 @@ export class BaziObservationBase extends ObservationBase {
   // Type1b.EE.(PivotStatus)1.EX.{0,-,+}&
   // Type1c.EE.DEITYFORCE{+,-}.EX.{0,-,+}&
   // Type1d.EE.EX(.N0Quy)&
-  // Type1f.EE.DAYFORCE{+,-}.EX.{0,-,+}(.NOQUY)&
   // Type1g.{T.B}.EE.DAyforce.IsPivot&
   // Type1h.EE.Element.DayPilarElement
   // Type1i.EE.DayForce.EX
@@ -747,11 +781,29 @@ export class BaziObservationBase extends ObservationBase {
   // Type10a2.{T.B}.EE.{H,M,D,Y}.{0..3}&
   // Type10b.D.D.EX.{0,+}&
   // Type10b.{T.B}.EE.D.{0..3}.EX.{0,+}&
-  // Type11a.EE.{H,M,D,Y}.{+,-}& + ou - ==
+  // Type10b.{T.B}.EE.D.{0..3}.EX.{0,+}&
+  // Type11a.TB.EE.{H,M,D,Y}.{+,-}& + ou - ==å
   // Type11b.EE.{H,M,D,Y}.{+,-}.{0..3}& + ou - == pilar force positive or not
-
   // TypeTB.EE.EX&
   // TypeTB1.EEBaseGroup.EXBaseGroup&
+  // Type3a.TB.EE.{Vd,NVd}
+  // Type3b.EE.{Vd,NVd}.NoQuy
+  //Type3c.EE.{H,M,D,Y}.{Vd,NVd}.NoQuy
+  // Type4.TB.EE.{H,M,D,Y}.{NVd,Vd}&{-,+}.{-,+}
+  // Type5a.TB.EE.{TKH, TKI, ... }&{-,+}.{-,+}
+  // Type5b.TB.EE.SecDeity{TKH, TKI, ... }.{Vd, NVd}&{-,+}.{-,+}
+  // Type5c.{T.B}.EE.SecDeity{TKH, TKI, ... }&{-,+}.{-,+}
+  // Type5d.TB.EE.{0..3}.SecDeity{TKH, TKI, ... }&{-,+}.{-,+}
+  // Type5d.TB.EE.{0..3}.SecDeity{TKH, TKI, ... }&{-,+}.{-,+}
+  //Type5e.EE.{H,M,D,Y}.SecDeity{TKH, TKI, ... }&{-,+}.{-,+}
+  // Type7a.EE.{H,M,D,Y}.{0..3}.SecDeity{TKH, TKI, ... }&{-,+}.{-,+}
+  // Type7b.{T.B}.EE.{H,M,D,Y}.{0..3}.SecDeity{TKH, TKI, ... }&{-,+}.{-,+}
+  // Type8a.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
+  // Type8b.{T.B}.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
+  // Type8c.EE.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
+  // Type9a.TB.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }.{Void, NoVoid}&{-,+}.{-,+}
+  // Type9a.{T.B}.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }.{Void, NoVoid}&{-,+}.{-,+}
+  // Type9b.{T.B}.{EE.{H,M,D,Y}.{0..3}.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
   private commentOnSAMEPilarDeity(
     pilarIdx: number,
     eNeR: ElementNEnergyRelation,
@@ -781,34 +833,30 @@ export class BaziObservationBase extends ObservationBase {
     if (isUnique) {
       // TypeUnique.T.EE.Y.Unique&
       // TypeUnique.B.EE.Y.Unique&
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "TypeUnique." + pilarType + DOT + eNeRKey + DOT + pilarKey
       );
     }
 
-    // Type1a.EE.1&
-    this.addBaseComment(
+    // Type1a.TB.EE.pivotStatus&
+    this.addUpdatePtsBaseComment(
       "Type1a." + pilarType + DOT + eNeRKey + DOT + pivotStatus
     );
     // Type2a.{T.B}.EE.Y&
-    this.addBaseComment(
-      "Type2a." + pilarType + DOT + eNeRKey + DOT + pilarKey
-    );
+    this.addUpdatePtsBaseComment("Type2a." + pilarType + DOT + eNeRKey + DOT + pilarKey);
     // Type2a.EE.Y&
-    this.addBaseComment(
-      "Type2a." + eNeRKey + DOT + pilarKey
-    );
+    this.addUpdatePtsBaseComment("Type2a." + eNeRKey + DOT + pilarKey);
     // Type2b.{T.B}.EE.{H,M,D,Y}&
-    this.addBaseComment("Type2b." + pilarType + DOT + eNeRKey + DOT + pilarKey);
+    this.addUpdatePtsBaseComment("Type2b." + pilarType + DOT + eNeRKey + DOT + pilarKey);
 
     // Type2b.{T.B}.EE.{H,M,D,Y}.Element&
-    this.addBaseComment(
+    this.addUpdatePtsBaseComment(
       "Type2b." + pilarType + DOT + eNeRKey + DOT + pilarKey + DOT + eNeRElement
     );
     const supportElement = eNeRElement.getNextProductiveElement();
-    if (pilarsAttr.getElementForce(supportElement)>0 ) {
+    if (pilarsAttr.getElementForce(supportElement) > 0) {
       // Type2b.{T.B}.EE.{H,M,D,Y}.Element.ExistSupportElement&
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type2b." +
           pilarType +
           DOT +
@@ -821,8 +869,8 @@ export class BaziObservationBase extends ObservationBase {
           supportElement
       );
     }
-    // Type10a1.EE.{H,M,D,Y}.{0..3}&{-,+}.{-,+}
-    this.addBaseComment(
+    // Type10a1.TB.EE.{H,M,D,Y}.{pivotStatus}
+    this.addUpdatePtsBaseComment(
       "Type10a1." +
         pilarType +
         DOT +
@@ -833,7 +881,7 @@ export class BaziObservationBase extends ObservationBase {
         pivotStatus
     );
     // Type10a2.{T.B}.EE.{H,M,D,Y}.{0..3}& EE on Trunk or Branche
-    this.addBaseComment(
+    this.addUpdatePtsBaseComment(
       "Type10a2." +
         pilarType +
         DOT +
@@ -844,15 +892,16 @@ export class BaziObservationBase extends ObservationBase {
         pivotStatus
     );
     // Type11a.TB.EE.{H,M,D,Y}.{+,-}& + ou - ==
-    const deityForce = StringHelper.bool2Str(
-      pilarsAttr.deityForce[eNeR.ordinal()] >= 0
+    const deityForce = StringHelper.number2Str(
+      pilarsAttr.deityForce[eNeR.ordinal()] ,BaziStructureHelper.FAVTHRESHHOLD
     );
-    this.addBaseComment(
+
+    this.addUpdatePtsBaseComment(
       "Type11a.TB." + eNeRKey + DOT + pilarKey + DOT + deityForce
     );
     this.commentOnPilarCombination(eNeR, pilarIdx, dayForce);
     // Type11b.EE.{H,M,D,Y}.{+,-}.{0..3}& + ou - == pilar force positive or not
-    this.addBaseComment(
+    this.addUpdatePtsBaseComment(
       "Type11b.TB." +
         eNeRKey +
         DOT +
@@ -864,7 +913,7 @@ export class BaziObservationBase extends ObservationBase {
     );
 
     // Type2c.{T.B}.EE.pilarKey.PivotStatus&
-    this.addBaseComment(
+    this.addUpdatePtsBaseComment(
       "Type2c." + pilarType + DOT + eNeRKey + DOT + pilarKey + DOT + pivotStatus
     );
 
@@ -872,10 +921,11 @@ export class BaziObservationBase extends ObservationBase {
       const otherENERKey = otherENER.getName();
       const otherBaseENERKey = otherENER.getBaseGroup().getName();
       const otherDeityForce = StringHelper.number2Str(
-        pilarsAttr.deityForce[otherENER.ordinal()]
+        pilarsAttr.deityForce[otherENER.ordinal()],
+        BaziStructureHelper.FAVTHRESHHOLD
       );
       // Type2c.{T.B}.EE.PilarKey.EX&
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type2c." +
           pilarType +
           DOT +
@@ -886,7 +936,7 @@ export class BaziObservationBase extends ObservationBase {
           otherENERKey
       );
       // Type2d.{T.B}.EE.{H,M,D,Y}.{0..3}.EX.{0,-,+}&
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type2d." +
           pilarType +
           DOT +
@@ -901,7 +951,7 @@ export class BaziObservationBase extends ObservationBase {
           otherDeityForce
       );
       // Type2e.{T.B}.EE.{H,M,D,Y}.EX.{0,-,+}&
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type2e." +
           pilarType +
           DOT +
@@ -914,7 +964,7 @@ export class BaziObservationBase extends ObservationBase {
           otherDeityForce
       );
       // Type1b.EE.1.EX.{0,-,+}&
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type1b.TB." +
           eNeRKey +
           DOT +
@@ -925,7 +975,7 @@ export class BaziObservationBase extends ObservationBase {
           otherDeityForce
       );
       // Type1c.EE.{±,-}.EX.{0,-,+}&
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type1c.TB." +
           eNeRKey +
           DOT +
@@ -937,7 +987,7 @@ export class BaziObservationBase extends ObservationBase {
       );
       // Type1d.EE.EX(.N0Quy)&
       if (pilarsAttr.deityForce[otherENER.ordinal()] !== 0) {
-        this.addBaseComment(
+        this.addUpdatePtsBaseComment(
           "Type1d." +
             pilarType +
             DOT +
@@ -946,7 +996,7 @@ export class BaziObservationBase extends ObservationBase {
             otherENERKey +
             this.noQuyNhanSuffix
         );
-        this.addBaseComment(
+        this.addUpdatePtsBaseComment(
           "Type1b.TB." +
             eNeRKey +
             DOT +
@@ -957,7 +1007,7 @@ export class BaziObservationBase extends ObservationBase {
         );
       }
       // Type1g.{T.B}.EE.DAyforce.pivotStatus{0,1,2,3,4,5)&
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type1g." +
           pilarType +
           DOT +
@@ -968,11 +1018,11 @@ export class BaziObservationBase extends ObservationBase {
           pivotStatus
       );
       // Type1h.TB.EE.Element.DayPilarElement
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type1h.TB." + eNeRKey + DOT + eNeRElement + DOT + dayElement
       );
       // Type1i.EE.DayForce.EX
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type1i." +
           pilarType +
           DOT +
@@ -983,13 +1033,13 @@ export class BaziObservationBase extends ObservationBase {
           otherENERKey
       );
       // TypeTB.EE.EX.B&
-      this.addBaseComment("TypeTB." + eNeRKey + DOT + otherENERKey);
+      this.addUpdatePtsBaseComment("TypeTB." + eNeRKey + DOT + otherENERKey);
       // TypeTB1.EE.EX&
       if (otherENER.ordinal() > eNeR.ordinal()) {
-        this.addBaseComment("TypeTB1." + eneBaseKey + DOT + otherBaseENERKey);
+        this.addUpdatePtsBaseComment("TypeTB1." + eneBaseKey + DOT + otherBaseENERKey);
       } else {
         if (otherENER.ordinal() < eNeR.ordinal()) {
-          this.addBaseComment("TypeTB1." + otherBaseENERKey + DOT + eneBaseKey);
+          this.addUpdatePtsBaseComment("TypeTB1." + otherBaseENERKey + DOT + eneBaseKey);
         }
       }
     }
@@ -1002,17 +1052,17 @@ export class BaziObservationBase extends ObservationBase {
     // Type3b.EE.{Vd,NVd}.NoQuy
     if (this.hasQuyNhan) {
       //Type3a.TB.EE.{Vd,NVd}
-      this.addBaseComment("Type3a.TB." + eNeRKey + voidInfo);
+      this.addUpdatePtsBaseComment("Type3a.TB." + eNeRKey + voidInfo);
     } else {
       //Type3b.TB.EE.{Vd,NVd}.NoQuy
-      this.addBaseComment("Type3b.TB." + eNeRKey + voidInfo + ".NoQuy");
+      this.addUpdatePtsBaseComment("Type3b.TB." + eNeRKey + voidInfo + ".NoQuy");
       //Type3c.EE.{H,M,D,Y}.{Vd,NVd}.NoQuy
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type3c.TB." + eNeRKey + DOT + pilarKey + voidInfo + ".NoQuy"
       );
     }
     // Type4.TB.EE.{H,M,D,Y}.{NVd,Vd}&{-,+}.{-,+}
-    this.addBaseComment(
+    this.addUpdatePtsBaseComment(
       "Type4.TB." + eNeRKey + DOT + pilarKey + DOT + voidInfo
     );
 
@@ -1022,25 +1072,25 @@ export class BaziObservationBase extends ObservationBase {
       const secDeity = secDeities[index];
       const secDeitykey = secDeity.getName();
       // Type5a.TB.EE.{TKH, TKI, ... }&{-,+}.{-,+}
-      this.addBaseComment("Type5a.TB." + eNeRKey + DOT + secDeitykey);
+      this.addUpdatePtsBaseComment("Type5a.TB." + eNeRKey + DOT + secDeitykey);
       //Type5e.EE.{H,M,D,Y}.{TKH, TKI, ... }&{-,+}.{-,+}
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type5e.TB." + eNeRKey + DOT + pilarKey + DOT + secDeitykey
       );
       // Type5b.TB.EE.{TKH, TKI, ... }.{Vd, NVd}&{-,+}.{-,+}
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type5b.TB." + eNeRKey + DOT + secDeitykey + voidInfo
       );
       // Type5c.{T.B}.EE.{TKH, TKI, ... }&{-,+}.{-,+}
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type5c." + pilarType + DOT + eNeRKey + DOT + secDeitykey
       );
       // Type5d.TB.EE.{0..3}.{TKH, TKI, ... }&{-,+}.{-,+}
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type5d.TB." + eNeRKey + DOT + pivotStatus + DOT + DOT + secDeitykey
       );
       // Type7a.EE.{H,M,D,Y}.{0..3}.{TKH, TKI, ... }&{-,+}.{-,+}
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type7a.TB." +
           eNeRKey +
           DOT +
@@ -1051,7 +1101,7 @@ export class BaziObservationBase extends ObservationBase {
           secDeitykey
       );
       // Type7b.{T.B}.EE.{H,M,D,Y}.{0..3}.{TKH, TKI, ... }&{-,+}.{-,+}
-      this.addBaseComment(
+      this.addUpdatePtsBaseComment(
         "Type7b." +
           pilarType +
           DOT +
@@ -1071,23 +1121,23 @@ export class BaziObservationBase extends ObservationBase {
     const lfName = lifeCycle.getName();
 
     // Type8a.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
-    this.addBaseComment(
+    this.addUpdatePtsBaseComment(
       "Type8a.TB." + eneBaseKey + DOT + pilarKey + DOT + lfName
     );
-    this.addBaseComment("Type8a.TB" + eNeRKey + DOT + pilarKey + DOT + lfName);
+    this.addUpdatePtsBaseComment("Type8a.TB" + eNeRKey + DOT + pilarKey + DOT + lfName);
     // Type8b.{T.B}.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
-    this.addBaseComment(
+    this.addUpdatePtsBaseComment(
       "Type8b." + pilarType + DOT + eNeRKey + DOT + pilarKey + DOT + lfName
     );
     // Type8c.EE.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
-    this.addBaseComment("Type8c.TB." + eNeRKey + DOT + lfName);
+    this.addUpdatePtsBaseComment("Type8c.TB." + eNeRKey + DOT + lfName);
 
     // Type9a.TB.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }.{Void, NoVoid}&{-,+}.{-,+}
-    this.addBaseComment(
+    this.addUpdatePtsBaseComment(
       "Type9a.TB." + eNeRKey + DOT + pilarKey + lfName + voidInfo
     );
     // Type9a.{T.B}.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }.{Void, NoVoid}&{-,+}.{-,+}
-    this.addBaseComment(
+    this.addUpdatePtsBaseComment(
       "Type9a." +
         pilarType +
         DOT +
@@ -1100,7 +1150,7 @@ export class BaziObservationBase extends ObservationBase {
     );
 
     // Type9b.{T.B}.{EE.{H,M,D,Y}.{0..3}.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
-    this.addBaseComment(
+    this.addUpdatePtsBaseComment(
       "Type9b." +
         pilarType +
         DOT +
@@ -1114,36 +1164,38 @@ export class BaziObservationBase extends ObservationBase {
     );
 
     for (let index = 0; index < pilarsAttr.deityPilarCount.length; index++) {
-      const elementENeR = ElementNEnergyRelation.DR.getEnum(index) as ElementNEnergyRelation;
+      const elementENeR = ElementNEnergyRelation.DR.getEnum(
+        index
+      ) as ElementNEnergyRelation;
       if (elementENeR !== eNeR) {
         let suffix = ".0";
         if (pilarsAttr.deityPilarCount[index] > 0) {
           suffix = ".+";
         }
         // Type10b.D.EE.EX.{0,+}&
-        this.addBaseComment(
+        this.addUpdatePtsBaseComment(
           "Type10b." +
-          pilarKey +
-          DOT+
+            pilarKey +
+            DOT +
             eNeRKey +
             DOT +
             elementENeR.getBaseGroup().getName() +
             suffix
         );
         // Type10b.{T.B}.EE.D.{0..3}.EX.{0,+}&
-                this.addBaseComment(
-                  "Type10b." +
-                    pilarType +
-                    DOT +
-                    eNeRKey +
-                    DOT +
-                    pilarKey +
-                    DOT +
-                    pivotStatus +
-                    DOT +
-                    elementENeR.getName() +
-                    suffix
-                );
+        this.addUpdatePtsBaseComment(
+          "Type10b." +
+            pilarType +
+            DOT +
+            eNeRKey +
+            DOT +
+            pilarKey +
+            DOT +
+            pivotStatus +
+            DOT +
+            elementENeR.getName() +
+            suffix
+        );
       }
     }
   }
@@ -1176,42 +1228,48 @@ export class BaziObservationBase extends ObservationBase {
     const toENeRKey = toENeR.getName();
     const fromBaseENeRKey = fromENeR.getBaseGroup().getName();
     const toBaseENeRKey = toENeR.getBaseGroup().getName();
-    const dayForce =this.currAttr.dayForce;
+    const dayForce = this.currAttr.dayForce;
     let temp =
       fromENeRKey + DOT + fromPilarKey + DOT + toENeRKey + DOT + toPilarKey;
 
-    this.addBaseComment("TypeTB1." + temp);
-    this.addBaseComment("TypeTB2." + dayForce + DOT + temp);
+    this.addUpdatePtsBaseComment("TypeTB1." + temp);
+    this.addUpdatePtsBaseComment("TypeTB2." + dayForce + DOT + temp);
 
-    temp = fromENeRKey + DOT + fromPilarKey + DOT + toENeRKey + DOT + toBaseENeRKey
-    this.addBaseComment("TypeTB1." + temp);
-    this.addBaseComment("TypeTB2." + dayForce + DOT + temp);
+    temp =
+      fromENeRKey + DOT + fromPilarKey + DOT + toENeRKey + DOT + toBaseENeRKey;
+    this.addUpdatePtsBaseComment("TypeTB1." + temp);
+    this.addUpdatePtsBaseComment("TypeTB2." + dayForce + DOT + temp);
 
-    temp = fromENeRKey + DOT + fromBaseENeRKey + DOT + toENeRKey + DOT + toPilarKey
-    this.addBaseComment("TypeTB1." + temp);
-    this.addBaseComment("TypeTB2." + dayForce + DOT + temp);
+    temp =
+      fromENeRKey + DOT + fromBaseENeRKey + DOT + toENeRKey + DOT + toPilarKey;
+    this.addUpdatePtsBaseComment("TypeTB1." + temp);
+    this.addUpdatePtsBaseComment("TypeTB2." + dayForce + DOT + temp);
 
-    this.addBaseComment("TypeTB1." + fromBaseENeRKey + DOT + toBaseENeRKey);
-
+    this.addUpdatePtsBaseComment("TypeTB1." + fromBaseENeRKey + DOT + toBaseENeRKey);
   }
 
-  private commentOnTrunkDeities(d1: ElementNEnergyRelation, d2: ElementNEnergyRelation, d3:ElementNEnergyRelation) {
-    if ( d1.ordinal()>d2.ordinal() ) {
-      this.commentOnTrunkDeities(d2,d1,d3);
+  private commentOnTrunkDeities(
+    d1: ElementNEnergyRelation,
+    d2: ElementNEnergyRelation,
+    d3: ElementNEnergyRelation
+  ) {
+    if (d1.ordinal() > d2.ordinal()) {
+      this.commentOnTrunkDeities(d2, d1, d3);
     } else {
-      if ( d1.ordinal()>d3.ordinal() ) {
-        this.commentOnTrunkDeities(d3,d2,d1);
+      if (d1.ordinal() > d3.ordinal()) {
+        this.commentOnTrunkDeities(d3, d2, d1);
       } else {
-        if ( d2.ordinal()>d3.ordinal() ) {
-          this.commentOnTrunkDeities(d1,d3,d2);
-      } else {
-        const DOT = ".";
-        this.addBaseComment("TypeTB1." + d1.getName() + DOT + d2.getName() + DOT + d3.getName() );
+        if (d2.ordinal() > d3.ordinal()) {
+          this.commentOnTrunkDeities(d1, d3, d2);
+        } else {
+          const DOT = ".";
+          this.addUpdatePtsBaseComment(
+            "TypeTB1." + d1.getName() + DOT + d2.getName() + DOT + d3.getName()
+          );
+        }
       }
     }
   }
-}
-
 
   private commentPilarDeities() {
     const pilarsAttr = this.lunar.pilarsAttr;
@@ -1221,7 +1279,7 @@ export class BaziObservationBase extends ObservationBase {
       pilarsAttr.trunkRelation[LunarBase.YINDEX][dIndex],
       pilarsAttr.trunkRelation[LunarBase.MINDEX][dIndex],
       pilarsAttr.trunkRelation[LunarBase.HINDEX][dIndex]
-    )
+    );
     for (let pilarIdx = 0; pilarIdx < pLen; pilarIdx++) {
       const eNeR = pilarsAttr.trunkRelation[pilarIdx][dIndex];
       if (pilarIdx !== dIndex) {
@@ -1271,126 +1329,162 @@ export class BaziObservationBase extends ObservationBase {
     this.commentCombType(CombAttr.MIDBRANCHECOMB3TYPE, "K");
   }
 
-  //Element.MAXElement.Other.(0,-)
+  //Element.MAXElement.WeakElement.(0,-)
   private commentOnElement() {
     const pilarsAttr = this.lunar.pilarsAttr;
     const DOT = ".";
-    const len = pilarsAttr.elementForce.length;
-    const elementForce=ObjectHelper.newArray(len,0);
-    for (let index = 0; index < len; index++) {
-      elementForce[index]=pilarsAttr.elementForce[index].getValue();
-    }
-    const sortedElementForce = ObjectHelper.cloneArray(elementForce);
-    ObjectHelper.sortNumber(sortedElementForce, true);
-    const max = sortedElementForce[len - 1];
-    for (let index = 0; index < len; index++) {
-      const currForce = sortedElementForce[index];
-      if (currForce === max) break;
-      let suffix = ".";
-      if (currForce === 0) {
-        suffix += "0";
-      } else {
-        suffix += "-";
-      }
-      for (let index2 = 0; index2 < len; index2++) {
-        const currForce2 = elementForce[index2];
-        if (currForce2 === max) {
-          for (let index3 = 0; index3 < len; index3++) {
-            const currForce3 = elementForce[index3];
-            if (currForce3 === currForce) {
-              this.addBaseComment(
-                "Element." +
-                  Element.EARTH.getEnum(index2) +
-                  DOT +
-                  Element.EARTH.getEnum(index3) +
-                  suffix
-              );
+    const elementsValues = Element.WATER.getValues() as Element[];
+    let isBalanced=true;
+    for (let wIndex = 0; wIndex < elementsValues.length; wIndex++) {
+      const wElement = elementsValues[wIndex];
+      if (pilarsAttr.isVeryWeakedElement(wElement)) {
+        for (let sIndex = 0; sIndex < elementsValues.length; sIndex++) {
+          const sElement = elementsValues[sIndex];
+          if (pilarsAttr.isFavorableElement(sElement)) {
+            let suffix = ".";
+            let wForce = pilarsAttr.getElementForce(wElement);
+            if (wForce === 0) {
+              suffix += "0";
+            } else {
+              suffix += "-";
             }
+            this.addUpdatePtsBaseComment(
+              "Element." +
+                sElement.getName() +
+                DOT +
+                wElement.getName() +
+                "suffix"
+            );
+            isBalanced=false;
           }
         }
       }
     }
+    if ( isBalanced ) {
+      this.addUpdatePtsBaseComment("Element.Balanced");
+    }
   }
 
-  private getStructureName (structureData: DataWithLog) {
+  private getStructureName(structureData: DataWithLog) {
     if (structureData === null) return "null";
     const structure = structureData.getValue() as BaziStructure;
     return structure.getName();
   }
 
-  private getDeityPilarArr ( eneR: ElementNEnergyRelation ) {
+  private getDeityPilarArr(eneR: ElementNEnergyRelation) {
     const pilarIdxArr: number[] = [];
     const pilarsAttr = this.lunar.pilarsAttr;
     for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
-      let relation = pilarsAttr.trunkRelation[pilarIdx][LunarBase.DINDEX]
-      if ( relation===eneR ) {
-        ObjectHelper.pushIfNotExist(pilarIdxArr,pilarIdx);
+      let relation = pilarsAttr.trunkRelation[pilarIdx][LunarBase.DINDEX];
+      if (relation === eneR) {
+        ObjectHelper.pushIfNotExist(pilarIdxArr, pilarIdx);
       }
-      for (let index = 0; index < pilarsAttr.dayHiddenRelation[pilarIdx].length; index++) {
-         relation = pilarsAttr.dayHiddenRelation[pilarIdx][index];
-        if ( relation===eneR ) {
-          ObjectHelper.pushIfNotExist(pilarIdxArr,pilarIdx);
+      for (
+        let index = 0;
+        index < pilarsAttr.dayHiddenRelation[pilarIdx].length;
+        index++
+      ) {
+        relation = pilarsAttr.dayHiddenRelation[pilarIdx][index];
+        if (relation === eneR) {
+          ObjectHelper.pushIfNotExist(pilarIdxArr, pilarIdx);
         }
       }
     }
-    return pilarIdxArr
+    return pilarIdxArr;
   }
 
-  private getLimitCount(count: number,limit:number) {
-    if ( count>2 ) count = limit;
-    return count
+  private getLimitCount(count: number, limit: number) {
+    if (count > 2) count = limit;
+    return count;
   }
   private commentOnEnERStructure(structureName: string) {
-    const structureEneR = ElementNEnergyRelation.HO.getEnumByName(structureName) as ElementNEnergyRelation;
-    const pilarIdxArr=this.getDeityPilarArr(structureEneR);
-    let pilarCount2=this.getLimitCount(pilarIdxArr.length,2);
+    const structureEneR = ElementNEnergyRelation.HO.getEnumByName(
+      structureName
+    ) as ElementNEnergyRelation;
+    const pilarIdxArr = this.getDeityPilarArr(structureEneR);
+    let pilarCount2 = this.getLimitCount(pilarIdxArr.length, 2);
     const DOT = ".";
     const strAttr = this.getStructAttr(structureEneR);
 
     // Cach.DRGrp.{DayForce-.+}.{Count0,1,2}.DOFroup{0,1).DWGrp.{0,1,2)=Ref8p464p1
-    let temp="Cach."+strAttr.baseName+DOT+this.currAttr.dayForce+DOT+pilarCount2+DOT+
-    strAttr.prdBaseName+DOT+strAttr.prdBseCnt1+DOT+strAttr.crtlBaseName+DOT+strAttr.crtlBseCnt2
-    console.log(temp);
+    let temp =
+      "Cach." +
+      strAttr.baseName +
+      DOT +
+      this.currAttr.dayForce +
+      DOT +
+      pilarCount2 +
+      DOT +
+      strAttr.prdBaseName +
+      DOT +
+      strAttr.prdBseCnt1 +
+      DOT +
+      strAttr.crtlBaseName +
+      DOT +
+      strAttr.crtlBseCnt2;
     this.addUpdatePtsBaseComment(temp);
     // Cach.HO.DO.{0,1)=Ref8p466p4
-    temp="Cach."+strAttr.name+DOT+strAttr.prodeneR.getName()+DOT+strAttr.prodeneRCnt1
-    console.log(temp);
+    temp =
+      "Cach." +
+      strAttr.name +
+      DOT +
+      strAttr.prodeneR.getName() +
+      DOT +
+      strAttr.prodeneRCnt1;
     this.addUpdatePtsBaseComment(temp);
     //Cach.7K.H.x
     for (let index = 0; index < pilarIdxArr.length; index++) {
       const pilarIdx = pilarIdxArr[index];
       const pilarChar = LunarBase.getPilarShortLabel(pilarIdx);
       // Cach.7k.H.{0,1,2)==Ref8p464p2c
-      console.log(temp)
-      temp="Cach."+strAttr.name+DOT+pilarChar+DOT+pilarCount2;
+      temp = "Cach." + strAttr.name + DOT + pilarChar + DOT + pilarCount2;
       this.addUpdatePtsBaseComment(temp);
       // Cach.7k.H.{0,1,2).EG.{0,1,2}==Ref8p464p2
-      console.log(temp)
-      temp="Cach."+structureName+DOT+pilarChar+DOT+pilarCount2+DOT+strAttr.baseName+DOT+strAttr.crtlBseCnt1;
+      temp =
+        "Cach." +
+        structureName +
+        DOT +
+        pilarChar +
+        DOT +
+        pilarCount2 +
+        DOT +
+        strAttr.baseName +
+        DOT +
+        strAttr.crtlBseCnt1;
       this.addUpdatePtsBaseComment(temp);
     }
-
   }
 
   private commentOnThisStructure(structureData: DataWithLog) {
     if (structureData === null) return;
     const structure = structureData.getValue() as BaziStructure;
     const structName = structure.getName();
-    if ( structure.ordinal()<=9 ) {
-      this.commentOnEnERStructure(structName)
+    if (structure.ordinal() <= 9) {
+      this.commentOnEnERStructure(structName);
     }
     const DOT = ".";
 
     // Cach.DR.+.DO7K.+.DW.+=Ref8p464p1
-    let temp = "Cach."+structName+DOT+this.currAttr.dayForce+'.DO7K.'+
-    this.currAttr.do7KForce+".DWIW."+this.currAttr.dwiwForce;
-    console.log(temp)
-    this.addUpdatePtsBaseComment(temp)
+    let temp =
+      "Cach." +
+      structName +
+      DOT +
+      this.currAttr.dayForce +
+      ".DO7K." +
+      this.currAttr.do7KForce +
+      ".DWIW." +
+      this.currAttr.dwiwForce;
+    this.addUpdatePtsBaseComment(temp);
     //Cach.7k.HO.+
-    temp = "Cach."+structName+DOT+'.HOEG.'+
-    this.currAttr.do7KForce+".DWIW."+this.currAttr.dwiwForce;
-    console.log(temp)
-    this.addUpdatePtsBaseComment(temp)
+    temp =
+      "Cach." +
+      structName +
+      DOT +
+      ".HOEG." +
+      this.currAttr.do7KForce +
+      ".DWIW." +
+      this.currAttr.dwiwForce;
+    this.addUpdatePtsBaseComment(temp);
     this.addUpdatePtsBaseComment("CachType1." + structName);
     const pilarsAttr = this.lunar.pilarsAttr;
     const eleRValues = ElementNEnergyRelation.getValues();
@@ -1400,22 +1494,30 @@ export class BaziObservationBase extends ObservationBase {
       const eeR = eleRValues[index];
       if (eeR.getName() != structName) {
         const count = pilarsAttr.getPairedRelationCount(eeR, dIndex);
+        const countSuffix = StringHelper.number2Str(
+          count,
+          BaziStructureHelper.FAVTHRESHHOLD
+        );
         // Assume eer.ordinal() < eer2.ordinal()
         for (let index2 = index + 2; index2 < eleRValues.length; index2 += 2) {
           const eeR2 = eleRValues[index2];
           if (eeR2.getName() != structName) {
             const count2 = pilarsAttr.getPairedRelationCount(eeR, dIndex);
+            const count2Suffix = StringHelper.number2Str(
+              count2,
+              BaziStructureHelper.FAVTHRESHHOLD
+            );
             this.addUpdatePtsBaseComment(
               "CachType2." +
-              structName +
+                structName +
                 DOT +
                 eeR.getName() +
                 DOT +
-                StringHelper.number2Str(count) +
+                countSuffix +
                 DOT +
                 eeR2.getName() +
                 DOT +
-                StringHelper.number2Str(count2)
+                count2Suffix
             );
           }
         }
@@ -1433,7 +1535,7 @@ export class BaziObservationBase extends ObservationBase {
   }
 
   private evalCurrAttr(currLunarYear?: Bazi) {
-    if ( typeof currLunarYear === 'undefined' ) currLunarYear = null;
+    if (typeof currLunarYear === "undefined") currLunarYear = this.lunar;
     const pilarsAttr = this.lunar.pilarsAttr;
     const dIndex = LunarBase.DINDEX;
     const dayForce = StringHelper.bool2Str(
@@ -1449,60 +1551,148 @@ export class BaziObservationBase extends ObservationBase {
     const dwiwForce = StringHelper.qiForce2Str(
       pilarsAttr.qiTypeData.getQiForce(QiType.DWIWCOUNT)
     );
-    let yLifeCycle=null;
-    if ( currLunarYear!= null ) {
-      yLifeCycle=BaziHelper.elementLifeCycle(currLunarYear.getyTrunk(), currLunarYear.getyBranche())
+    const hoegForce = StringHelper.qiForce2Str(
+      pilarsAttr.qiTypeData.getQiForce(QiType.HOEGCOUNT)
+    );
+    let yLifeCycle = null;
+    let dLifeCycle = null;
+    if (currLunarYear != null) {
+      yLifeCycle = BaziHelper.elementLifeCycle(
+        currLunarYear.getyTrunk(),
+        currLunarYear.getyBranche()
+      );
+      dLifeCycle = BaziHelper.elementLifeCycle(
+        currLunarYear.getdTrunk(),
+        currLunarYear.getdBranche()
+      );
     }
-    this.currAttr = {dayForce, dElementNEnergy,do7KForce,drIRForce,dwiwForce,yLifeCycle}
+    this.currAttr = {
+      dayForce,
+      dElementNEnergy,
+      do7KForce,
+      drIRForce,
+      dwiwForce,
+      hoegForce,
+      yLifeCycle,
+      dLifeCycle,
+    };
   }
 
   private getStructAttr(structureEneR: ElementNEnergyRelation) {
-    const pilarsAttr=this.lunar.pilarsAttr;
+    const pilarsAttr = this.lunar.pilarsAttr;
     const struct = structureEneR;
     const name = struct.getName();
     const dIndex = LunarBase.DINDEX;
-    const structCnt1 = this.getLimitCount(pilarsAttr.getPairedRelationCount(struct,dIndex),1);
-    const structCnt2 = this.getLimitCount(pilarsAttr.getPairedRelationCount(struct,dIndex),2);
-    const base=structureEneR.getBaseGroup();
-    const baseName=base.getName();
+    const structCnt1 = this.getLimitCount(
+      pilarsAttr.getPairedRelationCount(struct, dIndex),
+      1
+    );
+    const structCnt2 = this.getLimitCount(
+      pilarsAttr.getPairedRelationCount(struct, dIndex),
+      2
+    );
+    const base = structureEneR.getBaseGroup();
+    const baseName = base.getName();
 
-    const baseCnt1 = this.getLimitCount(pilarsAttr.getPairedRelationCount(base,dIndex),1);
-    const baseCnt2 = this.getLimitCount(pilarsAttr.getPairedRelationCount(base,dIndex),2);
-    const prodeneR=structureEneR.getNextProductiveElement();
-    const prodeneRCnt1 = this.getLimitCount(pilarsAttr.getDeityCount(prodeneR),1);
-    const prodeneRCnt2 = this.getLimitCount(pilarsAttr.getDeityCount(prodeneR),2);
-    const prdBase=prodeneR.getBaseGroup();
-    const prdBaseName=prdBase.getName();
+    const baseCnt1 = this.getLimitCount(
+      pilarsAttr.getPairedRelationCount(base, dIndex),
+      1
+    );
+    const baseCnt2 = this.getLimitCount(
+      pilarsAttr.getPairedRelationCount(base, dIndex),
+      2
+    );
+    const prodeneR = structureEneR.getNextProductiveElement();
+    const prodeneRCnt1 = this.getLimitCount(
+      pilarsAttr.getDeityCount(prodeneR),
+      1
+    );
+    const prodeneRCnt2 = this.getLimitCount(
+      pilarsAttr.getDeityCount(prodeneR),
+      2
+    );
+    const prdBase = prodeneR.getBaseGroup();
+    const prdBaseName = prdBase.getName();
 
-    const prdBseCnt1 = this.getLimitCount(pilarsAttr.getPairedRelationCount(prdBase,dIndex),1);
-    const prdBseCnt2 = this.getLimitCount(pilarsAttr.getPairedRelationCount(prdBase,dIndex),2);
+    const prdBseCnt1 = this.getLimitCount(
+      pilarsAttr.getPairedRelationCount(prdBase, dIndex),
+      1
+    );
+    const prdBseCnt2 = this.getLimitCount(
+      pilarsAttr.getPairedRelationCount(prdBase, dIndex),
+      2
+    );
     const ctrleneR = structureEneR.getNextControlElement();
-    const ctrleneRName=ctrleneR.getName();
-    const ctrleneRCnt1 = this.getLimitCount(pilarsAttr.getDeityCount(ctrleneR),1);
-    const crtlBase=ctrleneR.getBaseGroup();
-    const crtlBaseName=crtlBase.getName();
-    const crtlBseCnt1 = this.getLimitCount(pilarsAttr.getPairedRelationCount(crtlBase,dIndex),1);
-    const crtlBseCnt2 = this.getLimitCount(pilarsAttr.getPairedRelationCount(crtlBase,dIndex),2);
-    return {struct,name,structCnt1,structCnt2,base,baseName,baseCnt1,baseCnt2,prodeneR,prdBase,prodeneRCnt1,prodeneRCnt2,
-      prdBaseName,prdBseCnt1,prdBseCnt2,ctrleneR,ctrleneRName,ctrleneRCnt1,crtlBaseName,crtlBseCnt1,crtlBseCnt2}
+    const ctrleneRName = ctrleneR.getName();
+    const ctrleneRCnt1 = this.getLimitCount(
+      pilarsAttr.getDeityCount(ctrleneR),
+      1
+    );
+    const crtlBase = ctrleneR.getBaseGroup();
+    const crtlBaseName = crtlBase.getName();
+    const crtlBseCnt1 = this.getLimitCount(
+      pilarsAttr.getPairedRelationCount(crtlBase, dIndex),
+      1
+    );
+    const crtlBseCnt2 = this.getLimitCount(
+      pilarsAttr.getPairedRelationCount(crtlBase, dIndex),
+      2
+    );
+    return {
+      struct,
+      name,
+      structCnt1,
+      structCnt2,
+      base,
+      baseName,
+      baseCnt1,
+      baseCnt2,
+      prodeneR,
+      prdBase,
+      prodeneRCnt1,
+      prodeneRCnt2,
+      prdBaseName,
+      prdBseCnt1,
+      prdBseCnt2,
+      ctrleneR,
+      ctrleneRName,
+      ctrleneRCnt1,
+      crtlBaseName,
+      crtlBseCnt1,
+      crtlBseCnt2,
+    };
   }
 
+  // DayMaster.DayElement.DayForce
+  // DayMaster.DayTrunk.DayForce
+  // DayMaster.DayForce.DO7k.Force.DRIR.Force
+   // DayMaster.DayForce.DO7K.Force
+  // DayMaster.DayForce.DRIR.Force
+  // DayMaster.DayForce.DO7K.Force
+  // DayMaster.DayForce.DRIR.Force.HOEG.Force
   private commentOnBaziDayMaster() {
-    const pilarsAttr = this.lunar.pilarsAttr;
     const dayForce = this.currAttr.dayForce;
     const dIndex = LunarBase.DINDEX;
     const DOT = ".";
     const dTrunk = this.lunar.trunkArr[dIndex];
     const dElement = this.currAttr.dElementNEnergy.element;
-    this.addBaseComment("DayMaster." + dElement.getName()+DOT+dayForce);
-    this.addBaseComment("DayMaster." + dTrunk.getName()+DOT+dayForce);
+    this.addUpdatePtsBaseComment("DayMaster." + dElement.getName() + DOT + dayForce);
+    this.addUpdatePtsBaseComment("DayMaster." + dTrunk.getName() + DOT + dayForce);
     // Ref3p182 DayMaster.-.DO7K.+.DRIR.+&"
-    const do7KForce =this.currAttr.do7KForce;
+    const do7KForce = this.currAttr.do7KForce;
     const drIRForce = this.currAttr.drIRForce;
-    const temp = "DayMaster." + dayForce+'.DO7K.'+do7KForce+'.DRIR.'+drIRForce;
-    this.addBaseComment(temp);
+    let temp =
+      "DayMaster." + dayForce + ".DO7K." + do7KForce + ".DRIR." + drIRForce;
+    this.addUpdatePtsBaseComment(temp);
+    temp = "DayMaster." + dayForce + ".DO7K." + do7KForce;
+    this.addUpdatePtsBaseComment(temp);
+    temp = "DayMaster." + dayForce + ".DRIR." + drIRForce;
+    this.addUpdatePtsBaseComment(temp);
+    temp = "DayMaster." + dayForce + ".DO7K." + do7KForce+".HOEG."+this.currAttr.hoegForce
+    this.addUpdatePtsBaseComment(temp);
+    temp = "DayMaster." + dayForce + ".DRIR." + drIRForce+".HOEG."+this.currAttr.hoegForce
+    this.addUpdatePtsBaseComment(temp);
   }
-
 
   override getName() {
     return "bazi Observation";
@@ -1523,12 +1713,72 @@ export class BaziObservationBase extends ObservationBase {
     );
   }
 
+  // Pivot.Force.AntiPivot.Force Ref3p172p6
+  // Pivot.dayForce.DRGrp.Force
+  // Pivot.DeityGrp.Force.AntiPivot.AntiPivotGrp.Force
+  // Pivot.DeityGrp.pivotstatus.Dayforce
+  // AntiPivot.AntiPivotGrp.Status(2 ou 4).DayForce
+  //Pivot.DeityGroup.Force.DayForce.SupportDeity.present
+  commentOnElligiblePivots() {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const DOT = ".";
+    const pivotElements = pilarsAttr.elligiblePivotData.getValue();
+    const elementsValues = Element.WATER.getValues() as Element[];
+    const dayForce = this.currAttr.dayForce;
+    const dIndex=LunarBase.DINDEX
+    for (let pivotIndex = 0; pivotIndex < pivotElements.length; pivotIndex++) {
+      const pivotElement = pivotElements[pivotIndex];
+      let deitybaseGrp = pilarsAttr.getDeityBaseGrpByElement(pivotElement);
+      let deityGrpForce = pilarsAttr.getDeityForceByElement(pivotElement);
+      const pivotStatus = pilarsAttr.getPivotStatusStr(pivotElement);
+      let temp="Pivot."+deitybaseGrp.getName()+DOT+pivotStatus+DOT+dayForce;
+      // Pivot.DeityGrp.Force.Dayforce
+      this.addUpdatePtsBaseComment(temp);
+      // Pivot.dayForce.DRGrp.Force
+      temp="Pivot."+dayForce+".DR."+this.currAttr.drIRForce;
+      console.log(temp);
+      this.addUpdatePtsBaseComment(temp);
+      for (let elementIndex = 0; elementIndex < elementsValues.length; elementIndex++) {
+        const element = elementsValues[elementIndex];
+
+        if ( element.isDestructive(pivotElement) && !ObjectHelper.hasItem(pivotElements,element)) {
+          let antiDeitybaseGrp = pilarsAttr.getDeityBaseGrpByElement(element);
+          let antiDeityGrpForce = pilarsAttr.getDeityForceByElement(element);
+          //Pivot.DeityGrp.Force.AntiPivot.AntiPivotGrp.Force
+          temp="Pivot."+deitybaseGrp.getName()+DOT+deityGrpForce+DOT+'AntiPivot.'+antiDeitybaseGrp.getName()+DOT+antiDeityGrpForce
+          this.addUpdatePtsBaseComment(temp);
+          // Pivot.Force.AntiPivot.Force Ref3p172p6
+          this.addUpdatePtsBaseComment('Pivot.Force.AntiPivot.Force');
+          // AntiPivot.AntiPivotGrp.Status(3 ou 4).DayForce
+          const antiPivotStatus = pilarsAttr.getPivotStatusStr(element); // Hostile status
+
+          temp="AntiPivot."+antiDeitybaseGrp.getName()+DOT+antiPivotStatus+DOT+dayForce;
+          console.log(temp)
+          this.addUpdatePtsBaseComment(temp);
+        } else {
+          if ( element.isProductive(pivotElement) ) {
+            let supportDeitybaseGrp = pilarsAttr.getDeityBaseGrpByElement(element);
+            let count = pilarsAttr.getPairedRelationCount(supportDeitybaseGrp,dIndex)
+            if ( count>0 ) {
+              //Pivot.DeityGroup.DayForce.SupportDeity.Present
+              temp="Pivot."+deitybaseGrp.getName()+DOT+deityGrpForce+DOT+dayForce+DOT+supportDeitybaseGrp.getName()+".Present"
+              console.log(temp);
+              this.addUpdatePtsBaseComment(temp);
+            }
+          }
+        }
+        // Pivot.DeityGrp.DeityForce.CabBeGENERATE
+
+      }
+    }
+  }
+
   override comment() {
     super.comment();
     this.evalCurrAttr();
     this.commentOnSecDeity();
     if (!this.hasQuyNhan) {
-      this.addBaseComment("QuyNhanNotPresent");
+      this.addUpdatePtsBaseComment("QuyNhanNotPresent");
     }
     this.commentOnElementNEnergyRelation();
     this.commentOnVoid();
@@ -1541,73 +1791,93 @@ export class BaziObservationBase extends ObservationBase {
     this.commentOnElement();
     this.commentOnStructure();
     this.commentOnBaziDayMaster();
-  }
-
-  getPeriodCategory(periodNb: Number) {
-    if ( periodNb<3 ) return 'ATTIRE';
-    if ( periodNb<6 ) return 'AGE';
-    return 'AGING'
+    this.commentOnPilar();
+    this.commentOnElligiblePivots();
   }
 
 
+  //Period.FavorableForce
+  //Period.PeriodCategory(ATTIRE,AGE,AGING)PeriodDeity
+  //Period.PeriodCategory(ATTIRE,AGE,AGING).PeriodDeityGrp
+  //Period.DayMaster.DayForce.DO77.Force.DRIR.Force.PeriodDeity
+  //Period.PeriodDeity.TrunkeneR.PilarName
+  //Period.Hostile.Year.YearBranche
+  //Period.Hostile.Year.YearTrunk
+  //Period.Hostile.PeriodCategory.PeriodDeityGrp
+  commentOnPeriod(currLunarYear: Bazi) {
 
-  commentOnPeriod (currLunarYear: Bazi) {
-    this.evalCurrAttr(currLunarYear);
     const DOT = ".";
-
-    const periodNb=this.lunar.getPeriodNb(currLunarYear.birthDate)
-    const periodCategory=this.getPeriodCategory(periodNb);
+    const periodAttr = QiHelper.getPeriodQi(this.lunar,currLunarYear);
+    const periodCategory = periodAttr.category;
     const pilarsAttr = this.lunar.pilarsAttr;
     const dayForce = this.currAttr.dayForce;
     const do7KForce = this.currAttr.do7KForce;
     const drIRForce = this.currAttr.drIRForce;
-    let temp="";
-    const tempFix=dayForce+'.DO7K.'+do7KForce+'.DRIR.'+drIRForce+DOT;
-    const periodDeity = this.lunar.getPeriodTrunkDeity(periodNb);
-    temp="Period."+periodCategory+DOT+periodDeity.getName();
+    const dIndex = LunarBase.DINDEX;
+    let temp = "";
+    const tempFix =
+      dayForce + ".DO7K." + do7KForce + ".DRIR." + drIRForce + DOT;
+    const periodDeity = periodAttr.deity;
+    //Period.PeriodCategory(ATTIRE,AGE,AGING)PeriodDeity
+    temp = "Period." + periodCategory + DOT + periodDeity.getName();
     this.addUpdatePtsBaseComment(temp);
-    temp="Period."+periodCategory+DOT+periodDeity.getBaseGroup().getName();
+    temp =
+      "Period." + periodCategory + DOT + periodDeity.getBaseGroup().getName();
+    //Period.PeriodCategory(ATTIRE,AGE,AGING).PeriodDeityGrp
     this.addUpdatePtsBaseComment(temp);
-    temp="Period.DayMaster."+tempFix+periodDeity.getName();
+    //Period.DayMaster.DayForce.DO77.Force.DRIR.Force.PeriodDeity
+    temp = "Period.DayMaster." + tempFix + periodDeity.getName();
     this.addUpdatePtsBaseComment(temp);
-    const dIndex=LunarBase.DINDEX;
+
     // Period with pilar
-    temp="Period."+periodDeity.getName()+DOT;
+    temp = "Period." + periodDeity.getName() + DOT;
     for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
       const pilarKey = LunarBase.getPilarShortLabel(pilarIdx);
       const eNeR = pilarsAttr.trunkRelation[pilarIdx][dIndex];
-      this.addUpdatePtsBaseComment(temp+eNeR.getName()+DOT+pilarKey);
+      //Period.PeriodDeity.TrunkeneR.PilarName
+      this.addUpdatePtsBaseComment(temp + eNeR.getName() + DOT + pilarKey);
       let hiddenEnERArr = pilarsAttr.dayHiddenRelation[pilarIdx];
       for (let hiddenIdx = 0; hiddenIdx < hiddenEnERArr.length; hiddenIdx++) {
         const hiddenEnER = hiddenEnERArr[hiddenIdx];
         if (hiddenEnER !== null) {
-          this.addUpdatePtsBaseComment(temp+hiddenEnER.getName()+DOT+pilarKey);
+          //Period.PeriodDeity.TrunkeneR.PilarName
+          this.addUpdatePtsBaseComment(
+            temp + hiddenEnER.getName() + DOT + pilarKey
+          );
         }
       }
     }
-    const periodDeityElement=pilarsAttr.getDeityElement(periodDeity)
-    const isPeriodFavorable = pilarsAttr.isFavororablePivotElement(periodDeityElement);
-    if ( !isPeriodFavorable) {
-      const yearBranche=currLunarYear.getyBranche();
-      const dBranche=this.lunar.getyBranche();
-      if ( BrancheHelper.isBadYearAgeNPeriod(dBranche,yearBranche)) {
-        temp="Period.Hostile.Year."+yearBranche.getName();
+    const periodDeityElement = periodAttr.deityElement;
+    const isPeriodFavorable =periodAttr.perStatus.getValue().isFavorable();
+    if (!isPeriodFavorable) {
+      const yearBranche = currLunarYear.getyBranche();
+      const dBranche = this.lunar.getyBranche();
+      if (BrancheHelper.isBadYearAgeNPeriod(dBranche, yearBranche)) {
+        //Period.Hostile.Year.YearBranche
+        temp = "Period.Hostile.Year." + yearBranche.getName();
         this.addUpdatePtsBaseComment(temp);
       }
-      const yearTrunk=currLunarYear.getyTrunk();
-      const yTrunk=this.lunar.getyTrunk();
-      if ( yearTrunk.isHostile(yTrunk)) {
-        temp="Period.Hostile.Year."+yTrunk.getName();
+      const yearTrunk = currLunarYear.getyTrunk();
+      const yTrunk = this.lunar.getyTrunk();
+      if (yearTrunk.isHostile(yTrunk)) {
+        temp = "Period.Hostile.Year." + yTrunk.getName();
+        //Period.Hostile.Year.YearTrunk
         this.addUpdatePtsBaseComment(temp);
       }
-      temp="Period.Hostile."+periodCategory+DOT+periodDeity.getBaseGroup().getName();
+      //Period.Hostile.PeriodCategory.PeriodDeityGrp
+      temp =
+        "Period.Hostile." +
+        periodCategory +
+        DOT +
+        periodDeity.getBaseGroup().getName();
       this.addUpdatePtsBaseComment(temp);
     }
-    return {periodDeity,isPeriodFavorable}
+    return { periodDeity, isPeriodFavorable, periodDeityElement };
   }
 
-
-
+  // Ref3p182 Year.DayMaster.DayForce.DO7K.Force.DRIR.Force.Hostile&"
+  // Year.DayMaster.Hostile
+  // Year.Pivot.deity.Hostile
   commentOnYearDayMaster(currLunarYear: Bazi) {
     const DOT = ".";
     const pilarsAttr = this.lunar.pilarsAttr;
@@ -1615,97 +1885,225 @@ export class BaziObservationBase extends ObservationBase {
     const do7KForce = this.currAttr.do7KForce;
     const drIRForce = this.currAttr.drIRForce;
     // Ref3p182.
-    const pivotElements=pilarsAttr.elligiblePivotData.getValue();
-    const yearElement=currLunarYear.getyBranche().getElement();
-    let temp = '';
-    const tempFix=dayForce+'.DO7K.'+do7KForce+'.DRIR.'+drIRForce+DOT;
+    const pivotElements = pilarsAttr.elligiblePivotData.getValue();
+    const yearElement = currLunarYear.getyBranche().getElement();
+    let temp = "";
+    const tempFix =
+      dayForce + ".DO7K." + do7KForce + ".DRIR." + drIRForce + DOT;
     for (let index = 0; index < pivotElements.length; index++) {
       const pivotElement = pivotElements[index];
-      if(yearElement.isDestructive(pivotElement)) {
-         // Ref3p182 DayMaster.-.DO7K.+.DRIR.+.Hostile&"
-        temp = "Year.DayMaster." +tempFix+'Hostile';
-        this.addSupportBaseComment(2,temp)
-        const deity=pilarsAttr.getDeityByElement(pivotElement)
-        temp = "Year.Pivot." +deity+'.Hostile';
-        this.addSupportBaseComment(2,temp)
+      if (yearElement.isDestructive(pivotElement)) {
+        // Ref3p182 DayMaster.-.DO7K.+.DRIR.+.Hostile&"
+        temp = "Year.DayMaster." + tempFix + "Hostile";
+        this.addSupportBaseComment(2, temp);
+        temp = "Year.DayMaster." + dayForce + ".Hostile";
+        this.addSupportBaseComment(2, temp);
+        const deity = pilarsAttr.getDeityBaseGrpByElement(pivotElement);
+        temp = "Year.Pivot." + deity + ".Hostile";
+        this.addSupportBaseComment(2, temp);
       }
     }
   }
 
   getTrunkDeity(trunk: Trunk) {
     const birthBaziDTrunkEE = this.currAttr.dElementNEnergy;
-    return BaziHelper.getEnNRelation(trunk.elementNEnergy,birthBaziDTrunkEE);
+    return BaziHelper.getEnNRelation(trunk.elementNEnergy, birthBaziDTrunkEE);
   }
 
-  private commentOnThisYearEnERStructure(yDeity: ElementNEnergyRelation,structureName: string) {
-    const structureEneR = ElementNEnergyRelation.HO.getEnumByName(structureName) as ElementNEnergyRelation;
+  //Year.YearDeity.Cach.DeityCach.ControlElement.{0,-,+}&==Ref8p464p4
+  //Year.YearDeity.Cach.DeityCach==Ref8p465p1
+  //Year.YearDeityGroup.Cach.CachEneR.CachEneRCount
+  //Year.DWGrp.DayForce.Cach.CachEneR.CachEneRCount"
+  //Year.YearDeity.DayForce.Cach.DW.CachEneRCount
+  //Year.DWGrp.YearLifeCycle.Cach.CachEnEr.CachProEneR.CachProEneRCount0,1
+   //Year.YDWGrp.DayForce.YDWGrpCount1 Ref3p559p10
+  private commentOnThisYearEnERStructure(
+    yDeity: ElementNEnergyRelation,
+    structureName: string
+  ) {
+    const structureEneR = ElementNEnergyRelation.HO.getEnumByName(
+      structureName
+    ) as ElementNEnergyRelation;
     const DOT = ".";
     const strAttr = this.getStructAttr(structureEneR);
+    const dayForce = this.currAttr.dayForce;
+    const pilarsAttr = this.lunar.pilarsAttr;
 
     //Year.7k.Cach.7k.EG.0&==Ref8p464p4
-    let temp="Year"+DOT+yDeity.getName()+DOT+"Cach."+strAttr.name+DOT+strAttr.ctrleneRName+DOT+strAttr.ctrleneRCnt1;
-    console.log(temp);
+    let temp =
+      "Year." +
+      yDeity.getName() +
+      DOT +
+      "Cach." +
+      strAttr.name +
+      DOT +
+      strAttr.ctrleneRName +
+      DOT +
+      strAttr.ctrleneRCnt1;
     this.addUpdatePtsBaseComment(temp);
-    const yDeityGrp=yDeity.getBaseGroup();
+    const yDeityGrp = yDeity.getBaseGroup();
     //Year.DW.Cach.DW==Ref8p465p1
-    temp="Year."+yDeityGrp.getName()+DOT+"Cach."+strAttr.name+DOT;
-    console.log(temp);
+    temp = "Year." + yDeityGrp.getName() + DOT + "Cach." + strAttr.name + DOT;
     this.addUpdatePtsBaseComment(temp);
-    //example "Year.DWGrp.-.Cach.DW.1":[-1,"=Ref8p466p1"]
-    temp="Year."+yDeityGrp.getName()+".Cach."+strAttr.baseName+DOT+strAttr.baseCnt1;
-    console.log(temp);
+    //Year.DWGrp.DayForce.Cach.CachEneR.CachEneRCount"
+    //example "Year.DWGrp.DayForce.Cach.DW.1":[-1,"=Ref8p466p1"]
+    temp =
+      "Year." +
+      yDeityGrp.getName() +
+      dayForce +
+      ".Cach." +
+      strAttr.baseName +
+      DOT +
+      strAttr.baseCnt1;
     this.addUpdatePtsBaseComment(temp);
-    //example "Year.EG.-.Cach.DW.1":[-1,"=Ref8p466p1"]
-    temp="Year."+yDeity.getName()+DOT+"Cach."+strAttr.baseName+DOT+strAttr.baseCnt1;
-    console.log(temp);
+    //example "Year.EG.DayForce.Cach.DW.1":[-1,"=Ref8p466p1"]
+    temp =
+      "Year." +
+      yDeity.getName() +
+      dayForce +
+      DOT +
+      "Cach." +
+      strAttr.baseName +
+      DOT +
+      strAttr.baseCnt1;
     this.addUpdatePtsBaseComment(temp);
     // Ex. "Year.HO.Cach.HO.{0,1,2}.{-,+}.DW.{0,1}": [-1,"=Ref8p466p5"]
-    temp="Year."+yDeityGrp.getName()+DOT+
-    "Cach."+strAttr.name+DOT+strAttr.structCnt2+DOT+this.currAttr.dayForce+DOT+
-    strAttr.crtlBaseName+DOT+strAttr.crtlBseCnt1;
-    console.log(temp);
+    temp =
+      "Year." +
+      yDeityGrp.getName() +
+      DOT +
+      "Cach." +
+      strAttr.name +
+      DOT +
+      strAttr.structCnt2 +
+      DOT +
+      dayForce +
+      DOT +
+      strAttr.crtlBaseName +
+      DOT +
+      strAttr.crtlBseCnt1;
     this.addUpdatePtsBaseComment(temp);
 
-    if ( this.currAttr.yLifeCycle!==null ) {
-      // example "Year.DWGrp.LifeCycle.Cach.HO.DW.1&":[-1,"=Ref8p467p1"],
-      temp="Year."+yDeityGrp.getName()+DOT+this.currAttr.yLifeCycle+
-      ".Cach."+strAttr.name+DOT+
-      strAttr.prdBase.getName()+DOT+strAttr.prdBseCnt1;
-      console.log(temp);
+    if (this.currAttr.yLifeCycle !== null) {
+      // example "Year.DWGrp.YearLifeCycle.Cach.CachEnEr.CachProEneR.CachProEneRCount0,1&":[-1,"=Ref8p467p1"],
+      temp =
+        "Year." +
+        yDeityGrp.getName() +
+        DOT +
+        this.currAttr.yLifeCycle +
+        ".Cach." +
+        strAttr.name +
+        DOT +
+        strAttr.prdBase.getName() +
+        DOT +
+        strAttr.prdBseCnt1;
       this.addUpdatePtsBaseComment(temp);
     }
-
+    //Year.YDWGrp.DayForce.YDWGrpCount1 Ref3p559p10
+    const yDeityGrpForce = StringHelper.qiForce2Str(
+      pilarsAttr.qiTypeData.getQiForce(QiType.DWIWCOUNT)
+    );
+    temp =
+    "Year." +
+    yDeityGrp.getName() +
+    DOT + dayForce + DOT + yDeityGrpForce;
+    this.addUpdatePtsBaseComment(temp);
   }
 
-  commentOnThisYearStructure(currLunarYear: Bazi,structureData: DataWithLog,periodAttr: any) {
-    if (structureData===null) return ;
-    const DOT=".";
+  commentOnThisYearStructure(
+    currLunarYear: Bazi,
+    structureData: DataWithLog,
+    periodAttr: any
+  ) {
+    if (structureData === null) return;
+    const DOT = ".";
     const pilarsAttr = this.lunar.pilarsAttr;
     const currYTrunkDeity = this.getTrunkDeity(currLunarYear.getyTrunk());
     const currcontrolYDeity = currYTrunkDeity.getPrevControlElement();
-    const count = pilarsAttr.getDeityCount(currcontrolYDeity);
     const structure = structureData.getValue() as BaziStructure;
     const structName = structure.getName();
-    if ( structure.ordinal()<=9 ) {
-      this.commentOnThisYearEnERStructure(currYTrunkDeity,structName)
+    if (structure.ordinal() <= 9) {
+      this.commentOnThisYearEnERStructure(currYTrunkDeity, structName);
     }
-
   }
 
-  commentOnYearStructure(currLunarYear: Bazi,periodAttr: any) {
+  commentOnYearStructure(currLunarYear: Bazi, periodAttr: any) {
     const pilarsAttr = this.lunar.pilarsAttr;
     for (let index = 0; index < pilarsAttr.structure.length; index++) {
       const structure = pilarsAttr.structure[index];
-      this.commentOnThisYearStructure(currLunarYear,structure,periodAttr);
+      this.commentOnThisYearStructure(currLunarYear, structure, periodAttr);
     }
   }
 
-  commentOnYear(currLunarYear: Bazi) {
-    this.lunar.evalPeriodData();
-    this.evalCurrAttr(currLunarYear);
+  //Year.Element.YearElement.BirthYearElement
+  commentOnYearElement(currLunarYear: Bazi) {
+    const yElement = currLunarYear.getdTrunk().getElement();
+    const DOT = ".";
+    let temp = "Year.Element.";
+    const birthDElement = this.lunar.getdTrunk().getElement();
+    // Year.Element.YearElement.BirthYearElement
+    this.addUpdatePtsBaseComment(
+      temp + DOT + yElement.getName() + DOT + birthDElement.getName()
+    );
+  }
 
-    const periodAttr=this.commentOnPeriod(currLunarYear);
-    this.commentOnYearDayMaster(currLunarYear);
-    this.commentOnYearStructure(currLunarYear,periodAttr);
+  commentOnQiPeriod(currStudyYear: Bazi) {
+    this.currStudyPeriodQi = QiHelper.getPeriodQi(this.lunar,currStudyYear);
+    const periodQi = this.currStudyPeriodQi.periodQi;
+    const DOT = ".";
+    const isPeriodFavorable =this.currStudyPeriodQi.perStatus.getValue().isFavorable();
+    let periodFavorableSuffix ="."+StringHelper.bool2Str(isPeriodFavorable);
+    let temp = "Period"+periodFavorableSuffix;
+    console.log(temp);
+    this.addUpdatePtsBaseComment(temp);
+
+    let qiData = periodQi.getData(QiType.PERIODLIFECYCLESTATUS);
+    let forceSuffix = StringHelper.qiForce2Str(qiData.value)
+    // Period.LifeCycle.forceSuffix0-+ Ref3p280p4
+    temp="Period.LifeCycle."+this.currStudyPeriodQi.lifeCycle.getName()+DOT+forceSuffix
+    console.log(temp)
+    this.addUpdatePtsBaseComment(temp);
+  }
+
+  commentOnQiYear(currStudyYear: Bazi) {
+    this.currStudyYearQi = QiHelper.getYearQi(this.lunar,currStudyYear);
+
+  }
+
+  commentOnYearTamTai(currStudyYear: Bazi) {
+    let qiData = this.currStudyYearQi.getData(QiType.YEARTAMTAI);
+    console.log(qiData);
+    if ( qiData.getValue() ) {
+      // Tam Tai. Ref2p331
+      const bTrunkArr=this.lunar.trunkArr;
+      const bBrancheArr=this.lunar.brancheArr;
+      const yTrunk=currStudyYear.getyTrunk()
+      const yBranche=currStudyYear.getyBranche()
+      const DOT='.';
+      let nagiaIndex = NagiaHelper.getNagiaIdx(bTrunkArr[LunarBase.YINDEX], bBrancheArr[LunarBase.YINDEX]);
+      const birthNagiaTrigram = NagiaHelper.getNagiaTrigram(nagiaIndex);
+      nagiaIndex = NagiaHelper.getNagiaIdx(yTrunk,yBranche);
+      const yearNagiaTrigram = NagiaHelper.getNagiaTrigram(nagiaIndex);
+      let theme = YiJing.getInstanceFromSkyEarth(
+        birthNagiaTrigram,
+        yearNagiaTrigram,
+        HalacTheme.getNDPos(this.lunar,birthNagiaTrigram, yearNagiaTrigram));
+      const yaoPos = theme.getMyYaoPos() + 1;
+      const temp = 'Halac.' + theme.getHexaOrdinal()+DOT+yaoPos+'.yao';
+      console.log(temp)
+      this.addUpdatePtsBaseComment(temp);
+    }
+  }
+
+  commentOnYear(currStudyYear: Bazi) {
+    this.lunar.evalPeriodData();
+    this.evalCurrAttr(currStudyYear);
+    this.commentOnQiPeriod(currStudyYear);
+    this.commentOnQiYear(currStudyYear);
+    const periodAttr = this.commentOnPeriod(currStudyYear);
+    this.commentOnYearDayMaster(currStudyYear);
+    this.commentOnYearStructure(currStudyYear, periodAttr);
+    this.commentOnYearElement(currStudyYear);
+    this.commentOnYearTamTai(currStudyYear);
   }
 }

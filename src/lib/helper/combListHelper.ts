@@ -13,11 +13,6 @@ import { Branche } from "../mt-data/bazi/branche";
 export class CombListHelper {
   static logMe = false;
 
-  static logMsg(message1: any, message2?: any) {
-    if (CombListHelper.logMe) {
-      console.log(message1, message2);
-    }
-  }
 
   static getData(combAttr: CombAttr, lunar: Lunar, idx: number) {
     const isInTrunk = ObjectHelper.hasItem(combAttr.trunkAttrs, idx);
@@ -613,11 +608,11 @@ export class CombListHelper {
         pilarIdx
       );
       if (branchesInjury !== null) {
-        lunar.pilarsAttr.combList.addBranchComb(
+        combList.addBranchComb(
           CombAttr.BRANCHECLASHTYPE,
           branchesInjury
         );
-        lunar.pilarsAttr.combList.addBranchComb(type, branchesInjury);
+        combList.addBranchComb(type, branchesInjury);
       }
     }
   }
@@ -713,6 +708,11 @@ export class CombListHelper {
         const hasClash = combList.existClashRelation(pilarIdx);
         if (CombListHelper.canBoost(bArr, element, hasClash)) {
           combList.addTrunkComb(CombAttr.TRUNKISSUPPORTEDTYPE1, [pilarIdx]);
+        }
+        for (let otherPilarIdx = pilarIdx+1; otherPilarIdx < LunarBase.LINDEX; otherPilarIdx++) {
+          if ( TrunkHelper.isTrunkClashed(tArr[pilarIdx],tArr[otherPilarIdx]) ) {
+            combList.addTrunkComb(CombAttr.TRUNKCLASHTYPE, [pilarIdx,otherPilarIdx]);
+          }
         }
       }
     }

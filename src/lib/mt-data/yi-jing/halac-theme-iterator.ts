@@ -183,9 +183,6 @@ export class HalacThemeIterator {
 
   // get the first day theme
   getInitialDayTheme(studyLunar: Lunar, sectionalLunar: Lunar) {
-    const mStartHexArr = this.currHexagramArr;
-    const mTTrigramArr: Energy[] = [];
-
     const mCurrDayTTrigramArr: Energy[] = [];
     const mCurrDayStartHexaArr = this.currHexagramArr;
     let currTheme = YiJing.getInstanceFromHexaArr(

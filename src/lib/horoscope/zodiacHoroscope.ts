@@ -15,6 +15,7 @@ export class ZodiacHoroscope extends HoroscopeContributor {
   studyCoodinate: CoordinateSystem;
   themesList: ZodiacTheme[];
 
+
   constructor(
     birthDate: MyCalendar,
     studyDate: MyCalendar,
@@ -67,11 +68,13 @@ export class ZodiacHoroscope extends HoroscopeContributor {
     anniversaryDate.add(Temporal.Duration.from({ years: currAge }));
     const pRSTheme = this.birthTheme.getInstance(
       currPlanetSunRevolutionDate,
-      this.studyCoodinate
+      this.studyCoodinate,
+      this.birthTheme.prefixGenre
     );
     const pAnniversaryProgressTheme = this.birthTheme.getInstance(
       anniversaryDate,
-      this.studyCoodinate
+      this.studyCoodinate,
+      this.birthTheme.prefixGenre
     );
     this.themesList.push(pRSTheme);
     this.themesList.push(pAnniversaryProgressTheme);

@@ -143,7 +143,70 @@ export class PropertyHelper {
     if ( propType===PropertyType.BASE ) {
       return PropertyHelper.getJsonElementAttr(baseKeysJson,key)
     } else {
-      return PropertyHelper.getJsonElementAttr(definedKeysJson,key);
+      const attr = PropertyHelper.getJsonElementAttr(definedKeysJson,key);
+      if ( attr!== null ) {
+        if ( !key.startsWith('Ref') ) {
+          if ( !key.startsWith('Label') ) {
+            if ( !key.startsWith('Mariage') ) {
+              if ( !key.startsWith('Business') ) {
+                if ( !key.startsWith('Career') ) {
+                  if ( !key.startsWith('All') ) {
+                    if ( !key.startsWith('Wife') ) {
+                      if ( !key.startsWith('Person') ) {
+                        if ( !key.startsWith('Origin') ) {
+                          if ( !key.startsWith('M.Ref') ) {
+                            if ( !key.startsWith('F.Ref') ) {
+                              if ( !key.startsWith('Fortune') ) {
+                                if ( !key.startsWith('Life') ) {
+                                  if ( !key.startsWith('Relation') ) {
+                                    if ( !key.startsWith('ch.') ) {
+                                      if ( !key.startsWith('Child') ) {
+                                        if ( !key.startsWith('Bro') ) {
+                                          if ( !key.startsWith('Parent') ) {
+                                            if ( !key.startsWith('Health') ) {
+                                              if ( !key.startsWith('M.Person') ) {
+                                                if ( !key.startsWith('Halac') ) {
+                                                  if ( !key.startsWith('Study') ) {
+                                                    if ( !key.startsWith('Date') ) {
+                                                      if ( !key.startsWith('Mother') ) {
+                                                        if ( !key.startsWith('Father') ) {
+                                                            const xIndex = key.indexOf('&');
+                                                            if ( xIndex<0 ) {
+                                                              console.log("CHECK key ",key);
+                                                            }
+
+                                                        }
+                                                      }
+
+                                                    }
+                                                  }
+                                                }
+
+                                              }
+                                            }
+
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      return attr
     }
   }
 

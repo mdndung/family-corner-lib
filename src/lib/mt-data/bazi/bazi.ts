@@ -10,6 +10,12 @@ import { LunarBase } from './lunarBase';
 import { SecondaryDeity } from './secondaryDeity';
 import { Trunk } from './trunk';
 import { Temporal } from 'temporal-polyfill';
+import { ElementLifeCycle } from '../feng-shui/elementLifeCycle';
+import { ObjectHelper } from '../../helper/objectHelper';
+import { NagiaHelper } from '../../helper/nagiaHelper';
+import { QiForce } from '../qi/qi-force';
+import { DataWithLog } from '../qi/dataWithLog';
+import { QiHelper } from '../../helper/qiHelper';
 
 export class Bazi extends Lunar {
 
@@ -76,6 +82,28 @@ export class Bazi extends Lunar {
     );
   }
 
+  getPeriodLifeCyle(periodNb: number) {
+    const pTrunk = this.periodTrunkArr[periodNb];
+    const pBranche= this.periodBrancheArr[periodNb];
+    return BaziHelper.elementLifeCycle( pTrunk, pBranche)
+  }
+
+  getPeriodTrunkEnE(periodNb: number) {
+    const pTrunk = this.periodTrunkArr[periodNb];
+    return pTrunk.elementNEnergy
+  }
+
+  getPeriodBrancheEnE(periodNb: number) {
+    const pBranche = this.periodBrancheArr[periodNb];
+    return pBranche.elementNEnergy
+  }
+
+  getPeriodElement(periodNb: number) {
+    const pTrunk = this.periodTrunkArr[periodNb];
+    const pBranche= this.periodBrancheArr[periodNb];
+    return NagiaHelper.getNagiaElement(pTrunk,pBranche);
+  }
+
   getPeriodTrunkDeity(periodNb: number) {
     return this.getTrunkDeity(this.periodTrunkArr[periodNb])
   }
@@ -86,6 +114,35 @@ export class Bazi extends Lunar {
 
   getPeriodBranche(periodNb: number) {
     return this.periodBrancheArr[periodNb]
+  }
+
+  //Ref3p280
+  isFavorableLifeCycle (periodnb: number, lifeCycle:ElementLifeCycle) {
+    let avoidLifeCycles : ElementLifeCycle[] = [];
+    switch (periodnb) {
+      case 0: case 1:
+        avoidLifeCycles = [
+          ElementLifeCycle.TOMB, // Suy
+          ElementLifeCycle.SICKNESS, // Bệnh
+          ElementLifeCycle.DEATH, // Tử
+          ElementLifeCycle.REPOSE, // Tuyệt
+          ElementLifeCycle.AGING // Suy
+        ];
+        break;
+        case 3: case 3: case 4: case 5:
+            avoidLifeCycles = [
+              ElementLifeCycle.SICKNESS, // Bệnh
+              ElementLifeCycle.DEATH, // Tử
+              ElementLifeCycle.WOMB,  // Thai
+              ElementLifeCycle.REPOSE, // Tuyệt
+              ElementLifeCycle.AGING // Suy
+            ];
+            break;
+      default:
+        avoidLifeCycles = [ElementLifeCycle.BIRTH, ElementLifeCycle.PROSPERITY];
+        break;
+    }
+    return !ObjectHelper.hasItem(avoidLifeCycles,lifeCycle) ;
   }
 
   override initTrunkBranche() {

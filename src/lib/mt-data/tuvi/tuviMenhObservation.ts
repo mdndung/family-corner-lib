@@ -613,7 +613,6 @@ genRef13p86ForThan(thanObs: TuViPalaceObservationBase) {
 
 
    genTuviStar() {
-    console.log('TUVI DIASTATUS ', TuViStar.TUVI.diaStatus);
       if (this.hasStar(TuViStar.TUVI)) {
           const status = TuViStar.TUVI.diaStatus;
 

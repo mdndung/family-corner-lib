@@ -31,8 +31,20 @@ export class QiForce extends EnumBaseClass {
   isFavorable () {
     return this.force>=QiForce.FAVORABLEFORCE;
   }
+
   isStrong() {
     return this.force>=QiForce.STRONGFORCE;
   }
 
+  static getQiForce(force: number, mediumQiForce?:QiForce) {
+    if ( typeof mediumQiForce==='undefined' )mediumQiForce=QiForce.MEDIUM;
+     if ( force<=QiForce.VERYHOSTILE.force ) return QiForce.VERYHOSTILE;
+     if ( force<=QiForce.HOSTILE.force ) return QiForce.HOSTILE;
+     if ( force<=QiForce.NONE.force ) return QiForce.NONE;
+     if ( force<=QiForce.MEDIUM.force ) return mediumQiForce;
+     if ( force<=QiForce.FAVORABLE.force ) return QiForce.FAVORABLE;
+     if ( force<=QiForce.PROSPEROUS.force ) return QiForce.PROSPEROUS;
+     if ( force<=QiForce.VERYSTRONG.force ) return QiForce.VERYSTRONG;
+     return QiForce.TOOSTRONG;
+  }
 }

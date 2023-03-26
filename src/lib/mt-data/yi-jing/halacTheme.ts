@@ -25,7 +25,7 @@ export class HalacTheme {
     this.principalTheme = YiJing.getInstanceFromSkyEarth(
       skyEarthTrigram.earthTrigram,
       skyEarthTrigram.skyTriGram,
-      this.getNDPos(skyEarthTrigram.skyTriGram, skyEarthTrigram.earthTrigram)
+      HalacTheme.getNDPos(this.lunar,skyEarthTrigram.skyTriGram, skyEarthTrigram.earthTrigram)
     );
     this.secondaryTheme = this.principalTheme.getSecondaryThemeInstance();
     this.principalPeriodArr = this.principalTheme.getPeriod(1);
@@ -35,10 +35,10 @@ export class HalacTheme {
   }
 
   // Ref2p49-54
- getNDPos(skyTriGram: Trigram, earthTrigram: Trigram) {
+ static getNDPos(lunar: Lunar, skyTriGram: Trigram, earthTrigram: Trigram) {
     let res = 0;
     //console.log("getNDPos",earthTrigram.toString(),skyTriGram.toString());
-    const hourBranche = this.lunar.gethBranche();
+    const hourBranche = lunar.gethBranche();
     const hourEnergy = hourBranche.getHourEnergy();
     //console.log("hourBranche ",hourBranche.toString(),hourEnergy.toString());
     const yiJing = YiJing.getInstanceFromSkyEarth( earthTrigram, skyTriGram, 0);
@@ -89,14 +89,14 @@ export class HalacTheme {
       }
       //console.log("");
     } else {
-      const birthSolarDegree = DateHelper.getSolarDegree(this.lunar.birthDate);
+      const birthSolarDegree = DateHelper.getSolarDegree(lunar.birthDate);
       hourCount--;
       res = hourCount % 3;
       //console.log("");
       if (Energy.YIN.isEqual(hourEnergy)) {
         res = 3 + res;
       }
-      if (this.lunar.isMan) {
+      if (lunar.isMan) {
         if (90 <= birthSolarDegree && birthSolarDegree < 270) {
           res = 5 - res;
         }

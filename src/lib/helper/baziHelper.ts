@@ -127,42 +127,9 @@ static existsecDeity( secondaryDeityPilar: SecondaryDeity[][], deity: SecondaryD
     return res;
   }
 
-  static startBrancheLifeCycle(trunk: Trunk) {
-    let res = Branche.COCK;
-    switch (trunk) {
-      case Trunk.JIA:
-        res = Branche.PIG;
-        break;
-      case Trunk.YI:
-        res = Branche.HORSE;
-        break;
-      case Trunk.BING:
-      case Trunk.WU:
-        res = Branche.TIGER;
-        break;
-      case Trunk.DING:
-      case Trunk.JI:
-        res = Branche.COCK;
-        break;
-      case Trunk.GENG:
-        res = Branche.SNAKE;
-        break;
-      case Trunk.XIN:
-        res = Branche.RAT;
-        break;
-      case Trunk.REN:
-        res = Branche.MONKEY;
-        break;
-      case Trunk.GUI:
-        res = Branche.RABBIT;
-        break;
-    }
-    return res;
-  }
-
   // Ref10ap80
   static elementLifeCycle(trunk: Trunk, branche: Branche) {
-    const startBranche = BaziHelper.startBrancheLifeCycle(trunk);
+    const startBranche = ElementLifeCycle.getStartMonthElementLifeCycle(trunk);
     let count = branche.ordinal() - startBranche.ordinal();
     if (Energy.YIN.isEqual(trunk.getEnergy())) {
       count = -count;

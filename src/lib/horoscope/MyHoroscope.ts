@@ -77,7 +77,8 @@ export class MyHoroscope {
       );
     }
     if ( selectHoroscope.isZodiacSelected() ) {
-      const birthTheme = new ZodiacTheme(this.baseBirthDate, this.baseBirthLieu);
+      const genrePrefix = this.baseLunar.getGenrePrefix();
+      const birthTheme = new ZodiacTheme(this.baseBirthDate, this.baseBirthLieu,genrePrefix);
       hGen.addContributor(
         new ZodiacHoroscope(
           this.baseBirthDate,

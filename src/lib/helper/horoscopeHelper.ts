@@ -7,6 +7,7 @@ import { ObjectHelper } from './objectHelper';
 import { PropertyAttr } from '../mt-data/property/propertyAttr';
 import { ObsPeriod } from '../observations/obsPeriod';
 import { AssocArray } from '../data/assoc-array';
+import { MyCalendar } from '../mt-data/date/mycalendar';
 
 export class HoroscopeHelper {
 
@@ -22,6 +23,20 @@ export class HoroscopeHelper {
         xcelDoc.addCellTitle1(index, element);
       }
     }
+  }
+
+  static computeStudyAge(studyDate: MyCalendar, birthDate: MyCalendar) {
+   let studyAge = studyDate.getYear() - birthDate.getYear();
+    if ( studyDate.getMonth()<birthDate.getMonth() ) {
+      studyAge--;
+    } else {
+      if ( studyDate.getMonth()===birthDate.getMonth() ) {
+        if ( studyDate.getDay()<birthDate.getDay() ) {
+          studyAge--;
+        }
+      }
+    }
+    return studyAge
   }
 
   static genWorkRowByCategory(
@@ -198,9 +213,11 @@ export class HoroscopeHelper {
     let res = '';
     if ( !keyAttr.isBase() ) return res ;
     const key = keyAttr.key;
+
+    const supportForce = keyAttr.getSupportForce();
+    const oppositeForce = keyAttr.getOppositeForce();
     if ( HoroscopeHelper.debug===0 ) {
       if ( PropertyHelper.isCandidate(session,keyAttr) ) {
-       //res += key+'='+MessageHelper.getMessage(key) ;
        res += MessageHelper.getMessage(key) ;
       }
     } else {
@@ -214,12 +231,12 @@ export class HoroscopeHelper {
       });
       res += key + ' ( force ' + keyAttr.force ;
 
-        if ( keyAttr.getSupportForce()!== 0 ) {
-          res += ', support ' + keyAttr.getSupportForce()
+        if ( supportForce !== 0 ) {
+          res += ', support ' + supportForce
         }
 
-        if ( keyAttr.getOppositeForce()!== 0 ) {
-          res += ', opposite ' + keyAttr.getOppositeForce() ;
+        if (oppositeForce!== 0 ) {
+          res += ', opposite ' + oppositeForce ;
         }
 
         const prev = PropertyHelper.getMeanPropForceContribution(session.ordinal()-1,keyAttr);
@@ -227,6 +244,7 @@ export class HoroscopeHelper {
           res += ', prev ' + prev ;
         }
         res +=  ', final '+PropertyHelper.getFinalForce(session,keyAttr);
+        res +=  ', supported '+keyAttr.getSupportForce();
       if ( keyAttr.isBase() ) {
         res += ', source '+originKey;
       }

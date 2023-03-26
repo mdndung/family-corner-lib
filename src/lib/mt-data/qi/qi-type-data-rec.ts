@@ -23,7 +23,7 @@ export class QiTypeDataRec {
       if (this.qiTypeForceArr[this.getIndex(qiType)] === null) {
         this.qiTypeForceArr[this.getIndex(qiType)] = force;
       } else {
-        this.qiTypeForceArr[this.getIndex(qiType)].addData(force);
+        this.qiTypeForceArr[this.getIndex(qiType)].addData(force,''+qiType);
       }
     }
   }
@@ -87,7 +87,7 @@ export class QiTypeDataRec {
           } else {
             detail += MessageHelper.getMessage("Label.Hostile");
           }
-          return new DataWithLog(val, detail);
+          return new DataWithLog(val,detail);
         }
       }
     }

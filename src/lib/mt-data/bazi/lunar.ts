@@ -56,6 +56,13 @@ export class Lunar {
     this.init();
   }
 
+  getGenrePrefix(isMan?: boolean) {
+    if ( typeof isMan === 'undefined' ) isMan=this.isMan;
+    let currGenre = "F.";
+    if ( isMan ) currGenre = "M.";
+    return currGenre;
+  }
+
   getDayMasterElement() {
     if ( this.pilarsAttr===null ) return  this.trunkArr[LunarBase.DINDEX].getElement();
     return  this.pilarsAttr.trunkEE[LunarBase.DINDEX].getValue().element;
@@ -146,7 +153,7 @@ export class Lunar {
         (this.trunkArr[LunarBase.DINDEX],this.birthDate.getHour());
     this.brancheArr[LunarBase.HINDEX]=
       BrancheHelper.getHourBranche(this.birthDate.getHour());
-
+/*
     // Life trunk and branch
     let index = this.brancheArr[LunarBase.MINDEX].ordinal() - 2 ;
 
@@ -156,6 +163,7 @@ export class Lunar {
     const mOrd = this.trunkArr[LunarBase.MINDEX].ordinal();
     this.trunkArr[LunarBase.LINDEX]=
       this.getYearStartMonth().getEnumNextNElement(mOrd);
+*/
   }
 
 
@@ -186,7 +194,6 @@ export class Lunar {
     this.initTrunkBranche();
     this.initYinYangCount();
     this.pilarsAttr=new PilarsAttr(this);
-
   }
 
   gethIdx() { return LunarBase.HINDEX };
@@ -246,7 +253,7 @@ export class Lunar {
 
   toString() {
     let res = '';
-    for (let index = 0; index <= LunarBase.LINDEX; index++) {
+    for (let index = 0; index < LunarBase.LINDEX; index++) {
       res += ' ( ' + this.trunkArr[index].getName()+' '+ this.brancheArr[index].getName()+ ' ) ' ;
     }
     return res;

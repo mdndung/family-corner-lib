@@ -15,7 +15,7 @@ import { Energy } from "../../public-api";
 
 export class PivotHelper {
 
-  static evalPivotForce(
+  static findPivot(
     lunar: Lunar,
     currPilarIdx: number,
     elligiblePivotData: DataWithLog
@@ -31,28 +31,32 @@ export class PivotHelper {
     const trunkEEArr = pilarsAttr.trunkEE;
     const brancheArr = lunar.brancheArr;
     const trunkArr = lunar.trunkArr;
-    let diffDayPilarForce = 1000;
+    let diffDayPilarForce = 1000; // Any big value to start
     const dayPilarForce =
       eeForceArr[trunkEEArr[LunarBase.DINDEX].getValue().ordinal()].getValue();
     let relation = trunkRelationArr[currPilarIdx][LunarBase.DINDEX];
     //
     let matchCount = 0;
     let selectTrunk: Trunk[] = [];
-    let currEE = trunkEEArr[currPilarIdx].getValue();
-    let currEEForce = eeForceArr[currEE.ordinal()].getValue();
-
+    const currPilarEE = trunkEEArr[currPilarIdx].getValue();
+    const currPilarEEForce = eeForceArr[currPilarEE.ordinal()].getValue();
+    const currPilardiffDayForce = Math.abs(currPilarEEForce - dayPilarForce);
+    // Prior to trunk pilar
     for (let index = 0; index < elligiblePivotEERSet.length; index++) {
       const checkRelation = elligiblePivotEERSet[index];
-      let currdiffDayForce;;
       if (relation === checkRelation) {
-        currdiffDayForce = Math.abs(currEEForce - dayPilarForce);
-        if (currdiffDayForce < diffDayPilarForce) {
-          ObjectHelper.pushIfNotExist(selectPivotElements, currEE.element);
+        // Not strict mode
+        if (currPilardiffDayForce <= diffDayPilarForce) {
+          ObjectHelper.pushIfNotExist(selectPivotElements, currPilarEE.element);
           ObjectHelper.pushIfNotExist(selectTrunk, trunkArr[currPilarIdx]);
-          diffDayPilarForce = currdiffDayForce;
+          diffDayPilarForce = currPilardiffDayForce;
         }
         matchCount++;
       }
+    }
+    // And then hidden trunk
+    for (let index = 0; index < elligiblePivotEERSet.length; index++) {
+      const checkRelation = elligiblePivotEERSet[index];
       const findIdx = ObjectHelper.findIndex(
         dayHiddenRelation[currPilarIdx],
         checkRelation
@@ -60,9 +64,10 @@ export class PivotHelper {
       if (findIdx >= 0) {
         const branche = brancheArr[currPilarIdx];
         const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(branche);
-        currEE = hiddenTrunkArr[findIdx].elementNEnergy;
-        currEEForce = eeForceArr[currEE.ordinal()].getValue();
-        currdiffDayForce = Math.abs(currEEForce - dayPilarForce);
+        let currEE = hiddenTrunkArr[findIdx].elementNEnergy;
+        let currEEForce = eeForceArr[currEE.ordinal()].getValue();
+        let currdiffDayForce = Math.abs(currEEForce - dayPilarForce);
+        // Strict mode
         if (currdiffDayForce < diffDayPilarForce) {
           ObjectHelper.pushIfNotExist(selectPivotElements, currEE.element);
           ObjectHelper.pushIfNotExist(
@@ -77,9 +82,9 @@ export class PivotHelper {
     return {
       matchCount,
       index: currPilarIdx,
-      selectPivotElements: selectPivotElements,
+      selectPivotElements,
       selectTrunk,
-      elligiblePivotData: elligiblePivotData,
+      elligiblePivotData,
     };
   }
 
@@ -186,7 +191,7 @@ export class PivotHelper {
     return PivotHelper.addIfNotPresent(pivotRelationSet, deity);
   }
 
-  // REF 7a page 97 p7.1: MONTHBRANCHEDAYTRUNKLIFECYCLE (Dụng thần)
+  // REF 7a page 97 p7.1:
   //
   static findElligiblePivotRelation(lunar: Lunar): DataWithLog {
     const pivotRelationSet: ElementNEnergyRelation[] = [];
@@ -445,37 +450,63 @@ export class PivotHelper {
         );
       }
     }
+    // Add case in Ref3p389
+       // Add if not exist in the pivot relation to find and search on Month pilar
+      //  Add the element found in tab from ref 3 page 389
+      const dayTrunk = lunar.getdTrunk();
+      const trunks2Search = dayTrunk.getPivot(lunar.getmBranche());
+
+      details +=
+        "<li>Try to use ( day:"+dayTrunk+", month:"+ lunar.getmBranche()+" )'s elligible pivots: ";
+      let sep = "";
+      trunks2Search.forEach((trunkPivot) => {
+        const ee = trunkPivot.elementNEnergy;
+        details += sep + PivotHelper.addElligiblePivotEER(
+          lunar,
+          ee,
+          pivotRelationSet
+        );
+        sep = " ";
+      });
+      details +="</li>"
+      details +=
+         "<li>Finally try to use DW as the last chance</>";
+      ObjectHelper.pushIfNotExist(
+        pivotRelationSet,
+        ElementNEnergyRelation.DW
+      );
     return new DataWithLog(pivotRelationSet, details);
   }
 
   static getElligiblePivotAttr(lunar: Lunar) {
     const elligiblePivotEERData = PivotHelper.findElligiblePivotRelation(lunar);
 
-    let elligiblePivotAttr = PivotHelper.evalPivotForce(
+    let elligiblePivotAttr = PivotHelper.findPivot(
       lunar,
       LunarBase.MINDEX, // Find first for support pilar
       elligiblePivotEERData
     );
-
     if (elligiblePivotAttr.matchCount === 0) {
-      elligiblePivotAttr = PivotHelper.evalPivotForce(
+      elligiblePivotAttr = PivotHelper.findPivot(
         lunar,
         LunarBase.HINDEX, // Find second for support pilar
         elligiblePivotEERData
       );
     }
     if (elligiblePivotAttr.matchCount === 0) {
-      elligiblePivotAttr = PivotHelper.evalPivotForce(
+      elligiblePivotAttr = PivotHelper.findPivot(
         lunar,
         LunarBase.YINDEX, // Find third for support pilar
         elligiblePivotEERData
       );
     }
+    /*
     if (elligiblePivotAttr.matchCount === 0) {
       // Add if not exist in the pivot relation to find and search on Month pilar
       //  Add the element found in tab from ref 3 page 389
       const dayTrunk = lunar.getdTrunk();
       const trunks2Search = dayTrunk.getPivot(lunar.getmBranche());
+
       let details =
         "<li>Try to use pivot from trunk " + trunks2Search + " </li>";
       trunks2Search.forEach((trunkPivot) => {
@@ -486,6 +517,7 @@ export class PivotHelper {
           elligiblePivotEERData.getValue()
         );
       });
+
       elligiblePivotEERData.detail +=
         details + "<li>try to use DW as the last chance</>";
       ObjectHelper.pushIfNotExist(
@@ -493,13 +525,16 @@ export class PivotHelper {
         ElementNEnergyRelation.DW
       );
 
-      elligiblePivotAttr = PivotHelper.evalPivotForce(
+      elligiblePivotAttr = PivotHelper.findPivot(
         lunar,
         LunarBase.MINDEX,
         elligiblePivotEERData
       );
     }
-
+    */
     return elligiblePivotAttr;
   }
+
+
+
 }

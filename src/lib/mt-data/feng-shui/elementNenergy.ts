@@ -93,4 +93,9 @@ export class ElementNEnergy extends EnumBaseClass {
   override getViewColorName() {
     return this.colorViewName;
   }
+
+  isHostile(otherEnE: ElementNEnergy) {
+    if ( this.energy===otherEnE.energy ) return false ;
+    return this.element.isDestructive(otherEnE.element) || otherEnE.element.isDestructive(this.element)
+  }
 }

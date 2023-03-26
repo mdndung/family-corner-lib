@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 /* eslint-disable @typescript-eslint/naming-convention */
+import { ObjectHelper } from "../../helper/objectHelper";
 import { EnumBaseClass } from "../enumBaseClass";
 import { Element } from "../feng-shui/element";
 import { DataWithLog } from "../qi/dataWithLog";
@@ -39,13 +40,20 @@ export class BrancheRelation extends EnumBaseClass {
 
   static ELEMENTFAVORABLE = new BrancheRelation("EF");
 
+  //Ref2p331
+  static TAMTAI = new BrancheRelation("TAMTAI");
+
+  static CLASHEDRELATION =
+  [BrancheRelation.CLASH,,BrancheRelation.INJURY,BrancheRelation.AGRESSIVE,BrancheRelation.DISRESPECFUL,
+    BrancheRelation.SCANDALOUS,BrancheRelation.AUTOPUNITION,BrancheRelation.DESTROY];
+
   static RELATIONARR = [
     [
       [BrancheRelation.ELEMENTFAVORABLE],
       [BrancheRelation.TRANSFORMPLUS],
-      [BrancheRelation.ELEMENTCLASH],
-      [BrancheRelation.SCANDALOUS],
-      [BrancheRelation.COMBINATION],
+      [BrancheRelation.ELEMENTCLASH,BrancheRelation.TAMTAI],
+      [BrancheRelation.SCANDALOUS,BrancheRelation.TAMTAI],
+      [BrancheRelation.COMBINATION,BrancheRelation.TAMTAI],
       [BrancheRelation.ELEMENTCLASH],
       [BrancheRelation.CLASH],
       [BrancheRelation.INJURY],
@@ -56,8 +64,8 @@ export class BrancheRelation extends EnumBaseClass {
     ],
 
     [
-      [BrancheRelation.TRANSFORMPLUS],
-      [BrancheRelation.ELEMENTFAVORABLE],
+      [BrancheRelation.TRANSFORMPLUS,BrancheRelation.TAMTAI],
+      [BrancheRelation.ELEMENTFAVORABLE,BrancheRelation.TAMTAI],
       [BrancheRelation.ELEMENTCLASH],
       [BrancheRelation.ELEMENTCLASH],
       [BrancheRelation.DESTROY],
@@ -67,7 +75,7 @@ export class BrancheRelation extends EnumBaseClass {
       [BrancheRelation.ELEMENTCLASH],
       [BrancheRelation.COMBINATION],
       [BrancheRelation.DISRESPECFUL],
-      [BrancheRelation.ELEMENTCLASH],
+      [BrancheRelation.ELEMENTCLASH,BrancheRelation.TAMTAI],
     ],
     // TIGER
     [
@@ -79,9 +87,9 @@ export class BrancheRelation extends EnumBaseClass {
       [BrancheRelation.INJURY, BrancheRelation.AGRESSIVE],
       [BrancheRelation.COMBINATION],
       [BrancheRelation.ELEMENTCLASH],
-      [BrancheRelation.CLASH, BrancheRelation.AGRESSIVE],
-      [BrancheRelation.ELEMENTCLASH],
-      [BrancheRelation.COMBINATION],
+      [BrancheRelation.CLASH, BrancheRelation.AGRESSIVE,BrancheRelation.TAMTAI],
+      [BrancheRelation.ELEMENTCLASH,BrancheRelation.TAMTAI],
+      [BrancheRelation.COMBINATION,BrancheRelation.TAMTAI],
       [BrancheRelation.TRANSFORMPLUS, BrancheRelation.DESTROY],
     ],
     // RABBIT
@@ -91,9 +99,9 @@ export class BrancheRelation extends EnumBaseClass {
       [BrancheRelation.ELEMENTFAVORABLE],
       [BrancheRelation.ELEMENTFAVORABLE],
       [BrancheRelation.INJURY],
-      [BrancheRelation.ELEMENTFAVORABLE],
-      [BrancheRelation.DESTROY],
-      [BrancheRelation.COMBINATION],
+      [BrancheRelation.ELEMENTFAVORABLE,BrancheRelation.TAMTAI],
+      [BrancheRelation.DESTROY,BrancheRelation.TAMTAI],
+      [BrancheRelation.COMBINATION,BrancheRelation.TAMTAI],
       [BrancheRelation.ELEMENTCLASH],
       [BrancheRelation.CLASH],
       [BrancheRelation.TRANSFORMPLUS],
@@ -103,9 +111,9 @@ export class BrancheRelation extends EnumBaseClass {
     [
       [BrancheRelation.COMBINATION],
       [BrancheRelation.DESTROY],
-      [BrancheRelation.ELEMENTCLASH],
-      [BrancheRelation.INJURY],
-      [BrancheRelation.AUTOPUNITION],
+      [BrancheRelation.ELEMENTCLASH,BrancheRelation.TAMTAI],
+      [BrancheRelation.INJURY,BrancheRelation.TAMTAI],
+      [BrancheRelation.AUTOPUNITION,BrancheRelation.TAMTAI],
       [BrancheRelation.ELEMENTFAVORABLE],
       [BrancheRelation.ELEMENTFAVORABLE],
       [BrancheRelation.ELEMENTFAVORABLE],
@@ -116,14 +124,14 @@ export class BrancheRelation extends EnumBaseClass {
     ],
     // TY/SNAKE
     [
-      [BrancheRelation.ELEMENTCLASH],
-      [BrancheRelation.COMBINATION],
+      [BrancheRelation.ELEMENTCLASH,BrancheRelation.TAMTAI],
+      [BrancheRelation.COMBINATION,BrancheRelation.TAMTAI],
       [BrancheRelation.INJURY, BrancheRelation.AGRESSIVE],
       [BrancheRelation.ELEMENTFAVORABLE],
       [BrancheRelation.ELEMENTCLASH],
       [BrancheRelation.ELEMENTFAVORABLE],
       [BrancheRelation.ELEMENTFAVORABLE],
-      [BrancheRelation.ELEMENTCLASH],
+      [BrancheRelation.ELEMENTCLASH,BrancheRelation.TAMTAI],
       [
         BrancheRelation.TRANSFORMPLUS,
         BrancheRelation.DESTROY,
@@ -143,9 +151,9 @@ export class BrancheRelation extends EnumBaseClass {
       [BrancheRelation.ELEMENTFAVORABLE],
       [BrancheRelation.AUTOPUNITION],
       [BrancheRelation.TRANSFORMPLUS],
-      [BrancheRelation.ELEMENTCLASH],
-      [BrancheRelation.ELEMENTCLASH],
-      [BrancheRelation.COMBINATION],
+      [BrancheRelation.ELEMENTCLASH,BrancheRelation.TAMTAI],
+      [BrancheRelation.ELEMENTCLASH,BrancheRelation.TAMTAI],
+      [BrancheRelation.COMBINATION,BrancheRelation.TAMTAI],
       [BrancheRelation.ELEMENTFAVORABLE],
     ],
     // GOAT / MUI
@@ -155,9 +163,9 @@ export class BrancheRelation extends EnumBaseClass {
       [BrancheRelation.ELEMENTCLASH],
       [BrancheRelation.COMBINATION],
       [BrancheRelation.ELEMENTFAVORABLE],
-      [BrancheRelation.ELEMENTFAVORABLE],
-      [BrancheRelation.TRANSFORMPLUS],
-      [BrancheRelation.ELEMENTFAVORABLE],
+      [BrancheRelation.ELEMENTFAVORABLE,BrancheRelation.TAMTAI],
+      [BrancheRelation.TRANSFORMPLUS,BrancheRelation.TAMTAI],
+      [BrancheRelation.ELEMENTFAVORABLE,BrancheRelation.TAMTAI],
       [BrancheRelation.ELEMENTCLASH],
       [BrancheRelation.ELEMENTCLASH],
       [BrancheRelation.DESTROY, BrancheRelation.DISRESPECFUL],
@@ -167,9 +175,9 @@ export class BrancheRelation extends EnumBaseClass {
     [
       [BrancheRelation.COMBINATION],
       [BrancheRelation.ELEMENTFAVORABLE],
-      [BrancheRelation.CLASH, BrancheRelation.AGRESSIVE],
-      [BrancheRelation.ELEMENTCLASH],
-      [BrancheRelation.COMBINATION],
+      [BrancheRelation.CLASH, BrancheRelation.AGRESSIVE,BrancheRelation.TAMTAI],
+      [BrancheRelation.ELEMENTCLASH,BrancheRelation.TAMTAI],
+      [BrancheRelation.COMBINATION,BrancheRelation.TAMTAI],
       [
         BrancheRelation.TRANSFORMPLUS,
         BrancheRelation.AGRESSIVE,
@@ -184,8 +192,8 @@ export class BrancheRelation extends EnumBaseClass {
     ],
     // COCK / DAU
     [
-      [BrancheRelation.DESTROY],
-      [BrancheRelation.COMBINATION],
+      [BrancheRelation.DESTROY,BrancheRelation.TAMTAI],
+      [BrancheRelation.COMBINATION,BrancheRelation.TAMTAI],
       [BrancheRelation.ELEMENTFAVORABLE],
       [BrancheRelation.CLASH],
       [BrancheRelation.TRANSFORMPLUS],
@@ -195,7 +203,7 @@ export class BrancheRelation extends EnumBaseClass {
       [BrancheRelation.ELEMENTFAVORABLE],
       [BrancheRelation.AUTOPUNITION],
       [BrancheRelation.INJURY],
-      [BrancheRelation.ELEMENTCLASH],
+      [BrancheRelation.ELEMENTCLASH,BrancheRelation.TAMTAI],
     ],
     // DOG / TUAT
     [
@@ -207,9 +215,9 @@ export class BrancheRelation extends EnumBaseClass {
       [BrancheRelation.ELEMENTCLASH],
       [BrancheRelation.COMBINATION],
       [BrancheRelation.DISRESPECFUL, BrancheRelation.DESTROY],
-      [BrancheRelation.ELEMENTFAVORABLE],
-      [BrancheRelation.INJURY],
-      [BrancheRelation.ELEMENTFAVORABLE],
+      [BrancheRelation.ELEMENTFAVORABLE,BrancheRelation.TAMTAI],
+      [BrancheRelation.INJURY,BrancheRelation.TAMTAI],
+      [BrancheRelation.ELEMENTFAVORABLE,BrancheRelation.TAMTAI],
       [BrancheRelation.ELEMENTFAVORABLE],
     ],
     // PIG / HOI
@@ -219,9 +227,9 @@ export class BrancheRelation extends EnumBaseClass {
       [BrancheRelation.TRANSFORMPLUS, BrancheRelation.DESTROY],
       [BrancheRelation.COMBINATION],
       [BrancheRelation.ELEMENTCLASH],
-      [BrancheRelation.CLASH],
-      [BrancheRelation.ELEMENTCLASH],
-      [BrancheRelation.COMBINATION],
+      [BrancheRelation.CLASH,BrancheRelation.TAMTAI],
+      [BrancheRelation.ELEMENTCLASH,BrancheRelation.TAMTAI],
+      [BrancheRelation.COMBINATION,BrancheRelation.TAMTAI],
       [BrancheRelation.INJURY],
       [BrancheRelation.ELEMENTFAVORABLE],
       [BrancheRelation.ELEMENTCLASH],
@@ -239,13 +247,14 @@ export class BrancheRelation extends EnumBaseClass {
   ) {
     const br1br2RelArr =
       BrancheRelation.RELATIONARR[br1.ordinal()][br2.ordinal()];
+      /*
     for (let index = 0; index < br1br2RelArr.length; index++) {
       const brRel = br1br2RelArr[index];
       if (brRel.isEqual(relation)) {
         return true;
       }
-    }
-    return false;
+    }*/
+    return ObjectHelper.hasItem(br1br2RelArr,relation);
   }
 
   // Ref3p254

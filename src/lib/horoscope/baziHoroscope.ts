@@ -27,7 +27,7 @@ export class BaziHoroscope extends HoroscopeContributor {
     }
 
     init(currAge: number): void {
-      console.log(' BaziHoroscope init. Update the baseQiTypeData for the current period depending on currAge ', currAge);
+      console.log(' TBD BaziHoroscope init. Update the baseQiTypeData for the current period depending on currAge ', currAge);
     }
 
     override initBaseQiType(lunar: Lunar) {

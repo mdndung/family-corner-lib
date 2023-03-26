@@ -88,7 +88,6 @@ export class Trunk extends EnumBaseClass {
       // RAT ->
       [Trunk.GENG, Trunk.JIA],
       [Trunk.GENG, Trunk.JIA],
-
       [Trunk.GENG, Trunk.JIA],
       [Trunk.JIA, Trunk.GENG],
       [Trunk.GENG, Trunk.JIA],
@@ -105,7 +104,6 @@ export class Trunk extends EnumBaseClass {
       // RAT ->
       [Trunk.JIA, Trunk.BING],
       [Trunk.JIA, Trunk.BING],
-
       [Trunk.JIA, Trunk.BING, Trunk.GUI],
       [Trunk.JIA, Trunk.BING, Trunk.GUI],
       [Trunk.BING, Trunk.JIA, Trunk.GUI],
@@ -173,7 +171,6 @@ export class Trunk extends EnumBaseClass {
       // RAT ->
       [Trunk.BING, Trunk.WU],
       [Trunk.DING, Trunk.BING, Trunk.JIA],
-
       [Trunk.BING, Trunk.GENG, Trunk.WU],
       [Trunk.XIN, Trunk.WU, Trunk.GENG],
       [Trunk.GENG, Trunk.JIA],

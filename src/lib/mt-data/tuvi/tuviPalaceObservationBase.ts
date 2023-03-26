@@ -40,7 +40,7 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
   hasMajorStarWithFavorableElement: boolean = false;
 
   constructor(palace: TuViPalace, tuviHoroscope: TuViHoroscope) {
-    super();
+    super(tuviHoroscope.birthLunar.getGenrePrefix());
     this.palace = palace;
     this.tuviHoroscope = tuviHoroscope;
     this.satTinhCombinatedCount = -1;
@@ -48,6 +48,7 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
       this.getSatTinhCombinedCount() > TuViPalace.AVAILSTARNBCOUNT;
     this.isPartOfTuMo = palace.branche.getElement() === Element.EARTH;
     this.hasMajorStarWithFavorableElement=false;
+
   }
 
   override getName() {

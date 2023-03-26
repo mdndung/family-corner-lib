@@ -23,9 +23,15 @@ import { QiHelper } from "../../helper/qiHelper";
 import { QiTypeDataRec } from "../qi/qi-type-data-rec";
 import { ElementLifeCycle } from "../feng-shui/elementLifeCycle";
 import { QiType } from "../qi/qi-type";
+import { MessageHelper } from "../../helper/messageHelper";
+import { StringHelper } from "../../helper/stringHelper";
 
 
 export class PilarsAttr {
+
+  static  ONEDEITYFAVORABLECOUNT=2;
+  static  TWODEITYFAVORABLECOUNT=3;
+
   lunar: Lunar;
   qiTypeData: QiTypeDataRec;
   trunkEE?: DataWithLog[] = null;
@@ -61,6 +67,9 @@ export class PilarsAttr {
   deityForce: number[] = null;
   deityElements: Element[] = null;
 
+  favDeityForce: DataWithLog;
+  hostileDeityForce: DataWithLog;
+
   constructor(lunar: Lunar) {
     lunar.pilarsAttr = this;
     this.lunar = lunar;
@@ -81,11 +90,6 @@ export class PilarsAttr {
   public getDeityCount(deity: ElementNEnergyRelation) {
     if (deity === null) return 0;
     const index = deity.ordinal();
-    return this.deityPilarCount[index] + this.hiddenDeityPilarCount[index];
-  }
-
-  public getDeityeeRCount(eeR: ElementNEnergyRelation) {
-    const index = eeR.ordinal();
     return this.deityPilarCount[index] + this.hiddenDeityPilarCount[index];
   }
 
@@ -423,8 +427,7 @@ export class PilarsAttr {
 
 
     qiForce =this.getFavorableDeityGroupQiForce(ElementNEnergyRelation.DR);
-    detail =
-      "DR, IR  Influence = " + qiForce.getName();
+    detail = "DR, IR  Influence = " + qiForce.getName();
     force = new DataWithLog(qiForce, detail);
     this.qiTypeData.addQiTypeForce(QiType.DRIR2RWFLEVERAGE, force);
 
@@ -434,17 +437,34 @@ export class PilarsAttr {
     force = new DataWithLog(qiForce, detail);
     this.qiTypeData.addQiTypeForce(QiType.DWIWCOUNT, force);
 
+    qiForce = this.getFavorableDeityGroupQiForce(ElementNEnergyRelation.HO);
+    detail =
+      "HO, EG  Influence = " + qiForce.getName();
+    this.qiTypeData.addQiTypeForce(QiType.HOEGCOUNT, force);
 
+    const irdrForce = this.getDeityGroupElementForce(ElementNEnergyRelation.DR);
+
+    this.favDeityForce = new DataWithLog(rwfForce+irdrForce,"RW, F, IR + DR");
+    this.hostileDeityForce = new DataWithLog(hoegForce+do7kForce,"DO, 7F, HO + EG");
+
+  }
+
+  isOneDeityCountFavorable(count: number) {
+    return count >= PilarsAttr.ONEDEITYFAVORABLECOUNT
+  }
+
+  isPairedDeityCountFavorable(count: number) {
+    return count >= PilarsAttr.TWODEITYFAVORABLECOUNT
   }
 
   getFavorableDeityGroupQiForce(ener: ElementNEnergyRelation) {
     const count = this.getDeityGroupCount(ener);
     let qiForce = QiForce.NONE;
     if (count !== 0) {
-      if (count <= 1) {
-        qiForce = QiForce.MEDIUM;
-      } else {
+      if (this.isPairedDeityCountFavorable(count)) {
         qiForce = QiForce.FAVORABLE;
+      } else {
+        qiForce = QiForce.MEDIUM;
       }
     }
     return qiForce;
@@ -488,19 +508,14 @@ export class PilarsAttr {
       const eneRPrevProdElement = eNeR.getPrevProductiveElement();
       const eneRProdElement = eNeR.getNextProductiveElement();
       pilarsAttr.deityForce[index] +=
-        pilarsAttr.getDeityeeRCount(eneRPrevProdElement) -
-        pilarsAttr.getDeityeeRCount(eneRProdElement);
+        pilarsAttr.getDeityCount(eneRPrevProdElement) -
+        pilarsAttr.getDeityCount(eneRProdElement);
       const eneRPrevControlElement = eNeR.getPrevControlElement();
       const eneRNextControlElement = eNeR.getNextControlElement();
       pilarsAttr.deityForce[index] -=
-        pilarsAttr.getDeityeeRCount(eneRPrevControlElement) +
-        pilarsAttr.getDeityeeRCount(eneRNextControlElement);
+        pilarsAttr.getDeityCount(eneRPrevControlElement) +
+        pilarsAttr.getDeityCount(eneRNextControlElement);
     }
-    // ToBeDone: take the element lifecycle situation;
-    console.log(
-      "Deity Force ToBeDone: take the element lifecycle situation",
-      pilarsAttr.deityForce
-    );
   }
 
   // Ref3p342-343
@@ -1115,50 +1130,78 @@ export class PilarsAttr {
     return { selectPivotElements: currSelectElements, details: currDetails };
   }
 
+
   initPivot() {
-    const pivotAttr = PivotHelper.getElligiblePivotAttr(this.lunar);
-    this.pivotForce = pivotAttr.matchCount;
-    const details =
-      "<li> Provided from trunk " +
-      pivotAttr.selectTrunk +
-      " present in bazi from elligible deities {" +
-      pivotAttr.elligiblePivotData.getValue() +
-      "} based on <ol>" +
-      pivotAttr.elligiblePivotData.detail +
-      "</ol></li>";
-    const currPivotAttr = this.addEmptyElementPivotEE(
-      pivotAttr.selectPivotElements,
-      details
-    );
-    this.elligiblePivotData = new DataWithLog(
-      currPivotAttr.selectPivotElements,
-      currPivotAttr.details
-    );
+
+      const pivotAttr = PivotHelper.getElligiblePivotAttr(this.lunar);
+      this.pivotForce = pivotAttr.matchCount;
+      const details =
+        "<li> Provided from trunk " +
+        pivotAttr.selectTrunk + ' on pilar ' +
+        MessageHelper.getMessage(LunarBase.getPilarLabel( pivotAttr.index)) +
+        " present in bazi from elligible deities {" +
+        pivotAttr.elligiblePivotData.getValue() +
+        "} based on <ol>" +
+        pivotAttr.elligiblePivotData.detail +
+        "</ol></li>";
+
+      const currPivotAttr = this.addEmptyElementPivotEE(
+        pivotAttr.selectPivotElements,
+        details
+      );
+      this.elligiblePivotData = new DataWithLog(
+        currPivotAttr.selectPivotElements,
+        currPivotAttr.details
+      );
   }
 
   isElligilePivotElement(element: Element) {
     return ObjectHelper.hasItem(this.elligiblePivotData.getValue(), element);
   }
 
-  isFavororablePivotElement( checkElement: Element ) {
+  // Ref3p281
+  getPivotElementStatus( checkElement: Element ) {
 
     const elligibleElements = this.elligiblePivotData.getValue();
     for (let index = 0; index < elligibleElements.length; index++) {
       const pivotElement = elligibleElements[index];
-      if ( checkElement=== pivotElement ) return true ;
-      if ( checkElement.isFavorable(pivotElement) ) return true;
-      if ( checkElement.isDestructive(pivotElement) ) return false;
+      if ( checkElement=== pivotElement ) return 1 ; // Is elligble
+      if ( checkElement.isFavorable(pivotElement) ) return 1; // is Supportin an elligible
+      if ( checkElement.isDestructive(pivotElement) ) return -1; // Is weakening an elligible
     }
-    return false
+    return 0
   }
 
 
   getPivotStatus(element: Element) {
     const isElligible = this.isElligilePivotElement(element);
-    const strongSupport = 5;
-    const pivotSupport = 1;
-    const strongHostile = 4;
-    const pivotHostile = 2;
+    const strongSupport = 5; // 5
+    const pivotSupport = 1; 1;
+    const strongHostile = 4;// 4;
+    const pivotHostile = 2;// 2;
+    let res = 0;
+    if (isElligible) {
+      if (this.isFavorableElement(element)) {
+        res = strongSupport;
+      } else {
+        res = pivotSupport;
+      }
+    } else {
+      if (this.isFavorableElement(element)) {
+        res = strongHostile;
+      } else {
+        res = pivotHostile;
+      }
+    }
+    return res;
+  }
+
+  getPivotStatusStr(element: Element) {
+    const isElligible = this.isElligilePivotElement(element);
+    const strongSupport = 5 ; // 5
+    const pivotSupport = 1; 1;
+    const strongHostile = 4;// 4;
+    const pivotHostile = 2;// 2;
     let res = 0;
     if (isElligible) {
       if (this.isFavorableElement(element)) {
@@ -1219,7 +1262,7 @@ export class PilarsAttr {
 
   getElementPlusDeitieForce(deityElement: Element) {
     const pilarsAttr = this.lunar.pilarsAttr;
-    const deity = pilarsAttr.getDeityByElement(deityElement);
+    const deity = pilarsAttr.getDeityBaseGrpByElement(deityElement);
     const elementForce = this.lunar.pilarsAttr.getElementForce(deityElement);
     const count = pilarsAttr.getDeityCount(deity);
     return elementForce * count;
@@ -1256,7 +1299,7 @@ export class PilarsAttr {
     return this.deityElements[deity.ordinal()];
   }
 
-  getDeityByElement(checkElement: Element) {
+  getDeityBaseGrpByElement(checkElement: Element) {
     for (let index = 0; index < this.deityElements.length; index++) {
       const element = this.deityElements[index];
       if (element === checkElement) {
@@ -1268,6 +1311,14 @@ export class PilarsAttr {
     }
     return null;
   }
+
+  getDeityForceByElement(element: Element) {
+    const deityGrp = this.getDeityBaseGrpByElement(element);
+    const count = this.getPairedRelationCount(deityGrp,LunarBase.DINDEX);
+    const deityGrpForce = StringHelper.bool2Str(this.isPairedDeityCountFavorable(count));
+    return deityGrpForce;
+  }
+
   getTrunkRelationCount(relation: ElementNEnergyRelation, toIndex: number) {
     let count = 0;
     for (let i = 0; i < LunarBase.LINDEX; i++) {

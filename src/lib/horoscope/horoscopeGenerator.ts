@@ -32,20 +32,7 @@ export class HoroscopeGenerator {
     this.studyDate = studyDate.getCopy();
     this.doc = xcelDoc;
     this.contributors = [];
-    this.computeStudyAge();
-  }
-
-  computeStudyAge() {
-    this.studyAge = this.studyDate.getYear() - this.birthDate.getYear();
-    if ( this.studyDate.getMonth()<this.birthDate.getMonth() ) {
-      this.studyAge--;
-    } else {
-      if ( this.studyDate.getMonth()===this.birthDate.getMonth() ) {
-        if ( this.studyDate.getDay()<this.birthDate.getDay() ) {
-          this.studyAge--;
-        }
-      }
-    }
+    this.studyAge = HoroscopeHelper.computeStudyAge(this.studyDate,this.birthDate);
   }
 
   addContributor(contrib: HoroscopeContributor) {
@@ -53,8 +40,7 @@ export class HoroscopeGenerator {
   }
 
   init() {
-    let currGenre = "F.";
-    if ( this.birthLunar.isMan ) currGenre = "M.";
+    let currGenre = this.birthLunar.getGenrePrefix();
     PropertyHelper.setGenre(currGenre)
     PropertyHelper.initHelper(ObsPeriod.BIRTHTHEME, this.birthDate);
     this.contributors.forEach((contrib) => {

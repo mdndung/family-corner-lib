@@ -4,6 +4,7 @@ import { EnumBaseClass } from "../enumBaseClass";
 export class DataWithLog {
   static PILARS_NAME = [" Year ", " Month ", " Day ", " Hour "];
 
+  isFirst: boolean ;
   value: any;
   detail: string;
 
@@ -47,6 +48,7 @@ export class DataWithLog {
   constructor(value?: any, detail?: string) {
     if (typeof value === "undefined") value = null;
     this.value=value;
+    this.isFirst = true ;
     if (typeof detail === "undefined") {
       this.detail = "";
     } else {
@@ -69,7 +71,11 @@ export class DataWithLog {
       let force = 0;
       if (data instanceof DataWithLog) {
         force = data.getValue();
-        subDetail += data.getDetail();
+        if ( detail.length===0) {;
+          detail = data.getRawDetail();
+        } else {
+          subDetail += data.getRawDetail();
+        }
       } else {
         if (typeof data === "number") {
           force = data;
@@ -97,22 +103,23 @@ export class DataWithLog {
     if (force !== 0) {
       const currValue = this.getValue();
       this.value += force;
-      if ( currValue===0 ) {
-        this.detail = detail ;
+      if ( currValue===0  ) {
+        if ( this.isFirst) this.detail = '' ;
       } else {
-      if ( detail.length===0 ) {
-        detail = subDetail ;
-        subDetail='';
-      }
-    }
+        if ( detail.length===0 ) {
+          detail = subDetail ;
+          subDetail='';
+        }
+     }
       this.detail +=
-        "<li>" + currValue + " + (<ol>" +
+        "<li>" + currValue + " + (" +
         detail +
-        "</ol>: " + this.getForceWithSign(force)+
+        ": " + this.getForceWithSign(force)+
         ") = " +
         this.value +
         subDetail+
         " </li>" ;
+        this.isFirst = false ;
     }
   }
 
@@ -139,4 +146,19 @@ export class DataWithLog {
   getDetail() {
     return this.detail;
   }
+
+  getRawDetail() {
+    let temp=this.detail;
+    if ( temp.startsWith('<') ) {
+      temp = temp.substring(4)
+      temp = temp.substring(0,temp.length-5)
+    }
+    let liIdx = temp.indexOf('<li>') ;
+    while ( liIdx>=0 ) {
+      temp = temp.replace("<li>"," ");
+      liIdx = temp.indexOf('<li>');
+    }
+    return temp;
+  }
+
 }

@@ -30,6 +30,21 @@ export class BrancheHelper {
     return Branche.RAT.getEnum((cYear-1)%12) as Branche;
   }
 
+  static AGRESSIVE = new BrancheRelation("A"); // Tri the, Vo An
+
+
+
+  static isBrancheClashed (branche1:Branche, branche2: Branche) {
+   for (let index = 0; index < BrancheRelation.CLASHEDRELATION.length; index++) {
+    const clashRelation = BrancheRelation.CLASHEDRELATION[index];
+    if (  BrancheRelation.isRelationPresent(
+      branche1,
+      branche2,
+      clashRelation
+      )) { return true ;}
+   }
+    return false ;
+  }
 
   static getMonthBranche(monthIndexBase1: number) {
     const monthIndexBase0 = monthIndexBase1-1;
