@@ -198,9 +198,10 @@ export class CombinationList {
         if (combAttr.isTrunkData()) {
           foundDataArr = combAttr.trunkAttrs;
         }
-
         if (ObjectHelper.hasItem(foundDataArr, pilarIdx)) {
           let count = 0;
+          let goal = 2 ;
+          if ( foundDataArr.length===1 ) goal=1;
           if (addInfo1Present) {
             if (addInfo1 === combAttr.resultData) count++;
           } else {
@@ -211,7 +212,7 @@ export class CombinationList {
           } else {
             count++;
           }
-          if (count === 2) {
+          if (count === goal ) {
             res.push(combAttr);
           }
         }

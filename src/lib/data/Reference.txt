@@ -1,13 +1,18 @@
 Lưu niên: Năm xem   Ref3p286
+Lenh thang: Month branche. Ref3p 328
 Thái tuế: Địa chi lưu niên Ref3p286
+
 ElementLifeCycle tab: Ref3p267
 Nagia, Vòng giáp tý: Ref2p18, Ref3p264
 
 TamTai //Ref2p331
 
-Cha Me Pliar year, month
-Vo chong pilar day
-Con cai Pilar Hour
+Cha Trunk year, month
+Mother Branche year, month.
+Brother sister : Pilar Month
+Moi day trunk. Ref3p330
+Partenaire day branche. Ref3p330
+Enfant. Pilar Hour. Ref330
 
 
 Ref 1 . Tu xem bat tu (Ly cu minh)

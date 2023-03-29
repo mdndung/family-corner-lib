@@ -70,6 +70,9 @@ export class PilarsAttr {
   favDeityForce: DataWithLog;
   hostileDeityForce: DataWithLog;
 
+  periodCombList: CombinationList;
+  yearCombList: CombinationList;
+
   constructor(lunar: Lunar) {
     lunar.pilarsAttr = this;
     this.lunar = lunar;
@@ -1067,10 +1070,12 @@ export class PilarsAttr {
       }
       const hiddenTrunk = BrancheHelper.getHiddenTrunk(brancheArr[pilarCol]);
       for (let i = 0; i < hiddenTrunk.length; i++) {
-        this.dayHiddenRelation[pilarCol][i] = BaziHelper.eNeTrunkRelation(
-          hiddenTrunk[i],
-          trunkArr[LunarBase.DINDEX]
-        );
+        if ( hiddenTrunk[i]!==null ) {
+          this.dayHiddenRelation[pilarCol][i] = BaziHelper.eNeTrunkRelation(
+            hiddenTrunk[i],
+            trunkArr[LunarBase.DINDEX]
+          );
+        }
       }
     }
 
@@ -1385,6 +1390,7 @@ export class PilarsAttr {
   getDayForceLabel(): string {
     const force = this.getDayElementNFriendForce();
     const dayStatusFavorable = this.qiTypeData.isFavorable(QiType.DAYSTATUS)
+    console.log(this.qiTypeData.getData(QiType.DAYSTATUS))
     if (this.isFavorable(force)&&dayStatusFavorable) return "Label.Day.Favorable";
     return "Label.Day.Weak";
   }

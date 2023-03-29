@@ -4,8 +4,9 @@ import { Trigram } from "../feng-shui/trigram";
 import { Energy } from "../feng-shui/energy";
 import { Branche } from "./branche";
 import { EnumBaseClass } from "../enumBaseClass";
+import { BrancheTrunkBase } from "./brancheTrunkBase";
 
-export class Trunk extends EnumBaseClass {
+export class Trunk extends BrancheTrunkBase {
   static JIA = new Trunk("JIA", ElementNEnergy.WOODYANG, 6, Trigram.QIAN);
   static YI = new Trunk("YI", ElementNEnergy.WOODYIN, 2, Trigram.KUN);
   static BING = new Trunk("BING", ElementNEnergy.FIREYANG, 8, Trigram.GEN);
@@ -201,7 +202,6 @@ export class Trunk extends EnumBaseClass {
     ],
   ];
 
-  elementNEnergy: ElementNEnergy = null;
   hadoNb: number = null;
   trigram: Trigram = null;
 
@@ -211,8 +211,7 @@ export class Trunk extends EnumBaseClass {
     hadoNb: number,
     trigram: Trigram
   ) {
-    super(name);
-    this.elementNEnergy = eNe;
+    super(name,eNe);
     this.hadoNb = hadoNb;
     this.trigram = trigram;
   }
@@ -225,25 +224,12 @@ export class Trunk extends EnumBaseClass {
     return "Trunk";
   }
 
-  getEnergy() {
-    return this.elementNEnergy.energy as Energy;
-  }
-
-  getElement() {
-    return this.elementNEnergy.element;
-  }
-
   getPivot(branche: Branche) {
     return Trunk.pivotBranche[this.ordinal()][branche.ordinal()];
-  }
-
-  isHostile(other: Trunk) {
-    return this.getElement().isDestructive(other.getElement()) ||
-    other.getElement().isDestructive(this.getElement())
-    ;
   }
 
   override getViewColorName() {
     return this.elementNEnergy.getViewColorName();
   }
+
 }

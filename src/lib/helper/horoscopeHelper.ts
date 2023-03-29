@@ -45,8 +45,7 @@ export class HoroscopeHelper {
     titleLine: string[],
     categoryArr: string[]
   ) {
-
-    HoroscopeHelper.genRowTitleLine(xcelDoc, titleLine);
+    let genTitle=true;
     const displayedKeyArr:PropertyAttr[]=[];
     const attrList = PropertyHelper.getSessionProperties(session);
     const displayCategory =  new AssocArray();
@@ -62,6 +61,10 @@ export class HoroscopeHelper {
         displayedKeyArr,
         displayCategory);
       if ( res.length>0 ) {
+        if ( genTitle ) {
+          HoroscopeHelper.genRowTitleLine(xcelDoc, titleLine);
+          genTitle=false;
+        }
         xcelDoc.genEmptyRow();
         xcelDoc.addCellTitle1(0, categoryTitle);
         xcelDoc.addCell(1, categoryHeadersProp);
@@ -71,6 +74,10 @@ export class HoroscopeHelper {
     }
     const otherRes = HoroscopeHelper.getMessagesByCategory(session, attrList, null,displayedKeyArr,displayCategory);
     if ( otherRes.length>0 ) {
+      if ( genTitle ) {
+        HoroscopeHelper.genRowTitleLine(xcelDoc, titleLine);
+        genTitle=false;
+      }
         xcelDoc.genEmptyRow();
         xcelDoc.addCellTitle1(0,  MessageHelper.getMessage('Label.Other.Categories'));
         xcelDoc.addCell(1, otherRes);

@@ -15,8 +15,8 @@ export class TuViPhucDucObservation extends TuViPalaceObservationBase {
     super(palace, tuviHoroscope);
   }
 
-      // Force String depend on palace type and note
-      override evalForceString() {
+  // Force String depend on palace type and note
+  override evalForceString() {
         let res = "&+.+";
         const note = this.palace.getNote();
         if (note <= 80) res = "&+";
@@ -24,7 +24,7 @@ export class TuViPhucDucObservation extends TuViPalaceObservationBase {
         if (note <= 50) res = "&-";
         if (note <= 40) res = "&-.-";
         return "&+.+";
-    }
+  }
 
     override isFavorable() {
         return this.palace.getNote() > 50;

@@ -218,7 +218,17 @@ export class PropertyAttr {
       const attr = PropertyHelper.getPropTypeElementAttr(propType, this.key);
       if (!ObjectHelper.isNaN(attr)) {
         this.keyType = propType;
-        this.force =  attr[0];
+        const force = attr[0];
+        this.force =  force ;
+        if ( force!=0 ) {
+          if ( this.key.endsWith("&") ) {
+            let suffix = "-";
+            if ( force>0 ) {
+              suffix = "+";
+            }
+            attr.key+=suffix;
+          }
+        }
       }
    }
   }

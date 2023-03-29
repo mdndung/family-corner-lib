@@ -129,20 +129,20 @@
 "Pivot.HO.1.+&":  [1,"=Ref3p173p6"],
 "Pivot.HO.5.+&":  [2,"=Ref3p173p6"],
 
-"AntiPivot.RW.2.+&":  [-1,"=Ref3p173p8"],
-"AntiPivot.RW.4.+&":  [-2,"=Ref3p173p8"],
+"AntiPivot.RW.2.+&-":  [-1,"=Ref3p173p8"],
+"AntiPivot.RW.4.+&-":  [-2,"=Ref3p173p8"],
 
-"AntiPivot.DW.2.-&":  [-1,"=Ref3p173p9"],
-"AntiPivot.DW.4.-&":  [-2,"=Ref3p173p9"],
+"AntiPivot.DW.2.-&-":  [-1,"=Ref3p173p9"],
+"AntiPivot.DW.4.-&-":  [-2,"=Ref3p173p9"],
 
-"AntiPivot.DR.2.-&":  [-1,"=Ref3p173p10==Ref3p173p13==Ref3p173p15==Ref3p439p15"],
-"AntiPivot.DR.4.-&":  [-2,"=Ref3p173p10==Ref3p173p13==Ref3p173p15==Ref3p439p15"],
+"AntiPivot.DR.2.-&-":  [-1,"=Ref3p173p10==Ref3p173p13==Ref3p173p15==Ref3p439p15"],
+"AntiPivot.DR.4.-&-":  [-2,"=Ref3p173p10==Ref3p173p13==Ref3p173p15==Ref3p439p15"],
 
-"AntiPivot.DO.2.-&":  [-1,"=Ref3p173p14"],
-"AntiPivot.DO.4.-&":  [-2,"=Ref3p173p14"],
+"AntiPivot.DO.2.-&-":  [-1,"=Ref3p173p14"],
+"AntiPivot.DO.4.-&-":  [-2,"=Ref3p173p14"],
 
-"AntiPivot.HO.2.-&":  [-1,"=Ref3p173p16"],
-"AntiPivot.HO.4.-&":  [-2,"=Ref3p173p16"],
+"AntiPivot.HO.2.-&-":  [-1,"=Ref3p173p16"],
+"AntiPivot.HO.4.-&-":  [-2,"=Ref3p173p16"],
 
 "Ref8p466p3":[0,"=Careera.1029"],
 
@@ -159,13 +159,18 @@
 
 
  "Year.DayMaster.-.DO7K.+.DRIR.+.Hostile&": [-2,"=Year.Bad==Ref3p182p1b"],
+ "Year.DayMaster.-.+.Hostile&-": [-2,"=Year.Bad==Ref3p182p1b==Ref3p172p10"],
+ "Year.-.YBBC.M.-&-": [-2,"=Ref3p440p7"],
+ "Year.-.YBTC.M.-&-": [-2,"=Ref3p440p7b"],
 
- "Year.DayMaster.-.+.Hostile&": [-2,"=Year.Bad==Ref3p182p1b==Ref3p172p10"],
+ "Year.-.BCYE.B.D.-&-": [-1,"=Ref3p383p15d"],
+ "Ref3p383p15d": [0,"=General.4"],
+
  "DayMaster.-.DO7K.+.DRIR.+&": [0,"=Ref3p182p1a"],
- "DayMaster.+.DO7K.0.HOEG.0&": [-1,"=Ref3p172p8"],
- "DayMaster.-.DRIR.+&": [-1,"=Ref3p172p9a"],
- "DayMaster.-.DO7K.+.HOEG.+&": [-1,"=Ref3p172p9b"],
- "DayMaster.-.DRIR.0.HOEG.+": [-1,"=Ref3p172p9c"],
+ "DayMaster.+.DO7K.0.HOEG.0&-": [-1,"=Ref3p172p8"],
+ "DayMaster.-.DRIR.+&-": [-1,"=Ref3p172p9a"],
+ "DayMaster.-.DO7K.+.HOEG.+&-": [-1,"=Ref3p172p9b"],
+ "DayMaster.-.DRIR.0.HOEG.+&-": [-1,"=Ref3p172p9c"],
 
 "DayMaster.+.DRIR.+": [
   0,
@@ -316,19 +321,19 @@
     -2,
     "=Ref8p188p11"
   ],
-  "BRType1.S&":[
+  "BRType1.S&-":[
     -2,
     "=Ref8p43p1a"
   ],
-  "BRType1.S.DEAD&":[
+  "BRType1.S.DEAD&-":[
     -2,
     "Ref8p43p1b"
   ],
-  "BRType1.S.REPOSE&":[
+  "BRType1.S.REPOSE&-":[
     -2,
     "Ref8p43p1b"
   ],
-  "BRType1.D&":[
+  "BRType1.D&-":[
     -2,
     "=Ref8p43p2"
   ],
@@ -610,19 +615,19 @@
     1,
     "=Ref28bp104p3==Ref28bp108p5"
   ],
-  "Black.Moon.12&": [
+  "Black.Moon.12&-": [
     -1,
     "=Ref28bp104p4©==Ref28bp108p6"
   ],
-  "Black.Moon.2&": [
+  "Black.Moon.2&-": [
     -1,
     "=Ref28bp103p1==Ref28bp107p5"
   ],
-  "Black.Moon.3&": [
+  "Black.Moon.3&-": [
     -1,
     "=Ref28bp103p2==Ref28bp107p6"
   ],
-  "Black.Moon.4&": [
+  "Black.Moon.4&-": [
     -1,
     "=Ref28bp103p3==Ref28bp107p7"
   ],
@@ -630,19 +635,19 @@
     1,
     "=Ref28bp103p4==Ref28bp107p8"
   ],
-  "Black.Moon.6&": [
+  "Black.Moon.6&-": [
     -2,
     "=Ref28bp103p5==Ref28bp107p9"
   ],
-  "Black.Moon.7&": [
+  "Black.Moon.7&-": [
     -1,
     "=Ref28bp103p6==Ref28bp108p1"
   ],
-  "Black.Moon.8&": [
+  "Black.Moon.8&-": [
     -3,
     "=Ref28bp103p7==Ref28bp108p2"
   ],
-  "Black.Moon.9&": [
+  "Black.Moon.9&-": [
     -2,
     "=Ref28bp104p1==Ref28bp108p3"
   ],
@@ -3533,7 +3538,7 @@
   ],
   "F.Ref17p60p5a&+.+": [
     3,
-    "=Wifea.2==Persona.1000"
+    "=Wifea.2==Persona.3"
   ],
   "F.Ref17p60p5b&+": [
     2,
@@ -18798,7 +18803,7 @@
   ],
   "Ref17p113p3a&+": [
     2,
-    "=Persona.215==Persona.1000==Persona.212==Persona.1009==Fortunea.15"
+    "=Persona.215==Persona.3==Persona.212==Persona.1009==Fortunea.15"
   ],
   "Ref17p113p3b&-": [
     -2,
@@ -19541,7 +19546,7 @@
   ],
   "Ref17p138p1&+": [
     2,
-    "=Persona.1000==Persona.1015==Persona.1019==Persona.244"
+    "=Persona.3==Persona.1015==Persona.1019==Persona.244"
   ],
   "Ref17p138p2&+": [
     2,
@@ -19553,7 +19558,7 @@
   ],
   "Ref17p138p3&+-+": [
     0,
-    "=Persona.1000==Personb.189==Personb.2022==Personb.2036"
+    "=Persona.3==Personb.189==Personb.2022==Personb.2036"
   ],
   "Ref17p138p4&+.+": [
     3,
@@ -26953,7 +26958,7 @@
   ],
   "Ref17p60p10a&+": [
     2,
-    "=Persona.2b==Persona.1000==Lifeb.68"
+    "=Persona.2b==Persona.3==Lifeb.68"
   ],
   "Ref17p60p10a&-": [
     -2,
@@ -27040,7 +27045,7 @@
   ],
   "Ref17p61p18a&+": [
     2,
-    "=Persona.1000==Persona.2b==Lifeb.2003"
+    "=Persona.3==Persona.2b==Lifeb.2003"
   ],
   "Ref17p61p18a&-": [
     -2,
@@ -28135,7 +28140,7 @@
   ],
   "Ref17p84p5a&": [
     0,
-    "=Persona.1000==Persona.267==Fortunea.15==Persona.174a"
+    "=Persona.3==Persona.267==Fortunea.15==Persona.174a"
   ],
   "Ref17p84p5b&+": [
     2,
@@ -29199,11 +29204,11 @@
   ],
   "Ref25p575TerrJIp2": [
     0,
-    "=Personb.151==Persona.1000==Personc.11"
+    "=Personb.151==Persona.3==Personc.11"
   ],
   "Ref25p575TerrJIp3": [
     0,
-    "=Persona.1000"
+    "=Persona.3"
   ],
   "Ref25p575TerreWup1": [
     0,
@@ -33505,10 +33510,8 @@
     0,
     "=Fatherb.2001==,==Motherb.2000"
   ],
-  "Ref3p440p7": [
-    0,
-    "=Motherb.2000"
-  ],
+  "Ref3p440p7": [0,"=Motherb.2000"],
+  "Ref3p440p7b": [0,"=Fatherb.2001"],
   "Ref3p446Vd1": [
     0,
     "=Parentb.81"
@@ -44146,6 +44149,15 @@
   "Yang.Act": [
     0
   ],
+  "Year.-&": [
+    -1,
+    "=Year.Bad"
+  ],
+  "Year.+&": [
+    1,
+    "=Year.Good"
+  ],
+
   "Year.ALL_PILARS_YEAR.+&+": [
     2,
     "=Studya.4b"
@@ -45142,7 +45154,7 @@
     0,
     "=Person,Relation,Hala"
   ],
-  "ch.familycorner.bazi.CommentYear.Key.Headers": [
+  "FILTER.ch.familycorner.bazi.CommentYear.Key.Headers": [
     0,
     "=Health,Relation,Halac,Fortune,Life,Career,CareerVeryGood,CareerMiddle,CareerBad,Study,StudyGood,StudyBad,BusinessGood,BusinessMiddle,BusinessBad,Year"
   ],

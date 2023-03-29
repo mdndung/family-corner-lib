@@ -89,8 +89,7 @@ export class Bazi extends Lunar {
   }
 
   getPeriodTrunkEnE(periodNb: number) {
-    const pTrunk = this.periodTrunkArr[periodNb];
-    return pTrunk.elementNEnergy
+    return this.getPeriodTrunk(periodNb).elementNEnergy
   }
 
   getPeriodBrancheEnE(periodNb: number) {

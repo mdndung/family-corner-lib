@@ -984,6 +984,7 @@ export class ZodiacTheme extends ZodiacObservationBase {
   }
 
   override initPoint() {
+    super.initPoint();
     // Ref28p325 sky force
     this.skyState = ObjectHelper.newArray(11, 0);
     this.earthState = ObjectHelper.newArray(11, 0);

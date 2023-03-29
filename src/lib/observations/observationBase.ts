@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+
 import { ObjectHelper } from '../helper/objectHelper';
 import { PropertyHelper } from '../helper/PropertyHelper';
+import { StringHelper } from '../helper/stringHelper';
+import { QiForce } from '../mt-data/qi/qi-force';
+import { QiType } from '../mt-data/qi/qi-type';
+import { QiTypeDataRec } from '../mt-data/qi/qi-type-data-rec';
 
 export class ObservationBase {
 
@@ -21,7 +26,10 @@ export class ObservationBase {
     this.prefixGenre=genrePrefix;
   }
 
-
+  resetPoints( ) {
+    this.points = 0.0;
+    this.maxPoints = 0.0;
+  }
 
   getNote() {
     if ( this.maxPoints>0 ) {
@@ -45,6 +53,7 @@ export class ObservationBase {
       }
       this.points += inc;
       this.maxPoints += 10;
+      console.log("incPoints", inc, this.points,this.maxPoints);
     }
   }
 
@@ -58,6 +67,7 @@ export class ObservationBase {
     if (note < 45) {
       res = '&-';
     }
+    console.log("evalForceString", note, res);
     return res;
   }
 
@@ -69,7 +79,7 @@ export class ObservationBase {
   insertRawKeyifExistProp(rawKey: string,postFix:string,updPts?: boolean) {
     const propAttr =  PropertyHelper.getPropertyAttr(rawKey+postFix);
     if (!propAttr.isUndef()) {
-      console.log("Insert Raw key "+ rawKey);
+      console.log("Insert Raw key "+ rawKey, postFix);
       this.rawPropCache.push(rawKey);
       if (! (typeof updPts === 'undefined' ) ) {
         if ( updPts ) {
@@ -85,6 +95,11 @@ export class ObservationBase {
     return false;
   }
 
+  getQiForceSuffix(qiRec: QiTypeDataRec, qiType: QiType){
+    let qiForce = qiRec.getQiForce(qiType);
+    let forceSuffix = StringHelper.qiForce2Str(qiForce);
+    return forceSuffix
+  }
 
   addBaseComment0(rawKey: string,updPts?: boolean): boolean {
     //console.log("addBaseComment ", rawKey);
@@ -107,6 +122,27 @@ export class ObservationBase {
     return res ;
   }
 
+
+  static  VERYHOSTILE = new QiForce('VERYHOSTILE',-8);
+  static  HOSTILE = new QiForce('HOSTILE',-2);
+  static  NONE = new QiForce('NONE',0);
+  static  MEDIUM = new QiForce('MEDIUM',1);
+  static FAVORABLEFORCE = 2;
+  static  FAVORABLE = new QiForce('FAVORABLE',2);
+  static STRONGFORCE = 4;
+  static  PROSPEROUS = new QiForce('PROSPEROUS',4);
+  static  VERYSTRONG = new QiForce('VERYSTRONG',8);
+  static  TOOSTRONG = new QiForce('TOOSTRONG',10);
+
+  qiforce2Point( qiForce: QiForce) {
+    if (qiForce === QiForce.VERYHOSTILE) { return 1; }
+    if (qiForce === QiForce.HOSTILE) { return 2; }
+    if (qiForce === QiForce.NONE) { return 0; }
+    if (qiForce === QiForce.MEDIUM) { return 5; }
+    if (qiForce === QiForce.FAVORABLE) { return 8; }
+    if (qiForce === QiForce.PROSPEROUS) { return 9; }
+    return 10;
+  }
 
   force2Point(force: number) {
     if (force <= -3) {
@@ -159,7 +195,7 @@ export class ObservationBase {
 
   addUpdatePtsBaseComment(rawKey: string) {
     // adBaseComment with true to update pts
-    this.addBaseComment(rawKey,true);
+    this.addBaseComment(rawKey);
   }
 
 
@@ -203,6 +239,7 @@ export class ObservationBase {
 
    initPoint() {
     //console.log('initPoint must be defined in subclass');
+    this.resetPoints();
   }
 
   comment() {

@@ -94,8 +94,15 @@ export class ElementNEnergy extends EnumBaseClass {
     return this.colorViewName;
   }
 
-  isHostile(otherEnE: ElementNEnergy) {
-    if ( this.energy===otherEnE.energy ) return false ;
+  isHostile(otherEnE: ElementNEnergy, strict?: boolean) {
+    if ( typeof strict==='undefined') strict = false;
+    if ( strict && this.energy===otherEnE.energy ) return false ;
     return this.element.isDestructive(otherEnE.element) || otherEnE.element.isDestructive(this.element)
+  }
+
+  isFavorable(otherEnE: ElementNEnergy, strict?: boolean) {
+    if ( typeof strict==='undefined') strict = false;
+    if ( strict && this.energy!==otherEnE.energy ) return false ;
+    return this.element.isProductive(otherEnE.element)
   }
 }

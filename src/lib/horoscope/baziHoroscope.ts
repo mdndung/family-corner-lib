@@ -52,8 +52,8 @@ export class BaziHoroscope extends HoroscopeContributor {
     }
 
     genBirthTheme(currAge: number): void {
-      this.observation.comment();
 
+      this.observation.comment();
     }
 
     finalizeSession(currAge: number): void {

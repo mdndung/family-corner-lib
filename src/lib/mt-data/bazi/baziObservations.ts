@@ -12,6 +12,7 @@ import { Element } from "../feng-shui/element";
 import { ElementLifeCycle } from "../feng-shui/elementLifeCycle";
 import { ElementNEnergyRelation } from "../feng-shui/elementNEnergyRelation";
 import { DataWithLog } from "../qi/dataWithLog";
+import { QiForce } from "../qi/qi-force";
 import { QiType } from "../qi/qi-type";
 import { QiTypeDataRec } from "../qi/qi-type-data-rec";
 import { HalacTheme } from "../yi-jing/halacTheme";
@@ -33,8 +34,8 @@ export class BaziObservationBase extends ObservationBase {
   hasQuyNhan: boolean;
   noQuyNhanSuffix = "";
   currAttr: any;
-  currStudyPeriodQi: any;
-  currStudyYearQi: any;
+  currStudyPeriodQiAttr: any;
+  currStudyYearQiAttr: any;
 
   constructor(bazi: Bazi) {
     super(bazi.getGenrePrefix());
@@ -80,7 +81,6 @@ export class BaziObservationBase extends ObservationBase {
       const secDeity1 = SecondaryDeity.AMDUONGLECH.getEnum(
         index
       ) as SecondaryDeity;
-      let temp = "." + StringHelper.bool2Str(forceFavorable);
       if (force > 0) {
         const temp = "." + StringHelper.bool2Str(forceFavorable);
         this.addUpdatePtsBaseComment(
@@ -1775,6 +1775,7 @@ export class BaziObservationBase extends ObservationBase {
 
   override comment() {
     super.comment();
+    this.evalBaseDestinyPoint();
     this.evalCurrAttr();
     this.commentOnSecDeity();
     if (!this.hasQuyNhan) {
@@ -1804,10 +1805,9 @@ export class BaziObservationBase extends ObservationBase {
   //Period.Hostile.Year.YearBranche
   //Period.Hostile.Year.YearTrunk
   //Period.Hostile.PeriodCategory.PeriodDeityGrp
-  commentOnPeriod(currLunarYear: Bazi) {
+  private baseCommentOnPeriod(currLunarYear: Bazi, periodAttr: any) {
 
     const DOT = ".";
-    const periodAttr = QiHelper.getPeriodQi(this.lunar,currLunarYear);
     const periodCategory = periodAttr.category;
     const pilarsAttr = this.lunar.pilarsAttr;
     const dayForce = this.currAttr.dayForce;
@@ -1873,6 +1873,61 @@ export class BaziObservationBase extends ObservationBase {
       this.addUpdatePtsBaseComment(temp);
     }
     return { periodDeity, isPeriodFavorable, periodDeityElement };
+  }
+
+  evalBaseDestinyPoint() {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    // Day Master
+    this.incPoints(this.force2Point(pilarsAttr.qiTypeData.getForce(QiType.DAYSTATUS)));
+    const dwiwCount =  pilarsAttr.getPairedRelationCount(ElementNEnergyRelation.DW, LunarBase.DINDEX) ;
+    // Ref3p595
+    if ( dwiwCount===0 ) { this.incPoints(1); }
+    // Ref3p596
+    const trunkArr = this.lunar.trunkArr;
+    const brancheArr = this.lunar.brancheArr;
+    const pivotElements = pilarsAttr.elligiblePivotData.getValue();
+    for (let index = 0; index < pivotElements.length; index++) {
+      const element = pivotElements[index];
+      let lowestPoint = 10 ;
+      let found=false;
+      for (let trunkPilarIdx = 0; trunkPilarIdx < LunarBase.PILARS_LEN; trunkPilarIdx++) {;
+        if ( element===trunkArr[trunkPilarIdx].getElement() ) {
+          const lifeCycle = ElementLifeCycle.getElementLifeCycle(
+            trunkArr[trunkPilarIdx],
+            brancheArr[trunkPilarIdx]
+          );
+          const point = this.qiforce2Point(lifeCycle.qiForce);
+          if ( lowestPoint> point ) lowestPoint=point
+          found=true;
+        }
+      }
+      if ( found ) {
+        this.incPoints(lowestPoint);
+      }
+    }
+  }
+
+  evalPeriodPoint(currStudyYear: Bazi) {
+    this.resetPoints();
+    this.currStudyPeriodQiAttr = QiHelper.evalPeriodQi(this.lunar,currStudyYear);
+    const perQiRec=this.currStudyPeriodQiAttr.periodQi;
+    // Period Status
+    this.incPoints(this.force2Point(perQiRec.getForce(QiType.PERIODSTATUS)));
+  }
+
+  evalBaseYearPoint(currStudyYear: Bazi) {
+    this.resetPoints();
+    this.evalPeriodPoint(currStudyYear);
+    this.currStudyYearQiAttr = QiHelper.evalYearQi(this.lunar,currStudyYear);
+    const yearQi=this.currStudyYearQiAttr.yearQi;
+    // Year Status
+    this.incPoints(this.force2Point(yearQi.getForce(QiType.YEARSTATUS)));
+  }
+
+  commentOnPeriod(currStudyYear: Bazi) {
+    this.lunar.evalPeriodData();
+    this.evalPeriodPoint(currStudyYear);
+    this.baseCommentOnPeriod(currStudyYear,this.currStudyPeriodQiAttr );
   }
 
   // Ref3p182 Year.DayMaster.DayForce.DO7K.Force.DRIR.Force.Hostile&"
@@ -2047,33 +2102,49 @@ export class BaziObservationBase extends ObservationBase {
     );
   }
 
+
   commentOnQiPeriod(currStudyYear: Bazi) {
-    this.currStudyPeriodQi = QiHelper.getPeriodQi(this.lunar,currStudyYear);
-    const periodQi = this.currStudyPeriodQi.periodQi;
+    const periodQiRec = this.currStudyPeriodQiAttr.periodQi;
     const DOT = ".";
-    const isPeriodFavorable =this.currStudyPeriodQi.perStatus.getValue().isFavorable();
-    let periodFavorableSuffix ="."+StringHelper.bool2Str(isPeriodFavorable);
-    let temp = "Period"+periodFavorableSuffix;
+    let periodFavorableSuffix =this.getQiForceSuffix(periodQiRec,QiType.PERIODSTATUS);;
+    let temp = "Period."+periodFavorableSuffix;
     console.log(temp);
     this.addUpdatePtsBaseComment(temp);
 
-    let qiData = periodQi.getData(QiType.PERIODLIFECYCLESTATUS);
-    let forceSuffix = StringHelper.qiForce2Str(qiData.value)
+    let forceSuffix = this.getQiForceSuffix(periodQiRec,QiType.PERIODLIFECYCLESTATUS);
     // Period.LifeCycle.forceSuffix0-+ Ref3p280p4
-    temp="Period.LifeCycle."+this.currStudyPeriodQi.lifeCycle.getName()+DOT+forceSuffix
+    temp="Period.LifeCycle."+this.currStudyPeriodQiAttr.lifeCycle.getName()+DOT+forceSuffix
     console.log(temp)
     this.addUpdatePtsBaseComment(temp);
   }
 
-  commentOnQiYear(currStudyYear: Bazi) {
-    this.currStudyYearQi = QiHelper.getYearQi(this.lunar,currStudyYear);
+  commentOnPilarClash(clashPilars: number[], prefix: string) {
+    if ( clashPilars.length>0 ) {
+      const clashSuffix = '.-';
+      for (let pilarIdx = 0; pilarIdx < clashPilars.length; pilarIdx++) {
+        const pilarStr = clashPilars[pilarIdx];
+        const temp = prefix+pilarStr+clashSuffix;
+        console.log(temp);
+        this.addUpdatePtsBaseComment(temp);
+      }
+    }
+  }
 
+  commentOnQiYear(currStudyYear: Bazi) {
+    const yearQiRec = this.currStudyYearQiAttr.yearQi;
+    const statusSuffix = this.getQiForceSuffix(yearQiRec,QiType.YEARSTATUS);
+    let yPrefix = "Year."+statusSuffix;
+    const DOT="."
+    this.addUpdatePtsBaseComment(yPrefix);
+    yPrefix+=DOT;
+    this.commentOnPilarClash(this.currStudyYearQiAttr.branchePilarClash,yPrefix)
+    this.commentOnPilarClash(this.currStudyYearQiAttr.trunkPilarClash,yPrefix)
   }
 
   commentOnYearTamTai(currStudyYear: Bazi) {
-    let qiData = this.currStudyYearQi.getData(QiType.YEARTAMTAI);
-    console.log(qiData);
-    if ( qiData.getValue() ) {
+    const yearQiRec = this.currStudyYearQiAttr.yearQi;
+    let qiData = yearQiRec.getData(QiType.YEARTAMTAI);
+    if ( qiData!==null && qiData.getValue() ) {
       // Tam Tai. Ref2p331
       const bTrunkArr=this.lunar.trunkArr;
       const bBrancheArr=this.lunar.brancheArr;
@@ -2097,10 +2168,11 @@ export class BaziObservationBase extends ObservationBase {
 
   commentOnYear(currStudyYear: Bazi) {
     this.lunar.evalPeriodData();
+    this.evalBaseYearPoint(currStudyYear);
     this.evalCurrAttr(currStudyYear);
     this.commentOnQiPeriod(currStudyYear);
     this.commentOnQiYear(currStudyYear);
-    const periodAttr = this.commentOnPeriod(currStudyYear);
+    const periodAttr = this.baseCommentOnPeriod(currStudyYear,this.currStudyPeriodQiAttr);
     this.commentOnYearDayMaster(currStudyYear);
     this.commentOnYearStructure(currStudyYear, periodAttr);
     this.commentOnYearElement(currStudyYear);

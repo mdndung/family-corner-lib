@@ -1,5 +1,6 @@
 import { MessageHelper } from "../../helper/messageHelper";
 import { ObjectHelper } from "../../helper/objectHelper";
+import { QiHelper } from "../../helper/qiHelper";
 import { DataWithLog } from "./dataWithLog";
 import { QiForce } from "./qi-force";
 import { QiType } from "./qi-type";
@@ -17,6 +18,7 @@ export class QiTypeDataRec {
   getIndex(qiType: QiType) {
     return qiType.ordinal();
   }
+
 
   addQiTypeForce(qiType: QiType, force: DataWithLog) {
     if (force !== null) {
@@ -37,7 +39,9 @@ export class QiTypeDataRec {
     if (this.qiTypeForceArr[cIdx] === null) {
       return QiForce.NONE;
     }
-    return this.qiTypeForceArr[cIdx].getValue();
+    let res = this.qiTypeForceArr[cIdx].getValue();
+    if ( res instanceof QiForce ) return res ;
+    return QiForce.getQiForce(res);
   }
 
   getForce(qiType: QiType) {
@@ -45,7 +49,9 @@ export class QiTypeDataRec {
     if (this.qiTypeForceArr[cIdx] === null) {
       return 0;
     }
-    return this.qiTypeForceArr[cIdx].getValue().force;
+    let res = this.qiTypeForceArr[cIdx].getValue();
+    if ( res instanceof QiForce ) return res.force ;
+    return res ;
   }
 
   isForceGEThan(qiType: QiType, force: number) {
@@ -75,9 +81,7 @@ export class QiTypeDataRec {
         if (force >= QiForce.FAVORABLEFORCE) {
           val = 1;
         } else {
-          if (force < 0) {
             val = -1;
-          }
         }
         val = val * reverse;
         if (val != 0) {

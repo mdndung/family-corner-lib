@@ -112,6 +112,9 @@ export class Element extends EnumBaseClass {
   }
 
   isLostForceRelation(otherElement: Element) {
-    return this.isProductive(otherElement) || otherElement.isDestructive(this);
+    return this.isProductive(otherElement) ||
+    otherElement.isDestructive(this)||
+    otherElement.isProductive(this)
+    ;
   }
 }

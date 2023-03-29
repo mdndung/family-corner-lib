@@ -5,8 +5,9 @@ import { Season } from './season';
 import { EnumBaseClass } from '../enumBaseClass';
 import { Energy } from '../feng-shui/energy';
 import { Trunk } from './trunk';
+import { BrancheTrunkBase } from './brancheTrunkBase';
 
-export class Branche extends EnumBaseClass {
+export class Branche extends BrancheTrunkBase {
 
   static  RAT= new Branche('RAT',ElementNEnergy.WATERYANG,1,6,8, Trigram.KAN, Season.WINTER,'23-01');
   static  OX= new Branche('OX',ElementNEnergy.EARTHYIN,5,10,5, Trigram.GEN, Season.WINTER,'01-03');
@@ -22,7 +23,6 @@ export class Branche extends EnumBaseClass {
   static  PIG= new Branche('PIG',ElementNEnergy.WATERYIN,1,6,2, Trigram.QIAN, Season.WINTER,'21-23');
 
 
-  elementNEnergy: ElementNEnergy;
   earthNb1: number;
   earthNb2: number;
   januaryStarNb: number;
@@ -34,8 +34,7 @@ export class Branche extends EnumBaseClass {
   constructor(name: string, eNe: ElementNEnergy, earthNb1: number,
     earthNb2: number, januaryStarNb: number,
     trigram: Trigram, season: Season,hourRange: string) {
-    super(name);
-    this.elementNEnergy=eNe;
+    super(name,eNe);
     this.earthNb1=earthNb1;
     this.earthNb2=earthNb2;
     this.januaryStarNb=januaryStarNb;
@@ -50,12 +49,6 @@ export class Branche extends EnumBaseClass {
 
   override getClassName() {return 'Branche';}
 
-  getEnergy() { return this.elementNEnergy.energy; }
-
-  getElement(){
-    return this.elementNEnergy.element;
-  }
-
 
   getHourEnergy() {
     let res = Energy.YIN;
@@ -66,8 +59,4 @@ export class Branche extends EnumBaseClass {
     return res ;
   }
 
-
-  override getViewColorName() {
-    return this.elementNEnergy.getViewColorName();
-  }
 }

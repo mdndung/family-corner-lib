@@ -319,7 +319,7 @@ export class PivotHelper {
             details += PivotHelper.addPairedIfNotPresent(
               pivotRelationSet,
               ElementNEnergyRelation.HO,
-              prefix + "Add HO or EG deities to control day pilar force",
+              prefix + ". Add HO or EG deities to control day pilar force",
               true
             );
           } else {
@@ -338,7 +338,7 @@ export class PivotHelper {
                 details += PivotHelper.addPairedIfNotPresent(
                   pivotRelationSet,
                   ElementNEnergyRelation.DW,
-                  prefix + "Add DW, IW to reduce force",
+                  prefix + ". Add DW, IW to reduce force",
                   true
                 );
               }
@@ -456,19 +456,22 @@ export class PivotHelper {
       const dayTrunk = lunar.getdTrunk();
       const trunks2Search = dayTrunk.getPivot(lunar.getmBranche());
 
-      details +=
+      let temp =
         "<li>Try to use ( day:"+dayTrunk+", month:"+ lunar.getmBranche()+" )'s elligible pivots: ";
       let sep = "";
+      const pivotCount = pivotRelationSet.length;
       trunks2Search.forEach((trunkPivot) => {
         const ee = trunkPivot.elementNEnergy;
-        details += sep + PivotHelper.addElligiblePivotEER(
+        temp += sep + PivotHelper.addElligiblePivotEER(
           lunar,
           ee,
           pivotRelationSet
         );
         sep = " ";
       });
-      details +="</li>"
+      if ( pivotCount<pivotRelationSet.length) {
+        details +=temp + "</li>"
+      }
       details +=
          "<li>Finally try to use DW as the last chance</>";
       ObjectHelper.pushIfNotExist(
