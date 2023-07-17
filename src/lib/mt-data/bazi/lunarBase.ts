@@ -21,4 +21,12 @@ export class LunarBase {
     return LunarBase.ymdhCharArr[index];
   }
 
+  static getPilarIdx(indexStr: String) {
+    for (let index = 0; index < LunarBase.ymdhCharArr.length; index++) {
+      if (indexStr===LunarBase.ymdhCharArr[index]) return index;
+    }
+    return null;
+  }
+
+
 }

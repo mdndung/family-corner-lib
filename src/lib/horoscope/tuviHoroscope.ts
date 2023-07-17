@@ -67,6 +67,7 @@ export class TuViHoroscope extends HoroscopeContributor {
 
   init(currAge: number) {
     const birthDate = this.birthLunar.birthDate;
+
     const lunarYearTrunk = TrunkHelper.getYearTrunk(birthDate.getChineseYear());
     const lunarYearBranche = BrancheHelper.getYearBranche(
       birthDate.getChineseYear()
@@ -124,14 +125,8 @@ export class TuViHoroscope extends HoroscopeContributor {
     this.isBirthDayHourElementCompatible = BaziHelper.getRelation(lunarDayBranche
       .getElement(),lunarHourBranche.getElement())
       .isFavorable();
-    this.isYearMonthTrunkCombibed = TrunkHelper.isTransformable(
-      lunarYearTrunk,
-      lunarMonthTrunk
-    );
-    this.isDayHourTrunkCombibed = TrunkHelper.isTransformable(
-      lunarDayTrunk,
-      lunarHourTrunk
-    );
+    this.isYearMonthTrunkCombibed = lunarYearTrunk.isCompatibleTrunk(lunarMonthTrunk);
+    this.isDayHourTrunkCombibed = lunarDayTrunk.isCompatibleTrunk(lunarHourTrunk);
     this.isYearDestroyMonthTrunk = TrunkHelper.isDestroying(
       lunarYearTrunk,
       lunarMonthTrunk
@@ -141,12 +136,12 @@ export class TuViHoroscope extends HoroscopeContributor {
       lunarHourTrunk
     );
     let iTemp = this.getBrancheRelationStatus(
-      BrancheHelper.getUniqueRelation(lunarYearBranche, lunarMonthBranche)
+      BrancheHelper.getMainRelation(lunarYearBranche, lunarMonthBranche)
     );
     this.isYearMonthBrancheCombibed = iTemp > 0;
     this.isYearDestroyMonthBranche = iTemp < 0;
     iTemp = this.getBrancheRelationStatus(
-      BrancheHelper.getUniqueRelation(lunarDayBranche, lunarHourBranche)
+      BrancheHelper.getMainRelation(lunarDayBranche, lunarHourBranche)
     );
     this.isDayHourBrancheCombibed = iTemp > 0;
     this.isDayDestroyHourBranche = iTemp < 0;

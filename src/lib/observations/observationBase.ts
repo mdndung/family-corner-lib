@@ -42,6 +42,12 @@ export class ObservationBase {
     return this.getNote() > 50;
   }
 
+  incForce ( force: number ) {
+    if ( force===0 ) return ;
+    const points = this.force2Point(force);
+    this.incPoints(points)
+  }
+
   incPoints(inc: number) {
     if (inc > 0) {
       // Point is from 1 to 10.  Avoid out of limit points
@@ -76,19 +82,18 @@ export class ObservationBase {
     return PropertyHelper.isArrayElementPresent(this.rawPropCache, key) ;
   }
 
-  insertRawKeyifExistProp(rawKey: string,postFix:string,updPts?: boolean) {
+  insertRawKeyifExistProp(rawKey: string,postFix:string,updPts: boolean) {
     const propAttr =  PropertyHelper.getPropertyAttr(rawKey+postFix);
     if (!propAttr.isUndef()) {
       console.log("Insert Raw key "+ rawKey, postFix);
       this.rawPropCache.push(rawKey);
-      if (! (typeof updPts === 'undefined' ) ) {
-        if ( updPts ) {
+      // updPts=false; // No Update?. Point are update in previous QI evaluation
+      if ( updPts ) {
           let force = propAttr.force;
             let points  = this.force2Point(force)
             points = this.adjustDegree(points);
             console.log("force ", force, " points "+ points);
             this.incPoints(points);
-        }
       }
       return true ;
     }
@@ -97,7 +102,7 @@ export class ObservationBase {
 
   getQiForceSuffix(qiRec: QiTypeDataRec, qiType: QiType){
     let qiForce = qiRec.getQiForce(qiType);
-    let forceSuffix = StringHelper.qiForce2Str(qiForce);
+    let forceSuffix = StringHelper.qiForce2Str(qiForce,'-');
     return forceSuffix
   }
 
@@ -105,6 +110,7 @@ export class ObservationBase {
     //console.log("addBaseComment ", rawKey);
     if ( this.isRawKeyExist(rawKey) ) return true;
     // Insert if exist property
+    if (typeof updPts === 'undefined' )  updPts=false;
     if ( this.insertRawKeyifExistProp(rawKey,'&',updPts) ) return true;;
     if ( this.insertRawKeyifExistProp(rawKey,'&-',updPts) ) return true;
     if ( this.insertRawKeyifExistProp(rawKey,'&+',updPts) ) return true;
@@ -195,7 +201,7 @@ export class ObservationBase {
 
   addUpdatePtsBaseComment(rawKey: string) {
     // adBaseComment with true to update pts
-    this.addBaseComment(rawKey);
+    this.addBaseComment(rawKey, true);
   }
 
 
@@ -246,11 +252,15 @@ export class ObservationBase {
     this.initComment();
   }
 
+  resetRawCache() {
+     // Empty unused raw cache
+    this.rawPropCache=[];
+  }
   evalForce() {
     // Comment for force evaluation
     this.comment();
     // Empty unused raw cache
-    this.rawPropCache=[];
+    this.resetRawCache();
   }
 
   updateForce() {

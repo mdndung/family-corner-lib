@@ -1,16 +1,14 @@
 // Generate horoscope base on each contributor
-import { PropertyHelper } from '../helper/PropertyHelper';
-import { XcelDocInterface } from '../interface/xcelDocInterface';
-import { Lunar } from '../mt-data/bazi/lunar';
-import { MyCalendar } from '../mt-data/date/mycalendar';
-import { HoroscopeHelper } from '../helper/horoscopeHelper';
-import { ObjectHelper } from '../helper/objectHelper';
-import { ObsPeriod } from '../observations/obsPeriod';
-import { HoroscopeContributor } from './horoscopeContributor';
-import { MessageHelper } from '../helper/messageHelper';
-
-
-
+import { PropertyHelper } from "../helper/PropertyHelper";
+import { XcelDocInterface } from "../interface/xcelDocInterface";
+import { Lunar } from "../mt-data/bazi/lunar";
+import { MyCalendar } from "../mt-data/date/mycalendar";
+import { HoroscopeHelper } from "../helper/horoscopeHelper";
+import { ObjectHelper } from "../helper/objectHelper";
+import { ObsPeriod } from "../observations/obsPeriod";
+import { HoroscopeContributor } from "./horoscopeContributor";
+import { MessageHelper } from "../helper/messageHelper";
+import { Temporal } from "temporal-polyfill";
 
 export class HoroscopeGenerator {
   birthDate: MyCalendar;
@@ -32,7 +30,19 @@ export class HoroscopeGenerator {
     this.studyDate = studyDate.getCopy();
     this.doc = xcelDoc;
     this.contributors = [];
-    this.studyAge = HoroscopeHelper.computeStudyAge(this.studyDate,this.birthDate);
+    this.studyAge = HoroscopeHelper.computeStudyAge(
+      this.studyDate,
+      this.birthDate
+    );
+  }
+
+  setStudyDate(studyDate: MyCalendar) {
+    this.studyDate = studyDate.getCopy();
+    this.studyAge = HoroscopeHelper.computeStudyAge(
+      this.studyDate,
+      this.birthDate
+    );
+    this.init();
   }
 
   addContributor(contrib: HoroscopeContributor) {
@@ -41,7 +51,7 @@ export class HoroscopeGenerator {
 
   init() {
     let currGenre = this.birthLunar.getGenrePrefix();
-    PropertyHelper.setGenre(currGenre)
+    PropertyHelper.setGenre(currGenre);
     PropertyHelper.initHelper(ObsPeriod.BIRTHTHEME, this.birthDate);
     this.contributors.forEach((contrib) => {
       contrib.init(this.studyAge);
@@ -56,19 +66,18 @@ export class HoroscopeGenerator {
     this.finalizeSession();
   }
 
-
   genPeriodTheme() {
-    PropertyHelper.initHelper(ObsPeriod.PERIODTHEME,this.studyDate);
+    PropertyHelper.initHelper(ObsPeriod.PERIODTHEME, this.studyDate);
     this.contributors.forEach((contrib) => {
-      contrib.genPeriodTheme(this.studyAge,this.studyDate);
+      contrib.genPeriodTheme(this.studyAge, this.studyDate);
     });
     this.finalizeSession();
   }
 
   genYearTheme() {
-    PropertyHelper.initHelper(ObsPeriod.YEARTHEME,this.studyDate);
+    PropertyHelper.initHelper(ObsPeriod.YEARTHEME, this.studyDate);
     this.contributors.forEach((contrib) => {
-      contrib.genYearTheme(this.studyAge,this.studyDate);
+      contrib.genYearTheme(this.studyAge, this.studyDate);
     });
     this.finalizeSession();
   }
@@ -89,6 +98,10 @@ export class HoroscopeGenerator {
     this.finalizeSession();
   }
 
+  getStatus(currAge: number) {
+    return "";
+  }
+
   finalizeSession() {
     this.contributors.forEach((contrib) => {
       contrib.finalizeSession(this.studyAge);
@@ -96,26 +109,60 @@ export class HoroscopeGenerator {
     PropertyHelper.finalizeSession();
   }
 
-
   displayHoroscopeSession(toSession: ObsPeriod) {
     const sessions = ObsPeriod.getValues();
     const toSessionIdx = toSession.ordinal();
-    const labelAge = MessageHelper.getMessage('Label.Age')+' ';
+    const labelAge = MessageHelper.getMessage("Label.Age") + " ";
     for (let index = 0; index < sessions.length; index++) {
       const session = sessions[index];
-      const sessionDate = '' +  PropertyHelper.getSessionDate(session);
-      const titleLines = [session.getName(), labelAge+ this.studyAge +'. '+ sessionDate];
+      const sessionDate = "" + PropertyHelper.getSessionDate(session);
+      const titleLines = [
+        session.getName(),
+        labelAge + this.studyAge + ". " + sessionDate,
+      ];
+      let status = "";
       if (index <= toSessionIdx) {
-          HoroscopeHelper.genWorkRowByCategory(session, this.doc, titleLines,session.displayCategory);
+        if (index === toSessionIdx) {
+          this.contributors.forEach((contrib) => {
+            const currStatus = contrib.getPeriodStatus(session);
+            status += currStatus;
+          });
+        }
+        HoroscopeHelper.genWorkRowByCategory(
+          session,
+          this.doc,
+          titleLines,
+          session.displayCategory,
+          status
+        );
       } else {
         break;
       }
     }
   }
 
+  generateMe(myPeriod: ObsPeriod, debugMode: number) {
+    HoroscopeHelper.debug = debugMode;
+    this.init();
+    const toIdx = myPeriod.ordinal();
 
-  generateTo(toPeriod: ObsPeriod, debugMode:number) {
-    HoroscopeHelper.debug=debugMode;
+    if (toIdx === ObsPeriod.YEARTHEME.ordinal()) {
+      this.genYearTheme();
+    }
+
+    if (toIdx === ObsPeriod.MONTHTHEME.ordinal()) {
+      this.genMonthTheme();
+    }
+
+    if (toIdx === ObsPeriod.DAYTHEME.ordinal()) {
+      this.genDayTheme();
+    }
+
+    this.displayHoroscopeSession(myPeriod);
+  }
+
+  generateTo(toPeriod: ObsPeriod, debugMode: number) {
+    HoroscopeHelper.debug = debugMode;
     this.init();
     const toIdx = toPeriod.ordinal();
     if (toIdx >= ObsPeriod.BIRTHTHEME.ordinal()) {
@@ -127,7 +174,7 @@ export class HoroscopeGenerator {
     }
 
     if (toIdx >= ObsPeriod.MONTHTHEME.ordinal()) {
-       this.genMonthTheme();
+      this.genMonthTheme();
     }
 
     if (toIdx >= ObsPeriod.DAYTHEME.ordinal()) {
@@ -135,6 +182,5 @@ export class HoroscopeGenerator {
     }
 
     this.displayHoroscopeSession(toPeriod);
-
   }
 }

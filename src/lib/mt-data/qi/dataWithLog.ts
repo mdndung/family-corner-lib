@@ -1,4 +1,5 @@
 import { ObjectHelper } from "../../helper/objectHelper";
+import { StringHelper } from "../../helper/stringHelper";
 import { EnumBaseClass } from "../enumBaseClass";
 
 export class DataWithLog {
@@ -42,7 +43,6 @@ export class DataWithLog {
 
   static getBrancheHeader( pilarIdx: number) {
     return DataWithLog.getHeader('Branche' ,pilarIdx);
-
   }
 
   constructor(value?: any, detail?: string) {
@@ -143,6 +143,7 @@ export class DataWithLog {
     return this.value;
   }
 
+
   getDetail() {
     return this.detail;
   }
@@ -153,11 +154,10 @@ export class DataWithLog {
       temp = temp.substring(4)
       temp = temp.substring(0,temp.length-5)
     }
-    let liIdx = temp.indexOf('<li>') ;
-    while ( liIdx>=0 ) {
-      temp = temp.replace("<li>"," ");
-      liIdx = temp.indexOf('<li>');
-    }
+    temp=temp.replaceAll("<li>","");
+    temp=temp.replaceAll("</li>",StringHelper.NL);
+    temp=temp.replaceAll("<ol>","");
+    temp=temp.replaceAll("</ol>",StringHelper.NL);
     return temp;
   }
 

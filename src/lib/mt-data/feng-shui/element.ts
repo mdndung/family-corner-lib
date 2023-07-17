@@ -111,10 +111,29 @@ export class Element extends EnumBaseClass {
     return this.colorViewName;
   }
 
+
+  getRelationLostForce(otherElement: Element) {
+    if ( this.isProductive(otherElement) ) return -1;
+    if ( this.isDestructive(otherElement) ) return -2;
+    if ( otherElement.isDestructive(this)) return -3
+    return 0;
+  }
+
   isLostForceRelation(otherElement: Element) {
-    return this.isProductive(otherElement) ||
-    otherElement.isDestructive(this)||
-    otherElement.isProductive(this)
+    return this.isProductive(otherElement) || this.isDestructive(otherElement) || otherElement.isDestructive(this)
     ;
   }
+
+  // Return true of checkElement is compatible with elements
+  isCompatible(elements: Element[]) {
+      let res = false;
+      for (let index = 0; index < elements.length; index++) {
+        const element = elements[index];
+        if (element.isFavorable(this)) {
+          res = true;
+          break;
+        }
+      }
+      return res;
+    }
 }

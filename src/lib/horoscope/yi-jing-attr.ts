@@ -45,7 +45,7 @@ export class YiJingAttr {
     let force = 0;
     let trigram: Trigram = null;
     const mTrunk = TrunkHelper.getMonthTrunk(
-      this.lunar.trunkArr[LunarBase.YINDEX],
+      this.lunar.pilars[LunarBase.YINDEX].trunk,
       bDate.getChineseMonth()
     );
     switch (mTrunk) {
@@ -294,6 +294,7 @@ export class YiJingAttr {
       baseForceData.getData(QiType.DAYSTATUS)
     );
 
+    // Use pilarsAttr
     const currPivotForceAttr = PivotHelper.getElligiblePivotAttr(this.lunar);
     this.addQiTypeForce(QiType.PIVOT, currPivotForceAttr.matchCount);
 

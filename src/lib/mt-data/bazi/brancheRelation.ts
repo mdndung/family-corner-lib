@@ -8,6 +8,9 @@ import { Branche } from "./branche";
 
 export class BrancheRelation extends EnumBaseClass {
   static ELEMENTCLASH = new BrancheRelation("EC");
+    //Ref2p331
+    static TAMTAI = new BrancheRelation("TAMTAI");
+
   // Clash. Opposite by center
   // Luc xung
   static CLASH = new BrancheRelation("C");
@@ -39,9 +42,6 @@ export class BrancheRelation extends EnumBaseClass {
   static MIDCOMBINATION = new BrancheRelation("N");
 
   static ELEMENTFAVORABLE = new BrancheRelation("EF");
-
-  //Ref2p331
-  static TAMTAI = new BrancheRelation("TAMTAI");
 
   static CLASHEDRELATION =
   [BrancheRelation.CLASH,,BrancheRelation.INJURY,BrancheRelation.AGRESSIVE,BrancheRelation.DISRESPECFUL,
@@ -247,13 +247,6 @@ export class BrancheRelation extends EnumBaseClass {
   ) {
     const br1br2RelArr =
       BrancheRelation.RELATIONARR[br1.ordinal()][br2.ordinal()];
-      /*
-    for (let index = 0; index < br1br2RelArr.length; index++) {
-      const brRel = br1br2RelArr[index];
-      if (brRel.isEqual(relation)) {
-        return true;
-      }
-    }*/
     return ObjectHelper.hasItem(br1br2RelArr,relation);
   }
 

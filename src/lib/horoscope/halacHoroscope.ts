@@ -188,22 +188,9 @@ export class HalacHoroscope extends HoroscopeContributor {
 
     }
 
-    prepareQiDataType(currAge: number,currDate: MyCalendar) {
-        this.genMainDestinyPeriod(this.birthTheme.principalPeriodArr, currAge, true);
-        this.genMainDestinyPeriod(
-            this.birthTheme.secondaryPeriodArr,
-            currAge,
-            false
-        );
-        this.genYearTheme(currAge,currDate);
-        this.genMonthTheme(currAge);
-        this.genDayTheme(currAge);
-    }
-
 
     init(currAge: number): void {
-      // First pass init baseQiTypeData
-       this.prepareQiDataType(currAge, this.studyDate);
+
     }
 
     genBirthTheme(currAge: number): void {

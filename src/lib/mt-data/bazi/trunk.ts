@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { ElementNEnergy } from "../feng-shui/elementNenergy";
 import { Trigram } from "../feng-shui/trigram";
-import { Energy } from "../feng-shui/energy";
 import { Branche } from "./branche";
-import { EnumBaseClass } from "../enumBaseClass";
 import { BrancheTrunkBase } from "./brancheTrunkBase";
 
 export class Trunk extends BrancheTrunkBase {
@@ -226,6 +224,10 @@ export class Trunk extends BrancheTrunkBase {
 
   getPivot(branche: Branche) {
     return Trunk.pivotBranche[this.ordinal()][branche.ordinal()];
+  }
+
+  isCompatibleTrunk(trunk: Trunk) {
+    return Math.abs(this.ordinal()-trunk.ordinal())===5;
   }
 
   override getViewColorName() {

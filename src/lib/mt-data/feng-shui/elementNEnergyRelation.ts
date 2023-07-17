@@ -45,8 +45,14 @@ export class ElementNEnergyRelation extends EnumBaseClass {
     super(name);
   }
 
+  private static values: ElementNEnergyRelation[] = null;
+
+
   static getValues(): ElementNEnergyRelation[] {
-    return ElementNEnergyRelation.DR.getValues() as ElementNEnergyRelation[];
+    if ( ElementNEnergyRelation.values===null ) {
+      ElementNEnergyRelation.values = ElementNEnergyRelation.DR.getValues() as ElementNEnergyRelation[]
+    }
+    return ElementNEnergyRelation.values;
   }
 
   override getClassName() {return 'ElementNEnergyRelation';}

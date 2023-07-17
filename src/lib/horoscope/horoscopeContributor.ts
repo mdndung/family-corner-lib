@@ -5,6 +5,7 @@ import { Bazi } from '../mt-data/bazi/bazi';
 import { Lunar } from '../mt-data/bazi/lunar';
 import { MyCalendar } from '../mt-data/date/mycalendar';
 import { QiTypeDataRec } from '../mt-data/qi/qi-type-data-rec';
+import { ObsPeriod } from '../observations/obsPeriod';
 
 
 export abstract class HoroscopeContributor {
@@ -55,6 +56,10 @@ export abstract class HoroscopeContributor {
     abstract genMonthTheme(currAge: number): void;
 
     abstract genDayTheme(currAge: number): void;
+
+    getPeriodStatus(period: ObsPeriod): string {
+      return "";
+    }
 
     abstract finalizeSession(currAge: number): void;
 }

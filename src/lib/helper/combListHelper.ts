@@ -9,6 +9,7 @@ import { TrunkHelper } from "./trunkHelper";
 import { BaziHelper } from "./baziHelper";
 import { BrancheRelation } from "../mt-data/bazi/brancheRelation";
 import { Branche } from "../mt-data/bazi/branche";
+import { PilarBase } from "../mt-data/bazi/pilarBase";
 
 export class CombListHelper {
   static logMe = false;
@@ -18,19 +19,19 @@ export class CombListHelper {
     const isInTrunk = ObjectHelper.hasItem(combAttr.trunkAttrs, idx);
     if (combAttr.isTrunkData()) {
       if (isInTrunk) {
-        return lunar.trunkArr[idx];
+        return lunar.pilars[idx].trunk;
       }
     }
     const isInBranche = ObjectHelper.hasItem(combAttr.branchAttrs, idx);
     if (combAttr.isBrancheData()) {
       if (isInBranche) {
-        return lunar.brancheArr[idx];
+        return lunar.pilars[idx].branche;
       }
     }
 
     if (isInTrunk && isInBranche) {
       // Hidden trunk
-      const hiddenTrunk = BrancheHelper.getHiddenTrunk(lunar.brancheArr[idx]);
+      const hiddenTrunk = BrancheHelper.getHiddenTrunk(lunar.pilars[idx].branche);
       return hiddenTrunk[idx];
     }
     return "Label.NA";
@@ -39,10 +40,10 @@ export class CombListHelper {
   //Ref3p336 cas 1 with month branche
   static evalElementInMonthReason(lunar: Lunar, checkElement: Element) {
     if (checkElement === lunar.pilarsAttr.brMonthElement)
-      return " Same month " + lunar.brancheArr[LunarBase.MINDEX] + " element ";
+      return " Same month " + lunar.pilars[LunarBase.MINDEX].branche + " element ";
 
     const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(
-      lunar.brancheArr[LunarBase.MINDEX]
+      lunar.pilars[LunarBase.MINDEX].branche
     );
 
     for (let i = 0; i < hiddenTrunkArr.length; i++) {
@@ -74,10 +75,7 @@ export class CombListHelper {
     pilarIdx1: number,
     pilarIdx2: number
   ) {
-    const trunk1 = lunar.trunkArr[pilarIdx1];
-    const trunk2 = lunar.trunkArr[pilarIdx2];
-
-    let res = TrunkHelper.isTransformable(trunk1, trunk2);
+    let res = TrunkHelper.isTransformable(lunar.getPilar(pilarIdx1), lunar.getPilar(pilarIdx2));
     if (res) {
       lunar.pilarsAttr.combList.addTrunkComb5(
         CombAttr.TRUNKCOMB5TYPE,
@@ -94,12 +92,9 @@ export class CombListHelper {
     pilarIdx1: number,
     pilarIdx2: number
   ) {
-    const eTrMonthElement = lunar.pilarsAttr.brMonthElement;
-    const trunkArr = lunar.trunkArr;
-    const trunk1 = trunkArr[pilarIdx1];
-    const trunk2 = trunkArr[pilarIdx2];
-    if (TrunkHelper.isTransformable(trunk1, trunk2)) {
-      const trElement = TrunkHelper.getTransformElement(trunk1);
+    const pilar1=lunar.getPilar(pilarIdx1);
+    if (TrunkHelper.isTransformable(pilar1, lunar.getPilar(pilarIdx2))){
+      const trElement = TrunkHelper.getTransformElement(pilar1.trunk);
       const sameKindOfMonthOrHiddenTrunk = this.evalElementInMonthReason(
         lunar,
         trElement
@@ -124,13 +119,12 @@ export class CombListHelper {
     pilarIdx2: number
   ) {
     const eTrMonthElement = lunar.pilarsAttr.brMonthElement;
-    const trunk1 = lunar.trunkArr[pilarIdx1];
-    const trunk2 = lunar.trunkArr[pilarIdx2];
-    let res = TrunkHelper.isTransformable(trunk1, trunk2);
+    const pilar1=lunar.getPilar(pilarIdx1);
+    let res = TrunkHelper.isTransformable(pilar1, lunar.getPilar(pilarIdx2));
     if (res) {
-      const tranformedElement = TrunkHelper.getTransformElement(trunk1);
-      const pilar1BrElement = lunar.brancheArr[pilarIdx1].getElement();
-      const pilar2BrElement = lunar.brancheArr[pilarIdx2].getElement();
+      const tranformedElement = TrunkHelper.getTransformElement(pilar1.trunk);
+      const pilar1BrElement = lunar.pilars[pilarIdx1].branche.getElement();
+      const pilar2BrElement = lunar.pilars[pilarIdx2].branche.getElement();
       if (
         pilar1BrElement === tranformedElement &&
         pilar2BrElement === tranformedElement &&
@@ -156,12 +150,11 @@ export class CombListHelper {
     pilarIdx2: number
   ) {
     const eTrMonthElement = lunar.pilarsAttr.brMonthElement;
-    const trunk1 = lunar.trunkArr[pilarIdx1];
-    const trunk2 = lunar.trunkArr[pilarIdx2];
-    if (TrunkHelper.isTransformable(trunk1, trunk2)) {
-      const tranformedElement = TrunkHelper.getTransformElement(trunk1);
-      const pilar1BrElement = lunar.brancheArr[pilarIdx1].getElement();
-      const pilar2BrElement = lunar.brancheArr[pilarIdx2].getElement();
+    const pilar1=lunar.getPilar(pilarIdx1);
+    if (TrunkHelper.isTransformable(pilar1, lunar.getPilar(pilarIdx2))) {
+      const tranformedElement = TrunkHelper.getTransformElement(pilar1.trunk);
+      const pilar1BrElement = lunar.pilars[pilarIdx1].branche.getElement();
+      const pilar2BrElement = lunar.pilars[pilarIdx2].branche.getElement();
       if (
         BaziHelper.getRelation(
           pilar1BrElement,
@@ -186,18 +179,18 @@ export class CombListHelper {
 
   static hasBaseCombOf3(lunar: Lunar, checkPilarIdx: number) {
     let count = 0;
-    const checkBranche = lunar.brancheArr[checkPilarIdx];
+    const checkBranche = lunar.pilars[checkPilarIdx].branche;
     let hasTrunkElementCompatibleWithTransformedElement = false;
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
       if (pilarIdx !== checkPilarIdx) {
-        const branche = lunar.brancheArr[pilarIdx];
+        const branche = lunar.pilars[pilarIdx].branche;
         if (
-          BrancheHelper.getUniqueRelation(branche, checkBranche) ===
+          BrancheHelper.getMainRelation(branche, checkBranche) ===
           BrancheRelation.COMBINATION
         ) {
           count++;
           if (
-            lunar.trunkArr[pilarIdx].getElement() ===
+            lunar.pilars[pilarIdx].trunk.getElement() ===
             BrancheRelation.getCombinaisonResultElement(branche).getValue()
           ) {
             hasTrunkElementCompatibleWithTransformedElement = true;
@@ -215,8 +208,8 @@ export class CombListHelper {
     checkMidComb3: boolean
   ) {
     let comb3Branches = [checkPilarIdx];
-    const checkBranche = lunar.brancheArr[checkPilarIdx];
-    const brancheList: Branche[] = [lunar.brancheArr[checkPilarIdx]];
+    const checkBranche = lunar.pilars[checkPilarIdx].branche;
+    const brancheList: Branche[] = [lunar.pilars[checkPilarIdx].branche];
     let maxHit = 3;
     let checkRange = 3;
     if (checkMidComb3) {
@@ -226,9 +219,9 @@ export class CombListHelper {
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
       if (pilarIdx !== checkPilarIdx) {
         if (Math.abs(checkPilarIdx - pilarIdx) <= checkRange) {
-          const branche = lunar.brancheArr[pilarIdx];
+          const branche = lunar.pilars[pilarIdx].branche;
           if (
-            BrancheHelper.getUniqueRelation(branche, checkBranche) ===
+            BrancheHelper.getMainRelation(branche, checkBranche) ===
             BrancheRelation.COMBINATION
           ) {
             if (!ObjectHelper.hasItem(brancheList, branche)) {
@@ -285,18 +278,17 @@ export class CombListHelper {
     pilarIdx1: number,
     pilarIdx2: number
   ) {
-    const eTrMonthElement = lunar.pilarsAttr.brMonthElement;
-    const trunk1 = lunar.trunkArr[pilarIdx1];
-    const trunk2 = lunar.trunkArr[pilarIdx2];
-    if (TrunkHelper.isTransformable(trunk1, trunk2)) {
-      const tranformedElement = TrunkHelper.getTransformElement(trunk1);
+    const pilar1=lunar.getPilar(pilarIdx1);
+    if (TrunkHelper.isTransformable(pilar1, lunar.getPilar(pilarIdx2))) {
+      const eTrMonthElement = lunar.pilarsAttr.brMonthElement;
+      const tranformedElement = TrunkHelper.getTransformElement(pilar1.trunk);
       if (CombListHelper.hasCombinationOf3(lunar)) {
         if (
           CombListHelper.hasBaseCombOf3(lunar, pilarIdx1) &&
           CombListHelper.hasBaseCombOf3(lunar, pilarIdx2)
         ) {
           const trBrancheElement = BrancheRelation.getCombinaisonResultElement(
-            lunar.brancheArr[pilarIdx1]
+            lunar.pilars[pilarIdx1].branche
           ).getValue();
           if (
             trBrancheElement === tranformedElement &&
@@ -317,7 +309,6 @@ export class CombListHelper {
   }
 
   // Ref3p337 Cas 5 or 6
-  // DeityHelper
   static checkComb5ElementsType5Or6(
     lunar: Lunar,
     pilarIdx1: number,
@@ -332,19 +323,17 @@ export class CombListHelper {
       pilarIdx1 = LunarBase.MINDEX;
     }
     // pilarIdx1 is now LunarBase.MINDEX
-    const trunk1 = lunar.trunkArr[pilarIdx1];
-    const trunk2 = lunar.trunkArr[pilarIdx2];
-
-    let res = TrunkHelper.isTransformable(trunk1, trunk2);
-    if (res) {
-      const trunk1Element = trunk1.getElement();
-      const trunk2Element = trunk2.getElement();
+    const pilar1=lunar.getPilar(pilarIdx1);
+    const pilar2=lunar.getPilar(pilarIdx2);
+    if (TrunkHelper.isTransformable(pilar1, pilar2)) {
+      const trunk1Element = pilar1.trunk.getElement();
+      const trunk2Element = pilar2.trunk.getElement();
       // Check trunk or trunk2 same element with eTrMonthElement
       if (
         trunk1Element === eTrMonthElement ||
         trunk2Element === eTrMonthElement
       ) {
-        const branche2 = lunar.brancheArr[pilarIdx2];
+        const branche2 = lunar.pilars[pilarIdx2].branche;
         let addInfo = "Label.Dominate.Spouse";
         if (
           trunk2Element === eTrMonthElement &&
@@ -406,7 +395,7 @@ export class CombListHelper {
           comb3Branches
         );
         const transformElement = BrancheRelation.getCombinaisonResultElement(
-          lunar.brancheArr[pilarIdx]
+          lunar.pilars[pilarIdx].branche
         ).getValue();
 
         comb3Branches = CombListHelper.getBaseCombOf3(
@@ -453,12 +442,12 @@ export class CombListHelper {
   }
 
   static getSeasonCombination(lunar: Lunar, checkPilarIdx: number) {
-    const checkSeason = lunar.brancheArr[checkPilarIdx].season;
+    const checkSeason = lunar.pilars[checkPilarIdx].branche.season;
     const branchesIdx: number[] = [checkPilarIdx];
-    const brancheList: Branche[] = [lunar.brancheArr[checkPilarIdx]];
+    const brancheList: Branche[] = [lunar.pilars[checkPilarIdx].branche];
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
       if (pilarIdx !== checkPilarIdx) {
-        const branche = lunar.brancheArr[pilarIdx];
+        const branche = lunar.pilars[pilarIdx].branche;
         if (branche.season === checkSeason) {
           // Must be non duplicated branche
           if (!ObjectHelper.hasItem(brancheList, branche)) {
@@ -484,7 +473,7 @@ export class CombListHelper {
       if (combSeasonBranches !== null) {
         let transformElement =
           BrancheRelation.getTransformableSeasonCombination(
-            lunar.brancheArr[pilarIdx]
+            lunar.pilars[pilarIdx].branche
           ).getValue();
         lunar.pilarsAttr.combList.addBranchComb(
           CombAttr.BRANCHESEASONCOMBTYPE,
@@ -507,14 +496,14 @@ export class CombListHelper {
 
   // Ref3p344
   static getLucHopPilars(lunar: Lunar, checkPilarIdx: number) {
-    const bArr = lunar.brancheArr;
-    const checkBranche = bArr[checkPilarIdx];
+    const pilars = lunar.pilars;
+    const checkBranche = pilars[checkPilarIdx].branche;
     const branchesIdx: number[] = [checkPilarIdx];
     for (let index = 0; index < LunarBase.LINDEX; index++) {
       if (Math.abs(index - checkPilarIdx) === 1) {
         if (
           BrancheRelation.isRelationPresent(
-            bArr[index],
+            pilars[index].branche,
             checkBranche,
             BrancheRelation.TRANSFORMPLUS
           )
@@ -540,7 +529,7 @@ export class CombListHelper {
       if (combLucHop !== null) {
         combList.addBranchComb(CombAttr.BRANCHECOMB6TYPE, combLucHop);
         // REF3p344 Check Transform condition.
-        const checkBranche = lunar.brancheArr[pilarIdx];
+        const checkBranche = lunar.pilars[pilarIdx].branche;
         let trElement =
           BrancheRelation.getTransformResultElement(checkBranche).getValue();
         const trMonthElement = lunar.pilarsAttr.brMonthElement;
@@ -556,7 +545,7 @@ export class CombListHelper {
             trunkPilarIdx < LunarBase.LINDEX;
             trunkPilarIdx++
           ) {
-            if (lunar.trunkArr[trunkPilarIdx].getElement() === trElement) {
+            if (lunar.pilars[trunkPilarIdx].trunk.getElement() === trElement) {
               combList.addBranchComb(
                 CombAttr.BRANCHECOMB6WITHTRANSFORMTYPE,
                 combLucHop,
@@ -577,12 +566,12 @@ export class CombListHelper {
     relation: BrancheRelation,
     checkPilarIdx: number
   ) {
-    const checkBranche = lunar.brancheArr[checkPilarIdx];
+    const checkBranche = lunar.pilars[checkPilarIdx].branche;
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
       if (Math.abs(pilarIdx - checkPilarIdx) === 1) {
         if (
           BrancheRelation.isRelationPresent(
-            lunar.brancheArr[pilarIdx],
+            lunar.pilars[pilarIdx].branche,
             checkBranche,
             relation
           )
@@ -617,6 +606,27 @@ export class CombListHelper {
     }
   }
 
+  static canPilarBoost(
+    sources: PilarBase[],
+    checkElement: Element,
+    useOnlyMainHiddenTrunk?: boolean
+  ): boolean {
+    let count = 0;
+    if (typeof useOnlyMainHiddenTrunk === "undefined")
+      useOnlyMainHiddenTrunk = false;
+    for (let index = 0; index < sources.length; index++) {
+      const source = sources[index].branche;
+      if (source.getElement() === checkElement) count++;
+      const hiddenTrunks = BrancheHelper.getHiddenTrunk(source);
+      for (let index = 0; index < hiddenTrunks.length; index++) {
+        const element = hiddenTrunks[index].getElement();
+        if (element === checkElement) count++;
+        if (useOnlyMainHiddenTrunk) break;
+      }
+    }
+    return count > 0;
+  }
+
   static canBoost(
     sources: Branche[],
     checkElement: Element,
@@ -643,18 +653,17 @@ export class CombListHelper {
     lunar: Lunar,
     combType: number
   ) {
-    const tArr = lunar.trunkArr;
-    const bArr = lunar.brancheArr;
+    const pilars = lunar.pilars;
     const pilarsAttr = lunar.pilarsAttr;
     const combList = pilarsAttr.combList;
     const checkBrancheIdxArr = combList.getBrancheNonContributor(combType);
     const checkBranches: Branche[] = [];
     for (let index = 0; index < checkBrancheIdxArr.length; index++) {
       const element = checkBrancheIdxArr[index];
-      checkBranches.push(bArr[element]);
+      checkBranches.push(pilars[element].branche);
     }
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
-      const pilarElement = tArr[pilarIdx].getElement();
+      const pilarElement = pilars[pilarIdx].trunk.getElement();
       let boosted = false;
       const combTypeAttrList = combList.getCombTypeAttrList(combType, pilarIdx);
       if (combTypeAttrList.length >= 1) {
@@ -673,8 +682,7 @@ export class CombListHelper {
 
   //Ref3p333
   static evalTrunkSupportType(lunar: Lunar) {
-    const bArr = lunar.brancheArr;
-    const tArr = lunar.trunkArr;
+    const pilars = lunar.pilars;
     const combList = lunar.pilarsAttr.combList;
     if (
       combList.existRelationType(CombAttr.BRANCHESEASONCOMBTRANSFORMABLETYPE)
@@ -704,13 +712,13 @@ export class CombListHelper {
       // Ref3p335 cas 3 pas de transformation
       // Ref3p346 example 1: No clash
       for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
-        const element = tArr[pilarIdx].getElement();
+        const element = pilars[pilarIdx].trunk.getElement();
         const hasClash = combList.existClashRelation(pilarIdx);
-        if (CombListHelper.canBoost(bArr, element, hasClash)) {
+        if (CombListHelper.canPilarBoost(pilars, element, hasClash)) {
           combList.addTrunkComb(CombAttr.TRUNKISSUPPORTEDTYPE1, [pilarIdx]);
         }
         for (let otherPilarIdx = pilarIdx+1; otherPilarIdx < LunarBase.LINDEX; otherPilarIdx++) {
-          if ( TrunkHelper.isTrunkClashed(tArr[pilarIdx],tArr[otherPilarIdx]) ) {
+          if ( pilars[pilarIdx].isTrunkClashed(pilars[otherPilarIdx]) ) {
             combList.addTrunkComb(CombAttr.TRUNKCLASHTYPE, [pilarIdx,otherPilarIdx]);
           }
         }

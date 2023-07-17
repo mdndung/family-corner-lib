@@ -14,6 +14,7 @@ import { ZodiacHoroscope } from './zodiacHoroscope';
 import { TuViHoroscope } from './tuviHoroscope';
 import { SelectHoroscopeOption } from './selectHoroscopeOption';
 import { BaziHoroscope } from './baziHoroscope';
+import { Temporal } from 'temporal-polyfill';
 
 export class MyHoroscope {
 
@@ -46,17 +47,11 @@ export class MyHoroscope {
     });
   }
 
-  logEvolution(
+  getHoroscopeGenerator(
     studyDate: MyCalendar,
     studyLieu: CoordinateSystem,
-    headerLines: string[][],
-    headerColFont: number[],
     selectHoroscope: SelectHoroscopeOption,
-    debugMode: number
   ) {
-    this.doc.createWorkSheet('DestinyNew');
-    this.genDocHeader(headerLines, headerColFont);
-
     const hGen = new HoroscopeGenerator(
       this.baseBirthDate,
       studyDate,
@@ -99,6 +94,43 @@ export class MyHoroscope {
         )
       );
     }
+    return hGen;
+  }
+
+  logYearSuite(
+    studyDate: MyCalendar,
+    studyLieu: CoordinateSystem,
+    workSheetName: string,
+    headerLines: string[][],
+    headerColFont: number[],
+    selectHoroscope: SelectHoroscopeOption,
+    debugMode: number
+  ) {
+    this.doc.createWorkSheet(workSheetName);
+    this.genDocHeader(headerLines, headerColFont);
+    let currDate=this.baseBirthDate.getCopy();
+    let oneYear=Temporal.Duration.from({years: 1});
+    const hGen=this.getHoroscopeGenerator(currDate,studyLieu,selectHoroscope);
+    while ( studyDate.afterDate(currDate)) {
+      currDate.add(oneYear);
+      hGen.setStudyDate(currDate);
+      hGen.generateMe(ObsPeriod.YEARTHEME,debugMode);
+    }
+  }
+
+
+  logEvolution(
+    studyDate: MyCalendar,
+    studyLieu: CoordinateSystem,
+    workSheetName: string,
+    headerLines: string[][],
+    headerColFont: number[],
+    selectHoroscope: SelectHoroscopeOption,
+    debugMode: number
+  ) {
+    this.doc.createWorkSheet(workSheetName);
+    this.genDocHeader(headerLines, headerColFont);
+    const hGen=this.getHoroscopeGenerator(studyDate,studyLieu,selectHoroscope);
     hGen.generateTo(ObsPeriod.DAYTHEME,debugMode);
   }
 

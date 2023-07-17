@@ -16,6 +16,8 @@ import { TrigramHelper } from '../../helper/trigramHelper';
 import { PilarsAttr } from './pilarsAttr';
 import { LunarBase } from './lunarBase';
 import { SecondaryDeity } from './secondaryDeity';
+import { PilarBase } from './pilarBase';
+import { BaziHelper } from '../../helper/baziHelper';
 
 export class Lunar {
 
@@ -28,24 +30,15 @@ export class Lunar {
   birthDateWith23HAdaptation: MyCalendar;
   isMan: boolean ;
 
-  trunkArr: Trunk[] = null ;
-  brancheArr: Branche[] = null ;
-
+  pilars: PilarBase[] = null ;
   yinCount = 0 ;
   yangCount =  0 ;
 
   pilarsAttr: PilarsAttr = null ;
 
 
-  constructor(birthDate: MyCalendar, isMan: boolean, trArr?: Trunk[], brArr?: Branche[]) {
-    if ( typeof trArr === 'undefined') {
-      trArr = null;
-    }
-    if ( typeof brArr === 'undefined') {
-      brArr = null;
-    }
-    this.trunkArr=trArr;
-    this.brancheArr=brArr;
+  constructor(birthDate: MyCalendar, isMan: boolean) {
+
     // Make a clone copy
     this.birthDate = birthDate.getCopy();
     this.birthDateWith23HAdaptation =
@@ -64,12 +57,12 @@ export class Lunar {
   }
 
   getDayMasterElement() {
-    if ( this.pilarsAttr===null ) return  this.trunkArr[LunarBase.DINDEX].getElement();
+    if ( this.pilarsAttr===null ) return  this.pilars[LunarBase.DINDEX].trunk.getElement();
     return  this.pilarsAttr.trunkEE[LunarBase.DINDEX].getValue().element;
   }
 
   getYearStartMonth() {
-    return Lunar.YearStartMonthTrunk[this.trunkArr[LunarBase.YINDEX].ordinal()];
+    return Lunar.YearStartMonthTrunk[this.pilars[LunarBase.YINDEX].trunk.ordinal()];
   }
 
   getReplaceTrigram5(trigram: Trigram, year: number, isYang: boolean) {
@@ -120,7 +113,7 @@ export class Lunar {
 
     let skyTriGram;
     let earthTrigram;
-    const isTrunkYearYang = this.trunkArr[LunarBase.YINDEX].getEnergy().isEqual(Energy.YANG);
+    const isTrunkYearYang = this.pilars[LunarBase.YINDEX].trunk.getEnergy().isEqual(Energy.YANG);
     if ( isTrunkYearYang )  {
       if( this.isMan ) {
         skyTriGram = yangTrigram;  earthTrigram = yinTrigram;
@@ -148,50 +141,56 @@ export class Lunar {
 
 
   initHLTrunkBranche(){
-    this.trunkArr[LunarBase.HINDEX]=
+    let trunk =
       TrunkHelper.getHourTrunk
-        (this.trunkArr[LunarBase.DINDEX],this.birthDate.getHour());
-    this.brancheArr[LunarBase.HINDEX]=
+        (this.pilars[LunarBase.DINDEX].trunk,this.birthDate.getHour());
+    let branche=
       BrancheHelper.getHourBranche(this.birthDate.getHour());
-/*
-    // Life trunk and branch
-    let index = this.brancheArr[LunarBase.MINDEX].ordinal() - 2 ;
+    this.pilars[LunarBase.HINDEX] = new PilarBase(trunk, branche)
 
-    const lifeBranche = Branche.RAT.getEnumNextNElement(-index) ;
-    index = Branche.RAT.ordinal()- this.brancheArr[LunarBase.HINDEX].ordinal();
-    this.brancheArr[LunarBase.LINDEX] = lifeBranche.getEnumNextNElement(index);
-    const mOrd = this.trunkArr[LunarBase.MINDEX].ordinal();
-    this.trunkArr[LunarBase.LINDEX]=
-      this.getYearStartMonth().getEnumNextNElement(mOrd);
-*/
   }
 
 
   initTrunkBranche() {
-    if ( this.trunkArr===null ) {
-      this.trunkArr =  new Array(LunarBase.PILARS_LEN);
-      this.brancheArr =   new Array(LunarBase.PILARS_LEN);
+
+    if ( this.pilars===null ) {
+      this.pilars = ObjectHelper.newArray(LunarBase.PILARS_LEN,null)
 
       let [cycle, year, month, leap, day] = this.birthDate.chineseDate.get();
       month = Math.abs(month);
       const cYear = cycle*60+year;
-      this.trunkArr[LunarBase.YINDEX]=TrunkHelper.getYearTrunk(cYear);
-      this.brancheArr[LunarBase.YINDEX]=BrancheHelper.getYearBranche(cYear);
+      let trunk=TrunkHelper.getYearTrunk(cYear);
+      let branche=BrancheHelper.getYearBranche(cYear);
+      this.pilars[LunarBase.YINDEX] = new PilarBase(trunk,branche);
 
-      this.trunkArr[LunarBase.MINDEX]=TrunkHelper.getMonthTrunk(this.trunkArr[LunarBase.YINDEX],month);
-      this.brancheArr[LunarBase.MINDEX]=BrancheHelper.getMonthBranche(month);
+      trunk=TrunkHelper.getMonthTrunk(this.pilars[LunarBase.YINDEX].trunk,month);
+      branche=BrancheHelper.getMonthBranche(month);
+      this.pilars[LunarBase.MINDEX] = new PilarBase(trunk,branche);
 
-      this.trunkArr[LunarBase.DINDEX]=TrunkHelper.getDayTrunk(this.birthDate);
-      this.brancheArr[LunarBase.DINDEX]=BrancheHelper.getDayBranche(this.birthDate);
+      trunk=TrunkHelper.getDayTrunk(this.birthDate);
+      branche=BrancheHelper.getDayBranche(this.birthDate);
+      this.pilars[LunarBase.DINDEX] = new PilarBase(trunk,branche);
 
       this.initHLTrunkBranche();
     }
   }
 
+  getTrunkDeity(trunk: Trunk) {
+    return BaziHelper.eNeTrunkRelation(trunk, this.getdTrunk());
+  }
+
+  initPilarDeity () {
+    for (let index = 0; index < this.pilars.length; index++) {
+      const deity = this.getTrunkDeity(this.pilars[index].trunk);
+      this.pilars[index].deity=deity
+    }
+
+  }
 
 
   init() {
     this.initTrunkBranche();
+    this.initPilarDeity();
     this.initYinYangCount();
     this.pilarsAttr=new PilarsAttr(this);
   }
@@ -200,32 +199,49 @@ export class Lunar {
   getdIdx() { return LunarBase.DINDEX };
   getmIdx() { return LunarBase.MINDEX };
   getyIdx() { return LunarBase.YINDEX };
-  getlIdx() { return LunarBase.LINDEX };
 
   getTrunk(trunNb:number) {
-    return
+    return this.pilars[trunNb].trunk
   }
 
   gethTrunk() {
-    return this.trunkArr[LunarBase.HINDEX] as Trunk;
+    return this.pilars[LunarBase.HINDEX].trunk;
   }
 
   getdTrunk() {
-    return this.trunkArr[LunarBase.DINDEX] as Trunk;
+    return this.pilars[LunarBase.DINDEX].trunk;
   }
 
   getmTrunk() {
-    return this.trunkArr[LunarBase.MINDEX] as Trunk;
+    return this.pilars[LunarBase.MINDEX].trunk;
   }
 
   getyTrunk() {
-    return this.trunkArr[LunarBase.YINDEX] as Trunk;
+    return this.pilars[LunarBase.YINDEX].trunk;
   }
 
-
-   getPilarElement( index: number ) {
-		return NagiaHelper.getNagiaElement(this.trunkArr[index],this.brancheArr[index]);
+  getPilar( index: number ) {
+		return this.pilars[index];
 	}
+
+  getPilars( ) {
+		return this.pilars;
+	}
+
+
+  getPilarByName( pilarName: string ) {
+    const checkPilarIdx = LunarBase.getPilarIdx(pilarName);
+    return this.getPilar(checkPilarIdx)	}
+
+
+  getPilarElement( index: number ) {
+		return this.getPilar(index).nagiaElement;
+	}
+
+
+  getdElement() {
+    return this.getPilarElement(LunarBase.DINDEX);
+  }
 
   getyElement() {
     return this.getPilarElement(LunarBase.YINDEX);
@@ -236,25 +252,29 @@ export class Lunar {
   }
 
   getyBranche() {
-    return this.brancheArr[LunarBase.YINDEX] as Branche;
+    return this.getyPilar().branche;
+  }
+
+  getyPilar() {
+    return this.pilars[LunarBase.YINDEX];
   }
 
   getmBranche() {
-    return this.brancheArr[LunarBase.MINDEX] as Branche;
+    return this.pilars[LunarBase.MINDEX].branche;
   }
 
   getdBranche() {
-    return this.brancheArr[LunarBase.DINDEX] as Branche;
+    return this.pilars[LunarBase.DINDEX].branche;
   }
 
   gethBranche() {
-    return this.brancheArr[LunarBase.HINDEX] as Branche;
+    return this.pilars[LunarBase.HINDEX].branche;
   }
 
   toString() {
     let res = '';
     for (let index = 0; index < LunarBase.LINDEX; index++) {
-      res += ' ( ' + this.trunkArr[index].getName()+' '+ this.brancheArr[index].getName()+ ' ) ' ;
+      res += ' ( ' + this.pilars[index].toString() + ' ) ' ;
     }
     return res;
   }
@@ -272,9 +292,9 @@ export class Lunar {
     this.yinCount = 0 ;
     this.yangCount = 0 ;
     for (let index = 0; index < LunarBase.LINDEX; index++) {
-      this.incYinOrYangCount( this.trunkArr[index].hadoNb ) ;
-      this.incYinOrYangCount( this.brancheArr[index].earthNb1 ) ;
-      this.incYinOrYangCount( this.brancheArr[index].earthNb2 ) ;
+      this.incYinOrYangCount( this.pilars[index].trunk.hadoNb ) ;
+      this.incYinOrYangCount( this.pilars[index].branche.earthNb1 ) ;
+      this.incYinOrYangCount( this.pilars[index].branche.earthNb2 ) ;
     }
   }
 
@@ -298,5 +318,23 @@ export class Lunar {
     } else {
       return TrigramHelper.getTrigramGua(nb);
     }
+  }
+
+
+  get3PlusSameBranche() {
+    let count = 0;
+    for (let index1 = 0; index1 < LunarBase.PILARS_LEN-2; index1++) {
+      count=0;
+      const currBranche = this.pilars[index1].branche;
+      for (let index = index1+1; index < LunarBase.PILARS_LEN; index++) {
+        if (this.pilars[index].branche===currBranche) {
+          count++
+          if ( count>=2 ) return currBranche
+        }
+      }
+    }
+
+
+    return null;
   }
 }

@@ -61,7 +61,7 @@ static existsecDeity( secondaryDeityPilar: SecondaryDeity[][], deity: SecondaryD
   static isBrancheElementAppearInTrunk(lunar: Lunar, checkElement: Element) {
     let res = false;
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
-      if (lunar.trunkArr[pilarIdx].getElement() === checkElement) {
+      if (lunar.pilars[pilarIdx].trunk.getElement() === checkElement) {
         res = true;
         break;
       }
@@ -75,12 +75,12 @@ static existsecDeity( secondaryDeityPilar: SecondaryDeity[][], deity: SecondaryD
     if( BaziHelper.isBrancheElementAppearInTrunk(lunar,checkElement) ) {
       return true;
     }
-    checkElement = lunar.brancheArr[pilarIdx].getElement();
+    checkElement = lunar.pilars[pilarIdx].branche.getElement();
     return BaziHelper.isBrancheElementAppearInTrunk(lunar,checkElement) ;
   }
 
   static isElementInBranche(lunar: Lunar, brancheIdx: number, checkElement: Element) {
-      const branche = lunar.brancheArr[brancheIdx];
+      const branche = lunar.pilars[brancheIdx].branche;
       if (branche.getElement() === checkElement) {
         return true;
       }
@@ -97,7 +97,7 @@ static existsecDeity( secondaryDeityPilar: SecondaryDeity[][], deity: SecondaryD
 
     //Ref8p505.
     static isTrunkInBranche(lunar: Lunar, trunkPilarIdx: number,branchePilarIdx: number) : boolean{
-      let checkElement=lunar.trunkArr[trunkPilarIdx].getElement();
+      let checkElement=lunar.pilars[trunkPilarIdx].trunk.getElement();
       if( BaziHelper.isElementInBranche(lunar,branchePilarIdx,checkElement) ) {
         return true;
       }
@@ -106,8 +106,8 @@ static existsecDeity( secondaryDeityPilar: SecondaryDeity[][], deity: SecondaryD
 
     //Ref3p345
     static getClashHiddenTrunkReduceFactor(lunar:Lunar, brancheIdxs:number[]) {
-      const branche1 = lunar.brancheArr[brancheIdxs[0]];
-      const branche2 = lunar.brancheArr[brancheIdxs[1]];
+      const branche1 = lunar.pilars[brancheIdxs[0]].branche;
+      const branche2 = lunar.pilars[brancheIdxs[1]].branche;
       const diff=Math.abs(branche1.ordinal()-branche2.ordinal());
       if ( diff===6 || diff===7 ) return 1/2;
       return 1/3
@@ -141,13 +141,12 @@ static existsecDeity( secondaryDeityPilar: SecondaryDeity[][], deity: SecondaryD
 
   static trunkLifeCyclePhase (bazi: Bazi) {
     const trunkELCArr :  ElementLifeCycle[][] = [] ;
-    const trunkArr = bazi.trunkArr;
-    const brancheArr = bazi.brancheArr;
-    for (let trunkIdx = 0; trunkIdx <LunarBase.LINDEX; trunkIdx++) {
-      const trunk=trunkArr[trunkIdx];
+    const pilars = bazi.pilars;
+    for (let trunkIdx = 0; trunkIdx <LunarBase.PILARS_LEN; trunkIdx++) {
+      const trunk=pilars[trunkIdx].trunk;
       const eLCArr:ElementLifeCycle[] = [];
-      for (let brancheIdx = 0; brancheIdx <LunarBase.LINDEX; brancheIdx++) {
-        const branche = brancheArr[brancheIdx];
+      for (let brancheIdx = 0; brancheIdx <LunarBase.PILARS_LEN; brancheIdx++) {
+        const branche = pilars[brancheIdx].branche;
         eLCArr.push(BaziHelper.elementLifeCycle(trunk,branche))
       };
       trunkELCArr.push(eLCArr);

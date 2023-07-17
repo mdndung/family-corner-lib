@@ -23,8 +23,8 @@ import { Trunk } from "../mt-data/bazi/trunk";
 import { ObjectHelper } from "./objectHelper";
 import { HoroscopeHelper } from "./horoscopeHelper";
 import { BrancheRelation } from "../mt-data/bazi/brancheRelation";
-import { HalacTheme } from "../mt-data/yi-jing/halacTheme";
-import { NagiaHelper } from "./nagiaHelper";
+import { PilarBase } from "../mt-data/bazi/pilarBase";
+import { PilarHelper } from "./pilarHelper";
 
 export class QiHelper {
   // YiJing.month in java
@@ -461,14 +461,14 @@ export class QiHelper {
   // Ref 10a p136: EARTHDAYTRUNKSUPPORT
   static getDayEarthTrunkForce(lunar: Lunar) {
     const dTrunk = lunar.getdTrunk();
-    const brancheArr = lunar.brancheArr;
+    const pilars = lunar.pilars;
     // Can ngay + gap cac chi con lai TS
     let qiForce = QiForce.NONE;
     let detail = "";
     if (dTrunk.getEnergy().isEqual(Energy.YANG)) {
       for (let index = 0; index < LunarBase.PILARS_LEN; index++) {
         if (index !== LunarBase.MINDEX) {
-          const branche = brancheArr[index];
+          const branche = pilars[index].branche;
           const cycle = BaziHelper.elementLifeCycle(dTrunk, branche);
           if (cycle === ElementLifeCycle.BIRTH) {
             qiForce = QiForce.FAVORABLE;
@@ -488,25 +488,25 @@ export class QiHelper {
         if (pilarIdx !== LunarBase.YINDEX) {
           // Can ngay gap loc, Kinh Duong
           //
-          const branche = brancheArr[pilarIdx];
+          const branche = pilars[pilarIdx].branche;
           const hiddenTrunk = BrancheHelper.getHiddenTrunk(branche);
           let temp: any;
           for (let index = 0; index < hiddenTrunk.length; index++) {
             const htr = hiddenTrunk[index];
-            if ( htr!==null ) {
+            if (htr !== null) {
               temp = BaziHelper.eNeTrunkRelation(htr, dTrunk);
               if (
                 temp === ElementNEnergyRelation.F ||
                 temp === ElementNEnergyRelation.RW
-                ) {
-                  qiForce = QiForce.FAVORABLE;
-                  detail =
-                    "Branche " +
-                    MessageHelper.getMessage(LunarBase.getPilarLabel(pilarIdx)) +
-                    " deity is " +
-                    temp;
-                  break;
-                }
+              ) {
+                qiForce = QiForce.FAVORABLE;
+                detail =
+                  "Branche " +
+                  MessageHelper.getMessage(LunarBase.getPilarLabel(pilarIdx)) +
+                  " deity is " +
+                  temp;
+                break;
+              }
             }
           }
           // Tomb
@@ -752,7 +752,7 @@ export class QiHelper {
     return dayForceData;
   }
 
-  static getPeriodCategory(periodNb: Number) {
+  static getPeriodCategory(periodNb: number) {
     if (periodNb < 3) return "ATTIRE";
     if (periodNb < 6) return "AGE";
     return "AGING";
@@ -774,29 +774,59 @@ export class QiHelper {
     const menhPilar = QiHelper.getMenhPilar(bazi, studyDate);
   }
 
-  static addQiType (currQiRec: QiTypeDataRec, qiType:QiType, force:number, detail: string, updDataLog?:DataWithLog) {
-    if (force===0) return;
+  static addQiType(
+    currQiRec: QiTypeDataRec,
+    qiType: QiType,
+    force: number,
+    detail?: string,
+    updDataLog?: DataWithLog
+  ) {
+    if (force === 0) return;
 
-    let  qiForce = QiForce.FAVORABLE;
-    if (force<0) {
+    let qiForce = QiForce.FAVORABLE;
+    if (force < 0) {
       qiForce = QiForce.HOSTILE;
     }
-    let currDataLog = new DataWithLog(qiForce,detail);
+    if (!(typeof detail === "undefined")) {
+      detail = "" + qiType;
+    }
+    let currDataLog = new DataWithLog(qiForce, detail);
     currQiRec.addQiTypeForce(qiType, currDataLog);
-    if ( !(typeof updDataLog==='undefined') ) {
-      updDataLog.addValue(force,detail);
+    if (!(typeof updDataLog === "undefined")) {
+      updDataLog.addValue(force, detail);
     }
   }
 
-  static evalYearQi(bazi: Bazi, studyDate: Lunar) {
+  static addQiForce(
+    currQiRec: QiTypeDataRec,
+    qiType: QiType,
+    force: number,
+    detail?: string,
+    updDataLog?: DataWithLog
+  ) {
+    if (force === 0) return;
+
+    if (!(typeof detail === "undefined")) {
+      detail = "" + qiType;
+    }
+    let currDataLog = new DataWithLog(force, detail);
+    currQiRec.addQiTypeForce(qiType, currDataLog);
+    if (!(typeof updDataLog === "undefined")) {
+      updDataLog.addValue(force, detail);
+    }
+  }
+
+  static evalYearQi(bazi: Bazi, studyLunar: Lunar, periodQi: QiTypeDataRec) {
     const pilarsAttr = bazi.pilarsAttr;
     let yearQi: QiTypeDataRec = new QiTypeDataRec();
-    const yTrunk = studyDate.getyTrunk();
-    const yTrunkElement = yTrunk.elementNEnergy.element;
-    const yBranche = studyDate.getyBranche();
-    const yBrancheElement = yBranche.elementNEnergy.element;
-    const bTrunkArr = bazi.trunkArr;
-    const bBrancheArr = bazi.brancheArr;
+    const studyYTrunk = studyLunar.getyTrunk();
+    const studyYearElement = studyLunar.getyBranche().getElement();
+    const yearPilar = studyLunar.getyPilar();
+    const studyYTrunkElement = studyYTrunk.elementNEnergy.element;
+    const studyYBrancheElement = yearPilar.branche.elementNEnergy.element;
+
+    const bazPilars = bazi.pilars;
+
     let pilarControlYearCount = 0;
     let yearControlPilarCount = 0;
     let trunkClashCount = 0;
@@ -807,127 +837,276 @@ export class QiHelper {
     let brancheClash: Branche[] = [];
     let trunkPilarClash: string[] = [];
     let branchePilarClash: string[] = [];
-    const DOT=".";
-
-    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
-      const bTrunk = bTrunkArr[pilarIdx];
-      const bTrunkElement = bTrunk.elementNEnergy.element;
-      const bBranche = bBrancheArr[pilarIdx];
-      const bBrancheElement = bBranche.elementNEnergy.element;
-      const pilarChar=LunarBase.getPilarShortLabel(pilarIdx)
-      if (yTrunkElement.isDestructive(bTrunkElement)) {
-        ObjectHelper.pushIfNotExist(pilarControlYear, bTrunkElement);
-        pilarControlYearCount++;
-        ObjectHelper.pushIfNotExist(trunkPilarClash,  QiType.BIRTHCONTROLYEARELEMENT.getName()+'.T.'+pilarChar);
-      }
-      if (yBrancheElement.isDestructive(bBrancheElement)) {
-        ObjectHelper.pushIfNotExist(pilarControlYear, bBrancheElement);
-        pilarControlYearCount++;
-        ObjectHelper.pushIfNotExist(branchePilarClash, QiType.BIRTHCONTROLYEARELEMENT.getName()+'.B.'+pilarChar);
-      }
-      if (bTrunkElement.isDestructive(yTrunkElement)) {
-        ObjectHelper.pushIfNotExist(yearControlPilar, yTrunkElement);
-        yearControlPilarCount++;
-        ObjectHelper.pushIfNotExist(trunkPilarClash, QiType.YEARCONTROLBIRTHELEMENT.getName()+'.T.'+pilarChar);
-      }
-      if (bBrancheElement.isDestructive(yBrancheElement)) {
-        ObjectHelper.pushIfNotExist(yearControlPilar, yBrancheElement);
-        yearControlPilarCount++;
-        ObjectHelper.pushIfNotExist(branchePilarClash, QiType.YEARCONTROLBIRTHELEMENT.getName()+'.B.'+pilarChar);
-      }
-
-      if (TrunkHelper.isTrunkClashed(yTrunk, bTrunkArr[pilarIdx])) {
-        ObjectHelper.pushIfNotExist(trunkClash, bTrunkArr[pilarIdx]);
-        trunkClashCount++;
-        ObjectHelper.pushIfNotExist(trunkPilarClash, QiType.YEARBIRTHTRUNKCLASH.getName()+DOT+pilarChar);
-      }
-      if (BrancheHelper.isBrancheClashed(yBranche, bBrancheArr[pilarIdx])) {
-        ObjectHelper.pushIfNotExist(brancheClash, bBrancheArr[pilarIdx]);
-        brancheClashCount++;
-        ObjectHelper.pushIfNotExist(branchePilarClash, QiType.YEARBIRTHBRANCHECLASH.getName()+DOT+pilarChar);
-      }
-    }
-    const yearDeity = bazi.getTrunkDeity(yTrunk);
-    const deityElement = pilarsAttr.getDeityElement(yearDeity);
+    const DOT = ".";
     // Ref3p281
-    let force = pilarsAttr.getPivotElementStatus(deityElement);
-    let qiForce=QiForce.getQiForce(force);
-    let dataLog = new DataWithLog(
+    const deity = bazi.getTrunkDeity(studyYTrunk);
+    const deityElement = pilarsAttr.getDeityElement(deity);
+    let force = pilarsAttr.getPivotElementStatusForce(deityElement);
+    let qiForce = QiForce.getQiForce(force);
+    let yearForceData = new DataWithLog(
       force,
       "Year Deity Element (" + deityElement + ") Force"
     );
-    let currDetail = "Year " + yTrunk + " and birth trunks " + trunkClash + " clash count: "+trunkClashCount;
-    QiHelper.addQiType(yearQi,QiType.YEARBIRTHTRUNKCLASH,-trunkClashCount,currDetail,dataLog)
+    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
+      const bTrunk = bazPilars[pilarIdx].trunk;
+      const bTrunkElement = bTrunk.elementNEnergy.element;
+      const bPilar = bazPilars[pilarIdx];
+      const bBranche = bPilar.branche;
+      const bBrancheElement = bBranche.elementNEnergy.element;
+      const pilarChar = LunarBase.getPilarShortLabel(pilarIdx);
+      let isTrunkClashed=false;
+      let isFavorable = false;
+      if (studyYTrunkElement.isDestructive(bTrunkElement)) {
+        ObjectHelper.pushIfNotExist(pilarControlYear, bTrunkElement);
+        pilarControlYearCount++;
+        ObjectHelper.pushIfNotExist(
+          trunkPilarClash,
+          QiType.BIRTHCONTROLYEARELEMENT.getName() + ".T." + pilarChar
+        );
+        isTrunkClashed=true;
+      } else {
+        isFavorable=studyYTrunkElement.isFavorable(bTrunkElement);
+      }
+      if (studyYBrancheElement.isDestructive(bBrancheElement)) {
+        ObjectHelper.pushIfNotExist(pilarControlYear, bBrancheElement);
+        pilarControlYearCount++;
+        ObjectHelper.pushIfNotExist(
+          branchePilarClash,
+          QiType.BIRTHCONTROLYEARELEMENT.getName() + ".B." + pilarChar
+        );
+        // Ref8p272p5
+        if (isTrunkClashed) {
+          yearForceData.addValue(-1,"Year trunk/Branche pilar "+pilarChar+"Clashed")
+       }
+      } else {
+        // Ref8p272p5
+        if (isFavorable && studyYBrancheElement.isFavorable(bBrancheElement)) {
+          yearForceData.addValue(-1,"Year trunk/Branche pilar "+pilarChar+" ")
+        }
+      }
+      if (bTrunkElement.isDestructive(studyYTrunkElement)) {
+        ObjectHelper.pushIfNotExist(yearControlPilar, studyYTrunkElement);
+        yearControlPilarCount++;
+        ObjectHelper.pushIfNotExist(
+          trunkPilarClash,
+          QiType.YEARCONTROLBIRTHELEMENT.getName() + ".T." + pilarChar
+        );
+      }
+      if (bBrancheElement.isDestructive(studyYBrancheElement)) {
+        ObjectHelper.pushIfNotExist(yearControlPilar, studyYBrancheElement);
+        yearControlPilarCount++;
+        ObjectHelper.pushIfNotExist(
+          branchePilarClash,
+          QiType.YEARCONTROLBIRTHELEMENT.getName() + ".B." + pilarChar
+        );
+      }
 
-    currDetail = "Year " + yBranche + " and birth branche " + brancheClash + " clash count: "+brancheClashCount;
-    QiHelper.addQiType(yearQi,QiType.YEARBIRTHBRANCHECLASH,-brancheClashCount,currDetail,dataLog)
+      if (
+        studyLunar.pilars[LunarBase.YINDEX].isTrunkClashed(bazPilars[pilarIdx])
+      ) {
+        ObjectHelper.pushIfNotExist(trunkClash, bTrunk);
+        trunkClashCount++;
+        ObjectHelper.pushIfNotExist(
+          trunkPilarClash,
+          QiType.YEARBIRTHTRUNKCLASH.getName() + DOT + pilarChar
+        );
+      }
+      if (yearPilar.isBrancheClashed(bPilar)) {
+        ObjectHelper.pushIfNotExist(brancheClash, bBranche);
+        brancheClashCount++;
+        ObjectHelper.pushIfNotExist(
+          branchePilarClash,
+          QiType.YEARBIRTHBRANCHECLASH.getName() + DOT + pilarChar
+        );
+      }
+    }
 
-    currDetail ="Year elements controlling birth elements " + yearControlPilar +" count: "+yearControlPilarCount;
-    QiHelper.addQiType(yearQi,QiType.YEARCONTROLBIRTHELEMENT,-yearControlPilarCount,currDetail,dataLog)
 
-    currDetail = "Birth elements " + pilarControlYear + " controlling year elements count: "+pilarControlYearCount;
-    QiHelper.addQiType(yearQi,QiType.BIRTHCONTROLYEARELEMENT,-pilarControlYearCount,currDetail,dataLog)
+    let currDetail =
+      "Year " +
+      studyYTrunk +
+      " and birth trunks " +
+      trunkClash +
+      " clash count: " +
+      trunkClashCount;
+    QiHelper.addQiType(
+      yearQi,
+      QiType.YEARBIRTHTRUNKCLASH,
+      -trunkClashCount * 2,
+      currDetail,
+      yearForceData
+    );
+
+    currDetail =
+      "Year " +
+      yearPilar.branche +
+      " and birth branche " +
+      brancheClash +
+      " clash count: " +
+      brancheClashCount;
+    QiHelper.addQiType(
+      yearQi,
+      QiType.YEARBIRTHBRANCHECLASH,
+      -brancheClashCount * 2,
+      currDetail,
+      yearForceData
+    );
+
+    currDetail =
+      "Year elements controlling birth elements " +
+      yearControlPilar +
+      " count: " +
+      yearControlPilarCount;
+    QiHelper.addQiType(
+      yearQi,
+      QiType.YEARCONTROLBIRTHELEMENT,
+      -yearControlPilarCount,
+      currDetail,
+      yearForceData
+    );
+
+    currDetail =
+      "Birth elements " +
+      pilarControlYear +
+      " controlling year elements count: " +
+      pilarControlYearCount;
+    QiHelper.addQiType(
+      yearQi,
+      QiType.BIRTHCONTROLYEARELEMENT,
+      -pilarControlYearCount,
+      currDetail,
+      yearForceData
+    );
 
     force = 0;
-    if ( BrancheRelation.isRelationPresent(
-      bBrancheArr[LunarBase.YINDEX],
-      yBranche,
-      BrancheRelation.TAMTAI
-    )) {
-      force=-1
+    if (
+      BrancheRelation.isRelationPresent(
+        bazPilars[LunarBase.YINDEX].branche,
+        yearPilar.branche,
+        BrancheRelation.TAMTAI
+      )
+    ) {
+      force = -2;
+      currDetail = "Part of 3 hostile years";
+      QiHelper.addQiType(yearQi, QiType.YEARTAMTAI, force, currDetail, yearForceData);
     }
-    currDetail = "Part of possible 3 hostile years";
-    QiHelper.addQiType(yearQi,QiType.YEARTAMTAI,force,currDetail,dataLog)
+    if (studyYTrunk===bazPilars[LunarBase.YINDEX].trunk) {
+      // Ref8p373p4
+      if ( yearForceData.getValue()>0 ) {
+        force = 2;
+      } else {
+        force = 2;
+      }
+      yearForceData.addValue(force,"Study year same trun with birh year")
+    }
+    periodQi.addQiTypeForce(QiType.YEARSTATUSFORCE, yearForceData);
 
-    qiForce = QiForce.getQiForce(dataLog.getValue(), QiForce.FAVORABLE);
-    const perStatus = new DataWithLog(qiForce, dataLog.detail);
-    yearQi.addQiTypeForce(QiType.YEARSTATUS, perStatus);
-    return {yearQi,trunkPilarClash,branchePilarClash};
+    qiForce = QiForce.getQiForce(yearForceData.getValue(), QiForce.FAVORABLE);
+    const yearStatus = new DataWithLog(qiForce, yearForceData.detail);
+    yearQi.addQiTypeForce(QiType.YEARSTATUS, yearStatus);
+    const yearName = studyLunar.getyBranche().getName()
+    return {
+      header: "Year.",
+      deity,
+      element: studyYearElement,
+      yearQi,
+      trunkPilarClash,
+      branchePilarClash,
+      yearStatus,
+      pilar:yearPilar,
+      name: yearName
+    };
   }
+
+  static getForce(status: boolean, trueVal?: number) {
+    if (typeof trueVal === "undefined") trueVal = 1;
+    if (status) {
+      return trueVal;
+    }
+    return -trueVal;
+  }
+
+
 
   static evalPeriodQi(bazi: Bazi, studyDate: Lunar) {
     let periodQi: QiTypeDataRec = new QiTypeDataRec();
     const pilarsAttr = bazi.pilarsAttr;
     const periodNb = bazi.getPeriodNb(studyDate.birthDate);
-    const deity = bazi.getPeriodTrunkDeity(periodNb);
-    const lifeCycle = bazi.getPeriodLifeCyle(periodNb);
-    let currDataLog: DataWithLog;
+    const periodTrunkDeity = bazi.getPeriodTrunkDeity(periodNb);
     let currDetail: string;
     let qiForce: QiForce;
     let force = 0;
-    const deityElement = pilarsAttr.getDeityElement(deity);
+    // Ref3p264
+    const periodPilar = bazi.periodPilar[periodNb];
+    const periodElement = periodPilar.nagiaElement;
     // Ref3p281
-    force = pilarsAttr.getPivotElementStatus(deityElement);
-    let dataLog = new DataWithLog(
+    force = pilarsAttr.getPivotElementStatusForce(periodElement);
+    currDetail = "Period Deity Pivot Element (" + periodElement + ") Force";
+    let periodForceData = new DataWithLog(force, currDetail);
+    // Ref8p267p1
+    const pivotHostileElements = pilarsAttr.getPivotHostileElements();
+    if (pilarsAttr.isPivotSupport(periodElement, true)) {
+      currDetail = "Is pivot support ";
+      periodForceData.addValue(2, currDetail);
+    }
+    // Ref8p267p2
+    if (ObjectHelper.hasItem(pivotHostileElements, periodElement)) {
+      currDetail = "Is pivot hostile ";
+      periodForceData.addValue(-2, currDetail);
+    }
+
+
+    // Menh. Ref3p280p3
+    const menhElement = bazi.getyPilar().nagiaElement;
+    force = periodElement.getRelationLostForce(menhElement);
+    currDetail =
+      "Period Element " +
+      periodElement +
+      " to Menh Element " +
+      menhElement +
+      " Force ";
+    periodForceData.addValue(force, currDetail);
+    QiHelper.addQiType(
+      periodQi,
+      QiType.PERIODMENHELEMENTSTATUS,
       force,
-      "Period Deity Element (" + deityElement + ") Force"
+      currDetail,
+      periodForceData
     );
 
-    //Ref3p280
-    if (bazi.isFavorableLifeCycle(periodNb, lifeCycle)) {
-      force = 1;
-    } else {
-      force = -1;
-    }
-    currDetail = "Period Element Life Cycle (" + lifeCycle + ") Force";
-    QiHelper.addQiType(periodQi,QiType.PERIODLIFECYCLESTATUS,force,currDetail,dataLog)
-
-    //Ref3p280
-    const periodElement = bazi.getPeriodElement(periodNb);
+    //Ref3p280, Ref3p133. Year
     const yElement = bazi.getyElement();
-    let isFavorable = !yElement.isLostForceRelation(periodElement);
-    if (isFavorable) {
-      force = 1;
-    } else {
-      force = -1;
-    }
+    force = yElement.getRelationLostForce(periodElement);
     currDetail =
       "Period/Birth year Nagia element (" +
       periodElement +
       "/" +
       yElement +
       ") Support Status ";
-    QiHelper.addQiType(periodQi,QiType.PERIODELEMENTSTATUS,force,currDetail,dataLog)
+    QiHelper.addQiType(
+      periodQi,
+      QiType.PERIODYEARELEMENTSTATUS,
+      force,
+      currDetail,
+      periodForceData
+    );
+
+    // Ref3p133 Day clash
+    const dElement = bazi.getdElement();
+    force = dElement.getRelationLostForce(periodElement);
+    currDetail =
+      "Period/Birth Day Nagia element (" +
+      periodElement +
+      "/" +
+      yElement +
+      ") clashed ";
+    QiHelper.addQiForce(
+      periodQi,
+      QiType.PERIODDAYELEMENTSTATUS,
+      force,
+      currDetail,
+      periodForceData
+    );
 
     // Ref3p284
     const pTrunk = bazi.getPeriodTrunk(periodNb);
@@ -940,32 +1119,65 @@ export class QiHelper {
       "/ Period" +
       pTrunk.getStr() +
       " strict relation status";
-    force = sTrunk.getRelationForce(pTrunk,true)
-    QiHelper.addQiType(periodQi,QiType.PERIODTRUNKSTATUS,force,currDetail,dataLog)
+    force = sTrunk.getRelationForce(pTrunk, true);
+    QiHelper.addQiType(
+      periodQi,
+      QiType.PERIODTRUNKSTATUS,
+      force,
+      currDetail,
+      periodForceData
+    );
 
-    force = sBranche.getRelationForce(pBranche,true)
+    force = sBranche.getRelationForce(pBranche, true);
     currDetail =
       "Branche Study year: " +
       sBranche.getStr() +
       " / Period " +
       pBranche.getStr() +
       " strict relation status";
-    QiHelper.addQiType(periodQi,QiType.PERIODBRANCHESTATUS,force,currDetail,dataLog)
+    QiHelper.addQiType(
+      periodQi,
+      QiType.PERIODBRANCHESTATUS,
+      force,
+      currDetail,
+      periodForceData
+    );
 
-    qiForce = QiForce.getQiForce(dataLog.getValue(), QiForce.FAVORABLE);
+    //Ref8p267p6
+    periodQi.addQiTypeForce(QiType.PERIODSTATUSFORCE, periodForceData);
+    const header= "Period " + periodPilar.toString();
+    periodForceData.addData(PilarHelper.getPivotCompatibleClashStatus(
+      periodPilar,
+     bazi,
+     header));
+
+    //Ref8p267p5
+    const transformDirection = PilarHelper.getPilarQiTransformStatus(
+      periodPilar,
+      bazi,
+      header
+    );
+    periodForceData.updateValue(
+      transformDirection.getValue() * periodForceData.getValue(),
+      transformDirection.detail
+    );
+
+    qiForce = QiForce.getQiForce(periodForceData.getValue(), QiForce.FAVORABLE);
+
     const category = QiHelper.getPeriodCategory(periodNb);
-    const perStatus = new DataWithLog(qiForce, dataLog.detail);
+    const perStatus = new DataWithLog(qiForce, periodForceData.detail);
     periodQi.addQiTypeForce(QiType.PERIODSTATUS, perStatus);
-
+    const periodBrancheName=periodPilar.branche.getName()
     return {
+      header: "Period.",
+      deity: periodTrunkDeity,
+      element:periodElement,
       periodQi,
       category,
       perStatus,
       periodNb,
-      periodElement,
-      lifeCycle,
-      deity,
-      deityElement,
+      pilar: periodPilar,
+      name:periodBrancheName
     };
   }
 
@@ -1013,5 +1225,38 @@ export class QiHelper {
     qiTypeData.addQiTypeForce(QiType.DAYSTATUS, force);
 
     return qiTypeData;
+  }
+  static addPivotForce(lunar: Lunar) {
+    const pilarsAttr = lunar.pilarsAttr;
+    const qiTypeData = pilarsAttr.qiTypeData;
+    let forceCount = pilarsAttr.getPivotSupportCount(true);
+    let currDetail = "Pivot support count " + forceCount;
+    QiHelper.addQiForce(
+      qiTypeData,
+      QiType.PIVOTSUPPORT,
+      forceCount,
+      currDetail
+    );
+    forceCount = -pilarsAttr.getPivotSupportCount(false);
+    currDetail = "Pivot hostile count " + forceCount;
+    QiHelper.addQiForce(
+      qiTypeData,
+      QiType.PIVOTRESTRICT,
+      forceCount,
+      currDetail
+    );
+    forceCount = pilarsAttr.getPivotCount(true);
+    currDetail = "Pivot count " + forceCount;
+    QiHelper.addQiForce(qiTypeData, QiType.PIVOTCOUNT, forceCount, currDetail);
+
+    // Ref3p133
+    const currPivotForceAttr = pilarsAttr.pivotAttr;
+    currDetail = "Pivot presence count " + currPivotForceAttr.matchCount;
+    QiHelper.addQiForce(
+      qiTypeData,
+      QiType.PIVOT,
+      currPivotForceAttr.matchCount,
+      currDetail
+    );
   }
 }

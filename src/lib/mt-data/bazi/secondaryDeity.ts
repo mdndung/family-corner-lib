@@ -7,6 +7,7 @@ import { ElementNEnergy } from '../feng-shui/elementNenergy';
 import { Branche } from './branche';
 import { Lunar } from './lunar';
 import { LunarBase } from './lunarBase';
+import { PilarBase } from './pilarBase';
 import { Season } from './season';
 import { Trunk } from './trunk';
 
@@ -332,10 +333,10 @@ export class SecondaryDeity extends EnumBaseClass {
 
   static hasEE(lunar: Lunar, ee: ElementNEnergy) {
     for (let i = 0; i < LunarBase.PILARS_LEN; i++) {
-      if (lunar.trunkArr[i].elementNEnergy === ee) {
+      if (lunar.pilars[i].trunk.elementNEnergy === ee) {
         return true;
       }
-      if (lunar.brancheArr[i].elementNEnergy === ee) {
+      if (lunar.pilars[i].branche.elementNEnergy === ee) {
         return true;
       }
     }
@@ -404,11 +405,11 @@ export class SecondaryDeity extends EnumBaseClass {
     return false;
   }
 
-  static getTamKy(trunkArr: Trunk[], currIdx: number) {
-    const year = trunkArr[LunarBase.YINDEX];
-    const month = trunkArr[LunarBase.MINDEX];
-    const day = trunkArr[LunarBase.DINDEX];
-    const hour = trunkArr[LunarBase.YINDEX];
+  static getTamKy(pilars: PilarBase[], currIdx: number) {
+    const year = pilars[LunarBase.YINDEX].trunk;
+    const month = pilars[LunarBase.MINDEX].trunk;
+    const day = pilars[LunarBase.DINDEX].trunk;
+    const hour = pilars[LunarBase.YINDEX].trunk;
     if (SecondaryDeity.isTamKyCombinaison(year, month, day, hour, currIdx))
       {return SecondaryDeity.TAMKY;}
     return null;
@@ -761,13 +762,13 @@ export class SecondaryDeity extends EnumBaseClass {
     return firstVoidBranche;
   }
 
-  static evalBrancheSecDeity (trunkArr: Trunk[], brancheArr: Branche[], branche:Branche, currIdx: number) {
+  static evalBrancheSecDeity (pilars: PilarBase[], branche:Branche, currIdx: number) {
     const deitySet: SecondaryDeity[]=[];
-    const yearTrunk = trunkArr[LunarBase.YINDEX];
-    const dayTrunk = trunkArr[LunarBase.DINDEX];
-    const yearBranche = brancheArr[LunarBase.YINDEX];
-    const dayBranche = brancheArr[LunarBase.DINDEX];
-    const monthBranche = brancheArr[LunarBase.MINDEX];
+    const yearTrunk = pilars[LunarBase.YINDEX].trunk;
+    const dayTrunk = pilars[LunarBase.DINDEX].trunk;
+    const yearBranche = pilars[LunarBase.YINDEX].branche;
+    const dayBranche = pilars[LunarBase.DINDEX].branche;
+    const monthBranche = pilars[LunarBase.MINDEX].branche;
     const season = monthBranche.season;
 
     const addIfNonNull = ObjectHelper.pushIfNotExist;
@@ -815,22 +816,21 @@ export class SecondaryDeity extends EnumBaseClass {
     addIfNonNull(deitySet,SecondaryDeity.getThienLa(dayBranche, branche));
 
     addIfNonNull(deitySet,SecondaryDeity.getHuyetNhan(yearBranche, branche));
-    const trunk = trunkArr[currIdx];
+    const trunk = pilars[currIdx].trunk;
     addIfNonNull(deitySet,SecondaryDeity.getThienDuc(monthBranche, trunk, branche));
     addIfNonNull(deitySet,SecondaryDeity.getNguyetDuc(monthBranche, trunk));
     addIfNonNull(deitySet,SecondaryDeity.getThienXich( season,trunk, branche));
     addIfNonNull(deitySet,SecondaryDeity.getTuPhe( season,trunk, branche));
     addIfNonNull(deitySet,SecondaryDeity.getAmDuongLech(trunk,branche));
     addIfNonNull(deitySet,SecondaryDeity.getThienY(monthBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getTamKy(trunkArr, currIdx));
+    addIfNonNull(deitySet,SecondaryDeity.getTamKy(pilars, currIdx));
 
     return deitySet;
   }
 
   static evalSecondaryDeity(lunar: Lunar, currLunar: Lunar):SecondaryDeity[][] {
     let secDeityPilars=[];
-    const brancheArr = currLunar.brancheArr;
-    const trunkArr = currLunar.trunkArr;
+    const pilars = currLunar.pilars;
     const yearTrunk = lunar.getyTrunk();
     const yearBranche = lunar.getyBranche();
     const dayTrunk = lunar.getdTrunk();
@@ -838,9 +838,9 @@ export class SecondaryDeity extends EnumBaseClass {
     const addIfNonNull = ObjectHelper.pushIfNotExist;
 
     for (let i = 0; i < LunarBase.PILARS_LEN; i++) {
-        const branche = brancheArr[i];
+        const branche =  pilars[i].branche;
 
-       const deitySet = SecondaryDeity.evalBrancheSecDeity(trunkArr,brancheArr,branche,i);
+       const deitySet = SecondaryDeity.evalBrancheSecDeity(pilars,branche,i);
 
        if ( i===LunarBase.DINDEX ) {
         addIfNonNull(deitySet,SecondaryDeity.getPhucTinh(dayTrunk, dayBranche));
@@ -848,13 +848,13 @@ export class SecondaryDeity extends EnumBaseClass {
       }
       secDeityPilars[i]=deitySet;
     }
-    SecondaryDeity.addVoidSecDeity(lunar,secDeityPilars,LunarBase.DINDEX,trunkArr,brancheArr,SecondaryDeity.getFirstVoidBranche(dayTrunk,dayBranche));
-    SecondaryDeity.addVoidSecDeity(lunar,secDeityPilars,LunarBase.YINDEX,trunkArr,brancheArr,SecondaryDeity.getFirstVoidBranche(yearTrunk,yearBranche));
+    SecondaryDeity.addVoidSecDeity(lunar,secDeityPilars,LunarBase.DINDEX,pilars,SecondaryDeity.getFirstVoidBranche(dayTrunk,dayBranche));
+    SecondaryDeity.addVoidSecDeity(lunar,secDeityPilars,LunarBase.YINDEX,pilars,SecondaryDeity.getFirstVoidBranche(yearTrunk,yearBranche));
 
     return secDeityPilars;
 }
 
-static addVoidSecDeity(lunar: Lunar, secDeityPilars: any[], fromPilarIdx: number,tArr: Trunk[], bArr: Branche[],  fstVoidBranche: Branche) {
+static addVoidSecDeity(lunar: Lunar, secDeityPilars: any[], fromPilarIdx: number,pilars: PilarBase[], fstVoidBranche: Branche) {
   if(fstVoidBranche!==null) {
     const oVoidBranche=fstVoidBranche.getEnumNextNElement(1);
     for (let i = 0; i < LunarBase.PILARS_LEN; i++) {
@@ -864,7 +864,7 @@ static addVoidSecDeity(lunar: Lunar, secDeityPilars: any[], fromPilarIdx: number
         continue;
       }
       if ( i!== fromPilarIdx ) {
-          const iBr = bArr[i];
+          const iBr = pilars[i].branche;
           if ( iBr===fstVoidBranche || iBr===oVoidBranche ) {
             ObjectHelper.pushIfNotExist(secDeityPilars[i],SecondaryDeity.VOID);
           }
@@ -875,18 +875,17 @@ static addVoidSecDeity(lunar: Lunar, secDeityPilars: any[], fromPilarIdx: number
 
 static evalLocThanTrunk(lunar: Lunar, currLunar: Lunar): Trunk[] {
 
-  const brancheArr = currLunar.brancheArr;
-  const trunkArr = currLunar.trunkArr;
+  const pilars = currLunar.pilars;
   let secDeity ;
   const dayTrunk = lunar.getdTrunk();
   let locThanTrunk : Trunk[] = [];
   const addIfNonNull = ObjectHelper.pushIfNotExist;
 
   for (let i = 0; i < LunarBase.PILARS_LEN; i++) {
-      const branche = brancheArr[i];
+      const branche = pilars[i].branche;
       secDeity = SecondaryDeity.getLocThan(dayTrunk, branche);
       if ( secDeity!== null ) {
-        addIfNonNull(locThanTrunk,trunkArr[i]) ;
+        addIfNonNull(locThanTrunk,pilars[i].trunk) ;
       }
   }
   return locThanTrunk;

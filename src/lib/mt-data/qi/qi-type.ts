@@ -31,6 +31,7 @@ export class QiType extends EnumBaseClass {
   // Ref8 p8 					Dung than
 	// Ref3 p378
   static  PIVOT= new QiType('DT',true);
+  static  PIVOTCOUNT= new QiType('DTC',true);
   // Ref3 p382 				Hy than
 	// Ref8 p8
   static  PIVOTSUPPORT= new QiType('HT',true);
@@ -123,17 +124,21 @@ export class QiType extends EnumBaseClass {
   static  DWIWCOUNT= new QiType('DWIW',false);
   static  HOEGCOUNT= new QiType('HOEG',false);
 
-  static  PERIODLIFECYCLESTATUS= new QiType('PCSTAT',false);
-  static  PERIODELEMENTSTATUS= new QiType('PELSTAT',false);
+  static  PERIODMENHELEMENTSTATUS= new QiType('PELMSTAT',false);
+  static  PERIODYEARELEMENTSTATUS= new QiType('PELYSTAT',false);
+  static  PERIODDAYELEMENTSTATUS= new QiType('PELDSTAT',false);
   static  PERIODTRUNKSTATUS= new QiType('PTSTAT',false);
   static  PERIODBRANCHESTATUS= new QiType('PBSTAT',false);
+  static  PERIODSTATUSFORCE= new QiType('PSTATF',false);
   static  PERIODSTATUS= new QiType('PSTAT',false);
+
 
   static  YEARBIRTHTRUNKCLASH= new QiType('YBTC',false);
   static  YEARBIRTHBRANCHECLASH= new QiType('YBBC',false);
   static  YEARCONTROLBIRTHELEMENT= new QiType('YCB',false);
   static  BIRTHCONTROLYEARELEMENT= new QiType('BCYE',false);
   static  YEARSTATUS= new QiType('YSTAT',false);
+  static  YEARSTATUSFORCE= new QiType('YSTATF',false);
   static  YEARTAMTAI= new QiType('YTT',false);
 
   isGeneralType: boolean ;

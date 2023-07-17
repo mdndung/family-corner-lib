@@ -29,8 +29,7 @@ export class PivotHelper {
     const dayHiddenRelation = pilarsAttr.dayHiddenRelation;
     const eeForceArr = pilarsAttr.elementNEnergyForce;
     const trunkEEArr = pilarsAttr.trunkEE;
-    const brancheArr = lunar.brancheArr;
-    const trunkArr = lunar.trunkArr;
+    const pilars = lunar.pilars;
     let diffDayPilarForce = 1000; // Any big value to start
     const dayPilarForce =
       eeForceArr[trunkEEArr[LunarBase.DINDEX].getValue().ordinal()].getValue();
@@ -48,7 +47,7 @@ export class PivotHelper {
         // Not strict mode
         if (currPilardiffDayForce <= diffDayPilarForce) {
           ObjectHelper.pushIfNotExist(selectPivotElements, currPilarEE.element);
-          ObjectHelper.pushIfNotExist(selectTrunk, trunkArr[currPilarIdx]);
+          ObjectHelper.pushIfNotExist(selectTrunk, pilars[currPilarIdx].trunk);
           diffDayPilarForce = currPilardiffDayForce;
         }
         matchCount++;
@@ -62,7 +61,7 @@ export class PivotHelper {
         checkRelation
       );
       if (findIdx >= 0) {
-        const branche = brancheArr[currPilarIdx];
+        const branche = pilars[currPilarIdx].branche;
         const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(branche);
         let currEE = hiddenTrunkArr[findIdx].elementNEnergy;
         let currEEForce = eeForceArr[currEE.ordinal()].getValue();
@@ -198,7 +197,7 @@ export class PivotHelper {
     const pilarsAttr = lunar.pilarsAttr;
     const FAVORABLE_LIMIT = 5; // Ref8 p768 give 4 and is not favorable
     const qiTypeData = pilarsAttr.qiTypeData;
-    const trunkDayEer = lunar.trunkArr[LunarBase.DINDEX].elementNEnergy;
+    const trunkDayEer = lunar.pilars[LunarBase.DINDEX].trunk.elementNEnergy;
     const trunkDayElement = trunkDayEer.element;
     let details = "<li>Weak Day Trunk Element And Friends Force</li>";
     let tempElement: Element;

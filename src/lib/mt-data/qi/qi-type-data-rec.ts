@@ -20,12 +20,13 @@ export class QiTypeDataRec {
   }
 
 
-  addQiTypeForce(qiType: QiType, force: DataWithLog) {
+  addQiTypeForce(qiType: QiType, force: DataWithLog, detail?: string) {
     if (force !== null) {
+      if ( typeof detail==='undefined' ) { detail = ''+qiType}
       if (this.qiTypeForceArr[this.getIndex(qiType)] === null) {
         this.qiTypeForceArr[this.getIndex(qiType)] = force;
       } else {
-        this.qiTypeForceArr[this.getIndex(qiType)].addData(force,''+qiType);
+        this.qiTypeForceArr[this.getIndex(qiType)].addData(force,detail);
       }
     }
   }

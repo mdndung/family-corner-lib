@@ -9,11 +9,14 @@ export class StringHelper {
     return '-';
   }
 
-  static  qiForce2Str(qiForce:QiForce) {
+  static  qiForce2Str(qiForce:QiForce, zeroValue?: string) {
+    if ( typeof zeroValue==='undefined') zeroValue='0';
     if ( qiForce===QiForce.NONE) {return '0';}
     if ( qiForce.isFavorable()) {return '+';}
     return '-';
   }
+
+
 
   static number2Str(count: number, plusValue?: number) {
     if ( typeof plusValue === 'undefined' ) plusValue=0;

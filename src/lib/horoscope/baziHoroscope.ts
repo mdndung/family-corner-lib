@@ -1,17 +1,18 @@
 
 import { Bazi } from "../mt-data/bazi/bazi";
-import { BaziObservationBase } from "../mt-data/bazi/baziObservations";
 import { Lunar } from "../mt-data/bazi/lunar";
 import { MyCalendar } from "../mt-data/date/mycalendar";
 import { HoroscopeContributor } from "./horoscopeContributor";
-import { Temporal } from 'temporal-polyfill';
+import { ObsPeriod } from "../observations/obsPeriod";
+import { StringHelper } from "../helper/stringHelper";
+import { BaziObservation } from "../mt-data/bazi/baziObservations";
 
 export class BaziHoroscope extends HoroscopeContributor {
 
     birthLunar: Lunar;
     birthBazi: Bazi;
     studyBazi: Bazi;
-    observation: BaziObservationBase;
+    observation: BaziObservation;
 
     constructor(
         birthDate: MyCalendar,
@@ -22,7 +23,7 @@ export class BaziHoroscope extends HoroscopeContributor {
         this.studyBazi=new Bazi(this.studyDate, this.isMan);
         this.birthLunar = new Lunar(birthDate, isMan);
         this.birthBazi = new Bazi(birthDate, isMan);
-        this.observation=new BaziObservationBase(this.birthBazi);
+        this.observation=new BaziObservation(this.birthBazi);
         this.initBaseQiType(this.birthLunar);
     }
 
@@ -52,9 +53,22 @@ export class BaziHoroscope extends HoroscopeContributor {
     }
 
     genBirthTheme(currAge: number): void {
-
       this.observation.comment();
     }
+
+
+  override getPeriodStatus(period: ObsPeriod): string {
+    let res = "";
+    if ( period===ObsPeriod.YEARTHEME ) {
+      if ( null !== this.observation.periodAttr ) {
+       res= this.observation.periodAttr.perStatus.getRawDetail()+
+       StringHelper.NL+StringHelper.NL+
+       this.observation.yearAttr.yearStatus.getRawDetail()+
+       StringHelper.NL;
+      }
+    }
+    return res ;
+  }
 
     finalizeSession(currAge: number): void {
       this.observation.convertRawProp2Prop();

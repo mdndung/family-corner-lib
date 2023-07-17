@@ -26,18 +26,17 @@ export class BaziStructureHelper {
   }
 
   static getVerySpecialCach(bazi: Lunar): DataWithLog {
-    const trunkArr = bazi.trunkArr;
-    const brancheArr = bazi.brancheArr;
-    let dayTrunk = trunkArr[LunarBase.DINDEX];
+    const pilars = bazi.pilars;
+    let dayTrunk = pilars[LunarBase.DINDEX].trunk;
     let sameTrunk =
-      dayTrunk == trunkArr[LunarBase.YINDEX] &&
-      dayTrunk == trunkArr[LunarBase.MINDEX] &&
-      dayTrunk == trunkArr[LunarBase.HINDEX];
-    const dayBranche = brancheArr[LunarBase.DINDEX];
+      dayTrunk == pilars[LunarBase.YINDEX].trunk &&
+      dayTrunk == pilars[LunarBase.MINDEX].trunk &&
+      dayTrunk == pilars[LunarBase.HINDEX].trunk;
+    const dayBranche = pilars[LunarBase.DINDEX].branche;
     const sameBranche =
-      dayBranche == brancheArr[LunarBase.YINDEX] &&
-      dayBranche == brancheArr[LunarBase.MINDEX] &&
-      dayBranche == brancheArr[LunarBase.HINDEX];
+      dayBranche == pilars[LunarBase.YINDEX].branche &&
+      dayBranche == pilars[LunarBase.MINDEX].branche &&
+      dayBranche == pilars[LunarBase.HINDEX].branche;
     if (sameTrunk) {
       if (sameBranche) {
         return BaziStructureHelper.getDataLog(
@@ -65,9 +64,9 @@ export class BaziStructureHelper {
   //Ref8p460
   static getChuyenVuongCach(bazi: Lunar): DataWithLog {
     const pilarsAttr = bazi.pilarsAttr;
-    const trunkArr = bazi.trunkArr;
+    const pilars = bazi.pilars;
     let details = "";
-    const trunkDayElement = trunkArr[LunarBase.DINDEX].getElement();
+    const trunkDayElement = pilars[LunarBase.DINDEX].trunk.getElement();
     if (pilarsAttr.isFavorableElement(trunkDayElement)) {
       details +=
         "<li> Favorable trunk day element " + trunkDayElement + "</li>";
@@ -315,14 +314,14 @@ export class BaziStructureHelper {
             );
             if (countEC < countGDC) {
               if (
-                bazi.brancheArr[LunarBase.MINDEX].elementNEnergy !==
+                bazi.pilars[LunarBase.MINDEX].branche.elementNEnergy !==
                 pilarsAttr.brancheEE[LunarBase.MINDEX].getValue()
               ) {
                 // Ref8p508
                 structure = BaziStructure.TONG_THE;
                 details +=
                   "<li> month branche element " +
-                  bazi.brancheArr[LunarBase.MINDEX].elementNEnergy +
+                  bazi.pilars[LunarBase.MINDEX].branche.elementNEnergy +
                   " is transformed to " +
                   pilarsAttr.brancheEE[LunarBase.MINDEX].getValue() +
                   " and </li>";
@@ -471,7 +470,6 @@ export class BaziStructureHelper {
   //Ref3p369, Ref8p478-479
   static getKinhDuongKienLoc(bazi: Lunar): DataWithLog {
     const pilarsAttr = bazi.pilarsAttr;
-    const trunkArr = bazi.trunkArr;
     let details = "";
     let eeRtocheck: ElementNEnergyRelation[] = [];
 
@@ -544,10 +542,9 @@ export class BaziStructureHelper {
   //Ref8p464
   static getRCRECach(bazi: Lunar): DataWithLog {
     const pilarsAttr = bazi.pilarsAttr;
-    const combList = pilarsAttr.combList;
-    const trunkArr = bazi.trunkArr;
+    const pilars = bazi.pilars;
     let details = "";
-    const trunkDayElement = trunkArr[LunarBase.DINDEX].getElement();
+    const trunkDayElement = pilars[LunarBase.DINDEX].trunk.getElement();
     if (pilarsAttr.isFavorableElement(trunkDayElement)) {
       details += "<li> Favorable day Element </li>";
       const countRE = pilarsAttr.getTrunkRelationCount(
@@ -606,9 +603,8 @@ export class BaziStructureHelper {
   }
 
   static getMainCachCucList(bazi: Lunar,specialSruct:DataWithLog[]): DataWithLog[] {
-    let trunkArr = bazi.trunkArr;
-    let brancheArr = bazi.brancheArr;
-    let monthBranche = brancheArr[LunarBase.MINDEX];
+    let pilars = bazi.pilars;
+    let monthBranche = pilars[LunarBase.MINDEX].branche;
 
     const res: DataWithLog[] = specialSruct;
 
@@ -620,7 +616,7 @@ export class BaziStructureHelper {
     const pilarsAttr = bazi.pilarsAttr;
     let monthEnE = pilarsAttr.brancheEE[LunarBase.MINDEX].getValue();
     let monthElement = monthEnE.element;
-    let dayTrunkEnE = trunkArr[LunarBase.DINDEX].elementNEnergy;
+    let dayTrunkEnE = pilars[LunarBase.DINDEX].trunk.elementNEnergy;
     const hiddenTrunkArr = BrancheHelper.getHiddenTrunk(monthBranche);
     let dayTrunkElement = dayTrunkEnE.getElement();
 
@@ -628,7 +624,7 @@ export class BaziStructureHelper {
     if (hiddenTrunkArr.length < 3 && dayTrunkElement != monthElement) {
       // Try first with the monthEnE
       for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
-        if (monthElement === trunkArr[pilarIdx].getElement()) {
+        if (monthElement === pilars[pilarIdx].trunk.getElement()) {
           const monthDayEERelation = BaziHelper.getEnNRelation(
             monthEnE,
             dayTrunkEnE
@@ -650,7 +646,7 @@ export class BaziStructureHelper {
       //
       if (dayTrunkElement !== hiddenTrunk.getElement()) {
         for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
-          if (hiddenTrunk.getElement() === trunkArr[pilarIdx].getElement()) {
+          if (hiddenTrunk.getElement() === pilars[pilarIdx].trunk.getElement()) {
             const eeR = BaziHelper.getEnNRelation(
               hiddenTrunk.elementNEnergy,
               dayTrunkEnE

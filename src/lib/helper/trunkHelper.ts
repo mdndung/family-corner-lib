@@ -8,6 +8,7 @@ import { Element } from '../mt-data/feng-shui/element';
 import { Energy } from '../mt-data/feng-shui/energy';
 import { ElementNEnergy } from '../mt-data/feng-shui/elementNenergy';
 import { ObjectHelper } from './objectHelper';
+import { PilarBase } from '../mt-data/bazi/pilarBase';
 
 export class TrunkHelper {
 
@@ -16,27 +17,6 @@ export class TrunkHelper {
     Trunk.BING, Trunk.WU, Trunk.GENG, Trunk.REN, Trunk.JIA,
 					Trunk.BING,Trunk.WU,Trunk.GENG,Trunk.REN,Trunk.JIA
   ];
-
-  //Ref8p32
-  static TRUNK_HOSTILE = [
-    [Trunk.GENG,Trunk.BING],
-    [Trunk.XIN,Trunk.JI],
-    [Trunk.REN,Trunk.WU],
-    [Trunk.GUI,Trunk.JI],
-    [Trunk.JIA,Trunk.GENG],
-    [Trunk.YI,Trunk.XIN],
-    [Trunk.BING,Trunk.REN],
-    [Trunk.DING,Trunk.GUI],
-    [Trunk.WU,Trunk.JIA],
-    [Trunk.JI,Trunk.YI],
-  ]
-
-  static isTrunkClashed ( trunk1: Trunk, trunk2: Trunk) {
-    const ord1=trunk1.ordinal();
-    const ord2=trunk2.ordinal();
-    return ObjectHelper.hasItem(TrunkHelper.TRUNK_HOSTILE[ord1],trunk2) ||
-    ObjectHelper.hasItem(TrunkHelper.TRUNK_HOSTILE[ord2],trunk1)
-  }
 
   static getYearTrunk( cYear: number ): Trunk{
     while (cYear<=0 ) {cYear+=10;}
@@ -67,8 +47,15 @@ export class TrunkHelper {
     return hTrunk;
   }
 
-  static isTransformable(trunk1: Trunk, trunk2: Trunk) {
-    return Math.abs(trunk1.ordinal()-trunk2.ordinal())===5;
+  static getPilarTrunkTransformedElement(pilar1: PilarBase, pilar2: PilarBase) {
+    if (TrunkHelper.isTransformable(pilar1, pilar2)) {
+      return TrunkHelper.getTransformElement(pilar1.trunk);
+    }
+    return null;
+  }
+
+  static isTransformable(pilar1: PilarBase, pilar2: PilarBase) {
+    return pilar1.trunk.isCompatibleTrunk(pilar2.trunk)
   }
 
   static isDestroying(trunk1: Trunk, trunk2: Trunk) {
@@ -150,8 +137,6 @@ export class TrunkHelper {
     return (trunk===Trunk.YI) ||  (trunk===Trunk.XIN)||  (trunk===Trunk.JI)||  (trunk===Trunk.BING);
   }
 
-
-
   static isDingJi(trunk: Trunk) {
     return (trunk===Trunk.JI) ||  (trunk===Trunk.DING);
   }
@@ -166,8 +151,6 @@ export class TrunkHelper {
   static isBingWu(trunk: Trunk) {
     return (trunk===Trunk.BING) ||  (trunk===Trunk.WU);
   }
-
-
 
   static isJiXin(trunk: Trunk) {
     return (trunk===Trunk.JI) ||  (trunk===Trunk.XIN);

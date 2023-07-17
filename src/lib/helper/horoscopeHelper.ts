@@ -8,6 +8,7 @@ import { PropertyAttr } from '../mt-data/property/propertyAttr';
 import { ObsPeriod } from '../observations/obsPeriod';
 import { AssocArray } from '../data/assoc-array';
 import { MyCalendar } from '../mt-data/date/mycalendar';
+import { StringHelper } from './stringHelper';
 
 export class HoroscopeHelper {
 
@@ -43,7 +44,8 @@ export class HoroscopeHelper {
     session: ObsPeriod,
     xcelDoc: XcelDocInterface,
     titleLine: string[],
-    categoryArr: string[]
+    categoryArr: string[],
+    generalStatus: string
   ) {
     let genTitle=true;
     const displayedKeyArr:PropertyAttr[]=[];
@@ -69,7 +71,7 @@ export class HoroscopeHelper {
         xcelDoc.addCellTitle1(0, categoryTitle);
         xcelDoc.addCell(1, categoryHeadersProp);
         xcelDoc.genEmptyRow();
-        xcelDoc.addCell(1, res);
+        xcelDoc.addCell(1, generalStatus+StringHelper.NL+res);
       }
     }
     const otherRes = HoroscopeHelper.getMessagesByCategory(session, attrList, null,displayedKeyArr,displayCategory);
@@ -78,9 +80,9 @@ export class HoroscopeHelper {
         HoroscopeHelper.genRowTitleLine(xcelDoc, titleLine);
         genTitle=false;
       }
-        xcelDoc.genEmptyRow();
-        xcelDoc.addCellTitle1(0,  MessageHelper.getMessage('Label.Other.Categories'));
-        xcelDoc.addCell(1, otherRes);
+      xcelDoc.genEmptyRow();
+      xcelDoc.addCellTitle1(0,  MessageHelper.getMessage('Label.Other.Categories'));
+      xcelDoc.addCell(1, generalStatus+StringHelper.NL+otherRes);
     }
   }
 
@@ -89,6 +91,7 @@ export class HoroscopeHelper {
     colVal: string[],
     colFont: number[]
   ) {
+    if (colVal.length<=0 ) return ;
     xcelDoc.genEmptyRow();
     let fontIndex = 0;
     for (let index = 0; index < colVal.length; index++) {

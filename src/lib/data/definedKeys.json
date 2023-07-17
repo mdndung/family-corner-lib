@@ -1,5 +1,180 @@
 {
 
+
+
+
+"Destin.0.DeityOnPilarLifeCycle°IW,DEATH/REPOSE/TOMB&": [0, "=Ref8p219p8"],
+"Destin.0.HasDeity°3,IR/IW/7K&":  [3,"=Ref8p467p4"],
+
+
+"PY.-.PYDeity°DO/7K.HeighDeity°0,EG.HeighDeityGrp°0,DW.DeityFavorablePivot°DR&-": [0,"=Ref8p155p8"],
+"PY.-.PilarDeity°Period,DR.HeighDeity°0,EG.HeighDeity°0,DW.DeityFavorablePivot°DR&-": [0,"=Ref8p155p8"],
+"PY.-.PYDeity°HO.Structures°7K.HeighDeityGrp°1,HO&":[-1,"=Ref8p468p1b"],
+"PY.-.PilarDeity°Period,RW/F.HeighDeity°1,EG.HeighDeity°1,DW/IW&-": [0,"=Ref8p156p1"],
+"PY.-.PYDeity°DW.Structures°DW.HeighDeityGrp°1,DW&":[-1,"=Ref8p466p1"],
+"PY.-.PYDeity°HO/EG.HeighDeity°1,EG&":[-1,"=Ref8p229p1"],
+"PY.-.HeighDeityGrp°1,DW.AgePeriod°2.PYDeity°DR/IR&": [1,"=Ref8p219p1"],
+"PY.-.PYDeity°HO,HeighDeity°1,HO.PilarBrancheWeakened°2&": [-2, "=Ref3p564Vd1" ],
+"PY.-.PilarDeity°D,IR.PYDeity°EG&": [ -1,"=Ref8p196p9"],
+
+"PY.+.HeighDeity°1,IW.PYDeity°DW/IW&": [2,"=Ref8p218p6"],
+"PY.+.HeighDeity°1,EG.PYDeity°RW/DR/IR&": [ 2,"=Ref3p553p24" ],
+"PY.+.PilarDeity°Period,RW.DeityFavorablePivot°HO&-": [ -1, "=Ref8p158p3a"],
+"PY.+.Structures°HO.HeighDeityGrp°1,DW.PYDeity°DW/IW&": [1,"=Ref8p466p5"],
+"PY.+.Structures°HO.LowDeity°0,DW/IW.PYDeity°HO&": [-1,"=Ref8p466p6"],
+"PY.+.HeighDeityGrp°1,DW.PYDeity°DO&": [2,"=Ref8p220p1"],
+"PY.+.PYDeity°DR/IR.PilarSecDeity°D,LTH/TLO.HasDeity°1,7K.-ZeroSecDeity°1,LTH/TLO&": [ 1,"=Ref7_1bp26Cas12"],
+"PY.+.Genre°1.PYDeity°DW/IW.HeighDeityGrp°1,DW.LowDeityGrp°0,DO/HO&": [1,"=Ref8p236p12"],
+"PY.+.PYDeity°RW/F.PivotFavorable°1,DW/IW.PilarDeity°D,RW&": [1,"=Ref8p259p4" ],
+
+"PY.0.PYDeity°HO&": [ 0,"=Ref8p447p1a"],
+"PY.0.Genre°0.PYDeity°HO.HeighDeity°1,HO.LowDeity°1,DO&": [ -1, "=Ref8p447p1b"],
+"PY.0.PYDeity°HO.HeighDeity°1,HO.LowDeity°1,DO.LowDeity°0,DW&": [ -1, "=Ref8p447p1c"],
+"PY.0.PYDeity°7K.LowDeity°0,EG.Structures°7K&":[-2,"=Ref8p464p4"],
+"PY.0.PYDeity°DW/IW.Structures°DW&":[1,"=Ref8p465p2"],
+"PY.0.PYDeity°DO/7K/DR/IR/RW/F.Structures°EG&":[-1,"=Ref8p466p2"],
+"PY.0.PYDeity°EG.Structures°EG&":[1,"=Ref8p466p3"],
+"PY.0.Genre°0.HeighDeity°1,IR.PYDeity°IR&": [-1, "=Ref3p560p8"],
+"PY.0.Structures°7K.PYDeity°HO/DO&": [-3,"=Ref7_1bp28Cas3"],
+"PY.0.PYDeity°DW/IW.PerLCyleStatus°AGING-,DEATH-,REPOSE-.Structures°HO&":[-1,"=Ref8p467p1"],
+"PY.0.PYBranche°OX/GOAT/DOG/DRAGON.DeityOnPilarLifeCycleFavorable°7K,TOMB,+&":[-1,"=Ref8p173p1"],
+"PY.0.HeighDeity°1,IW.HeighDeity°2,HO/DO/7K.PYDeity°HO/DO/7K&":[0,"=Ref8p217p8==Ref8p218p1"],
+
+"PY.0.PYDeity°DO.HeighDeityGrp°DR&":[1,"=Ref3p521p6b"],
+"PY.0.HeighDeity°2,HO.PYDeity°RW&": [1, "=Ref3p521p11"],
+"PY.0.PYDeity°DW/IW.HeighDeityGrp°DR&": [1,"=Ref3p523p11==Ref3p521p6a"],
+"PY.0.PYDeity°HO.HeighDeity°1,HO&": [-1, "=Ref3p558p14" ],
+
+
+"Period.+.PDeityElemBadTransformed°-1&": [-1,"=Ref8p267p7a"],
+"Period.+.PilarDeity°Period,DW/IW.LowDeity°2,7K.HasDeity°1,7K.HasDeity°1,HO/EG&": [2,"=Ref7_1bp26Cas14"],
+"Period.+.PilarDeity°Period,HO/EG.PivotFavorable°1,EG.HeighDeity°1,7K.LowDeity°1,EG&": [2,"=Date.Status.Good==Ref7_1bp26Cas18"],
+"Period.+.PilarDeity°Period,DO/7K.HeighDeity°1,7K.ZeroDeity°2,DR/HO&": [ 1,"=Date.Status.VeryBad==Ref7_1bp26Cas17" ],
+"Period.+.Genre°0.PilarDeity°Period,RW/F.HeigDeityGrp°1,RW.LowDeityGrp°DO&": [-1,"=Ref8p447p5"],
+"Period.+.PilarDeity°Period,7K.HeighDeity°1,7K.ZeroDeity°2,HO/EG&": [ -1, "=Ref7_1bp26Cas16"],
+
+
+"Period.-.PilarDeity°Period,DW.HeighDeityGrp°1,DO.HeighDeity°1,IR&":[-1, "=Period.Bad==Ref3p182p2a"],
+"Period.-.PilarDeity°Period,DW/IW.HeighDeityGrp°1,DW&-": [-2,"=Ref3p559p10"],
+"Period.-.PDeityElemBadTransformed°-2&": [-1,"=Ref8p267p7b"],
+"Period.-.PilarDeity°Period,DW/IW.PivotFavorable°1,DR/IR.HeighDeity°1,7K&": [ -2,"=Ref7_1bp27Cas2"],
+"Period.-.PilarDeity°Period,RW/DW/IW.HeighDeity.1,7K.LowDeityGrp°1,DR&":[-2, "=Ref7_1bp27Cas6" ],
+"Period.-.PilarDeity°Period,HO/DO/7K.HeighDeityGr°1,DW/DO.HeighDeity°2,RW&": [-1, "=Ref7_1bp27Cas8"],
+"Period.-.PilarDeity°Period,DW/IW.PivotFavorable°1,DR/IR&": [-1,"=Ref8p156p2"],
+"Period.-.PeriodLifeCycle°DEATH/REPOSE/TOMB.PivotFavorable°1,DR/IR.HeighDeity°1,7K&": [-2,"=Ref7_1bp27Cas3"],
+
+
+
+"Period.0.PilarDeity°Period,DO,7K.HeighDeity°2,HO/7K.ZeroDeity°1,DO&": [-1,"=Ref3p559p11"],
+"Period.0.Genre°0.PilarDeity°Period,RW/F.HeighDeityGrp°1,HO.LowDeity°1,DO&": [-1, "=Ref8p447p4" ],
+"Period.0.PilarDeity°Period,HO.DeityFavorablePivot°HO&": [ 1,"=Ref8p354p4a"],
+"Period.0.PilarDeity°Period,HO.DeityHostilePivot°HO&": [ 1,"=Ref8p354p4b"],
+"Period.0.PilarDeity°Period,RW.DeityFavorablePivot°RW&":[1,"=Ref8p354p5a"],
+"Period.0.PilarDeity°Period,RW.DeityHostilePivot°RW&":[-1,"=Ref8p354p5b"],
+"Period.0.PilarDeity°Period,DW.DeityFavorablePivot°DW&":[1,"=Ref8p354p6a"],
+"Period.0.PilarDeity°Period,DW.DeityHostilePivot°DW&":[-1,"=Ref8p354p6b"],
+"Period.0.PilarDeity°Period,RDC.DeityFavorablePivot°RDC&":[1,"=Ref8p354p7a"],
+"Period.0.PilarDeity°Period,RDC.DeityHostilePivot°RDC&":[-1,"=Ref8p354p7b"],
+"Period.0.PilarClashed°Period,Y&":[0,"=Ref8p269p16a"],
+"Period.0.PilarClashed°Period,M&":[0,"=Ref8p269p16b"],
+"Period.0.PilarClashed°Period,D&":[-1,"=Ref8p269p16c"],
+"Period.0.PilarClashed°Period,H&":[-1,"=Ref8p269p16d"],
+"Period.0.PerLCyleStatus°WOMB+,GESTATION+&":[1,"=Ref3p280p4c"],
+"Period.0.PerLCyleStatus°ATTIRE+&":[1,"=Ref3p280p4x"],
+"Period.0.PerLCyleStatus°ATTIRE+&+":[1,"=Ref3p280p4y"],
+ "Period.0.PerLCyleStatus°AGE+,BIRTH+,PROSPEPYRITY+&":[1,"=Ref3p280p4a==Ref8p269p15a"],
+ "Period.0.PerLCyleStatus°AGING-,SICKNESS-,DEATH-,REPOSE-,TOMB-&-":[-1,"=Ref3p280p4b==Ref8p269p15b"],
+ "Period.0.PerLCyleStatus°BATH-,BATH+&-":[-1,"=Ref8p269p15c"],
+ "Period.0.BMD1.7K.PilarDeity°Period,HO&": [-1,"=Ref3p559p16"],
+ "Period.0.BMD1.HO.PilarDeity°Period,HO&": [-1,"=Ref3p559p16"],
+ "Period.0.PilarDeityPivotHostile°Period.NoQuyNhan&-":[-1,"=Ref8p354p10"],
+ "Period.0.PilarDeity°Period,IW.DeityOnPilarLifeCycleFavorable°IW,PROSPERITY/AGE/BIRTH,+&": [2, "=Ref8p219p7"],
+ "Period.0.PilarDeity°Period,HO/EG/DW/IW.Structure°HO.HeighDeityGrp°1,RW/DR&":[ 2,"=Date.Status.Good==Ref7_1bp26Cas8"],
+ "Period.0.PilarDeityGrp°Period,DR.HeighDeity°1,7K&":[1, "=Date.Status.Good==Ref7_1bp26Cas19"],
+ "Period.0.PilarDeity°Period,DW/IW.Structure°DR/IR.ZeroDeity°1,F&":[-2, "=Ref7_1bp28Cas4"],
+ "Period.0.PilarDeity°Period,F/RW.Structure°DR/IR&": [1,"=Ref7_1bp28Cas5a"],
+ "Period.0.PilarDeity°Period,DW/IW.Structure°DR/IR&": [-2,"=Ref7_1bp28Cas5b"],
+ "Period.0.PilarDeity°Period,HO.Structure°7K&": [2, "=Ref7_1bp26Cas11"],
+ "Period.0.PilarDeity°Period,DW/IW.Structure°HO/EG.ZeroDeity°1,DO&": [1,"=Ref7_1bp25Cas1"],
+ "Period.0.PilarDeity°Period,DW/IW.Structure°HO.PilarDeity°Destin,DR/IR&": [  -2, "=Ref7_1bp26Cas7" ],
+ "Period.0.PilarDeity°Period,DW/IW.PivotFavorable°1,HO.PilarDeity°Destin,DR/IR&": [  -2, "=Ref7_1bp26Cas7" ],
+ "Period.0.PilarDeity°Period,DR/IR.Structure°DW/IW.PivotFavorable°1,F/DR/IR&": [1, "=Ref7_1bp28Cas12"],
+ "Period.0.PilarDeity°Period,HO/EG.PilarDeity°Destin,DO/7K.PivotFavorable°1,HO&": [1,"=Ref7_1bp26Cas6"],
+ "Period.0.PilarDeity°Period,HO.ZeroDeity°1,HO&": [-2, "=Ref7_1bp25Cas5"],
+ "Period.0,PilarDeity°Period,DW/IW.PivotFavorable°1,HO&": [ 2,"=Ref7_1bp26Cas9"],
+ "Period.0.PilarDeity°Period,RW.PivotFavorable°1,DW/IW&": [ -2, "=Date.Status.VeryBad==Ref7_1bp26Cas10b"],
+ "Period.0.PilarDeity°Period,DW/IW.PivotFavorable°1,DW/IW&": [2,"=Ref7_1bp26Cas10a"],
+"Period.0.Genre°0.PilarDeity°Period,HO/DO/7K.HeighDeity°2,DO.HeighDeity°2,7K&":[-1, "=Ref8p447p2"],
+"Period.0.Genre°0.ZeroDeity°2,DW/IW.PilarDeity°Period,HO/EG/RW": [-1,"=Ref8p449p24"],
+"Period.0.PilarDeity°Period,DO/7K.Genre°0&": [-1,"=Ref8p447p3"],
+"Period.0.PilarDeity°HO.PivotHostile°1,HO&": [0,"=Ref8p432p7"],
+
+
+
+
+ "Year.+.PilarNotClashed°Destin,Period,Year&+": [1,"=Ref8p274p18b"],
+ "Year.+.PivotFavorable°1,HO.PilarDeity°Period,DR/IR&": [1,"=Date.Status.Good==Ref7_1bp25Cas3"],
+ "Year.+.PivotFavorable°1,DO.HeighDeity°3,HO.PilarDeity°Period,RW/DR/IR&": [1,"=Date.Status.Good==Ref7_1bp25Cas2"],
+ "Year.+.PivotFavorable°1,DO.LowDeity°1,HO.PilarDeity°Period,DR/IR&":[-2,"=Date.Status.VeryBad==Ref7_1bp25Cas4"],
+ "Year.+.Genre°0.PilarDeity°Destin,IR.PilarDeity°Period,DW/IW&": [1,"=Ref8p202p2"],
+ "Year.+.PivotFavorable°1,IR/EG.PilarDeity°Year,DW/IW/RW&": [ 0, "=Ref3p502p7"],
+ "Year.+.PilarDeity°Year,IR.PilarDeity°Period,HO.HeighDeity°2,IR&": [-2, "=Ref3p566Vd8"],
+ "Year.+.PilarDeity°Year,HO/DO/7K&": [1, "=Ref8p153p4a"],
+
+"Year.-.Branche°Year,MONKEY.PilarDeity°Period,IW.HeighDeityGrp°1,DO.HeighDeity°1,IR&":[-1, "=Period.Bad==Year.Bad==Ref3p182p2b"],
+"Year.-.PilarDeity°Period,7K.PilarDeity°Year,7K&-": [-1,"=Ref3p184p1"],
+"Year.-.PilarSecDeity°Y,TPHA&": [-1, "=Ref8p101p1"],
+"Year.-.PilarDeity°Period,HO.PilarDeity°H,HO.PilarClashed°Period,Year&": [-1,"=Ref3p184p2"],
+"Year.-.PilarDeity°Period,DW/IW.BrancheDeity°Y,7K&": [-1,"=Ref3p184p3"],
+"Year.-.PilarDeity°Period,EG.BrancheDeity°Y,7K.BadBranche°Year,Y&": [-1,"=Ref3p184p4"],
+"Year.-.PilarDeity°Y,IR.PilarElement°Year,METAL&-": [-2,"=Ref3p182p1b"],
+"Year.-.PilarBrancheClash°Year,Y.NoQuyNhan&-": [-1,"=Ref3p283p15b"],
+"Year.-.PilarBrancheClash°Year,M.NoQuyNhan&-": [-2,"=Ref3p283p15c"],
+"Year.-.PilarBrancheClash°Year,D.NoQuyNhan&-": [-1,"=Ref8p447p7==Ref3p283p15d"],
+"Year.-.PilarCompatible°Year,D&":[-1,"=Ref8p273p10"],
+"Year.-.PilarDeity°Year,7K.Structures°7K.BrancheDeityWithHidden°D,7K&-":[-1,"=Ref8p468p2"],
+"Year.-.PilarClashed°Y,Period&-": [1,"=Ref8p274p18a"],
+"Year.-.PilarClashed°Year,Y.PilarClashed°Period,M.NoQuyNhan.BrancheDeity°Y,IW&":[-1,"=Ref3p435Vd1a"],
+"Year.-.PilarClashed°Year,Y.PilarClashed°Period,M.NoQuyNhan&-":[-1,"=Ref3p435Vd1b"],
+"Year.-.PilarElement°Year,METAL.PilarElementClash°Year,Y&":[-1,"=Ref3p558p18"],
+"Year.-.PilarElement°Year,WATER.PilarElementClash°Year,Y&":[-1,"=Ref3p558p19"],
+"Year.-.PilarElement°Year,EARTH.PilarElementClash°Year,Y&":[-1,"=Ref3p558p21"],
+"Year.-.PilarElement°Year,FIRE.PilarElementClash°Year,Y&":[-1,"=Ref3p558p22"],
+"Year.-.PilarElementClash°Year,D.PilarSecDeity°D,KHD&-": [-2,"=Ref3p566Vd7"],
+"Year.-.PilarElementClash°Year,D.PilarClashed°D,H&": [-3, "=Ref3p227p1"],
+"Year.-.PilarXClashed°2,Period,Year,Destin.BadPeriod.NoQuyNhan&": [-1,"=Ref3p283p15a"],
+"Year.-.NoQuyNhan.PilarXClashed°2,Y,Year,Destin.PilarXClashed°2,Y,Year&": [-2,"=Ref3p283p15b"],
+"Year.-.NoQuyNhan.PilarXClashed°2,M,Year,Destin.PilarXClashed°2,M,Year&": [-2,"=Ref3p283p15c"],
+"Year.-.NoQuyNhan.PilarXClashed°2,D,Year,Destin.PilarXClashed°2,D,Year&": [-2,"=Ref3p283p15d"],
+"Year.-.PilarTrunkClash°Year,D.PilarDeity°Year,DO/7K&": [-1,"=Ref8p272p7"],
+"Year.-.PilarFavorablePivot°Y.NoQuyNhan.PilarClashed°Year,Y&": [ -2, "=Ref3p440p4"],
+"Year.-.HeighDeityGrp°1,DW.AgePeriod°1,2&": [-1,"=Ref8p218p10"],
+"Year.-.HeighDeityGrp°1,DO.PilarDeity°Period,DO/7K&": [-2,"=Ref8p142p1b"],
+"Year.-.HeighDeityGrp°1,DW.HeighDeity°2,HO.HasDeity°1,7K.PilarDeity°Year,DO/7K/DW/IW&": [-1, "=Ref7_1bp27Cas7"],
+"Year.-.PilarDeity°Year,DW/IW.HeighDeity°1,DW&": [ -1, "=Ref3p526p1" ],
+"Year.-.PilarDeity°Year,DO/7K.HeighDeity°1,DO&" :  [ -1,"=Ref3p527p1"],
+"Year.-.PilarDeity°Year,DR/IR&": [1, "=Ref8p153p4a"],
+
+
+"Year.0.Genre°0.ZeroDeity°2,DO/7K.HasDeity°1,EG.PilarDeity°Year,HO/DW/IW&": [-1,"=Ref8p231p3"],
+"Year.0.HeighDeityGrp°1,HO.DeityFavorablePivot°DR.PilarTrunk°JIA.BadBranche°Year,Y&":[-1,"=Ref3p185p1"],
+"Year.0.HeighDeityGrp°1,HO.DeityFavorablePivot°DR.PilarTrunk°JIA.BadBranche°Year,Y.BadPeriod&":[-1,"=Ref3p185p2"],
+"Year.0.PilarDeityPivotHostile°Period&-":[-1,"=Ref8p333p9"],
+"Year.0.PilarDeity°Year,DW/IW.DeityHostilePivot°DW.Genre°1&-":[-1,"=Ref8p332p8a"],
+"Year.0.PilarDeity°Year,DW/IW.DeityFavorablePivot°DW.Genre°1&":[1,"=Ref8p332p8b"],
+"Year.0.PilarDeity°Year,HO/EG.DeityHostilePivot°HO.Genre°0&":[-1,"=Ref8p333p8"],
+"Year.0.SamePilarTrunkBranche°Year,D&":[0,"=Ref8p272p9"],
+"Year.0.AtLeastSameYearHostileBranche&": [-2,"=Ref8p276p36"],
+"Year.0.TrunkCompatible°Year,D&":[-1, "=Ref8p276p35"],
+"Year.0.PilarClashed°Y,Year&":[-1,"=Ref8p274p14"],
+"Year.0.PilarClashed°Y,Period&":[-1,"=Ref8p274p14"],
+"Year.0.DeityPilarClashed°Year,IW.NoQuyNhan&": [ -2, "=Ref3p440p6"],
+"Year.0.DeityPilarClashed°Year,DR/IR.NoQuyNhan&":[ -2, "=Ref3p440p7"],
+"Year.0.Genre°1.PilarDeity°Year,DW/IW&": [0,"=Ref8p430p1"],
+"Year.0.Genre°0.PilarDeity°Year,DO/7K&":[0,"=Ref8p430p2" ],
+
+
+
   "Label.Trigram.1.Attr.BodyParts": [ 0 , "=Ref5p173p1b" ],
   "Label.Trigram.1.Attr.People": [ 0 , "=Ref5p173p1a" ],
  "Label.Trigram.2.Attr.BodyParts": [ 0 , "=Ref5p175p1b" ],
@@ -44,66 +219,37 @@
  "CareerGooda.11": [ 0 , "=Lifea.48a" ],
  "Careerb.24": [ 0 , "=Lifeb.2068==Careerb.24.0" ],
 
- "Period.+&":[1,"=Period.Good"],
- "Period.-&":[-1,"=Period.Bad"],
- "Period.DayMaster.-.DO7K.+.DRIR.+.DW&":[
-  -1,
-  "=Period.Bad==Ref3p182p2a"
-],
- "Period.DayMaster.-.DO7K.+.DRIR.+.IW&":[
-  -1,
-  "=Period.Bad==Ref3p182p2b"
-],
-"Period.Hostile&":[-3,"=Ref3p281p1"],
-"Period.Hostile.ATTIRE.DW&":[-1,"=Ref3p281p2"],
 
-"Period.LifeCycle.AGE.+&":[1,"=Ref3p280p4a"],
-"Period.LifeCycle.PROSPERITY.+&":[1,"=Ref3p280p4a"],
+"Ref8p269p15a":[0,"=Lifea.10a==Careera.8==Careera.129==Careera.1508==Careera.159==Careera.1029"],
+"Ref8p269p15b":[0,"=Lifeb.10==Lifeb.2052"],
+"Ref8p269p15c":[0,"=Lifeb.6"],
 
-"Period.LifeCycle.AGING.-&":[-1,"=Ref3p280p4b"],
-"Period.LifeCycle.SICKNESS.-&":[-1,"=Ref3p280p4b"],
-"Period.LifeCycle.DEATH.-&":[-1,"=Ref3p280p4b"],
-"Period.LifeCycle.REPOSE.-&":[-1,"=Ref3p280p4b"],
-"Period.LifeCycle.WOMB.+&":[1,"=Ref3p280p4c"],
-"Period.LifeCycle.GESTATION.+&":[1,"=Ref3p280p4c"],
-"Period.LifeCycle.ATTIRE.+&":[1,"=Ref3p280p4x"],
-"Period.LifeCycle.ATTIRE.+&+":[1,"=Ref3p280p4y"],
+
+"Ref3p269p16a":[0,"=Lifeb.77a"],
+"Ref3p269p16b":[0,"=Careerb.2000a==Careera.1507"],
+"Ref3p269p16c":[0,"=Lifeb.2064==Mariageb.28==Healthb.2094"],
+"Ref3p269p16d":[0,"=Childb.38==Childb.30==Childb.30a==Childb.30b==Fortuneb.4"],
 
 "Ref3p280p4a":[0,"=Lifec.1001==Lifea.1038"],
 "Ref3p280p4b":[0,"=Fortuneb.2029==Careerb.36==Lifeb.25b"],
 "Ref3p280p4c":[0,"=Lifea.185b==Halac.Positive.129b"],
 
+
+
 "Ref3p280p4x":[0,"=Lifec.82"],
 "Ref3p280p4y":[0,"=Studya.10==Lifec.126"],
 
-"Ref3p281p1":[0,"=Lifeb.2059==Lifeb.2515"],
-"Ref3p281p2":[0,"=Healthb.21==Lifeb.2515"],
 
-"Period.Hostile.Year.JIA&": [-1,"=Ref3p185p1"],
-"Period.Hostile.Year.DOG&": [-1,"=Ref3p185p2"],
 
-"Period.7k.7k.Y&": [-1,"=Ref3p184p1"],
-"Period.HO.HO.M&": [-1,"=Ref3p559p16"],
-"Period.HO.7k.M&": [-1,"=Ref3p559p16"],
-"TypeTB1.HO.7K.IR&":  [-2,"=Ref3p184p2"],
-"TypeTB1.IW.7K.IR&":  [3,"=Ref8p467p4"],
 "Ref8p467p4":  [0,"=phuquy"],
-
-"Period.ATTIRE.DR&": [1,"=Familya.1==StudyGooda.4"],
-
-"Year.7k.Cach.7k.EG.0&":[-2,"=Ref8p464p4"],
-"Year.DW.-.Cach.DW.1&":[-1,"=Ref8p466p1"],
+"Ref8p354p10": [ 0,"=Fortuneb.2500==Careerb.2503==Healthb.39"],
 "Ref8p466p1":[0,"=Lifeb.25"],
-
-"Year.DW.Cach.DW&":[1,"Ref8p465p2"],
+"Ref8p267p7a":[0,"=Lifeb.63b"],
+"Ref8p267p7b":[0,"=Lifeb.63b==Lifeb.63"],
 "Ref8p465p2":[1,"=Fortunea.1051"],
-"Year.DO.Cach.EG&":[-1,"Ref8p466p2"],
-"Year.DR.Cach.EG&":[-1,"Ref8p466p2"],
-"Year.RW.Cach.EG&":[-1,"Ref8p466p2"],
 "Ref8p466p2":[0,"=General.4"],
 
-"Year.EG.Cach.HO&":[1,"Ref8p466p3"],
-
+HERE
 "Pivot.DO.-.+.DW.Present": [2,"=Ref3p172p1"],
 "Pivot.DW.-.+.HO.Present": [2,"=Ref3p172p2"],
 
@@ -158,13 +304,17 @@
 "TypeTB1.DO.H.DR.M&": [1,"=Ref3p92p1"],
 
 
- "Year.DayMaster.-.DO7K.+.DRIR.+.Hostile&": [-2,"=Year.Bad==Ref3p182p1b"],
- "Year.DayMaster.-.+.Hostile&-": [-2,"=Year.Bad==Ref3p182p1b==Ref3p172p10"],
- "Year.-.YBBC.M.-&-": [-2,"=Ref3p440p7"],
- "Year.-.YBTC.M.-&-": [-2,"=Ref3p440p7b"],
 
- "Year.-.BCYE.B.D.-&-": [-1,"=Ref3p383p15d"],
- "Ref3p383p15d": [0,"=General.4"],
+ "Ref8p272p7": [-1,"=Lifeb.2515===Lifeb.2515b"],
+ "Ref8p272p9":[0,"=Lìfea.1501"],
+
+
+ "Ref8p273p10":[0,"=Lifeb.2070"],
+ "Ref3p283p15a": [0,"=General.5==Healthb.2014"],
+ "Ref3p283p15b": [0,"=Fatherb.2001==Motherb.2000"],
+ "Ref3p283p15c": [0,"=Fatherb.2002==Motherb.2001"],
+ "Ref3p283p15d": [0,"=General.4==Wifeb.2026==Childb.38"],
+
 
  "DayMaster.-.DO7K.+.DRIR.+&": [0,"=Ref3p182p1a"],
  "DayMaster.+.DO7K.0.HOEG.0&-": [-1,"=Ref3p172p8"],
@@ -207,10 +357,7 @@
   0,
   "=General.1==Careerb.61"
 ],
-"Ref3p182p1b": [
-  0,
-  "=Careerb.61==Lifeb.39==Lifeb.172==Lifeb.70b"
-],
+"Ref3p182p1b": [0,"=Careerb.61==Lifeb.39==Lifeb.172==Lifeb.70b"],
 "Ref3p182p2a": [
   0,
   "=Relationb.2056==Relationb.2081==Mariageb.28"
@@ -219,14 +366,10 @@
   0,
   "=Careerb.61"
 ],
-"Ref3p184p1": [
-  0,
-  "=Lifeb.2073"
-],
-"Ref3p184p2": [
-  0,
-  "=General.2"
-],
+"Ref3p184p1": [0, "=Lifeb.2073"],
+"Ref3p184p2": [0,"=General.2"],
+"Ref3p184p3": [0,"=General.5==Lifeb.2512"],
+"Ref3p184p4": [0,"=General.4==Lifeb.2073"],
 
 "Ref3p185p1": [
   0,
@@ -288,9 +431,7 @@
  "Element.WATER.BodyParts": [ 0 , "=Label.Trigram.1.Attr.BodyParts" ],
  "Element.WOOD.BodyParts":
  [ 0 , "=Label.Trigram.3.Attr.BodyParts==Label.Trigram.4.Attr.BodyParts" ],
- "Y.R.FATHER_DEATH_YEAR": [ 0 , "=Lifeb.2073" ],
- "Y.R.MOTHER_DEATH_YEAR": [ 0 , "=Lifeb.2073" ],
- "Y.R.PARENT_DEATH_YEAR": [ 0 , "=Lifeb.2073" ],
+
 
   "Acquire.Act": [
     0
@@ -1258,22 +1399,22 @@
     -1,
     ""
   ],
-  "Cach.7k.H.2&":[
+  "Cach.7K.H.2&":[
     -1,
     "=Ref8p484p2c"
   ],
-  "Cach.7k.1.EG.1&":[
+  "Cach.7K.1.EG.1&":[
     1,
     "=Ref8p464p2a"
   ],
 
-  "Cach.7k.H.1.EG.1&":[
+  "Cach.7K.H.1.EG.1&":[
     1,
     "=Ref8p484p2b"
   ],
-  "Cach.7k.H.1.EG.2":[
+  "Cach.7K.H.1.EG.2":[
     1,
-    "=Cach.7k.H.1.EG.1"
+    "=Cach.7K.H.1.EG.1"
   ],
 
   "Ref8p464p1a":[
@@ -1293,47 +1434,28 @@
     "=Lifeb.28a"
   ],
 
-  "Ref8p464p4":[
-    0,
-    "=Lifeb.2515"
-  ],
+  "Ref8p464p4":[ 0,"=Lifeb.2515==Lifeb.2515" ],
 "Cach.HO.DO.1&-":[-2,"=Ref8p466p4"],
 "Cach.HO.DO.0&":[1,""],
 "Ref8p466p4":[ 0,"=Lifeb.78"],
-
-"Year.DW.Cach.HO.2.+.DW.1&": [1,"=Ref8p466p5"],
 "Ref8p466p5":[ 0,"=Fortunea.12"],
-
-"Year.HO.Cach.HO.1.DW.0&": [-1,"=Ref8p466p6"],
 "Ref8p466p6":[ 0,"=Lifea.231"],
-
-"Year.HO.Cach.7K.1.HO.2&":[-1,"=Ref8p468p1b"],
-"Ref8p468p1b":[ 0,"=Lifeb.2096"],
-"Year.7k.Cach.7K.1.HO.2&-":[-1,"=Ref8p468p2"],
+"Ref8p468p1b":[ 0,"=Lifeb.2096==Careerb.35"],
 "Ref8p468p2":[ 0,"=Lifeb.2096==Healthb.30"],
+"Ref8p276p36":[0,"=Year.VeryBad"],
+"Ref8p276p35": [0,"=Lifeb.2070b==Relationb.25==Healthb.24"],
 
-"Year.DW.AGING.Cach.HO.DW.1&":[-1,"=Ref8p467p1"],
-"Year.DW.DEATH.Cach.HO.DW.1&":[-1,"=Ref8p467p1"],
-"Year.DW.REPOSE.Cach.HO.DW.1&":[-1,"=Ref8p467p1"],
-"Year.DW.-.DW.1&": [-1, "=Ref3p559p10"],
-"Year.7K.-.1&": [-3,"=Ref3p559p19"],
-"Year.IR.-.1&": [-2,"=Ref3p560p3"],
-"Year.IR.+.1&": [-2,"=Ref3p560p3"],
+
+
+"Ref3p227p1":[-1,"=Healthb.33"],
+
+
+
 
 "Ref8p467p1":[ 0,"=Lifeb.111b"],
 
-  "CachType1.DR&+": [
-    2,
-    "=Ref8p185p1b"
-  ],
-  "CachType1.DR&-": [
-    -2,
-    "=Ref8p185p1a"
-  ],
-  "CachType1.IR&": [
-    0,
-    "=Ref8p185p2==Ref8p186p7"
-  ],
+"CachType1.DR&+": [ 2, "=Ref8p185p1b"],
+"CachType1.DR&-": [-2, "=Ref8p185p1a"],"CachType1.IR&": [0, "=Ref8p185p2==Ref8p186p7"],
   "CachType1.EG&+": [
     2,
     "=Ref8p228p1"
@@ -2709,10 +2831,7 @@
     1,
     "=DtyType1a.EG.+&==Ref8p199p8a==Ref3p553p24"
   ],
-  "DtyType1a.EG.+&-": [
-    1,
-    "=Ref8p228p7"
-  ],
+  "DtyType1a.-.EG.+&-": [ -1,"=Ref8p228p7"],
   "DtyType1a.DW.+&": [
     1,
     "=Ref3p520p1==Ref3p471p14b==Ref8p380p15"
@@ -3976,7 +4095,7 @@
     0,
     "=Personb.194"
   ],
-  "F.Ref8p202p2": [
+  "Ref8p202p2": [
     0,
     "=Fortunea.1051==Careera.2b"
   ],
@@ -4016,10 +4135,7 @@
     0,
     "=Husbandb.26"
   ],
-  "F.Ref8p231p3": [
-    0,
-    "=Lifeb.2064"
-  ],
+  "Ref8p231p3": [0,"=Lifeb.2064"],
   "F.Ref8p232p1b": [
     0,
     "=Husbanda.4==Mariagea.1"
@@ -4136,7 +4252,7 @@
     0,
     "=Husbandb.300"
   ],
-  "F.Ref8p430p2": [
+  "Ref8p430p2": [
     0,
     "=Lifea.1503"
   ],
@@ -4176,38 +4292,23 @@
     0,
     "=Husbandb.28"
   ],
-  "F.Ref8p447p1b": [
-    0,
-    "=Mariageb.23"
-  ],
+  "Ref8p447p1b": [0, "=Mariageb.23" ],
   "F.Ref8p447p1c": [
     0,
     "=Husbandb.22==Husbandb.28"
   ],
-  "F.Ref8p447p2": [
+  "Ref8p447p2": [
     0,
     "=Mariageb.23"
   ],
-  "F.Ref8p447p3": [
-    0,
-    "=Mariageb.29"
-  ],
-  "F.Ref8p447p4": [
-    0,
-    "=Mariageb.29"
-  ],
-  "F.Ref8p447p5": [
-    0,
-    "=Husbandb.21"
-  ],
+  "Ref8p447p3": [0,"=Mariageb.29" ],
+  "Ref8p447p4": [ 0,"=Mariageb.29"],
+  "Ref8p447p5": [0,"=Husbandb.21==Lifeb.123"],
   "F.Ref8p447p6": [
     0,
     "=Mariageb.29"
   ],
-  "F.Ref8p447p7": [
-    0,
-    "=Mariageb.29==Mariageb.23"
-  ],
+  "F.Ref8p447p7": [ 0, "=Mariageb.29==Mariageb.23" ],
   "F.Ref8p447p8": [
     0,
     "=Mariageb.29"
@@ -4536,10 +4637,7 @@
     1,
     "=Wifeb.33"
   ],
-  "F.Year.PIVOT_YEAR.EG.DR&": [
-    0,
-    "=Ref3p560p8"
-  ],
+
   "Family.Celebration.Act": [
     0
   ],
@@ -8516,7 +8614,7 @@
   ],
   "Halac.31.6.ymd.all&-": [
     -2,
-    "=Date.Status.Middle==Halac.31.6.ymd.all&==Coi chừng nguy hiểm, tai nạn vùng đầu"
+    "=Date.Status.Middle==Halac.31.6.ymd.all&==Healthb.2007"
   ],
   "Halac.31.6.ymd.study&": [
     0,
@@ -15197,10 +15295,7 @@
     0,
     "=Childb.24==,==Childb.23"
   ],
-  "M.Ref8p236p12": [
-    0,
-    "=Lifea.1508"
-  ],
+  "Ref8p236p12": [0,"=Lifea.1508"],
   "M.Ref8p236p2a": [
     0,
     "=Wifeb.30==Wifeb.29"
@@ -15361,10 +15456,7 @@
     0,
     "=Wifea.50"
   ],
-  "M.Ref8p430p1": [
-    0,
-    "=Lifea.1503"
-  ],
+  "Ref8p430p1": [0,"=Lifea.1503"],
   "M.Ref8p69p2": [
     0,
     "=Wifea.1==Wifea.2"
@@ -15845,46 +15937,9 @@
     -1,
     "=Ref28p86p4"
   ],
-  "MainPeriodType1.HO.+&": [
-    0,
-    "=Ref8p447p1a"
-  ],
-  "MainPeriodType1.HO.-&": [
-    0,
-    "=Ref8p447p1a"
-  ],
-  "MainPeriodType1.DW.+&": [
-    0,
-    "=Ref8p430p1"
-  ],
-  "MainPeriodType1.DO.+&": [
-    0,
-    "=Ref8p447p3==Ref8p430p2"
-  ],
-  "MainPeriodType1.DO.-&": [
-    0,
-    "=Ref8p447p3"
-  ],
-  "MainPeriodType1.7K.+&": [
-    0,
-    "=Ref8p447p3==Ref8p430p2"
-  ],
-  "MainPeriodType1.7K.-&": [
-    0,
-    "=Ref8p447p3"
-  ],
-  "MainPeriodType1.IW.+&": [
-    0,
-    "=Ref8p430p1"
-  ],
-  "MainPeriodType2.HO.2&": [
-    0,
-    "=Ref8p432p7"
-  ],
-  "MainPeriodType2.HO.5&": [
-    0,
-    "=Ref8p432p7"
-  ],
+
+
+
   "Major.Bad.Day": [
     0
   ],
@@ -33339,13 +33394,12 @@
   "Ref3p172p3": [0,"=Persona.174a"],
   "Ref3p172p5": [0,"=Persona.174a"],
 
-  "Ref3p172p6": [0,"=Personb.319"],
-  "Ref3p172p7": [0,"=Personb.319"],
-  "Ref3p172p8": [0,"=Personb.319"],
-  "Ref3p172p9a": [0,"=Personb.319"],
-  "Ref3p172p9b": [0,"=Personb.319"],
-  "Ref3p172p9c": [0,"=Personb.319"],
-  "Ref3p172p10": [0,"=Personb.319"],
+  "Ref3p172p6": [0,"=Healthb.20"],
+  "Ref3p172p7": [0,"=Healthb.20"],
+  "Ref3p172p8": [0,"=Healthb.20"],
+  "Ref3p172p9a": [0,"=Healthb.20"],
+  "Ref3p172p9b": [0,"=Healthb.20"],
+  "Ref3p172p9c": [0,"=Healthb.20"],
 
   "Ref3p173p1a": [0, "=Fortunea.17"],
   "Ref3p173p1b": [ 0,"=Fortunea.17"],
@@ -33363,10 +33417,6 @@
   "Ref3p173p16": [0, "=Personb.319b==Healthb.31"],
 
 
-  "Ref3p227p1": [
-    0,
-    "=Healthb.33"
-  ],
   "Ref3p248p10": [
     0,
     "=Persona.179==Personb.186==Personb.187"
@@ -33435,14 +33485,8 @@
     0,
     "=Parenta.42"
   ],
-  "Ref3p435Vd1a": [
-    0,
-    "=Fatherb.2001"
-  ],
-  "Ref3p435Vd1b": [
-    0,
-    "=Motherb.2000"
-  ],
+  "Ref3p435Vd1a": [ 0, "=Fatherb.2001"],
+  "Ref3p435Vd1b": [0, "=Motherb.2000"],
   "Ref3p438p1a": [
     0,
     "=Parentb.36"
@@ -33510,8 +33554,9 @@
     0,
     "=Fatherb.2001==,==Motherb.2000"
   ],
+  "Ref3p440p6": [0,"=Fatherb.2001"],
   "Ref3p440p7": [0,"=Motherb.2000"],
-  "Ref3p440p7b": [0,"=Fatherb.2001"],
+
   "Ref3p446Vd1": [
     0,
     "=Parentb.81"
@@ -33724,10 +33769,7 @@
     0,
     "=Childa.5"
   ],
-  "Ref3p502p7": [
-    0,
-    "=Lifea.1035a"
-  ],
+  "Ref3p502p7": [0,"=Lifea.1035a"],
   "Ref3p503p1": [
     0,
     "=Childa.9"
@@ -33826,10 +33868,7 @@
     0,
     "=Lifeb.2503"
   ],
-  "Ref3p527p1": [
-    0,
-    "=Fortuneb.23"
-  ],
+  "Ref3p527p1": [0, "=Fortuneb.23"],
   "Ref3p527p10": [
     0,
     "=Fortuneb.2500==Lifeb.2083"
@@ -33914,10 +33953,7 @@
     0,
     "=Careera.1506"
   ],
-  "Ref3p554p2": [
-    0,
-    "=Studya.4b"
-  ],
+
   "Ref3p558p1": [
     1,
     "=Healtha.2"
@@ -33939,14 +33975,8 @@
     "=Healtha.2"
   ],
 
-  "Ref3p558p14": [
-    0,
-    "=Healthb.30"
-  ],
-  "Ref3p558p17": [
-    0,
-    "=Healthb.29"
-  ],
+  "Ref3p558p14": [0,"=Healthb.30"],
+  "Ref3p558p17": [0,"=Healthb.29"],
   "Ref3p558p18": [ 0,"=Healthb.28==Healthb.27"],
   "Ref3p558p19": [ 0,"=Healthb.2030==Healthb.2049"],
   "Ref3p558p21": [ 0,"=Healthb.2036b"],
@@ -33966,34 +33996,20 @@
     "=Healthb.21"
   ],
   "Ref3p559p2": [0,"=Healthb.36"],
-  "Ref3p559p10": [
-    0,
-    "=Healthb.30"
-  ],
-  "Ref3p559p11": [
-    0,
-    "=Healthb.27==,==Lifeb.2504"
-  ],
+  "Ref3p559p10": [0,"=Healthb.30"],
+  "Ref3p559p11": [0,"=Healthb.27==,==Lifeb.2504"],
   "Ref3p559p13": [
     0,
     "=Healthb.23"
   ],
-  "Ref3p559p14": [
-    0,
-    "=Healthb.30"
-  ],
+
   "Ref3p559p15": [
     0,
     "=Healthb.2033"
   ],
-  "Ref3p559p16": [
-    0,
-    "=Healthb.27"
-  ],
-  "Ref3p559p19": [0,"=Healthb.2073==,==Lifeb.70b" ],
+  "Ref3p559p16": [0,"=Healthb.27"],
   "Ref3p559p22": [0,"=Healthb.2007b" ],
 
-  "Ref3p560p3": [0,"=Lifeb.2500==Healthb.39"],
   "M.Ref3p560p6": [0,"=Wifea.44==Childb.24"],
   "Ref3p560p8": [0,"=Lifeb.2502"],
   "Ref3p560p18": [0,"=Healthb.21b"],
@@ -34002,10 +34018,7 @@
     0,
     "=Healthb.39==Healthb.27"
   ],
-  "Ref3p564Vd1": [
-    0,
-    "=Healthb.2083==Healthb.66"
-  ],
+  "Ref3p564Vd1": [0, "=Healthb.2083==Healthb.66"],
   "Ref3p565vd4": [
     0,
     "=Healthb.2044"
@@ -34014,10 +34027,7 @@
     0,
     "=Healthb.2044"
   ],
-  "Ref3p566Vd8": [
-    0,
-    "=Healthb.33"
-  ],
+  "Ref3p566Vd8": [0,"=Healthb.33"],
   "Ref3p569Vd4": [
     0,
     "=Healthb.2085"
@@ -34042,18 +34052,12 @@
     0,
     "=Date.Status.VeryBad"
   ],
-  "Ref7_1bp25Cas5": [
-    0,
-    "=Date.Status.VeryBad==Lifeb.2509==Healthb.67==Lifeb.2511"
-  ],
+  "Ref7_1bp25Cas5": [0,"=Date.Status.VeryBad==Lifeb.2509==Healthb.67==Lifeb.2511"],
   "Ref7_1bp26Cas10a": [
     0,
     "=Date.Status.VeryGood==Fortunea.1051==Lifea.1039"
   ],
-  "Ref7_1bp26Cas10b": [
-    0,
-    "=Date.Status.VeryBad"
-  ],
+  "Ref7_1bp26Cas10b": [0, "=Date.Status.VeryBad==Healthb.72"],
   "Ref7_1bp26Cas11": [
     0,
     "=Date.Status.Good==Careera.1506==Fortunea.1051"
@@ -34062,18 +34066,9 @@
     0,
     "=Date.Status.Good==Careera.1506==Fortunea.1051==Healtha.3"
   ],
-  "Ref7_1bp26Cas14": [
-    0,
-    "=Date.Status.Good==Lifea.1505"
-  ],
-  "Ref7_1bp26Cas16": [
-    0,
-    "=Date.Status.Bad==Careerb.2507==Fortuneb.30"
-  ],
-  "Ref7_1bp26Cas17": [
-    0,
-    "=Healthb.2073==Fortuneb.30"
-  ],
+  "Ref7_1bp26Cas14": [ 0, "=Date.Status.Good==Lifea.1505" ],
+  "Ref7_1bp26Cas16": [ 0, "=Date.Status.Bad==Careerb.2507==Fortuneb.30"],
+  "Ref7_1bp26Cas17": [0,"=Healthb.2073==Fortuneb.30"],
   "Ref7_1bp26Cas18": [
     0,
     "=Date.Status.Good"
@@ -34082,66 +34077,34 @@
     0,
     "=Date.Status.Good"
   ],
-  "Ref7_1bp26Cas20": [
-    0,
-    "=Date.Status.Bad"
-  ],
-  "Ref7_1bp26Cas6": [
-    0,
-    "=Date.Status.Good==Fortunea.14==Careera.2b==Careera.1506"
-  ],
+
+  "Ref7_1bp26Cas6": [0, "=Date.Status.Good==Fortunea.14==Careera.2b==Careera.1506"],
   "Ref7_1bp26Cas7": [
     0,
     "=Date.Status.Bad==Lifeb.2511"
   ],
-  "Ref7_1bp26Cas8": [
-    0,
-    "=Date.Status.Good"
-  ],
-  "Ref7_1bp26Cas9": [
-    0,
-    "=Date.Status.VeryGood==Fortunea.1051"
-  ],
-  "Ref7_1bp27Cas2": [
-    0,
-    "=Date.Status.VeryBad==Fatherb.2001==,==Motherb.2000"
-  ],
+  "Ref7_1bp26Cas8": [0, "=Date.Status.Good"],
+  "Ref7_1bp26Cas9": [0, "=Date.Status.VeryGood==Fortunea.1051"],
+  "Ref7_1bp27Cas2": [0, "=Date.Status.VeryBad==Fatherb.2001==,==Motherb.2000"],
   "Ref7_1bp27Cas3": [
     0,
     "=Date.Status.VeryBad==Healthb.2073"
   ],
-  "Ref7_1bp27Cas6": [
-    0,
-    "=Lifeb.2512"
-  ],
+  "Ref7_1bp27Cas6": [0, "=Lifeb.2512"],
   "Ref7_1bp27Cas7": [
     0,
     "=Lifeb.2511"
   ],
-  "Ref7_1bp27Cas8": [
-    0,
-    "=Healthb.39"
-  ],
+  "Ref7_1bp27Cas8": [0,"=Healthb.39" ],
   "Ref7_1bp28Cas1": [
     0,
     "=Date.Status.VeryBad"
   ],
-  "Ref7_1bp28Cas12": [
-    0,
-    "=Lifea.1500"
-  ],
-  "Ref7_1bp28Cas3": [
-    0,
-    "=Date.Status.VeryBad==Lifeb.2504==Careerb.2507"
-  ],
-  "Ref7_1bp28Cas4": [
-    0,
-    "=Date.Status.VeryBad==Lifeb.2504"
-  ],
-  "Ref7_1bp28Cas5": [
-    0,
-    "=Date.Status.VeryBad==Lifeb.2504"
-  ],
+  "Ref7_1bp28Cas12": [ 0,"=Lifea.1500"],
+  "Ref7_1bp28Cas3": [0,"=Date.Status.VeryBad==Healthb.32==Lifeb.2504==Careerb.2507"],
+  "Ref7_1bp28Cas4": [0, "=Date.Status.VeryBad==Lifeb.2030"],
+  "Ref7_1bp28Cas5a": [0,"=Date.Status.Good" ],
+  "Ref7_1bp28Cas5b": [0,"=Date.Status.VeryBad==Lifeb.2504" ],
   "Ref7_2ap10p6": [
     0,
     "=Persona.3==Persona.10a==Persona.200a==Careera.57==Persona.14a"
@@ -34884,10 +34847,7 @@
     0,
     "=Persona.10a"
   ],
-  "Ref8p153p4a": [
-    0,
-    "=Studya.9"
-  ],
+  "Ref8p153p4a": [0, "=Studya.9"],
   "Ref8p155p2": [
     0,
     "=Careera.55a==Careera.55b==Careera.55c"
@@ -34904,14 +34864,8 @@
     0,
     "=Lifeb.33"
   ],
-  "Ref8p155p8": [
-    0,
-    "=Careera.1506"
-  ],
-  "Ref8p156p1": [
-    0,
-    "=Lifea.17a"
-  ],
+  "Ref8p155p8": [0,"=Careera.1506"],
+  "Ref8p156p1": [0, "=Lifea.17a"],
   "Ref8p156p2": [
     0,
     "=Fortuneb.2500"
@@ -35507,9 +35461,6 @@
   "Ref8p202p1": [
     0
   ],
-  "Ref8p202p2": [
-    0
-  ],
   "Ref8p203p1": [
     0
   ],
@@ -35703,10 +35654,8 @@
     0,
     "=Origina.2==Persona.200b"
   ],
-  "Ref8p219p1": [
-    0,
-    "=Lifea.1500"
-  ],
+  "Ref8p218p10": [ 0,"=Lifeb.2036"],
+  "Ref8p219p1": [0, "=Lifea.1500"],
   "Ref8p219p2": [
     0,
     "=Persona.241==Careera.146"
@@ -35738,18 +35687,13 @@
     0,
     "=Parentb.23==Careerb.36==Careera.59"
   ],
-  "Ref8p219p8": [
-    0,
-    "=Parentb.32b"
-  ],
+  "Ref8p219p7": [0, "=Year.Good"],
+  "Ref8p219p8": [0, "=Parentb.32b"],
   "Ref8p220p1": [
     0,
     "=Lifea.1504"
   ],
-  "Ref8p220p2": [
-    0,
-    "=Careerb.2507"
-  ],
+
   "Ref8p220p4": [
     0
   ],
@@ -35905,10 +35849,7 @@
     0,
     "=Persona.164==Careera.88==Persona.267==Persona.268"
   ],
-  "Ref8p228p7": [
-    0,
-    "=Healthb.20==Healthb.30==Personb.302"
-  ],
+  "Ref8p228p7": [ 0,"=Healthb.20==Healthb.30==Personb.302"],
   "Ref8p229p1": [
     0,
     "=Careerb.2506"
@@ -35938,9 +35879,6 @@
     "=Careerb.27"
   ],
   "Ref8p230p4": [
-    0
-  ],
-  "Ref8p231p3": [
     0
   ],
   "Ref8p232p10": [
@@ -36009,9 +35947,7 @@
     0,
     "=Childb.31==,==Childb.37"
   ],
-  "Ref8p236p12": [
-    0
-  ],
+
   "Ref8p236p2": [
     0,
     "=Persona.40a==Personb.303"
@@ -36353,10 +36289,7 @@
     0,
     "=Persona.55a==Persona.290==Persona.51==Relationa.4==Relationa.5"
   ],
-  "Ref8p274p14": [
-    0,
-    "=Lifea.1502"
-  ],
+  "Ref8p274p14": [0, "=Lifea.1502"],
   "Ref8p274p18a": [
     0,
     "=Lifeb.2505==,==Lifeb.2506==,==Lifeb.2507"
@@ -36416,82 +36349,22 @@
   "Ref8p30p3": [
     0
   ],
-  "Ref8p333p9": [
-    0,
-    "=Studyb.22"
-  ],
-  "Ref8p353p1": [
-    0,
-    "=Careera.1500"
-  ],
-  "Ref8p353p2a": [
-    0,
-    "=Careera.1500"
-  ],
-  "Ref8p353p2b": [
-    0,
-    "=Careerb.2500"
-  ],
-  "Ref8p353p3": [
-    0,
-    "=Careerb.2501"
-  ],
-  "Ref8p354p10": [
-    0,
-    "=Fortuneb.2500==Careerb.2503==Healthb.39"
-  ],
-  "Ref8p354p11": [
-    0,
-    "=Lifea.1501"
-  ],
-  "Ref8p354p12a": [
-    0,
-    "=Lifea.1501"
-  ],
-  "Ref8p354p12b": [
-    0,
-    "=Lifea.1502"
-  ],
-  "Ref8p354p4a": [
-    0,
-    "=Careera.1501"
-  ],
-  "Ref8p354p4b": [
-    0,
-    "=Careerb.2502"
-  ],
-  "Ref8p354p5a": [
-    0,
-    "=Careera.1506"
-  ],
-  "Ref8p354p5b": [
-    0,
-    "=Fortuneb.2500"
-  ],
-  "Ref8p354p6a": [
-    0,
-    "=Careera.1503"
-  ],
-  "Ref8p354p6b": [
-    0,
-    "=Careerb.2500"
-  ],
-  "Ref8p354p6c": [
-    0,
-    "=Careerb.2501"
-  ],
-  "Ref8p354p7": [
-    0,
-    "=Careera.1504==Careera.1505"
-  ],
-  "Ref8p354p8": [
-    0,
-    "=Fortuneb.2500==Fortuneb.2501"
-  ],
-  "Ref8p354p9": [
-    0,
-    "=Fortuneb.2501"
-  ],
+
+  "Ref8p332p8a": [0, "=Studyb.22"],
+  "Ref8p332p8b": [0, "=Lifea.1042"],
+  "Ref8p333p8": [0, "=Studyb.22"],
+  "Ref8p333p9": [0, "=Studyb.22"],
+
+
+  "Ref8p354p4a": [0,"=Careera.1501"],
+  "Ref8p354p4b": [0,"=Careerb.2502"],
+  "Ref8p354p5a": [0, "=Fortunea.1051"],
+  "Ref8p354p5b": [0,"=Fortuneb.2500" ],
+  "Ref8p354p6a": [0,"=Careera.1503" ],
+  "Ref8p354p6b": [0, "=Careerb.2500"],
+  "Ref8p354p7a": [ 0, "=Careera.1504==Careera.1505"],
+  "Ref8p354p7b": [ 0, "=Fortuneb.2500===Fortuneb.2501==Careerb.23"],
+
   "Ref8p378p1": [
     0,
     "=Careera.52b==Fortuneb.22c"
@@ -36795,16 +36668,9 @@
   "Ref8p429p6b": [
     0
   ],
-  "Ref8p430p1": [
-    0
-  ],
-  "Ref8p430p2": [
-    0
-  ],
-  "Ref8p432p7": [
-    0,
-    "=Mariageb.29==Mariageb.23"
-  ],
+
+
+  "Ref8p432p7": [0, "=Mariageb.29==Mariageb.23"],
   "Ref8p43Common": [
     0,
     "=Origina.1"
@@ -36852,24 +36718,12 @@
   "Ref8p447p1a": [
     0
   ],
-  "Ref8p447p1b": [
-    0
-  ],
+
   "Ref8p447p1c": [
     0
   ],
-  "Ref8p447p2": [
-    0
-  ],
-  "Ref8p447p3": [
-    0
-  ],
-  "Ref8p447p4": [
-    0
-  ],
-  "Ref8p447p5": [
-    0
-  ],
+
+
   "Ref8p447p6": [
     0
   ],
@@ -43869,14 +43723,6 @@
     0,
     "=Ref8p164p6==Ref8p171p5"
   ],
-  "TypeX.7K.2.TOMB.CURR_YEAR.EARTH&": [
-    0,
-    "=Ref8p173p1"
-  ],
-  "TypeX.7K.4.TOMB.CURR_YEAR.EARTH&": [
-    0,
-    "=Ref8p173p1"
-  ],
   "URANUS.AQUARIUS&+": [
     1,
     "=Ref28p125p4"
@@ -44149,980 +43995,10 @@
   "Yang.Act": [
     0
   ],
-  "Year.-&": [
-    -1,
-    "=Year.Bad"
-  ],
-  "Year.+&": [
-    1,
-    "=Year.Good"
-  ],
 
-  "Year.ALL_PILARS_YEAR.+&+": [
-    2,
-    "=Studya.4b"
-  ],
-  "Year.ALL_PILARS_YEAR.-&": [
-    0,
-    "=Studyb.20"
-  ],
-  "Year.DAY_TRUNK_BRANCHE_YEAR.-&": [
-    0,
-    "=Ref8p447p7"
-  ],
-  "Year.DAY_TRUNK_BRANCHE_YEAR_MAIN_PERIOD.+&+": [
-    2,
-    "=Ref8p274p18b"
-  ],
-  "Year.DAY_TRUNK_BRANCHE_YEAR_MAIN_PERIOD.+&-": [
-    -2,
-    "=Ref8p274p18a"
-  ],
-  "Year.DAY_TRUNK_BRANCHE_YEAR_MAIN_PERIOD.-&": [
-    0,
-    "=Ref8p447p7"
-  ],
-  "Year.FATHER_DEATH_YEAR.-&-.-": [
-    -3,
-    "=Ref3p435Vd1a"
-  ],
-  "Year.HOUR_BRANCHE_YEAR.+&": [
-    0,
-    "=Ref8p354p12b"
-  ],
-  "Year.HOUR_BRANCHE_YEAR.+&+.+": [
-    3,
-    "=Ref8p354p12a"
-  ],
-  "Year.HOUR_BRANCHE_YEAR.+&-.-": [
-    -3,
-    "=Ref8p354p12a"
-  ],
-  "Year.HOUR_BRANCHE_YEAR.-&": [
-    0,
-    "=Ref8p354p12b"
-  ],
-  "Year.HOUR_BRANCHE_YEAR.-&+.+": [
-    3,
-    "=Ref8p354p12a"
-  ],
-  "Year.HOUR_BRANCHE_YEAR.-&-.-": [
-    -3,
-    "=Ref8p354p12a"
-  ],
-  "Year.MOTHER_DEATH_YEAR.-&-.-": [
-    -3,
-    "=Ref3p435Vd1b"
-  ],
-  "Year.PARENT_DEATH_YEAR.-&-.-": [
-    -3,
-    "=Ref3p440p4"
-  ],
-  "Year.PERSON_YEAR_STATUS.-&-.-": [
-    -3,
-    "=Ref3p227p1"
-  ],
-  "Year.PILAR_BRANCHE_PERIODS_YEAR_WITH_RESTRICT_PIVOT.-&": [
-    0,
-    "=Date.Status.VeryBad"
-  ],
-  "Year.PIVOT_PRESENT_ON_ROOT_PILAR.+&+": [
-    2,
-    "=Studya.4b"
-  ],
-  "Year.PIVOT_PRESENT_ON_ROOT_PILAR.-&+": [
-    2,
-    "=Studya.7"
-  ],
-  "Year.PIVOT_RESTRICT.RW.DEATH.RW&-": [
-    -2,
-    "=Healthb.2073"
-  ],
-  "Year.PIVOT_RESTRICT.RW.RW&": [
-    0,
-    "=Ref8p354p5b"
-  ],
-  "Year.PIVOT_RESTRICT.F.DEATH.RW&-": [
-    -2,
-    "=Healthb.2073"
-  ],
-  "Year.PIVOT_RESTRICT.F.RW&": [
-    0,
-    "=Ref8p354p5b"
-  ],
-  "Year.PIVOT_RESTRICT.HO.HO&": [
-    0,
-    "=Ref8p354p4b"
-  ],
-  "Year.PIVOT_RESTRICT.DR.DR&": [
-    0,
-    "=Ref8p354p6b"
-  ],
-  "Year.PIVOT_RESTRICT.DW.DW&": [
-    0,
-    "=Ref8p354p8"
-  ],
-  "Year.PIVOT_RESTRICT.7K.DO&-.+": [
-    -1,
-    "=Healthb.2073"
-  ],
-  "Year.PIVOT_RESTRICT.IW.DW&": [
-    0,
-    "=Ref8p354p8"
-  ],
-  "Year.PIVOT_YEAR.-&": [
-    0,
-    "=Studyb.20"
-  ],
-  "Year.PIVOT_YEAR.-&-": [
-    -2,
-    "=Ref8p333p9"
-  ],
-  "Year.PIVOT_YEAR.BIRTH&": [
-    0,
-    "=Ref8p354p11"
-  ],
-  "Year.PIVOT_YEAR.EARTH.METAL&-": [
-    -2,
-    "=Ref8p354p11"
-  ],
-  "Year.PIVOT_YEAR.RW.RW&": [
-    0,
-    "=Ref8p354p5a"
-  ],
-  "Year.PIVOT_YEAR.RW.DW.QuyNhan.-&": [
-    0,
-    "=Ref8p354p10"
-  ],
-  "Year.PIVOT_YEAR.F.RW&": [
-    0,
-    "=Ref8p354p5a"
-  ],
-  "Year.PIVOT_YEAR.F.DW.QuyNhan.-&": [
-    0,
-    "=Ref8p354p10"
-  ],
 
-  "Year.PIVOT_YEAR.HO.+&+": [
-    2,
-    "=Date.Status.Good==Fortunea.1051==Fortunea.1051==Healtha.1500"
-  ],
-  "Year.Element.METAL.WOOD":[-1,"Ref3p558p18"],
-  "Year.Element.WATER.FIRE":[-1,"Ref3p558p19"],
-  "Year.Element.EARTH.WATER":[-1,"Ref3p558p21"],
-  "Year.Element.FIRE.METAL":[-1,"Ref3p558p22"],
 
-  "Period.HO.HO.Y&": [
-    -1,
-    "=Ref3p558p14==Ref8p354p4a"
-  ],
-  "Year.PIVOT_YEAR.HO.DO.QuyNhan.-&": [
-    0,
-    "=Ref8p354p10"
-  ],
-  "Year.PIVOT_YEAR.DR.HO.QuyNhan.-&": [
-    0,
-    "=Ref8p354p10"
-  ],
-  "Year.PIVOT_YEAR.DR.DR&": [
-    0,
-    "=Ref8p354p6a"
-  ],
-  "Year.PIVOT_YEAR.DR.DW&": [
-    0,
-    "=Ref8p354p9"
-  ],
-  "Year.PIVOT_YEAR.IR.DW&": [
-    0,
-    "=Ref8p354p9"
-  ],
-  "Year.PIVOT_YEAR.EG.+&+": [
-    2,
-    "=Date.Status.Good==Year.PIVOT_YEAR.HO.+&+"
-  ],
-  "Year.PIVOT_YEAR.EG.DR&": [
-    0,
-    "=Ref3p559p13==Ref8p354p6c"
-  ],
-  "Year.PIVOT_YEAR.EG.DO.QuyNhan.-&": [
-    0,
-    "=Ref8p354p10"
-  ],
-  "Year.PIVOT_YEAR.JIA.WOOD.METAL&-": [
-    -2,
-    "=Ref3p566Vd7"
-  ],
-  "Year.PIVOT_YEAR.METAL.WATER&": [
-    0,
-    "=Ref3p559p14"
-  ],
-  "Year.PIVOT_YEAR.DW.RW&+": [
-    2,
-    "=Year.PIVOT_YEAR.IW.RW&+"
-  ],
-  "Year.PIVOT_YEAR.DW.DR.QuyNhan.-&": [
-    0,
-    "=Ref8p354p10"
-  ],
-  "Year.PIVOT_YEAR.DO.HO&": [
-    0,
-    "=Year.PIVOT_YEAR.DR.DW&"
-  ],
-  "Year.PIVOT_YEAR.DO.HO.QuyNhan.-&": [
-    0,
-    "=Ref8p354p10"
-  ],
-  "Year.PIVOT_YEAR.7K.HO&": [
-    0,
-    "=Year.PIVOT_YEAR.DR.DW&"
-  ],
-  "Year.PIVOT_YEAR.7K.HO.QuyNhan.-&": [
-    0,
-    "=Ref8p354p10"
-  ],
-  "Year.PIVOT_YEAR.IW.RW&+": [
-    2,
-    "=Fortuneb.2500"
-  ],
-  "Year.PIVOT_YEAR.IW.DR.QuyNhan.-&": [
-    0,
-    "=Ref8p354p10"
-  ],
-  "Year.PIVOT_YEAR.IW.DW&": [
-    0,
-    "=Ref8p354p7==Ref3p559p10"
-  ],
-  "Year.PIVOT_YEAR.IW.DW&-": [
-    -2,
-    "=Ref3p559p10"
-  ],
-  "Year.PIVOT_YEAR.WOOD.EARTH&": [
-    0,
-    "=Healthb.79==,==Healthb.2078"
-  ],
-  "Year.PIVOT_YEAR.WOOD.FIRE&": [
-    0,
-    "=Ref8p354p11"
-  ],
 
-  "Year.SAME_PERIOD_YEAR_TRUNK_BRANCHE.-&": [
-    0,
-    "=Healthb.67"
-  ],
-  "Year.SecDe.CGI&-": [
-    -2,
-    "=Lifeb.2514"
-  ],
-  "Year.SecDe.DHO.DO&+": [
-    2,
-    "=Careera.1506"
-  ],
-  "Year.SecDe.DHO.7K&": [
-    0,
-    "=Careera.1506"
-  ],
-  "Year.SecDe.DMA&+": [
-    2,
-    "=Lifea.1506==Fortunea.1051==Lifea.41"
-  ],
-  "Year.SecDe.DMA&-": [
-    -2,
-    "=General.2==Lifea.41"
-  ],
-  "Year.SecDe.DMA.KLD&": [
-    0,
-    "=Healthb.33"
-  ],
-  "Year.SecDe.KCU.DW&": [
-    0,
-    "=Lifeb.63"
-  ],
-  "Year.SecDe.KCU.IW&": [
-    0,
-    "=Lifeb.63"
-  ],
-  "Year.SecDe.KHD&-": [
-    -2,
-    "=Fortuneb.30==,==Lifeb.63"
-  ],
-  "Year.SecDe.KSA.BIRTH&+.+": [
-    3,
-    "=Fortunea.1051"
-  ],
-  "Year.SecDe.KSA.PROSPERITY&": [
-    0,
-    "=Fortunea.1051"
-  ],
-  "Year.SecDe.THN&+": [
-    2,
-    "=Healtha.3==Lifea.1507==Lifea.15"
-  ],
-  "Year.SecDe.TLA&-": [
-    -2,
-    "=Lifeb.2511==Healthb.67"
-  ],
-  "Year.SecDe.TLA.NDU&+": [
-    2,
-    "=Lifea.1506"
-  ],
-  "Year.SecDe.TLA.TDU&": [
-    0,
-    "=Lifea.1506"
-  ],
-  "Year.X_DAY_BRANCHE.-&": [
-    0,
-    "=Ref8p447p7"
-  ],
-  "Year.X_DAY_BRANCHE.-&-.+": [
-    -1,
-    "=Year.X_DAY_BRANCHE.-&==Lifeb.2510"
-  ],
-  "Year.X_DAY_BRANCHE.-&-.-": [
-    -3,
-    "=Year.X_DAY_BRANCHE.-&==Lifeb.2509"
-  ],
-  "Year.YEAR_BRANCHE_YEAR.+&+.+": [
-    3,
-    "=Ref8p354p12a"
-  ],
-  "Year.YEAR_BRANCHE_YEAR.+&-.-": [
-    -3,
-    "=Ref8p354p12a"
-  ],
-  "Year.YEAR_BRANCHE_YEAR.-&+.+": [
-    3,
-    "=Ref8p354p12a"
-  ],
-  "Year.YEAR_BRANCHE_YEAR.-&-.-": [
-    -3,
-    "=Ref8p354p12a"
-  ],
-  "Year.YEAR_TRUNK_BRANCHE_YEAR.-&": [
-    0,
-    "=Ref8p274p14"
-  ],
-  "Year.YEAR_TRUNK_BRANCHE_YEAR.-&-": [
-    -2,
-    "=Year.YEAR_TRUNK_BRANCHE_YEAR.-&==Healthb.2501"
-  ],
-  "Year.YEAR_TRUNK_BRANCHE_YEAR.RW.-&-": [
-    -2,
-    "=Lifeb.2508"
-  ],
-  "Year.YEAR_TRUNK_BRANCHE_YEAR.DW.-&-": [
-    -2,
-    "=Healthb.2500"
-  ],
-  "Year.YEAR_TRUNK_BRANCHE_YEAR.DO.-&-.-": [
-    -3,
-    "=Year.YEAR_TRUNK_BRANCHE_YEAR.-&==Fatherb.2001==,==Motherb.2000"
-  ],
-  "YearDtySpecial.Ref8p101p1&": [
-    0,
-    "=Ref8p101p1"
-  ],
-  "YearDtySpecial.Ref8p156p3&-": [
-    -2,
-    "=Ref8p156p3"
-  ],
-  "YearDtySpecial.Ref8p158p3a&": [
-    0,
-    "=Ref8p158p3a"
-  ],
-  "YearDtyType1a.DO.7K.+.-.CACH_CUC.7K.CURR_YEAR.HO&": [
-    1,
-    "=Ref7_1bp28Cas3"
-  ],
-  "YearDtyType1a.7K.DO.+.-.CACH_CUC.7K.CURR_YEAR.HO&": [
-    1,
-    "=Ref7_1bp28Cas3"
-  ],
-  "YearDtyType1b.HO.+.PIVOT.HO.MAIN_PERIOD.DR&+": [
-    1,
-    "=Date.Status.Good==Ref7_1bp25Cas3"
-  ],
-  "YearDtyType1b.HO.+.PIVOT.DO.MAIN_PERIOD.DR&+": [
-    1,
-    "=Date.Status.Good==Ref7_1bp25Cas2"
-  ],
-  "YearDtyType1b.HO.+.PIVOT.DO.MAIN_PERIOD.DW&+": [
-    1,
-    "=Date.Status.Good==Ref7_1bp25Cas2"
-  ],
-  "YearDtyType1b.HO.-.PIVOT.HO.MAIN_PERIOD.DR&+": [
-    1,
-    "=Date.Status.VeryBad==Ref7_1bp25Cas4"
-  ],
-  "YearDtyType1b.HO.0.PIVOT.HO.MAIN_PERIOD.DR&+": [
-    1,
-    "=Date.Status.VeryBad==Ref7_1bp25Cas4"
-  ],
-  "YearDtyType1c.IR.+.MAIN_PERIOD.DW&": [
-    0,
-    "=Ref8p202p2"
-  ],
-  "YearDtyType1c.EG.+.CURR_YEAR.HO&&-": [
-    0,
-    "=Ref8p229p1"
-  ],
-  "YearDtyType1c.EG.+.MAIN_PERIOD.HO&&-": [
-    0,
-    "=Ref8p229p1"
-  ],
-  "YearDtyType1c.IW.+.MAIN_PERIOD.RW&+": [
-    2,
-    "=Ref8p220p2"
-  ],
-  "YearDtyType1c.IW.+.MAIN_PERIOD.F&+": [
-    2,
-    "=Ref8p220p2"
-  ],
-  "YearDtyType1c.IW.+.MAIN_PERIOD.DR&-": [
-    -2,
-    "=Ref8p219p1"
-  ],
-  "YearDtyType1c.IW.+.MAIN_PERIOD.IR&-": [
-    -2,
-    "=Ref8p219p1"
-  ],
-  "YearDtyType1c.IW.+.MAIN_PERIOD.DO&+": [
-    2,
-    "=Ref8p220p1"
-  ],
-  "YearDtyType1c.IW.+.MAIN_PERIOD.IW&+": [
-    2,
-    "=Ref8p218p6"
-  ],
-  "YearDtyType1d.EG.+.CURR_YEAR.DW&+": [
-    2,
-    "=Ref3p553p24"
-  ],
-  "YearDtyType1d.DO.+.CURR_YEAR.DO&-": [
-    -2,
-    "=Ref8p142p1b"
-  ],
-  "YearDtyType1d.IW.+.CURR_YEAR.RW&+": [
-    2,
-    "=Ref8p220p2"
-  ],
-  "YearDtyType1d.IW.+.CURR_YEAR.F&+": [
-    2,
-    "=Ref8p220p2"
-  ],
-  "YearDtyType1d.IW.+.CURR_YEAR.DR&-": [
-    -2,
-    "=Ref8p219p1"
-  ],
-  "YearDtyType1d.IW.+.CURR_YEAR.IR&-": [
-    -2,
-    "=Ref8p219p1"
-  ],
-  "YearDtyType1d.IW.+.CURR_YEAR.DO&+": [
-    2,
-    "=Ref8p220p1"
-  ],
-  "YearDtyType1d.IW.+.CURR_YEAR.IW&+": [
-    2,
-    "=Ref8p218p6"
-  ],
-  "YearDtyType2aCount.HO.IR.+.-.CURR_YEAR.DW&": [
-    0,
-    "=Ref3p502p7"
-  ],
-  "YearDtyType2aCount.HO.EG.+.-.CURR_YEAR.DW&": [
-    0,
-    "=Ref3p502p7"
-  ],
-  "YearDtyType2aCount.IW.DO.+.-.CURR_YEAR.DO&": [
-    0,
-    "=Ref8p217p8==Ref8p218p1"
-  ],
-  "YearDtyType2aCount.IW.DO.+.-.CURR_YEAR.7K&": [
-    0,
-    "=Ref8p217p8==Ref8p218p1"
-  ],
-  "YearDtyType2aCount.IW.DO.+.0.CURR_YEAR.DO&": [
-    0,
-    "=Ref8p217p8"
-  ],
-  "YearDtyType2bCount.HO.DO.+.-.MAIN_PERIOD.HO&": [
-    0,
-    "=Ref8p447p1b"
-  ],
-  "YearDtyType2bCount.IW.DO.+.-.MAIN_PERIOD.DO&": [
-    0,
-    "=Ref8p217p8==Ref8p218p1"
-  ],
-  "YearDtyType2bCount.IW.DO.+.-.MAIN_PERIOD.7K&": [
-    0,
-    "=Ref8p217p8==Ref8p218p1"
-  ],
-  "YearDtyType2bCount.IW.DO.+.0.MAIN_PERIOD.DO&": [
-    0,
-    "=Ref8p217p8"
-  ],
-  "YearDtyType2bForce.HO.+.DO.-.MAIN_PERIOD.HO&": [
-    0,
-    "=Ref8p447p1b"
-  ],
-  "YearDtyType2cCount.HO.DW.+.0.MAIN_PERIOD.HO&": [
-    0,
-    "=Ref8p447p1c"
-  ],
-  "YearDtyType2cCount.HO.DW.-.0.MAIN_PERIOD.HO&": [
-    0,
-    "=Ref8p447p1c"
-  ],
-  "YearDtyType3a.HO.IR.EG.+.+.-.CURR_YEAR.DW&": [
-    1,
-    "=Ref3p502p7"
-  ],
-  "YearDtyType3a.HO.EG.HO.+.+.-.CURR_YEAR.DW&": [
-    1,
-    "=Ref3p502p7"
-  ],
-  "YearDtyType3a.HO.DW.DO.+.+.0.CURR_YEAR.DW&": [
-    1,
-    "=Ref8p236p12"
-  ],
-  "YearDtyType3a.HO.DW.DO.+.-.0.CURR_YEAR.DW&": [
-    1,
-    "=Ref8p236p12"
-  ],
-  "YearDtyType3a.EG.DO.7K.+.0.0.CURR_YEAR.HO&": [
-    1,
-    "=Ref8p231p3"
-  ],
-  "YearDtyType3a.EG.DO.7K.+.0.0.CURR_YEAR.DW&": [
-    1,
-    "=Ref8p231p3"
-  ],
-  "YearDtyType3a.DW.DO.7K.+.+.-.CURR_YEAR.DW&-": [
-    1,
-    "=Ref7_1bp27Cas7"
-  ],
-  "YearDtyType3a.DW.DO.7K.+.+.-.CURR_YEAR.DO&-": [
-    1,
-    "=Ref7_1bp27Cas7"
-  ],
-  "YearDtyType3a.DO.DW.7K.+.+.-.CURR_YEAR.DW&-": [
-    1,
-    "=Ref7_1bp27Cas7"
-  ],
-  "YearDtyType3a.DO.DW.7K.+.+.-.CURR_YEAR.DO&-": [
-    1,
-    "=Ref7_1bp27Cas7"
-  ],
-  "YearDtyType3bForce.HO.+.DW.0.DO.-.MAIN_PERIOD.RW&": [
-    0,
-    "=Ref8p449p24"
-  ],
-  "YearDtyType3bForce.HO.+.DW.0.DO.-.MAIN_PERIOD.HO&": [
-    0,
-    "=Ref8p449p24"
-  ],
-  "YearDtyType3bForce.HO.+.DW.0.DO.-.MAIN_PERIOD.EG&": [
-    0,
-    "=Ref8p449p24"
-  ],
-  "YearDtyType4a.D.T.HO.CURR_YEAR.RW&": [
-    1,
-    "=Ref3p521p11"
-  ],
-  "YearDtyType4a.D.T.HO.CURR_YEAR.F&": [
-    1,
-    "=Ref3p521p11"
-  ],
-
-  "YearDtyType4b.D.T.HO.MAIN_PERIOD.HO&": [
-    1,
-    "=Ref3p558p14"
-  ],
-  "YearDtyType4c.D.B.HO.MAIN_PERIOD.HO.CURR_YEAR.HO&": [
-    0,
-    "=Ref3p564Vd1"
-  ],
-  "YearDtyType4c.D.B.HO.MAIN_PERIOD.HO.CURR_YEAR.DO&": [
-    0,
-    "=Ref3p564Vd1"
-  ],
-  "YearDtyType4c.D.B.IR.MAIN_PERIOD.EG.CURR_YEAR.EG&": [
-    0,
-    "=Ref8p196p9"
-  ],
-  "YearDtyType4c.D.T.HO.MAIN_PERIOD.HO.CURR_YEAR.HO&": [
-    0,
-    "=Ref3p564Vd1"
-  ],
-  "YearDtyType4c.D.T.HO.MAIN_PERIOD.HO.CURR_YEAR.DO&": [
-    0,
-    "=Ref3p564Vd1"
-  ],
-  "YearDtyType5a.D.AGE.CURR_YEAR.DR&+": [
-    1,
-    "=Ref7_1bp26Cas12"
-  ],
-  "YearDtyType5a.H.7K.AGE.CURR_YEAR.DR&+": [
-    1,
-    "=Ref7_1bp26Cas12"
-  ],
-  "YearDtyType5a.L.7K.AGE.CURR_YEAR.DR&+": [
-    1,
-    "=Ref7_1bp26Cas12"
-  ],
-  "YearDtyType5a.M.7K.AGE.CURR_YEAR.DR&+": [
-    1,
-    "=Ref7_1bp26Cas12"
-  ],
-  "YearDtyType5a.Y.7K.AGE.CURR_YEAR.DR&+": [
-    1,
-    "=Ref7_1bp26Cas12"
-  ],
-
-  "YearDtyType6b.H.RW.PIVOT.DW.MAIN_PERIOD.RW&+": [
-    1,
-    "=Ref8p259p4"
-  ],
-  "YearDtyType6b.H.RW.PIVOT.DW.MAIN_PERIOD.F&+": [
-    1,
-    "=Ref8p259p4"
-  ],
-  "YearDtyType6c.H.RW.PIVOT.DW.CURR_YEAR.RW&+": [
-    2,
-    "=Ref8p259p4"
-  ],
-  "YearDtyType6c.H.RW.PIVOT.DW.CURR_YEAR.F&+": [
-    2,
-    "=Ref8p259p4"
-  ],
-  "YearDtyType6d.H.RW.PIVOT.DW.MAIN_PERIOD.F.CURR_YEAR.RW&+": [
-    2,
-    "=Ref8p259p4"
-  ],
-  "YearDtyType6d.H.RW.PIVOT.DW.MAIN_PERIOD.F.CURR_YEAR.F&+": [
-    2,
-    "=Ref8p259p4"
-  ],
-  "YearGDTYType1a.HO.+.CURR_YEAR.HO&": [
-    1,
-    "=Ref4p560p24"
-  ],
-  "YearGDTYType1a.DR.+.CURR_YEAR.HO&": [
-    1,
-    "=Ref3p554p2"
-  ],
-  "YearGDTYType1a.DR.+.CURR_YEAR.DW&": [
-    1,
-    "=Ref3p523p11==Ref3p521p6a"
-  ],
-  "YearGDTYType1a.DR.+.CURR_YEAR.DO&": [
-    1,
-    "=Ref3p521p6b"
-  ],
-  "YearGDTYType1a.DW.+.CURR_YEAR.DW&-": [
-    1,
-    "=Ref3p526p1"
-  ],
-  "YearGDTYType1a.DO.+.CURR_YEAR.DR&+": [
-    1,
-    "=Date.Status.Good==Ref7_1bp26Cas19"
-  ],
-  "YearGDTYType1a.DO.+.CURR_YEAR.DO&-": [
-    1,
-    "=Ref3p527p1"
-  ],
-  "YearGDTYType1a.IW.+.CURR_YEAR.DW&-": [
-    1,
-    "=Ref3p559p10"
-  ],
-  "YearGDTYType1b.DO.+.MAIN_PERIOD.HO&": [
-    1,
-    "=Ref8p447p2"
-  ],
-  "YearGDTYType1b.DO.+.MAIN_PERIOD.DO&": [
-    1,
-    "=Ref8p447p2"
-  ],
-  "YearGDTYType1b.DO.+.MAIN_PERIOD.7K&": [
-    1,
-    "=Ref8p447p2"
-  ],
-  "YearGDTYType1b.IW.+.MAIN_PERIOD.DW&-": [
-    1,
-    "=Ref3p559p10"
-  ],
-  "YearGDTYType1c.RW.+.CACH_CUC.HO.CURR_YEAR.HO&+": [
-    2,
-    "=Date.Status.Good==Ref7_1bp26Cas8"
-  ],
-  "YearGDTYType1c.RW.+.CACH_CUC.HO.CURR_YEAR.DW&+": [
-    2,
-    "=Date.Status.Good==Ref7_1bp26Cas8"
-  ],
-  "YearGDTYType1c.RW.+.CACH_CUC.DR.CURR_YEAR.DW&": [
-    0,
-    "=Ref7_1bp28Cas5"
-  ],
-  "YearGDTYType1c.RW.-.CACH_CUC.DR.CURR_YEAR.DW&": [
-    0,
-    "=Ref7_1bp28Cas5"
-  ],
-  "YearGDTYType1c.RW.0.CACH_CUC.DR.CURR_YEAR.DW&": [
-    0,
-    "=Ref7_1bp28Cas4"
-  ],
-  "YearGDTYType1c.HO.+.CACH_CUC.EG.CURR_YEAR.DR&+": [
-    2,
-    "=Date.Status.Bad==Ref7_1bp26Cas20"
-  ],
-  "YearGDTYType1c.DR.+.CACH_CUC.HO.CURR_YEAR.HO&+": [
-    2,
-    "=Date.Status.Good==Ref7_1bp26Cas8"
-  ],
-  "YearGDTYType1c.DR.+.CACH_CUC.HO.CURR_YEAR.DW&+": [
-    2,
-    "=Date.Status.Good==Ref7_1bp26Cas8"
-  ],
-  "YearGDTYType1c.DW.+.CACH_CUC.7K.CURR_YEAR.HO&+": [
-    2,
-    "=Ref7_1bp26Cas11"
-  ],
-  "YearGDTYType1c.DW.-.CACH_CUC.7K.CURR_YEAR.HO&+": [
-    2,
-    "=Ref7_1bp26Cas11"
-  ],
-  "YearGDTYType1c.DO.0.CACH_CUC.HO.CURR_YEAR.DW&+": [
-    2,
-    "=Ref7_1bp25Cas1"
-  ],
-  "YearGDTYType1c.DO.0.CACH_CUC.EG.CURR_YEAR.DW&+": [
-    2,
-    "=Ref7_1bp25Cas1"
-  ],
-  "YearGDTYType1d.DR.-.CACH_CUC.HO.MAIN_PERIOD.DW&+": [
-    2,
-    "=Ref7_1bp26Cas7"
-  ],
-  "YearGDTYType1e.DW.+.CACH_CUC.DW.PIVOT.RW.CURR_YEAR.RW&-": [
-    -2,
-    "=Ref7_1bp28Cas12"
-  ],
-  "YearGDTYType1e.DW.+.CACH_CUC.DW.PIVOT.RW.CURR_YEAR.DR&-": [
-    -2,
-    "=Ref7_1bp28Cas12"
-  ],
-  "YearGDTYType1e.DW.+.CACH_CUC.DW.PIVOT.DR.CURR_YEAR.RW&-": [
-    -2,
-    "=Ref7_1bp28Cas12"
-  ],
-  "YearGDTYType1e.DW.+.CACH_CUC.DW.PIVOT.DR.CURR_YEAR.DR&-": [
-    -2,
-    "=Ref7_1bp28Cas12"
-  ],
-  "YearGDTYType1e.DW.+.CACH_CUC.IW.PIVOT.RW.CURR_YEAR.RW&-": [
-    -2,
-    "=Ref7_1bp28Cas12"
-  ],
-  "YearGDTYType1e.DW.+.CACH_CUC.IW.PIVOT.RW.CURR_YEAR.DR&-": [
-    -2,
-    "=Ref7_1bp28Cas12"
-  ],
-  "YearGDTYType1e.DW.+.CACH_CUC.IW.PIVOT.DR.CURR_YEAR.RW&-": [
-    -2,
-    "=Ref7_1bp28Cas12"
-  ],
-  "YearGDTYType1e.DW.+.CACH_CUC.IW.PIVOT.DR.CURR_YEAR.DR&-": [
-    -2,
-    "=Ref7_1bp28Cas12"
-  ],
-  "YearGDTYType1f.DR.-.PIVOT.HO.MAIN_PERIOD.DW&+": [
-    2,
-    "=Ref7_1bp26Cas7"
-  ],
-  "YearGDTYType1f.DO.+.PIVOT.HO.MAIN_PERIOD.HO&+": [
-    2,
-    "=Ref7_1bp26Cas6"
-  ],
-  "YearGDTYType1f.DO.-.PIVOT.HO.MAIN_PERIOD.HO&+": [
-    2,
-    "=Ref7_1bp26Cas6"
-  ],
-  "YearGDTYType1f.DO.0.PIVOT.HO.MAIN_PERIOD.DO&+": [
-    2,
-    "=Ref7_1bp25Cas5"
-  ],
-  "YearGDTYType1g.DW.+.PIVOT.HO.CURR_YEAR.DW&+": [
-    2,
-    "=Ref7_1bp26Cas9"
-  ],
-  "YearGDTYType1g.DW.+.PIVOT.DW.CURR_YEAR.RW&+": [
-    2,
-    "=Date.Status.VeryBad==Ref7_1bp26Cas10b"
-  ],
-  "YearGDTYType1g.DW.+.PIVOT.DW.CURR_YEAR.DW&+": [
-    2,
-    "=Ref7_1bp26Cas10a"
-  ],
-  "YearGDTYType1g.DW.-.PIVOT.HO.CURR_YEAR.DW&+": [
-    2,
-    "=Ref7_1bp26Cas9"
-  ],
-  "YearGDTYType1g.DW.-.PIVOT.DW.CURR_YEAR.RW&+": [
-    2,
-    "=Date.Status.VeryBad==Ref7_1bp26Cas10b"
-  ],
-  "YearGDTYType1g.DW.-.PIVOT.DW.CURR_YEAR.DW&+": [
-    2,
-    "=Ref7_1bp26Cas10a"
-  ],
-  "YearGDTYType1g.DO.+.PIVOT.DR.CURR_YEAR.DW&-": [
-    -2,
-    "=Ref7_1bp27Cas2"
-  ],
-  "YearGDTYType1h.DR.-.PIVOT.IR.MAIN_PERIOD.HO.CURR_YEAR.DW&-": [
-    -2,
-    "=Ref3p566Vd8"
-  ],
-  "YearGDTYType2a.DW.DO.+.+.CURR_YEAR.DO&-": [
-    1,
-    "=Ref7_1bp27Cas8"
-  ],
-  "YearGDTYType2a.DO.HO.+.0.CURR_YEAR.DO&+": [
-    1,
-    "=Ref7_1bp26Cas16"
-  ],
-  "YearGDTYType2a.DO.DR.+.+.CURR_YEAR.DR&": [
-    1,
-    "=Ref8p153p4a"
-  ],
-  "YearGDTYType2a.DO.DR.+.+.CURR_YEAR.DO&": [
-    1,
-    "=Ref8p153p4a"
-  ],
-  "YearGDTYType2a.DO.DR.+.-.CURR_YEAR.DR&": [
-    1,
-    "=Ref8p153p4a"
-  ],
-  "YearGDTYType2a.DO.DR.+.-.CURR_YEAR.DW&-": [
-    1,
-    "=Ref7_1bp27Cas6"
-  ],
-  "YearGDTYType2a.DO.DR.+.-.CURR_YEAR.DO&": [
-    1,
-    "=Ref8p153p4a"
-  ],
-  "YearGDTYType2a.DO.DW.+.+.CURR_YEAR.DO&-": [
-    1,
-    "=Ref7_1bp27Cas8"
-  ],
-  "YearGDTYType2b.RW.DO.+.-.MAIN_PERIOD.RW&+": [
-    1,
-    "=Ref8p447p5"
-  ],
-  "YearGDTYType2b.RW.DO.+.-.MAIN_PERIOD.F&+": [
-    1,
-    "=Ref8p447p5"
-  ],
-  "YearGDTYType2b.HO.DO.+.-.MAIN_PERIOD.RW&": [
-    1,
-    "=Ref8p447p4"
-  ],
-  "YearGDTYType2b.HO.DO.+.-.MAIN_PERIOD.DW&+": [
-    1,
-    "=Ref7_1bp26Cas14"
-  ],
-  "YearGDTYType2b.DR.DO.+.-.MAIN_PERIOD.DW&+": [
-    1,
-    "=Ref7_1bp26Cas14"
-  ],
-  "YearGDTYType2c.HO.DO.+.-.PIVOT.EG.CURR_YEAR.DW&+": [
-    2,
-    "=Date.Status.Good==Ref7_1bp26Cas18"
-  ],
-  "YearGDTYType2c.DO.HO.+.-.PIVOT.EG.CURR_YEAR.HO&+": [
-    2,
-    "=Date.Status.Good==Ref7_1bp26Cas18"
-  ],
-  "YearGDTYType2c.DO.DW.+.+.PIVOT.DR.CURR_YEAR.RW&-": [
-    -2,
-    "=Ref8p156p1"
-  ],
-  "YearGDTYType2c.DO.DW.+.+.PIVOT.DR.CURR_YEAR.DR&-": [
-    -2,
-    "=Ref8p155p8"
-  ],
-  "YearGDTYType2c.DO.DW.+.+.PIVOT.DR.CURR_YEAR.DW&-": [
-    -2,
-    "=Ref8p156p2"
-  ],
-  "YearGDTYType2c.DO.DW.+.+.PIVOT.DR.CURR_YEAR.DO&-": [
-    -2,
-    "=Ref8p155p8"
-  ],
-  "YearGDTYType3a.HO.7K.DO.+.+.0.CURR_YEAR.DO&": [
-    1,
-    "=Ref3p559p11"
-  ],
-  "YearGDTYType3a.DO.DR.HO.+.0.0.CURR_YEAR.DO&+": [
-    1,
-    "=Date.Status.Good==Ref7_1bp26Cas17"
-  ],
-  "YearGDTYType3a.7K.HO.DO.+.+.0.CURR_YEAR.DO&": [
-    1,
-    "=Ref3p559p11"
-  ],
-  "YearGDTYType3b.RW.DW.DO.+.-.-.MAIN_PERIOD.RW.CURR_YEAR.RW&": [
-    1,
-    "=Ref8p219p8"
-  ],
-  "YearGDTYType3b.RW.DW.DO.+.0.0.MAIN_PERIOD.RW.CURR_YEAR.RW&": [
-    1,
-    "=Ref8p219p8"
-  ],
-  "YearGDTYType4a.DO.DR.+.0.CURR_YEAR_LIFE_CYCLE.DEATH&-": [
-    1,
-    "=Ref7_1bp27Cas3"
-  ],
-  "YearGDTYType4a.DO.DR.+.0.CURR_YEAR_LIFE_CYCLE.REPOSE&-": [
-    1,
-    "=Ref7_1bp27Cas3"
-  ],
-  "YearGDTYType4a.DO.DR.+.0.CURR_YEAR_LIFE_CYCLE.TOMB&-": [
-    1,
-    "=Ref7_1bp27Cas3"
-  ],
-  "YearType1.DW.+&": [
-    0,
-    "=Ref8p430p1"
-  ],
-  "YearType1.DW.-&": [
-    0,
-    "=Ref8p430p1"
-  ],
-  "YearType1.DO.+&": [
-    0,
-    "=Ref8p430p2"
-  ],
-  "YearType1.DO.-&": [
-    0,
-    "=Ref8p430p2"
-  ],
-  "YearType1.7K.+&": [
-    0,
-    "=Ref8p430p2"
-  ],
-  "YearType1.7K.-&": [
-    0,
-    "=Ref8p430p2"
-  ],
-  "YearType1.IW.+&": [
-    0,
-    "=Ref8p430p1"
-  ],
-  "YearType1.IW.-&": [
-    0,
-    "=Ref8p430p1"
-  ],
   "Yin.Act": [
     0
   ],
@@ -45934,9 +44810,6 @@
 "Ref34p397p6":[ 1 , "=Lifec.81" ],
 "Ref34p397p7":[ 1 , "=Lifea.1048==Lifea.139" ],
 "Ref34p397p8":[ 1 , "=Careera.49" ],
-
-
-
 "Ref34p406p3": [ -2 , "=Relationa.12==Lifec.107" ]
 
 }

@@ -33,19 +33,6 @@ export class BrancheHelper {
   static AGRESSIVE = new BrancheRelation("A"); // Tri the, Vo An
 
 
-
-  static isBrancheClashed (branche1:Branche, branche2: Branche) {
-   for (let index = 0; index < BrancheRelation.CLASHEDRELATION.length; index++) {
-    const clashRelation = BrancheRelation.CLASHEDRELATION[index];
-    if (  BrancheRelation.isRelationPresent(
-      branche1,
-      branche2,
-      clashRelation
-      )) { return true ;}
-   }
-    return false ;
-  }
-
   static getMonthBranche(monthIndexBase1: number) {
     const monthIndexBase0 = monthIndexBase1-1;
     return Branche.TIGER.getEnumNextNElement(monthIndexBase0) as Branche;
@@ -115,8 +102,6 @@ export class BrancheHelper {
     branche===Branche.SNAKE|| branche===Branche.PIG;
 	}
 
-
-
   static isPigGoat(branche: Branche) {
 		return branche===Branche.PIG || branche===Branche.GOAT ;
 	}
@@ -140,6 +125,7 @@ export class BrancheHelper {
   static isSnakeHorse(branche: Branche) {
 		return branche===Branche.SNAKE || branche===Branche.HORSE ;
 	}
+
   static isDragonDog(branche: Branche) {
 		return branche===Branche.DRAGON || branche===Branche.DOG ;
 	}
@@ -147,12 +133,9 @@ export class BrancheHelper {
 		return branche===Branche.DRAGON || branche===Branche.SNAKE ;
 	}
 
-
-
   static isTigerHorseMonkey(branche: Branche) {
 		return BrancheHelper.isTigerMonkey(branche) ||  branche===Branche.HORSE  ;
 	}
-
 
   static isOxDragonGoatDog(branche: Branche) {
 		return BrancheHelper.isOxGoat(branche) || BrancheHelper.isDragonDog(branche) ;
@@ -257,12 +240,15 @@ export class BrancheHelper {
   static isRatDogCockPig(branche: Branche) {
 		return branche===Branche.RAT || branche===Branche.DOG ||  branche===Branche.COCK ||  branche===Branche.PIG;
 	}
+
   static isRatHorseSnakePig(branche: Branche) {
 		return BrancheHelper.isRatHorse(branche) || BrancheHelper.isSnakePig(branche) ;
 	}
+
   static isRatHorseTigerMonkey(branche: Branche) {
 		return BrancheHelper.isRatHorse(branche) || BrancheHelper.isTigerMonkey(branche) ;
 	}
+
   static isRatHorseRabbitCock(branche: Branche) {
 		return BrancheHelper.isRatHorse(branche) || BrancheHelper.isRabbitCock(branche) ;
 	}
@@ -324,25 +310,18 @@ export class BrancheHelper {
 	}
 
 
-  static getUniqueRelation(brancheRow: Branche, brancheCol: Branche) {
-    if (
-      BrancheRelation.RELATIONARR[brancheRow.ordinal()][
+  static getMainRelation(brancheRow: Branche, brancheCol: Branche) {
+    return BrancheRelation.RELATIONARR[brancheRow.ordinal()][
         brancheCol.ordinal()
-      ].length===1
-    ) {
-      return BrancheRelation.RELATIONARR[brancheRow.ordinal()][
-        brancheCol.ordinal()
-      ][0];
-    }
-    return null;
+    ][0];
   }
 
 
   static isSameCombination( branche1: Branche,  branche2: Branche,  branche3: Branche) {
 		if ( branche1!==branche2 && branche1!==branche3 && branche3!==branche2) {
-			return BrancheHelper.getUniqueRelation(branche1, branche2)===BrancheRelation.COMBINATION &&
-      BrancheHelper.getUniqueRelation(branche1, branche3)===BrancheRelation.COMBINATION &&
-      BrancheHelper.getUniqueRelation(branche2, branche3)=== BrancheRelation.COMBINATION
+			return BrancheHelper.getMainRelation(branche1, branche2)===BrancheRelation.COMBINATION &&
+      BrancheHelper.getMainRelation(branche1, branche3)===BrancheRelation.COMBINATION &&
+      BrancheHelper.getMainRelation(branche2, branche3)=== BrancheRelation.COMBINATION
 				 ;
 		} else {
 			return false ;

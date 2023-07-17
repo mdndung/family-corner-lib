@@ -2953,7 +2953,7 @@ override initPoint() {
 
 
 override adjustDegree(degree: number) {
-  return degree + Math.round((10 - degree) * this.currPeriodComplementForceFactor);;
+  return degree + Math.round((10 - degree) * this.currPeriodComplementForceFactor);
 }
 
 override comment() {
