@@ -50,7 +50,7 @@ export class HalacHoroscope extends HoroscopeContributor {
 
     genYiYingTheme(theme: YiJing, basePeriodIdx: number) {
         // Base addTheme
-        const prefix = 'Halac.' + theme.getHexaOrdinal();
+        const prefix = "Halac." + theme.getHexaOrdinal();
         const yaoPos = theme.getMyYaoPos() + 1;
         const yiJingObs = this.getYiJingAttr(theme, basePeriodIdx);
 

@@ -21,6 +21,7 @@ import { DateHelper } from './dateHelper';
 import { DataWithLog } from '../mt-data/qi/dataWithLog';
 import { CombAttr } from '../mt-data/bazi/combinationList';
 import { SecondaryDeity } from '../mt-data/bazi/secondaryDeity';
+import { SecDeityAttr } from '../mt-data/bazi/SecDeityAttr';
 
 export class BaziHelper {
 
@@ -48,10 +49,10 @@ export class BaziHelper {
   ];
 
 
-static existsecDeity( secondaryDeityPilar: SecondaryDeity[][], deity: SecondaryDeity) {
+static existsecDeity( secondaryDeityPilar: SecDeityAttr[], deity: SecondaryDeity) {
   for (let i = 0; i < LunarBase.PILARS_LEN; i++) {
-    const index=ObjectHelper.findIndex(secondaryDeityPilar[i],deity);
-    if (index>=0) {return true;}
+    const rec=secondaryDeityPilar[i].findRec(deity);
+    if ( rec!==null ) {return true;}
   }
   return false;
 }

@@ -55,6 +55,7 @@ export class ObjectHelper {
     return arr.findIndex((aItem: any)=>aItem===item);
   }
 
+
   static hasItem(arr: any[],item: any) {
     if ( ObjectHelper.isNaN(item) ) {return false;}
     const index=ObjectHelper.findIndex(arr,item);

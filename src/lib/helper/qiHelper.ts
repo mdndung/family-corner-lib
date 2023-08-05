@@ -197,6 +197,7 @@ export class QiHelper {
     ],
   ];
 
+
   static getBirthMonthTrigram(lunar: Lunar) {
     let trigram: Trigram;
     const birthDate = lunar.birthDate;
@@ -1038,7 +1039,7 @@ export class QiHelper {
     let force = 0;
     // Ref3p264
     const periodPilar = bazi.periodPilar[periodNb];
-    const periodElement = periodPilar.nagiaElement;
+    const periodElement = periodPilar.getElement();
     // Ref3p281
     force = pilarsAttr.getPivotElementStatusForce(periodElement);
     currDetail = "Period Deity Pivot Element (" + periodElement + ") Force";
@@ -1057,7 +1058,7 @@ export class QiHelper {
 
 
     // Menh. Ref3p280p3
-    const menhElement = bazi.getyPilar().nagiaElement;
+    const menhElement = bazi.getyPilar().getElement();
     force = periodElement.getRelationLostForce(menhElement);
     currDetail =
       "Period Element " +
@@ -1226,10 +1227,12 @@ export class QiHelper {
 
     return qiTypeData;
   }
+
+
   static addPivotForce(lunar: Lunar) {
     const pilarsAttr = lunar.pilarsAttr;
     const qiTypeData = pilarsAttr.qiTypeData;
-    let forceCount = pilarsAttr.getPivotSupportCount(true);
+    let forceCount = pilarsAttr.getNonPivotElementSupportCount(true);
     let currDetail = "Pivot support count " + forceCount;
     QiHelper.addQiForce(
       qiTypeData,
@@ -1237,7 +1240,7 @@ export class QiHelper {
       forceCount,
       currDetail
     );
-    forceCount = -pilarsAttr.getPivotSupportCount(false);
+    forceCount = -pilarsAttr.getNonPivotElementSupportCount(false);
     currDetail = "Pivot hostile count " + forceCount;
     QiHelper.addQiForce(
       qiTypeData,

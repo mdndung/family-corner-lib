@@ -59,7 +59,7 @@ export class ObservationBase {
       }
       this.points += inc;
       this.maxPoints += 10;
-      console.log("incPoints", inc, this.points,this.maxPoints);
+      //console.log("incPoints", inc, this.points,this.maxPoints);
     }
   }
 
@@ -85,14 +85,14 @@ export class ObservationBase {
   insertRawKeyifExistProp(rawKey: string,postFix:string,updPts: boolean) {
     const propAttr =  PropertyHelper.getPropertyAttr(rawKey+postFix);
     if (!propAttr.isUndef()) {
-      console.log("Insert Raw key "+ rawKey, postFix);
+      //console.log("Insert Raw key "+ rawKey, postFix);
       this.rawPropCache.push(rawKey);
-      // updPts=false; // No Update?. Point are update in previous QI evaluation
+      //updPts=false; // No Update?. Point are update in previous QI evaluation
       if ( updPts ) {
           let force = propAttr.force;
             let points  = this.force2Point(force)
             points = this.adjustDegree(points);
-            console.log("force ", force, " points "+ points);
+            //console.log("force ", force, " points "+ points);
             this.incPoints(points);
       }
       return true ;

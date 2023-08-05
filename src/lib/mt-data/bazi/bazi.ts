@@ -80,7 +80,7 @@ export class Bazi extends Lunar {
   }
 
   getPeriodNagiaElement(periodNb: number) {
-    return this.getPeriodPilar(periodNb).nagiaElement;
+    return this.getPeriodPilar(periodNb).getElement();
   }
 
   getPeriodLifeCycle(periodNb: number) {

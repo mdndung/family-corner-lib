@@ -11,10 +11,16 @@ import { LunarBase } from "./lunarBase";
 import { SecondaryDeity } from "./secondaryDeity";
 import { Element } from "../feng-shui/element";
 import { BaziStructureHelper } from "../../helper/bazi-structureHelper";
-import { CombAttr } from "./combinationList";
+import { CombAttr, CombinationList } from "./combinationList";
 import { DataWithLog } from "../qi/dataWithLog";
 import { BaziStructure } from "./bazi-structure";
 import { Lunar } from "./lunar";
+import { PropertyHelper } from "../../helper/PropertyHelper";
+import { BrancheHelper } from "../../helper/brancheHelper";
+import { DeityHelper } from "../../helper/deityHelper";
+import { EnumBaseClass } from "../enumBaseClass";
+import { Branche } from "./branche";
+import { Trunk } from "./trunk";
 
 export class BaziObservationBase extends ObservationBase {
   // See to update it for each period
@@ -49,22 +55,28 @@ export class BaziObservationBase extends ObservationBase {
     }
   }
 
-
   protected getLimitCount(count: number, limit: number) {
     if (count > 2) count = limit;
     return count;
   }
 
-  protected getPilar (pilarName: string) {
-    if ( pilarName==="Destin" ) return  this.lunar.menhPilar;
+  protected getPilar(pilarName: string) {
+    if (pilarName === "Destin") return this.lunar.menhPilar;
     const pilarIdx = LunarBase.getPilarIdx(pilarName);
     return this.lunar.pilars[pilarIdx];
   }
 
-  protected getPilarDeity (pilarName: string) {
-    return this.getPilar(pilarName).deity
+  protected getPilarSecDeity(pilarName: string) {
+    return this.getPilar(pilarName).getSecDeityAttr();
   }
 
+  protected getPilarSecDeitiesRec(pilarName: string) {
+    return this.getPilar(pilarName).getSecDeityAttr().secDeityRecArr;
+  }
+
+  protected getPilarDeity(pilarName: string) {
+    return this.getPilar(pilarName).deity;
+  }
 
   protected getStructAttr(structureEneR: ElementNEnergyRelation) {
     const pilarsAttr = this.lunar.pilarsAttr;
@@ -151,8 +163,6 @@ export class BaziObservationBase extends ObservationBase {
     };
   }
 
-
-
   protected evalCurrAttr(currLunarYear?: Bazi) {
     if (typeof currLunarYear === "undefined") currLunarYear = this.lunar;
     const pilarsAttr = this.lunar.pilarsAttr;
@@ -193,10 +203,9 @@ export class BaziObservationBase extends ObservationBase {
       dwiwForce,
       hoegForce,
       yLifeCycle,
-      dLifeCycle
+      dLifeCycle,
     };
   }
-
 
   private evalInitialPoints() {
     this.baseQiTypeData = [];
@@ -211,1634 +220,42 @@ export class BaziObservationBase extends ObservationBase {
     }
   }
 
-
-  //Ref8p61-
-  //Ref3p136-
-  //"SecDeType1a secDeyty. forceFavorale (.noQuy)
-  //SP.KTH.Ref7_2ap21a
-  //TypeTr1.Y.Quy
-  private commentOnSecDeity() {
+  private isBalancedElement() {
     const pilarsAttr = this.lunar.pilarsAttr;
-    const len = pilarsAttr.secDeityForceArr.length;
-    for (let index = 0; index < len; index++) {
-      const force = pilarsAttr.secDeityForceArr[index];
-      const forceFavorable = force > 3;
-      const secDeity1 = SecondaryDeity.AMDUONGLECH.getEnum(
-        index
-      ) as SecondaryDeity;
-      if (force > 0) {
-        const temp = "." + StringHelper.bool2Str(forceFavorable);
-        this.addUpdatePtsBaseComment(
-          "SecDeType1a." + secDeity1.getName() + temp + this.noQuyNhanSuffix
-        );
-        if (secDeity1 === SecondaryDeity.KIMTHAN) {
-          if (pilarsAttr.getElementForce(Element.FIRE) > 0) {
-            this.addUpdatePtsBaseComment(
-              "SP.KTH.Ref7_2ap21a" + this.noQuyNhanSuffix
-            );
-          } else {
-            if (
-              pilarsAttr.isFavorableElement(Element.WATER) ||
-              pilarsAttr.isFavorableElement(Element.METAL)
-            ) {
-              this.addUpdatePtsBaseComment(
-                "SP.KTH.Ref7_2ap21b" + this.noQuyNhanSuffix
-              );
-            }
-          }
-        }
-      }
-    }
-    // Quy Nhan on year pilar
-    for (let index = 0; index < SecondaryDeity.quyNhanArr.length; index++) {
-      if (
-        pilarsAttr.hasSecDeity(
-          LunarBase.YINDEX,
-          SecondaryDeity.quyNhanArr[index]
-        )
-      ) {
-        this.addUpdatePtsBaseComment("TypeTr1.Y.Quy");
-        break;
-      }
-    }
-  }
-
-  private commentOnElementNEnergyRelation() {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const eNeR =ElementNEnergyRelation.getValues() ;
-    const len = eNeR.length;
-    const dIndex = LunarBase.DINDEX;
-    const DOT = ".";
-    for (let index1 = 0; index1 < len; index1 = index1 + 2) {
-      let count = pilarsAttr.getPairedRelationCount(eNeR[index1], dIndex);
-      const secDeity1 = ElementNEnergyRelation.DR.getEnum(
-        index1
-      ) as ElementNEnergyRelation;
-      let temp = "." + StringHelper.number2Str(count); // 0 or + Never -
-      for (let index2 = index1 + 1; index2 < len; index2++) {
-        const secDeity2 = ElementNEnergyRelation.DR.getEnum(
-          index2
-        ) as SecondaryDeity;
-        count = pilarsAttr.secDeityForceArr[index2]; // 0 or + Never -
-        const temp2 =
-          secDeity1.getName() +
-          temp +
-          "." +
-          secDeity2.getName() +
-          DOT +
-          StringHelper.number2Str(count);
-        // EnERType1.EE.{0,-,+}.EC.{0,-,+}&
-        this.addUpdatePtsBaseComment("EnERType1." + temp2);
-        for (let index3 = index2 + 1; index3 < len; index3++) {
-          count = pilarsAttr.secDeityForceArr[index3];
-          const secDeity3 = ElementNEnergyRelation.DR.getEnum(
-            index3
-          ) as SecondaryDeity;
-          this.addUpdatePtsBaseComment(
-            "EnERType1." +
-              temp2 +
-              DOT +
-              secDeity3.getName() +
-              DOT +
-              StringHelper.number2Str(count, BaziStructureHelper.FAVTHRESHHOLD)
-          );
-        }
-      }
-    }
-  }
-
-  private commentOnVoid() {
-    let count = 0;
-    const pilarsAttr = this.lunar.pilarsAttr;
-    let pilars = "";
-    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
-      if (pilarsAttr.hasSecDeity(pilarIdx, SecondaryDeity.VOID)) {
-        const lab = LunarBase.getPilarShortLabel(pilarIdx);
-        this.addUpdatePtsBaseComment("Vd." + lab);
-        pilars += lab;
-        count++;
-        if (this.hasQuyNhan) {
-          const secDeities =
-            this.lunar.pilarsAttr.secondaryDeityPilars[pilarIdx];
-          for (let index = 0; index < secDeities.length; index++) {
-            const secDeity = secDeities[index];
-            this.addUpdatePtsBaseComment(
-              "DtyHidden2." + secDeity.getName() + ".Vd.Quy"
-            );
-          }
-        }
-      }
-    }
-    if (count > 0) this.addUpdatePtsBaseComment("Vd." + pilars);
-  }
-
-  private commentOnTrunkTransform() {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const combList = pilarsAttr.combList;
-    const DOT = ".";
-    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
-      const compAttrList = combList.getCombTypeAttrList(
-        CombAttr.TRUNKCOMB5WITHTRANSFORMTYPE,
-        pilarIdx
-      );
-      for (let index = 0; index < compAttrList.length; index++) {
-        const transfElement = compAttrList[index].resultData;
-        const trunkArr = compAttrList[index].trunkAttrs;
-        let otherPilar = trunkArr[0];
-        if (otherPilar === pilarIdx) otherPilar = trunkArr[1];
-        const eer = pilarsAttr.trunkRelation[pilarIdx][otherPilar];
-        const baseGroupName = eer.getBaseGroup().getName();
-        // NGHType1a.eeR.TrfElement&
-        this.addUpdatePtsBaseComment(
-          "NGHType1c." + baseGroupName + DOT + transfElement
-        );
-        // NGHType1b.{H,M,D,Y}.eeR.Element.{H,M,D,Y}&
-        this.addUpdatePtsBaseComment(
-          "NGHType1d." +
-            LunarBase.getPilarShortLabel(pilarIdx) +
-            DOT +
-            baseGroupName +
-            DOT +
-            transfElement +
-            DOT +
-            LunarBase.getPilarShortLabel(otherPilar)
-        );
-        if (transfElement === Element.EARTH) {
-          if (pilarsAttr.isWeakedElement(Element.EARTH)) {
-            if (
-              pilarsAttr.getRelationCount(
-                ElementNEnergyRelation.K7,
-                LunarBase.DINDEX
-              ) > 0
-            ) {
-              this.addUpdatePtsBaseComment(
-                "NGHType2a." +
-                  baseGroupName +
-                  DOT +
-                  transfElement +
-                  ".-." +
-                  ElementNEnergyRelation.K7.getName()
-              );
-            }
-            const lifeCycle = ElementLifeCycle.getElementLifeCycle(
-              this.lunar.pilars[pilarIdx].trunk,
-              this.lunar.pilars[LunarBase.DINDEX].branche
-            );
-            // NGHType2b.eeR.Element.{+,-}.LifeCycle&
-            this.addUpdatePtsBaseComment(
-              "NGHType2b." +
-                baseGroupName +
-                DOT +
-                transfElement +
-                ".-." +
-                lifeCycle.getName()
-            );
-          }
-        }
-      }
-    }
-  }
-
-  // Ref8 page 38-39
-  // Type TAH.FIRE&
-  private commentSeasonCombinaison() {
-    const DOT = ".";
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const combList = pilarsAttr.combList;
-    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
-      const compAttrList = combList.getCombTypeAttrList(
-        CombAttr.BRANCHESEASONCOMBTRANSFORMABLETYPE,
-        pilarIdx
-      );
-      const key = QiType.SEASONCOMBINAISON.getName();
-      for (let index = 0; index < compAttrList.length; index++) {
-        const transfElement = compAttrList[index].resultData;
-        this.addUpdatePtsBaseComment(key + DOT + transfElement);
-      }
-    }
-  }
-
-  // BRType1.BrancheRelation.eeR&
-  // BRType2.BrancheRelation.{H,M,D,Y}.{H,M,D,Y}
-  // BRType5a.-.{H,M,D,Y}&
-  // BRType5b.-.{H,M,D,Y}.{H,M,D,Y}.&
-  private commentCombType(relationType: number, relationTypeKey: string) {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const combList = pilarsAttr.combList;
-    const DOT = ".";
-    const pilars = this.lunar.pilars;
-    if (combList.existRelationType(relationType)) {
-      for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
-        const compAttrList = combList.getCombTypeAttrList(
-          relationType,
-          pilarIdx
-        );
-        const fromPilar = LunarBase.getPilarShortLabel(pilarIdx);
-        for (let index = 0; index < compAttrList.length; index++) {
-          const bArr = compAttrList[index].branchAttrs;
-          let otherPilar = bArr[0];
-          let key = "";
-          if (otherPilar === pilarIdx) otherPilar = bArr[1];
-          if (pilarIdx < otherPilar) {
-            const toPilar = LunarBase.getPilarShortLabel(otherPilar);
-            const pilarsFromTo = fromPilar + DOT + toPilar;
-            let relation = pilarsAttr.getPilarDeity(pilarIdx);
-            const trElement = compAttrList[index].resultData;
-            if (trElement !== null) {
-              key =
-                "BRType1" + DOT + relationTypeKey + DOT + trElement.getName();
-              this.addUpdatePtsBaseComment(key);
-            }
-            key = "BRType1" + DOT + relationTypeKey;
-            this.addUpdatePtsBaseComment(key);
-
-            const lifeCycle = ElementLifeCycle.getElementLifeCycle(
-              pilars[pilarIdx].trunk,
-              pilars[LunarBase.DINDEX].branche
-            );
-            key = "BRType1" + DOT + relationTypeKey + DOT + lifeCycle.getName();
-            this.addUpdatePtsBaseComment(key);
-
-            key = "BRType1" + DOT + relationTypeKey + DOT + relation.getName();
-            this.addUpdatePtsBaseComment(key);
-
-            key = "BRType2" + DOT + relationTypeKey + DOT + pilarsFromTo;
-            this.addUpdatePtsBaseComment(key);
-            if (relation.isProductive()) {
-              key = "BRType5a.-." + toPilar;
-              this.addUpdatePtsBaseComment(key);
-              key = "BRType5b.-." + pilarsFromTo;
-              this.addUpdatePtsBaseComment(key);
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // DtyType1a.EE.DeityCountThresHold{0,-,+}&
-  // DtyType1a.DayForce.EE.{0,-,+}&
-  // DtyHidden.EE.DeityCountThresHold{0,-,+}&
-  // DtyGType1a.DayForce.EE.DeityCountThresHold{0,-,+}&
-  // DtyGType1a.DayForce.EE.{0,-,+}&
-  private commentOnOneDeityCount() {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const len = pilarsAttr.deityAttr.count.length;
-    const DOT = ".";
-    let suffix = "";
-    for (let index = 0; index < len; index++) {
-      const count = pilarsAttr.deityAttr.count[index];
-      suffix =
-        DOT +
-        StringHelper.number2Str(count, BaziStructureHelper.FAVTHRESHHOLD - 1);
-
-      const eNER = ElementNEnergyRelation.DR.getEnum(
-        index
-      ) as ElementNEnergyRelation;
-      const key = eNER.getName();
-      // DtyType1a.EE.{0,-,+}&
-      let temp = "DtyType1a." + key + suffix;
-      this.addUpdatePtsBaseComment(temp);
-      const eNERBase = eNER.getBaseGroup();
-      // DtyType1a.DayForce.EE.{0,-,+}&
-      temp = "DtyType1a." + this.baseAttr.dayForce + DOT + key + suffix;
-      this.addUpdatePtsBaseComment(temp);
-      // DtyGType1a.DayForce.EE.{0,-,+}&
-      temp =
-        "DtyGType1a." +
-        this.baseAttr.dayForce +
-        DOT +
-        eNERBase.getName() +
-        suffix;
-      this.addUpdatePtsBaseComment(temp);
-      // DtyGType1a.EE.{0,-,+}&
-      temp = "DtyGType1a." + eNERBase.getName() + suffix;
-      this.addUpdatePtsBaseComment(temp);
-
-      if (count === 0) {
-        const hiddenCount = pilarsAttr.deityAttr.hiddenCount[index];
-        if (hiddenCount > 0) {
-          // DtyHidden.EE.{0,-,+}&
-          suffix =
-            DOT +
-            StringHelper.number2Str(
-              count,
-              BaziStructureHelper.FAVTHRESHHOLD - 1
-            );
-          const temp = key + suffix;
-          this.addUpdatePtsBaseComment("DtyHidden1." + temp);
-        }
-      }
-    }
-  }
-
-  // DtyType2a.EE.EC&
-  // DtyType2b.EE.EC.{0,-,+}.{0,-,+}&
-  // DtyGType2a.EEGroup.ECGroup.{+}.{0,-,+}&
-  // DtyGType2a.EE.ECGroup.{+}.{0,-,+}&
-  private commentOnTwoDeitiesCount(count1: number, count2: number) {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const len = pilarsAttr.deityAttr.count.length;
-    const DOT = ".";
-    let suffix = ".+.";
-    if (count2 === count1) {
-      suffix += "+.";
-    } else {
-      if (count2 > 0) {
-        suffix += "-";
-      } else {
-        suffix += "0";
-      }
-    }
-    for (let index1 = 0; index1 < len; index1++) {
-      if (count1 === pilarsAttr.deityAttr.count[index1]) {
-        for (let index2 = 0; index2 < len; index2++) {
-          if (
-            index1 != index2 &&
-            pilarsAttr.deityAttr.count[index2] === count2
-          ) {
-            const eNER1 = ElementNEnergyRelation.DR.getEnum(
-              index1
-            ) as ElementNEnergyRelation;
-            const eNER2 = ElementNEnergyRelation.DR.getEnum(
-              index2
-            ) as ElementNEnergyRelation;
-            const temp = eNER1.getName() + DOT + eNER2.getName();
-            // DtyType2a.EE.EC&
-            if (count2 > 0) {
-              this.addUpdatePtsBaseComment("DtyType2a." + temp);
-            }
-            // DtyType2b.EE.EC.{0,-,+}.{0,-,+}&
-            this.addUpdatePtsBaseComment("DtyType2b." + temp + suffix);
-            const eNER1Base = eNER1.getBaseGroup() as ElementNEnergyRelation;
-            const eNER2Base = eNER2.getBaseGroup() as ElementNEnergyRelation;
-            const gCount1 = pilarsAttr.getPairedRelationCount(
-              eNER1Base,
-              LunarBase.DINDEX
-            );
-            const gCount2 = pilarsAttr.getPairedRelationCount(
-              eNER2Base,
-              LunarBase.DINDEX
-            );
-            let gSuffix = ".+."; // Assume that eNER1 is the strongest count
-            if (gCount2 > gCount1) {
-              gSuffix += "+";
-            } else {
-              if (gCount2 > 0) {
-                gSuffix += "-";
-              } else {
-                gSuffix += "0";
-              }
-            }
-            // DtyGType2a.EEGroup.ECGroup.{+}.{0,-,+}&
-            this.addUpdatePtsBaseComment(
-              "DtyGType2a." +
-                eNER1Base.getName() +
-                DOT +
-                eNER2Base.getName() +
-                DOT +
-                gSuffix
-            );
-            // DtyGType2a.EE.ECGroup.{+}.{0,-,+}&
-            this.addUpdatePtsBaseComment(
-              "DtyGType2a." +
-                eNER1.getName() +
-                DOT +
-                eNER2Base.getName() +
-                DOT +
-                gSuffix
-            );
-          }
-        }
-      }
-    }
-  }
-
-  // DtyType3a.EE.EC.EY.{0,-,+}.{0,-,+}.{0,-,+}&
-  /// DtyGType3a.EE.EC.EY.{0,-,+}.{0,-,+}.{0,-,+}&
-  // DtyGType4a.DayForce.EE.PivorStatus.EX.EY& EX>EY
-  private commentOnThreeDeitiesCount(
-    count1: number,
-    count2: number,
-    count3: number
-  ) {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const len = pilarsAttr.deityAttr.count.length;
-    const DOT = ".";
-    const sameOrder = count2 === count3;
-    let suffix = ".+.";
-    if (count2 > 0) {
-      suffix += "-.";
-    } else {
-      suffix += "0.";
-    }
-    if (count3 > 0) {
-      suffix += "-.";
-    } else {
-      suffix += "0.";
-    }
-    for (let index1 = 0; index1 < len; index1++) {
-      if (count1 === pilarsAttr.deityAttr.count[index1]) {
-        const eNER1 = ElementNEnergyRelation.DR.getEnum(
-          index1
-        ) as ElementNEnergyRelation;
-        for (let index2 = 0; index2 < len; index2++) {
-          for (let index3 = 0; index3 < len; index3++) {
-            if (
-              index1 != index2 &&
-              index3 != index2 &&
-              pilarsAttr.deityAttr.count[index3] === count3
-            ) {
-              const eNER2 = ElementNEnergyRelation.DR.getEnum(
-                index2
-              ) as ElementNEnergyRelation;
-              const eNER3 = ElementNEnergyRelation.DR.getEnum(
-                index3
-              ) as ElementNEnergyRelation;
-              let temp = eNER1.getName() + DOT;
-              if (sameOrder && index3 > index2) {
-                temp += eNER3.getName() + DOT + eNER2.getName();
-              } else {
-                temp += eNER2.getName() + DOT + eNER3.getName();
-              }
-              // DtyType3a.EE.EC.EY.{0,-,+}.{0,-,+}.{0,-,+}&
-              this.addUpdatePtsBaseComment("DtyType3a." + temp + suffix);
-              const eNER1Base = eNER1.getBaseGroup() as ElementNEnergyRelation;
-              const eNER1BaseKey = eNER1Base.getName();
-              const eNER2Base = eNER2.getBaseGroup() as ElementNEnergyRelation;
-              const eNER2BaseKey = eNER2Base.getName();
-              const eNER3Base = eNER3.getBaseGroup() as ElementNEnergyRelation;
-              const eNER3BaseKey = eNER3Base.getName();
-              /// DtyGType3a.EE.EC.EY.{0,-,+}.{0,-getBase,+}.{0,-,+}&
-              this.addUpdatePtsBaseComment(
-                "DtyGType2a." +
-                  eNER1BaseKey +
-                  DOT +
-                  eNER2BaseKey +
-                  DOT +
-                  eNER3BaseKey +
-                  DOT +
-                  suffix
-              );
-              const pilarsAttr = this.lunar.pilarsAttr;
-              const dayForce = this.baseAttr.dayForce;
-              const eNeRElement = pilarsAttr.getDeityElement(eNER1Base);
-              const pivotStatus = pilarsAttr.getPivotStatusStr(eNeRElement);
-              // DtyGType4a.DayForce.EE.PivorStatus.EX.EY& EX>EY
-              // Suffix is not necessary assuming count EE>=EX>=EY
-
-              this.addUpdatePtsBaseComment(
-                "DtyGType4a." +
-                  dayForce +
-                  DOT +
-                  eNER1BaseKey +
-                  DOT +
-                  pivotStatus +
-                  DOT +
-                  eNER2BaseKey +
-                  DOT +
-                  eNER3BaseKey
-              );
-            }
-          }
-        }
-      }
-    }
-  }
-
-  //DayForce1a.DayForce.DRIRCountForce.HOEGCountForce.DO7KCountForce+
-  //DayForce1b.DayForce.RWFCountForce.DRIRCountForce.HOEGCountForce.DO7KCountForce+
-  //DayForce1c.DayForce
-  //DayForce1c.DayForce.KHD
-  private commentOnDayForceCombination() {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const dayForce = this.baseAttr.dayForce;
-    const DOT = ".";
-    const dIndex = LunarBase.DINDEX;
-    const favThresHold = BaziStructureHelper.FAVTHRESHHOLD;
-    const RWBaseGroup = ElementNEnergyRelation.RW;
-    const RWGroupCount = pilarsAttr.getPairedRelationCount(RWBaseGroup, dIndex);
-    const DRIRProductorBaseGroup = ElementNEnergyRelation.DR;
-    const DRIRProductorBaseGroupCount = pilarsAttr.getPairedRelationCount(
-      DRIRProductorBaseGroup,
-      dIndex
-    );
-    const DOControlBaseGroup = ElementNEnergyRelation.DO;
-    const DO7KControlBaseGroupCount = pilarsAttr.getPairedRelationCount(
-      DOControlBaseGroup,
-      dIndex
-    );
-    const HOEGProductBaseGroup = ElementNEnergyRelation.HO;
-    const HOEGProductBaseGroupCount = pilarsAttr.getPairedRelationCount(
-      HOEGProductBaseGroup,
-      dIndex
-    );
-    const DO7KControlBaseGroupSuffix = StringHelper.number2Str(
-      DO7KControlBaseGroupCount,
-      favThresHold
-    );
-    const DRIRProductorBaseGroupCountSuffix = StringHelper.number2Str(
-      DRIRProductorBaseGroupCount,
-      favThresHold
-    );
-    const RWFElementInBaseGroupCountSuffix = StringHelper.number2Str(
-      RWGroupCount,
-      favThresHold
-    );
-    const HOEGProductBaseGroupCountSuffix = StringHelper.number2Str(
-      HOEGProductBaseGroupCount,
-      favThresHold
-    );
-    //DayForce1a.DayForce.DRIRCountForce.HOEGCountForce.DO7KCountForce+
-    this.addUpdatePtsBaseComment(
-      "DayForce1a." +
-        dayForce +
-        DOT +
-        DRIRProductorBaseGroupCountSuffix +
-        DOT +
-        HOEGProductBaseGroupCountSuffix +
-        DOT +
-        DO7KControlBaseGroupSuffix
-    );
-    //DayForce1b.DayForce.RWFCountForce.DRIRCountForce.HOEGCountForce.DO7KCountForce+
-    this.addUpdatePtsBaseComment(
-      "DayForce1b." +
-        dayForce +
-        DOT +
-        RWFElementInBaseGroupCountSuffix +
-        DOT +
-        DRIRProductorBaseGroupCountSuffix +
-        DOT +
-        HOEGProductBaseGroupCountSuffix +
-        DOT +
-        DO7KControlBaseGroupSuffix
-    );
-    if (
-      BaziHelper.existsecDeity(
-        pilarsAttr.secondaryDeityPilars,
-        SecondaryDeity.KINHDUONG
-      )
-    ) {
-      //DayForce1c.DayForce.+KHD
-      this.addUpdatePtsBaseComment(
-        "DayForce1c." + dayForce + DOT + SecondaryDeity.KINHDUONG.getName()
-      );
-    } else {
-      //DayForce1c.DayForce
-      this.addUpdatePtsBaseComment("DayForce1c." + dayForce);
-    }
-  }
-
-  //Type12a.EX.{Y,M,D,H}.{-,+}.EE.0.DR.+
-  private commentOnPilarCombination(
-    checkeNeR: ElementNEnergyRelation,
-    checkPilarIdx: number,
-    dayForceSuffix: string
-  ) {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const trunkRelation = pilarsAttr.trunkRelation;
-    const dIndex = LunarBase.DINDEX;
-    let isInOneTrunk = true;
-    for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
-      if (pilarIdx !== checkPilarIdx) {
-        if (trunkRelation[pilarIdx][dIndex] === checkeNeR) {
-          isInOneTrunk = false;
-          break;
-        }
-      }
-    }
-    //
-    const DOT = ".";
-    const checkeNeRKey = checkeNeR.getName();
-    const checkPilarKey = LunarBase.getPilarShortLabel(checkPilarIdx);
-    let otherBaseCheckENER = checkeNeR.getOtherElementInSameBaseGroup();
-
-    const sameElementInBaseGroupCount = pilarsAttr.getRelationCount(
-      otherBaseCheckENER,
-      dIndex
-    );
-    const supportDRCount = pilarsAttr.getPairedRelationCount(
-      ElementNEnergyRelation.DR,
-      dIndex
-    );
-    if (sameElementInBaseGroupCount === 0) {
-      // absence of other element in the same base group
-      if (
-        supportDRCount > 0 // Presence of Master day support eneR
-      ) {
-        if (isInOneTrunk) {
-          //Type12a.EX.{Y,M,D,H}.{-,+}.EE.0.DR.+
-          this.addUpdatePtsBaseComment(
-            "Type12a." +
-              checkeNeRKey +
-              DOT +
-              checkPilarKey +
-              DOT +
-              dayForceSuffix +
-              DOT +
-              otherBaseCheckENER.getName() +
-              ".0.DR.+"
-          );
-        }
-      }
-    } else {
-      if (
-        supportDRCount === 0 // Absence of Master day support eneR
-      ) {
-        if (isInOneTrunk) {
-          //Type12a.EX.{Y,M,D,H}.{-,+}.EE.0.DR.+
-          this.addUpdatePtsBaseComment(
-            "Type12a." +
-              checkeNeRKey +
-              DOT +
-              checkPilarKey +
-              DOT +
-              dayForceSuffix +
-              DOT +
-              otherBaseCheckENER.getName() +
-              ".+.DR.0"
-          );
-        } else {
-        }
-      }
-    }
-  }
-
-  // Pilar.D.ElementLifeCycle
-  // Pilar.D.SecDeity
-  private commentOnPilar() {
-    const dIndex = LunarBase.DINDEX;
-    const currAttr = this.baseAttr;
-    const pilarsAttr = this.lunar.pilarsAttr;
-    //
-    const DOT = ".";
-    let temp = "";
-    if (currAttr.dLifeCycle !== null) {
-      temp = "Pilar.D." + currAttr.dLifeCycle.getName();
-      this.addUpdatePtsBaseComment(temp);
-    }
-    const secDeities = this.lunar.pilarsAttr.secondaryDeityPilars[dIndex];
-    for (let index = 0; index < secDeities.length; index++) {
-      const secDeity = secDeities[index];
-      temp = "Pilar.D." + secDeity.getName();
-      this.addUpdatePtsBaseComment(temp);
-    }
-  }
-
-  private commentOnDeitiesCount() {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const len = pilarsAttr.deityAttr.count.length;
-    const sortedDeityCount = ObjectHelper.cloneArray(
-      pilarsAttr.deityAttr.count
-    );
-    ObjectHelper.sortNumber(sortedDeityCount, true);
-
-    this.commentOnOneDeityCount();
-
-    for (let index = 0; index < len; index++) {
-      this.commentOnTwoDeitiesCount(
-        sortedDeityCount[len - 1],
-        sortedDeityCount[len - 2 - index]
-      );
-    }
-
-    for (let index = 0; index < len; index++) {
-      this.commentOnThreeDeitiesCount(
-        sortedDeityCount[len - 1],
-        sortedDeityCount[len - 2 - index],
-        sortedDeityCount[len - 3] - index
-      );
-    }
-  }
-
-  // TypeUnique.T.EE.Y.Unique&
-  // TypeUnique.B.EE.Y.Unique&
-  // Type1a.EE.1&
-  // Type1b.EE.(PivotStatus)1.EX(noQuy)&
-  // Type1b.EE.(PivotStatus)1.EX.{0,-,+}&
-  // Type1c.EE.DEITYFORCE{+,-}.EX.{0,-,+}&
-  // Type1d.EE.EX(.N0Quy)&
-  // Type1g.{T.B}.EE.DAyforce.IsPivot&
-  // Type1h.EE.Element.DayPilarElement
-  // Type1i.EE.DayForce.EX
-  // Type2a.EE.Y&
-  // Type2b.{T.B}.EE.{H,M,D,Y}&
-  // Type2b.{T.B}.EE.{H,M,D,Y}.Element&
-  // Type2b.{T.B}.EE.{H,M,D,Y}.Element.ExistSupportElement&
-  // Type2c.{T.B}.EE.Y.PivotStatus&
-  // Type2c.{T.B}.EE.PilarKey.EX&
-  // Type2d.{T.B}.EE.{H,M,D,Y}.{0..3}.EX.{0,-,+}&
-  // Type10a1.EE.{H,M,D,Y}.{0..3}&{-,+}.{-,+}
-  // Type10a2.{T.B}.EE.{H,M,D,Y}.{0..3}&
-  // Type10b.D.D.EX.{0,+}&
-  // Type10b.{T.B}.EE.D.{0..3}.EX.{0,+}&
-  // Type10b.{T.B}.EE.D.{0..3}.EX.{0,+}&
-  // Type11a.TB.EE.{H,M,D,Y}.{+,-}& + ou - ==å
-  // Type11b.EE.{H,M,D,Y}.{+,-}.{0..3}& + ou - == pilar force positive or not
-  // TypeTB.EE.EX&
-  // TypeTB1.EEBaseGroup.EXBaseGroup&
-  // Type3a.TB.EE.{Vd,NVd}
-  // Type3b.EE.{Vd,NVd}.NoQuy
-  //Type3c.EE.{H,M,D,Y}.{Vd,NVd}.NoQuy
-  // Type4.TB.EE.{H,M,D,Y}.{NVd,Vd}&{-,+}.{-,+}
-  // Type5a.TB.EE.{TKH, TKI, ... }&{-,+}.{-,+}
-  // Type5b.TB.EE.SecDeity{TKH, TKI, ... }.{Vd, NVd}&{-,+}.{-,+}
-  // Type5c.{T.B}.EE.SecDeity{TKH, TKI, ... }&{-,+}.{-,+}
-  // Type5d.TB.EE.{0..3}.SecDeity{TKH, TKI, ... }&{-,+}.{-,+}
-  // Type5d.TB.EE.{0..3}.SecDeity{TKH, TKI, ... }&{-,+}.{-,+}
-  //Type5e.EE.{H,M,D,Y}.SecDeity{TKH, TKI, ... }&{-,+}.{-,+}
-  // Type7a.EE.{H,M,D,Y}.{0..3}.SecDeity{TKH, TKI, ... }&{-,+}.{-,+}
-  // Type7b.{T.B}.EE.{H,M,D,Y}.{0..3}.SecDeity{TKH, TKI, ... }&{-,+}.{-,+}
-  // Type8a.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
-  // Type8b.{T.B}.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
-  // Type8c.EE.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
-  // Type9a.TB.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }.{Void, NoVoid}&{-,+}.{-,+}
-  // Type9a.{T.B}.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }.{Void, NoVoid}&{-,+}.{-,+}
-  // Type9b.{T.B}.{EE.{H,M,D,Y}.{0..3}.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
-  private commentOnSAMEPilarDeity(
-    pilarIdx: number,
-    eNeR: ElementNEnergyRelation,
-    otherENER: ElementNEnergyRelation,
-    fromTrunk: boolean
-  ) {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const dIndex = LunarBase.DINDEX;
-    let pilarType;
-    let isUnique = false;
-    const DOT = ".";
-    const eNeRElement = pilarsAttr.getDeityElement(eNeR);
-    const dayElement = pilarsAttr.getDayElement();
-    const pivotStatus = pilarsAttr.getPivotStatus(eNeRElement);
-    const eNeRKey = eNeR.getName();
-    const pilarKey = LunarBase.getPilarShortLabel(pilarIdx);
-    const dayForce = this.baseAttr.dayForce;
-    const eneBase = eNeR.getBaseGroup();
-    const eneBaseKey = eneBase.getName();
-    if (fromTrunk) {
-      pilarType = "T";
-      isUnique = pilarsAttr.getTrunkRelationCount(eNeR, dIndex) === 1;
-    } else {
-      pilarType = "B";
-      isUnique = pilarsAttr.getHiddenRelationCount(eNeR) === 1;
-    }
-    if (isUnique) {
-      // TypeUnique.T.EE.Y.Unique&
-      // TypeUnique.B.EE.Y.Unique&
-      this.addUpdatePtsBaseComment(
-        "TypeUnique." + pilarType + DOT + eNeRKey + DOT + pilarKey
-      );
-    }
-
-    // Type1a.TB.EE.pivotStatus&
-    this.addUpdatePtsBaseComment(
-      "Type1a." + pilarType + DOT + eNeRKey + DOT + pivotStatus
-    );
-    // Type2a.{T.B}.EE.Y&
-    this.addUpdatePtsBaseComment(
-      "Type2a." + pilarType + DOT + eNeRKey + DOT + pilarKey
-    );
-    // Type2a.EE.Y&
-    this.addUpdatePtsBaseComment("Type2a." + eNeRKey + DOT + pilarKey);
-    // Type2b.{T.B}.EE.{H,M,D,Y}&
-    this.addUpdatePtsBaseComment(
-      "Type2b." + pilarType + DOT + eNeRKey + DOT + pilarKey
-    );
-
-    // Type2b.{T.B}.EE.{H,M,D,Y}.Element&
-    this.addUpdatePtsBaseComment(
-      "Type2b." + pilarType + DOT + eNeRKey + DOT + pilarKey + DOT + eNeRElement
-    );
-    const supportElement = eNeRElement.getNextProductiveElement();
-    if (pilarsAttr.getElementForce(supportElement) > 0) {
-      // Type2b.{T.B}.EE.{H,M,D,Y}.Element.ExistSupportElement&
-      this.addUpdatePtsBaseComment(
-        "Type2b." +
-          pilarType +
-          DOT +
-          eNeRKey +
-          DOT +
-          pilarKey +
-          DOT +
-          eNeRElement +
-          DOT +
-          supportElement
-      );
-    }
-    // Type10a1.TB.EE.{H,M,D,Y}.{pivotStatus}
-    this.addUpdatePtsBaseComment(
-      "Type10a1." +
-        pilarType +
-        DOT +
-        eNeRKey +
-        DOT +
-        pilarKey +
-        DOT +
-        pivotStatus
-    );
-    // Type10a2.{T.B}.EE.{H,M,D,Y}.{0..3}& EE on Trunk or Branche
-    this.addUpdatePtsBaseComment(
-      "Type10a2." +
-        pilarType +
-        DOT +
-        eNeRKey +
-        DOT +
-        pilarKey +
-        DOT +
-        pivotStatus
-    );
-    // Type11a.TB.EE.{H,M,D,Y}.{+,-}& + ou - ==
-    const deityForce = StringHelper.number2Str(
-      pilarsAttr.deityAttr.force[eNeR.ordinal()],
-      BaziStructureHelper.FAVTHRESHHOLD
-    );
-
-    this.addUpdatePtsBaseComment(
-      "Type11a.TB." + eNeRKey + DOT + pilarKey + DOT + deityForce
-    );
-    this.commentOnPilarCombination(eNeR, pilarIdx, dayForce);
-    // Type11b.EE.{H,M,D,Y}.{+,-}.{0..3}& + ou - == pilar force positive or not
-    this.addUpdatePtsBaseComment(
-      "Type11b.TB." +
-        eNeRKey +
-        DOT +
-        pilarKey +
-        DOT +
-        deityForce +
-        DOT +
-        pivotStatus
-    );
-
-    // Type2c.{T.B}.EE.pilarKey.PivotStatus&
-    this.addUpdatePtsBaseComment(
-      "Type2c." + pilarType + DOT + eNeRKey + DOT + pilarKey + DOT + pivotStatus
-    );
-
-    if (otherENER !== null && eNeR !== otherENER) {
-      const otherENERKey = otherENER.getName();
-      const otherBaseENERKey = otherENER.getBaseGroup().getName();
-      const otherDeityForce = StringHelper.number2Str(
-        pilarsAttr.deityAttr.force[otherENER.ordinal()],
-        BaziStructureHelper.FAVTHRESHHOLD
-      );
-      // Type2c.{T.B}.EE.PilarKey.EX&
-      this.addUpdatePtsBaseComment(
-        "Type2c." +
-          pilarType +
-          DOT +
-          eNeRKey +
-          DOT +
-          pilarKey +
-          DOT +
-          otherENERKey
-      );
-      // Type2d.{T.B}.EE.{H,M,D,Y}.{0..3}.EX.{0,-,+}&
-      this.addUpdatePtsBaseComment(
-        "Type2d." +
-          pilarType +
-          DOT +
-          otherENERKey +
-          DOT +
-          pilarKey +
-          DOT +
-          pivotStatus +
-          DOT +
-          eNeRKey +
-          DOT +
-          otherDeityForce
-      );
-      // Type2e.{T.B}.EE.{H,M,D,Y}.EX.{0,-,+}&
-      this.addUpdatePtsBaseComment(
-        "Type2e." +
-          pilarType +
-          DOT +
-          otherENERKey +
-          DOT +
-          pilarKey +
-          DOT +
-          eNeRKey +
-          DOT +
-          otherDeityForce
-      );
-      // Type1b.EE.1.EX.{0,-,+}&
-      this.addUpdatePtsBaseComment(
-        "Type1b.TB." +
-          eNeRKey +
-          DOT +
-          pivotStatus +
-          DOT +
-          otherENERKey +
-          DOT +
-          otherDeityForce
-      );
-      // Type1c.EE.{±,-}.EX.{0,-,+}&
-      this.addUpdatePtsBaseComment(
-        "Type1c.TB." +
-          eNeRKey +
-          DOT +
-          deityForce +
-          DOT +
-          otherENERKey +
-          DOT +
-          otherDeityForce
-      );
-      // Type1d.EE.EX(.N0Quy)&
-      if (pilarsAttr.deityAttr.force[otherENER.ordinal()] !== 0) {
-        this.addUpdatePtsBaseComment(
-          "Type1d." +
-            pilarType +
-            DOT +
-            eNeRKey +
-            DOT +
-            otherENERKey +
-            this.noQuyNhanSuffix
-        );
-        this.addUpdatePtsBaseComment(
-          "Type1b.TB." +
-            eNeRKey +
-            DOT +
-            pivotStatus +
-            DOT +
-            otherENERKey +
-            this.noQuyNhanSuffix
-        );
-      }
-      // Type1g.{T.B}.EE.DAyforce.pivotStatus{0,1,2,3,4,5)&
-      this.addUpdatePtsBaseComment(
-        "Type1g." +
-          pilarType +
-          DOT +
-          eNeRKey +
-          DOT +
-          dayForce +
-          DOT +
-          pivotStatus
-      );
-      // Type1h.TB.EE.Element.DayPilarElement
-      this.addUpdatePtsBaseComment(
-        "Type1h.TB." + eNeRKey + DOT + eNeRElement + DOT + dayElement
-      );
-      // Type1i.EE.DayForce.EX
-      this.addUpdatePtsBaseComment(
-        "Type1i." +
-          pilarType +
-          DOT +
-          eNeRKey +
-          DOT +
-          dayForce +
-          DOT +
-          otherENERKey
-      );
-      // TypeTB.EE.EX.B&
-      this.addUpdatePtsBaseComment("TypeTB." + eNeRKey + DOT + otherENERKey);
-      // TypeTB1.EE.EX&
-      if (otherENER.ordinal() > eNeR.ordinal()) {
-        this.addUpdatePtsBaseComment(
-          "TypeTB1." + eneBaseKey + DOT + otherBaseENERKey
-        );
-      } else {
-        if (otherENER.ordinal() < eNeR.ordinal()) {
-          this.addUpdatePtsBaseComment(
-            "TypeTB1." + otherBaseENERKey + DOT + eneBaseKey
-          );
-        }
-      }
-    }
-
-    let voidInfo = ".NVd";
-    if (pilarsAttr.hasSecDeity(pilarIdx, SecondaryDeity.VOID)) {
-      voidInfo = ".Vd";
-    }
-    // Type3a.TB.EE.{Vd,NVd}
-    // Type3b.EE.{Vd,NVd}.NoQuy
-    if (this.hasQuyNhan) {
-      //Type3a.TB.EE.{Vd,NVd}
-      this.addUpdatePtsBaseComment("Type3a.TB." + eNeRKey + voidInfo);
-    } else {
-      //Type3b.TB.EE.{Vd,NVd}.NoQuy
-      this.addUpdatePtsBaseComment(
-        "Type3b.TB." + eNeRKey + voidInfo + this.noQuyNhanSuffix
-      );
-      //Type3c.EE.{H,M,D,Y}.{Vd,NVd}.NoQuy
-      this.addUpdatePtsBaseComment(
-        "Type3c.TB." + eNeRKey + DOT + pilarKey + voidInfo + this.noQuyNhanSuffix
-      );
-    }
-    // Type4.TB.EE.{H,M,D,Y}.{NVd,Vd}&{-,+}.{-,+}
-    this.addUpdatePtsBaseComment(
-      "Type4.TB." + eNeRKey + DOT + pilarKey + DOT + voidInfo
-    );
-
-    // With secondary Deity
-    const secDeities = pilarsAttr.secondaryDeityPilars[pilarIdx];
-    for (let index = 0; index < secDeities.length; index++) {
-      const secDeity = secDeities[index];
-      const secDeitykey = secDeity.getName();
-      // Type5a.TB.EE.{TKH, TKI, ... }&{-,+}.{-,+}
-      this.addUpdatePtsBaseComment("Type5a.TB." + eNeRKey + DOT + secDeitykey);
-      //Type5e.EE.{H,M,D,Y}.{TKH, TKI, ... }&{-,+}.{-,+}
-      this.addUpdatePtsBaseComment(
-        "Type5e.TB." + eNeRKey + DOT + pilarKey + DOT + secDeitykey
-      );
-      // Type5b.TB.EE.{TKH, TKI, ... }.{Vd, NVd}&{-,+}.{-,+}
-      this.addUpdatePtsBaseComment(
-        "Type5b.TB." + eNeRKey + DOT + secDeitykey + voidInfo
-      );
-      // Type5c.{T.B}.EE.{TKH, TKI, ... }&{-,+}.{-,+}
-      this.addUpdatePtsBaseComment(
-        "Type5c." + pilarType + DOT + eNeRKey + DOT + secDeitykey
-      );
-      // Type5d.TB.EE.{0..3}.{TKH, TKI, ... }&{-,+}.{-,+}
-      this.addUpdatePtsBaseComment(
-        "Type5d.TB." + eNeRKey + DOT + pivotStatus + DOT + DOT + secDeitykey
-      );
-      // Type7a.EE.{H,M,D,Y}.{0..3}.{TKH, TKI, ... }&{-,+}.{-,+}
-      this.addUpdatePtsBaseComment(
-        "Type7a.TB." +
-          eNeRKey +
-          DOT +
-          pilarKey +
-          DOT +
-          pivotStatus +
-          DOT +
-          secDeitykey
-      );
-      // Type7b.{T.B}.EE.{H,M,D,Y}.{0..3}.{TKH, TKI, ... }&{-,+}.{-,+}
-      this.addUpdatePtsBaseComment(
-        "Type7b." +
-          pilarType +
-          DOT +
-          eNeRKey +
-          DOT +
-          pilarKey +
-          DOT +
-          secDeitykey
-      );
-    }
-
-    // With Life cycle
-    const lifeCycle = ElementLifeCycle.getElementLifeCycle(
-      this.lunar.pilars[pilarIdx].trunk,
-      this.lunar.pilars[dIndex].branche
-    );
-    const lfName = lifeCycle.getName();
-
-    // Type8a.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
-    this.addUpdatePtsBaseComment(
-      "Type8a.TB." + eneBaseKey + DOT + pilarKey + DOT + lfName
-    );
-    this.addUpdatePtsBaseComment(
-      "Type8a.TB" + eNeRKey + DOT + pilarKey + DOT + lfName
-    );
-    // Type8b.{T.B}.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
-    this.addUpdatePtsBaseComment(
-      "Type8b." + pilarType + DOT + eNeRKey + DOT + pilarKey + DOT + lfName
-    );
-    // Type8c.EE.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
-    this.addUpdatePtsBaseComment("Type8c.TB." + eNeRKey + DOT + lfName);
-
-    // Type9a.TB.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }.{Void, NoVoid}&{-,+}.{-,+}
-    this.addUpdatePtsBaseComment(
-      "Type9a.TB." + eNeRKey + DOT + pilarKey + lfName + voidInfo
-    );
-    // Type9a.{T.B}.EE.{H,M,D,Y}.{TOMB, SICKNESS, ... }.{Void, NoVoid}&{-,+}.{-,+}
-    this.addUpdatePtsBaseComment(
-      "Type9a." +
-        pilarType +
-        DOT +
-        eNeRKey +
-        DOT +
-        pilarKey +
-        DOT +
-        lfName +
-        voidInfo
-    );
-
-    // Type9b.{T.B}.{EE.{H,M,D,Y}.{0..3}.{TOMB, SICKNESS, ... }&{-,+}.{-,+}
-    this.addUpdatePtsBaseComment(
-      "Type9b." +
-        pilarType +
-        DOT +
-        eNeRKey +
-        DOT +
-        pilarKey +
-        DOT +
-        pivotStatus +
-        DOT +
-        lifeCycle.toString()
-    );
-
-    for (let index = 0; index < pilarsAttr.deityAttr.count.length; index++) {
-      const elementENeR = ElementNEnergyRelation.DR.getEnum(
-        index
-      ) as ElementNEnergyRelation;
-      if (elementENeR !== eNeR) {
-        let suffix = ".0";
-        if (pilarsAttr.deityAttr.count[index] > 0) {
-          suffix = ".+";
-        }
-        // Type10b.D.EE.EX.{0,+}&
-        this.addUpdatePtsBaseComment(
-          "Type10b." +
-            pilarKey +
-            DOT +
-            eNeRKey +
-            DOT +
-            elementENeR.getBaseGroup().getName() +
-            suffix
-        );
-        // Type10b.{T.B}.EE.D.{0..3}.EX.{0,+}&
-        this.addUpdatePtsBaseComment(
-          "Type10b." +
-            pilarType +
-            DOT +
-            eNeRKey +
-            DOT +
-            pilarKey +
-            DOT +
-            pivotStatus +
-            DOT +
-            elementENeR.getName() +
-            suffix
-        );
-      }
-    }
-  }
-
-  // TypeTB1.EE.Pilar.EX.Pilar&
-  // TypeTB1.EE.EX&
-  // TypeTB2.DayForce.EE.Pilar.EX.Pilar&
-  private commentOnNearPilarDeity(
-    fromENeR: ElementNEnergyRelation,
-    frompilarIdx: number,
-    toENeR: ElementNEnergyRelation,
-    toPilarIdx: number
-  ) {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    let fromPilarKey = LunarBase.getPilarShortLabel(frompilarIdx);
-    let toPilarKey = LunarBase.getPilarShortLabel(toPilarIdx);
-
-    // Assume toENeR.ordinal() >= fromENeR.ordinal()
-    if (toENeR.ordinal() < fromENeR.ordinal()) {
-      let temp: any = toENeR;
-      toENeR = fromENeR;
-      fromENeR = toENeR;
-      temp = toPilarKey;
-      toPilarKey = fromPilarKey;
-      fromPilarKey = temp;
-    }
-
-    const DOT = ".";
-    const fromENeRKey = fromENeR.getName();
-    const toENeRKey = toENeR.getName();
-    const fromBaseENeRKey = fromENeR.getBaseGroup().getName();
-    const toBaseENeRKey = toENeR.getBaseGroup().getName();
-    const dayForce = this.baseAttr.dayForce;
-    let temp =
-      fromENeRKey + DOT + fromPilarKey + DOT + toENeRKey + DOT + toPilarKey;
-
-    this.addUpdatePtsBaseComment("TypeTB1." + temp);
-    this.addUpdatePtsBaseComment("TypeTB2." + dayForce + DOT + temp);
-
-    temp =
-      fromENeRKey + DOT + fromPilarKey + DOT + toENeRKey + DOT + toBaseENeRKey;
-    this.addUpdatePtsBaseComment("TypeTB1." + temp);
-    this.addUpdatePtsBaseComment("TypeTB2." + dayForce + DOT + temp);
-
-    temp =
-      fromENeRKey + DOT + fromBaseENeRKey + DOT + toENeRKey + DOT + toPilarKey;
-    this.addUpdatePtsBaseComment("TypeTB1." + temp);
-    this.addUpdatePtsBaseComment("TypeTB2." + dayForce + DOT + temp);
-
-    this.addUpdatePtsBaseComment(
-      "TypeTB1." + fromBaseENeRKey + DOT + toBaseENeRKey
-    );
-  }
-
-  private commentOnTrunkDeities(
-    d1: ElementNEnergyRelation,
-    d2: ElementNEnergyRelation,
-    d3: ElementNEnergyRelation
-  ) {
-    if (d1.ordinal() > d2.ordinal()) {
-      this.commentOnTrunkDeities(d2, d1, d3);
-    } else {
-      if (d1.ordinal() > d3.ordinal()) {
-        this.commentOnTrunkDeities(d3, d2, d1);
-      } else {
-        if (d2.ordinal() > d3.ordinal()) {
-          this.commentOnTrunkDeities(d1, d3, d2);
-        } else {
-          const DOT = ".";
-          this.addUpdatePtsBaseComment(
-            "TypeTB1." + d1.getName() + DOT + d2.getName() + DOT + d3.getName()
-          );
-        }
-      }
-    }
-  }
-
-  private commentPilarDeities() {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const dIndex = LunarBase.DINDEX;
-    const pLen = LunarBase.PILARS_LEN;
-    this.commentOnTrunkDeities(
-      pilarsAttr.getPilarDeity(LunarBase.YINDEX),
-      pilarsAttr.getPilarDeity(LunarBase.MINDEX),
-      pilarsAttr.getPilarDeity(LunarBase.HINDEX)
-    );
-    for (let pilarIdx = 0; pilarIdx < pLen; pilarIdx++) {
-      const eNeR = pilarsAttr.getPilarDeity(pilarIdx);
-      if (pilarIdx !== dIndex) {
-        this.commentOnSAMEPilarDeity(pilarIdx, eNeR, null, true);
-      }
-      let hiddenEnERArr = pilarsAttr.getHiddenPilarDeities(pilarIdx);
-      for (let hiddenIdx = 0; hiddenIdx < hiddenEnERArr.length; hiddenIdx++) {
-        const hiddenEnER = hiddenEnERArr[hiddenIdx];
-        if (hiddenEnER !== null) {
-          this.commentOnSAMEPilarDeity(pilarIdx, eNeR, hiddenEnER, true);
-          this.commentOnSAMEPilarDeity(pilarIdx, hiddenEnER, eNeR, false);
-        }
-      }
-
-      if (pilarIdx < pLen - 1) {
-        const nearPilarIdx = pilarIdx + 1;
-        const nearEneR = pilarsAttr.getPilarDeity(nearPilarIdx);
-        this.commentOnNearPilarDeity(eNeR, pilarIdx, nearEneR, nearPilarIdx);
-        hiddenEnERArr = pilarsAttr.getHiddenPilarDeities(nearPilarIdx);
-        for (let hiddenIdx = 0; hiddenIdx < hiddenEnERArr.length; hiddenIdx++) {
-          const hiddenEnER = hiddenEnERArr[hiddenIdx];
-          if (hiddenEnER !== null) {
-            this.commentOnNearPilarDeity(
-              eNeR,
-              pilarIdx,
-              hiddenEnER,
-              nearPilarIdx
-            );
-          }
-        }
-      }
-    }
-  }
-
-  // BRType1.BrancheRelation.eeR&
-  // BRType2.BrancheRelation.{H,M,D,Y}.{H,M,D,Y}&
-  // BRType5a.-.{H,M,D,Y}&
-  // BRType5b.-.{H,M,D,Y}.{H,M,D,Y}.&
-  // BRType6.DOG.Y.TIGER.D for combination Y D only
-  private commentBrancheCombinaison() {
-    const DOT = ".";
-    this.commentCombType(CombAttr.BRANCHECLASHTYPE, "C");
-    this.commentCombType(CombAttr.BRANCHEUNGRATEFUL, "D");
-    this.commentCombType(CombAttr.BRANCHECOMB3WITHTRANSFORMTYPE, "B");
-    this.commentCombType(CombAttr.MIDBRANCHECOMB3TRANSFORMABLETYPE, "N");
-    this.commentCombType(CombAttr.BRANCHEDESTROYTYPE, "K");
-    this.commentCombType(CombAttr.MIDBRANCHECOMB3TYPE, "K");
-  }
-
-  //Element.MAXElement.WeakElement.(0,-)
-  private commentOnElement() {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const DOT = ".";
-    const elementsValues = Element.WATER.getValues() as Element[];
-    let isBalanced = true;
+    const elementsValues = Element.getValues();
     for (let wIndex = 0; wIndex < elementsValues.length; wIndex++) {
       const wElement = elementsValues[wIndex];
       if (pilarsAttr.isVeryWeakedElement(wElement)) {
-        for (let sIndex = 0; sIndex < elementsValues.length; sIndex++) {
-          const sElement = elementsValues[sIndex];
-          if (pilarsAttr.isFavorableElement(sElement)) {
-            let suffix = ".";
-            let wForce = pilarsAttr.getElementForce(wElement);
-            if (wForce === 0) {
-              suffix += "0";
-            } else {
-              suffix += "-";
-            }
-            this.addUpdatePtsBaseComment(
-              "Element." +
-                sElement.getName() +
-                DOT +
-                wElement.getName() +
-                "suffix"
-            );
-            isBalanced = false;
-          }
-        }
+        return false;
       }
     }
-    if (isBalanced) {
-      this.addUpdatePtsBaseComment("Element.Balanced");
-    }
+    return true;
   }
 
-  private getStructureName(structureData: DataWithLog) {
-    if (structureData === null) return "null";
-    const structure = structureData.getValue() as BaziStructure;
-    return structure.getName();
-  }
-
-  private getDeityPilarArr(eneR: ElementNEnergyRelation) {
-    const pilarIdxArr: number[] = [];
+  private isElementForce(params: string[]) {
     const pilarsAttr = this.lunar.pilarsAttr;
-    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
-      let relation = pilarsAttr.getPilarDeity(pilarIdx);
-      if (relation === eneR) {
-        ObjectHelper.pushIfNotExist(pilarIdxArr, pilarIdx);
-      }
-      for (
-        let index = 0;
-        index < pilarsAttr.getHiddenPilarDeities(pilarIdx).length;
-        index++
-      ) {
-        relation = pilarsAttr.getHiddenPilarDeities(pilarIdx)[index];
-        if (relation === eneR) {
-          ObjectHelper.pushIfNotExist(pilarIdxArr, pilarIdx);
-        }
-      }
-    }
-    return pilarIdxArr;
+    const checkElementName=params[0]
+    const checkForce=params[1]
+    const element = Element.WATER.getEnumByName(checkElementName) as Element
+    const elementForce = pilarsAttr.getElementForceChar(element);
+    //console.log("isElementForce", params,checkForce, element, elementForce, pilarsAttr.getElementForce(element))
+    return checkForce===elementForce
   }
 
-  private commentOnEnERStructure(structureName: string) {
-    const structureEneR = ElementNEnergyRelation.HO.getEnumByName(
-      structureName
-    ) as ElementNEnergyRelation;
-    const pilarIdxArr = this.getDeityPilarArr(structureEneR);
-    let pilarCount2 = this.getLimitCount(pilarIdxArr.length, 2);
-    const DOT = ".";
-    const strAttr = this.getStructAttr(structureEneR);
-
-    // Cach.DRGrp.{DayForce-.+}.{Count0,1,2}.DOFroup{0,1).DWGrp.{0,1,2)=Ref8p464p1
-    let temp =
-      "Cach." +
-      strAttr.baseName +
-      DOT +
-      this.baseAttr.dayForce +
-      DOT +
-      pilarCount2 +
-      DOT +
-      strAttr.prdBaseName +
-      DOT +
-      strAttr.prdBseCnt1 +
-      DOT +
-      strAttr.crtlBaseName +
-      DOT +
-      strAttr.crtlBseCnt2;
-    this.addUpdatePtsBaseComment(temp);
-    // Cach.HO.DO.{0,1)=Ref8p466p4
-    temp =
-      "Cach." +
-      strAttr.name +
-      DOT +
-      strAttr.prodeneR.getName() +
-      DOT +
-      strAttr.prodeneRCnt1;
-    this.addUpdatePtsBaseComment(temp);
-    //Cach.7K.H.x
-    for (let index = 0; index < pilarIdxArr.length; index++) {
-      const pilarIdx = pilarIdxArr[index];
-      const pilarChar = LunarBase.getPilarShortLabel(pilarIdx);
-      // Cach.7k.H.{0,1,2)==Ref8p464p2c
-      temp = "Cach." + strAttr.name + DOT + pilarChar + DOT + pilarCount2;
-      this.addUpdatePtsBaseComment(temp);
-      // Cach.7k.H.{0,1,2).EG.{0,1,2}==Ref8p464p2
-      temp =
-        "Cach." +
-        structureName +
-        DOT +
-        pilarChar +
-        DOT +
-        pilarCount2 +
-        DOT +
-        strAttr.baseName +
-        DOT +
-        strAttr.crtlBseCnt1;
-      this.addUpdatePtsBaseComment(temp);
-    }
-  }
-
-  private commentOnThisStructure(structureData: DataWithLog) {
-    if (structureData === null) return;
-    const structure = structureData.getValue() as BaziStructure;
-    const structName = structure.getName();
-    if (structure.ordinal() <= 9) {
-      this.commentOnEnERStructure(structName);
-    }
-    const DOT = ".";
-
-    // Cach.DR.+.DO7K.+.DW.+=Ref8p464p1
-    let temp =
-      "Cach." +
-      structName +
-      DOT +
-      this.baseAttr.dayForce +
-      ".DO7K." +
-      this.baseAttr.do7KForce +
-      ".DWIW." +
-      this.baseAttr.dwiwForce;
-    this.addUpdatePtsBaseComment(temp);
-    //Cach.7k.HO.+
-    temp =
-      "Cach." +
-      structName +
-      DOT +
-      ".HOEG." +
-      this.baseAttr.do7KForce +
-      ".DWIW." +
-      this.baseAttr.dwiwForce;
-    this.addUpdatePtsBaseComment(temp);
-    this.addUpdatePtsBaseComment("CachType1." + structName);
+  private isTrunkElementPresent(elementList: string) {
     const pilarsAttr = this.lunar.pilarsAttr;
-    const eleRValues = ElementNEnergyRelation.getValues();
-    const dIndex = LunarBase.DINDEX;
-
-    for (let index = 0; index < eleRValues.length; index += 2) {
-      const eeR = eleRValues[index];
-      if (eeR.getName() != structName) {
-        const count = pilarsAttr.getPairedRelationCount(eeR, dIndex);
-        const countSuffix = StringHelper.number2Str(
-          count,
-          BaziStructureHelper.FAVTHRESHHOLD
-        );
-        // Assume eer.ordinal() < eer2.ordinal()
-        for (let index2 = index + 2; index2 < eleRValues.length; index2 += 2) {
-          const eeR2 = eleRValues[index2];
-          if (eeR2.getName() != structName) {
-            const count2 = pilarsAttr.getPairedRelationCount(eeR, dIndex);
-            const count2Suffix = StringHelper.number2Str(
-              count2,
-              BaziStructureHelper.FAVTHRESHHOLD
-            );
-            this.addUpdatePtsBaseComment(
-              "CachType2." +
-                structName +
-                DOT +
-                eeR.getName() +
-                DOT +
-                countSuffix +
-                DOT +
-                eeR2.getName() +
-                DOT +
-                count2Suffix
-            );
-          }
-        }
-      }
+    const elementsValues = Element.getValues();
+    const pilarNames = LunarBase.ymdhCharArr;
+    for (let pilarIdx = 0; pilarIdx < pilarNames.length; pilarIdx++) {
+      const pilarName = pilarNames[pilarIdx];
+      const pilar = this.getPilar(pilarName);
+      if ( elementList.indexOf(pilar.trunk.getElement().getName())>=0 ) return true
     }
-  }
-
-  //
-  private commentOnStructure() {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    for (let index = 0; index < pilarsAttr.structure.length; index++) {
-      const structure = pilarsAttr.structure[index];
-      this.commentOnThisStructure(structure);
-    }
-  }
-  // DayMaster.DayElement.DayForce
-  // DayMaster.DayTrunk.DayForce
-  // DayMaster.DayForce.DO7k.Force.DRIR.Force
-  // DayMaster.DayForce.DO7K.Force
-  // DayMaster.DayForce.DRIR.Force
-  // DayMaster.DayForce.DO7K.Force
-  // DayMaster.DayForce.DRIR.Force.HOEG.Force
-  private commentOnBaziDayMaster() {
-    const dayForce = this.baseAttr.dayForce;
-    const dIndex = LunarBase.DINDEX;
-    const DOT = ".";
-    const dTrunk = this.lunar.pilars[dIndex].trunk;
-    const dElement = this.baseAttr.dTrunkElementNEnergy.element;
-    this.addUpdatePtsBaseComment(
-      "DayMaster." + dElement.getName() + DOT + dayForce
-    );
-    this.addUpdatePtsBaseComment(
-      "DayMaster." + dTrunk.getName() + DOT + dayForce
-    );
-    // Ref3p182 DayMaster.-.DO7K.+.DRIR.+&"
-    const do7KForce = this.baseAttr.do7KForce;
-    const drIRForce = this.baseAttr.drIRForce;
-    let temp =
-      "DayMaster." + dayForce + ".DO7K." + do7KForce + ".DRIR." + drIRForce;
-    this.addUpdatePtsBaseComment(temp);
-    temp = "DayMaster." + dayForce + ".DO7K." + do7KForce;
-    this.addUpdatePtsBaseComment(temp);
-    temp = "DayMaster." + dayForce + ".DRIR." + drIRForce;
-    this.addUpdatePtsBaseComment(temp);
-    temp =
-      "DayMaster." +
-      dayForce +
-      ".DO7K." +
-      do7KForce +
-      ".HOEG." +
-      this.baseAttr.hoegForce;
-    this.addUpdatePtsBaseComment(temp);
-    temp =
-      "DayMaster." +
-      dayForce +
-      ".DRIR." +
-      drIRForce +
-      ".HOEG." +
-      this.baseAttr.hoegForce;
-    this.addUpdatePtsBaseComment(temp);
+    return false;
   }
 
   override getName() {
     return "bazi Observation";
-  }
-
-  // Pivot.Force.AntiPivot.Force Ref3p172p6
-  // Pivot.dayForce.DRGrp.Force
-  // Pivot.DeityGrp.Force.AntiPivot.AntiPivotGrp.Force
-  // Pivot.DeityGrp.pivotstatus.Dayforce
-  // AntiPivot.AntiPivotGrp.Status(2 ou 4).DayForce
-  //Pivot.DeityGroup.Force.DayForce.SupportDeity.present
-  commentOnElligiblePivots() {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const DOT = ".";
-    const pivotElements = pilarsAttr.elligiblePivotData.getValue();
-    const elementsValues = Element.WATER.getValues() as Element[];
-    const dayForce = this.baseAttr.dayForce;
-    const dIndex = LunarBase.DINDEX;
-    for (let pivotIndex = 0; pivotIndex < pivotElements.length; pivotIndex++) {
-      const pivotElement = pivotElements[pivotIndex];
-      let deitybaseGrp = pilarsAttr.getDeityBaseGrpByElement(pivotElement);
-      let deityGrpForce = pilarsAttr.getDeityForceByElement(pivotElement);
-      const pivotStatus = pilarsAttr.getPivotStatusStr(pivotElement);
-      let temp =
-        "Pivot." + deitybaseGrp.getName() + DOT + pivotStatus + DOT + dayForce;
-      // Pivot.DeityGrp.Force.Dayforce
-      this.addUpdatePtsBaseComment(temp);
-      // Pivot.dayForce.DRGrp.Force
-      temp = "Pivot." + dayForce + ".DR." + this.baseAttr.drIRForce;
-      console.log(temp);
-      this.addUpdatePtsBaseComment(temp);
-      for (
-        let elementIndex = 0;
-        elementIndex < elementsValues.length;
-        elementIndex++
-      ) {
-        const element = elementsValues[elementIndex];
-
-        if (
-          element.isDestructive(pivotElement) &&
-          !ObjectHelper.hasItem(pivotElements, element)
-        ) {
-          let antiDeitybaseGrp = pilarsAttr.getDeityBaseGrpByElement(element);
-          let antiDeityGrpForce = pilarsAttr.getDeityForceByElement(element);
-          //Pivot.DeityGrp.Force.AntiPivot.AntiPivotGrp.Force
-          temp =
-            "Pivot." +
-            deitybaseGrp.getName() +
-            DOT +
-            deityGrpForce +
-            DOT +
-            "AntiPivot." +
-            antiDeitybaseGrp.getName() +
-            DOT +
-            antiDeityGrpForce;
-          this.addUpdatePtsBaseComment(temp);
-          // Pivot.Force.AntiPivot.Force Ref3p172p6
-          this.addUpdatePtsBaseComment("Pivot.Force.AntiPivot.Force");
-          // AntiPivot.AntiPivotGrp.Status(3 ou 4).DayForce
-          const antiPivotStatus = pilarsAttr.getPivotStatusStr(element); // Hostile status
-
-          temp =
-            "AntiPivot." +
-            antiDeitybaseGrp.getName() +
-            DOT +
-            antiPivotStatus +
-            DOT +
-            dayForce;
-          console.log(temp);
-          this.addUpdatePtsBaseComment(temp);
-        } else {
-          if (element.isProductive(pivotElement)) {
-            let supportDeitybaseGrp =
-              pilarsAttr.getDeityBaseGrpByElement(element);
-            let count = pilarsAttr.getPairedRelationCount(
-              supportDeitybaseGrp,
-              dIndex
-            );
-            if (count > 0) {
-              //Pivot.DeityGroup.DayForce.SupportDeity.Present
-              temp =
-                "Pivot." +
-                deitybaseGrp.getName() +
-                DOT +
-                deityGrpForce +
-                DOT +
-                dayForce +
-                DOT +
-                supportDeitybaseGrp.getName() +
-                ".Present";
-              console.log(temp);
-              this.addUpdatePtsBaseComment(temp);
-            }
-          }
-        }
-        // Pivot.DeityGrp.DeityForce.CabBeGENERATE
-      }
-    }
   }
 
   evalBaseDestinyPoint() {
@@ -1883,27 +300,1468 @@ export class BaziObservationBase extends ObservationBase {
     }
   }
 
-  override comment() {
+  getNextDotPos(key: string, currIdx: number) {
+    let dotPos = key.indexOf(".", currIdx);
+    if (dotPos === -1) dotPos = key.indexOf("&", currIdx);
+    if (dotPos === -1) dotPos = key.length - 1;
+    return dotPos;
+  }
 
+  // Return true if the pilar sec deities is in the secDeityList
+  isPilarSecDeityInSecDeityList(pilarNameList: string, secDeityList: string, count=1) {
+    const pilarNames = pilarNameList.split("/")
+    for (let index = 0; index < pilarNames.length; index++) {
+      const pilarName = pilarNames[index];
+      const secDeitiesRec = this.getPilarSecDeitiesRec(pilarName);
+      let countHit = count ;
+      for (let index = 0; index < secDeitiesRec.length; index++) {
+        const name = secDeitiesRec[index].secDeity.getName();
+        if (secDeityList.indexOf(name) >= 0) {
+          countHit--;
+          if ( countHit===0 ) return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  checkKey = "";
+  checkMethod = "";
+
+  checkEnumList (param:string, model: EnumBaseClass) {
+    if ( ObjectHelper.isNaN(param) ) {
+      console.log("Missing param",model )
+      console.log(this.checkMethod, this.checkKey)
+      return "";
+    }
+    const params = param.split("/")
+    for (let index = 0; index < params.length; index++) {
+      const element = params[index];
+      if ( null===model.getEnumByName(element) ) {
+        console.log("Could not find ", element, "in ", param, "for model ", model.getName())
+        console.log(this.checkMethod, this.checkKey)
+      }
+    }
+    return param;
+  }
+
+  checkTransformEnumList (param:string, model: EnumBaseClass) {
+    return this.checkEnumList(param,model).split("/");
+  }
+
+
+  // Sec Deity on Pilar Lifecycle
+  isSecDeityOnPilarLifeCycle(params: string[]) {
+    if (params.length != 2) return false;
+    const checkSecDeity = this.checkEnumList(params[0],SecondaryDeity.THIENDUC);
+    const checkLifeCycleNameList =this.checkEnumList(params[1],ElementLifeCycle.TOMB);
+
+    const pilarNames = LunarBase.ymdhCharArr;
+    for (let pilarIdx = 0; pilarIdx < pilarNames.length; pilarIdx++) {
+      const pilarName = pilarNames[pilarIdx];
+      const pilar = this.getPilar(pilarName);
+      if (checkLifeCycleNameList.indexOf(pilar.lifeCycle.getName()) >= 0) {
+        if (this.isPilarSecDeityInSecDeityList(pilarName, checkSecDeity)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  // Return true if SecDeities is in a clashed pilar pilarName
+  isPilarSecDeityClashed(pilarName: string, secDeityList: string) {
+    const pilarHasSecDeity = this.isPilarSecDeityInSecDeityList(
+      pilarName,
+      secDeityList
+    );
+    if (pilarHasSecDeity) {
+      const params = ["1", pilarName];
+      return this.isPilarClashed(params);
+    }
+
+    return false;
+  }
+
+  // Return true if SecDeities is in a clashed pilar
+  isSecDeityClashed(params: string[]) {
+    const checkPilars = LunarBase.ymdhCharArr;
+    const checSecDeityName = this.checkEnumList(params[0],SecondaryDeity.THIENLOC);
+    for (let index = 0; index < checkPilars.length; index++) {
+      const checkPilarName = checkPilars[index];
+      const pilarHasSecDeity = this.isPilarSecDeityClashed(
+        checkPilarName,
+        checSecDeityName
+      );
+      if (pilarHasSecDeity) {
+        const currParams = ["1", checkPilarName];
+        if (this.isPilarClashed(currParams)) return true;
+      }
+    }
+    return false;
+  }
+
+  containsSecDeity(params: string[]): boolean {
+    if (params.length !== 2) return false;
+    return this.isPilarSecDeityInSecDeityList(params[0], params[1]);
+  }
+
+  hasSecDeitiesOnSamePilar(params: string[]): boolean {
+    if (params.length !== 2) return false;
+    const secDeity1List = params[0];
+    const secDeity2List = params[1];
+    let count=1
+    if ( secDeity2List.indexOf(secDeity1List)>=0 ||  secDeity1List.indexOf(secDeity2List)>=0 ) {
+      count = 2 ;
+    }
+    const pilarNames = LunarBase.ymdhCharArr;
+    for (let index = 0; index < pilarNames.length; index++) {
+      const pilarName = pilarNames[index];
+      if (this.isPilarSecDeityInSecDeityList(pilarName, secDeity1List,count)) {
+        if (this.isPilarSecDeityInSecDeityList(pilarName, secDeity2List,count)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  // Check if the element is a favorable pivot
+  isElementFavorablePivot(elementName: string): boolean {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const pivotElementsName = pilarsAttr.getElligiblePivotElementNames();
+    return ObjectHelper.findIndex(pivotElementsName, elementName) !== -1;
+  }
+
+  // Check if the favorable pivot is among the checkList
+  // Return true if GE than the params[0] count
+  isFavorablePivot(params: string[]): boolean {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    let countHit = +params[0];
+    const checkPivots =  this.checkTransformEnumList(params[1],ElementNEnergyRelation.RW);
+    const pivotsElementsName = pilarsAttr.getElligiblePivotElementNames();
+    //console.log("isFavorablePivot",params, checkPivots,pivotsElementsName )
+    for (let index = 0; index < checkPivots.length; index++) {
+      const deityName = checkPivots[index];
+      let deityElementName = pilarsAttr.deityAttr
+        .getDeityElementByName(deityName)
+        .getName();
+      //console.log("isFavorablePivot",deityName,deityElementName )
+      if (ObjectHelper.findIndex(pivotsElementsName, deityElementName) !== -1) {
+        countHit--;
+        if (countHit === 0) return true;
+      }
+    }
+    return false;
+  }
+
+  isDeityElement(params: string[]): boolean {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const deityName = params[0]
+    const elementNameList = this.checkEnumList(params[1],Element.WATER);
+    const deityElementName = pilarsAttr.deityAttr.getDeityElementByName(deityName).getName();
+    return elementNameList.indexOf(deityElementName)>=0
+  }
+
+  // Check if the hostile pivot is among the checkList
+  // Return true if GE than the params[0] count
+  isHostilePivot(params: string[]): boolean {
+    let countHit = +params[0];
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const checkPivots = this.checkTransformEnumList(params[1],ElementNEnergyRelation.RW);
+    const pivotsElementsName = pilarsAttr.getPivotHostileElements();
+    //console.log("isHostilePivot", params, checkPivots, pivotsElementsName);
+    for (let index = 0; index < checkPivots.length; index++) {
+      const deityName = checkPivots[index];
+      let deityElementName = pilarsAttr.deityAttr
+        .getDeityElementByName(deityName)
+        .getName();
+      //console.log("isHostilePivot", deityName, deityElementName);
+      if (ObjectHelper.findIndex(pivotsElementsName, deityElementName) !== -1) {
+        countHit--;
+        if (countHit === 0) return true;
+      }
+    }
+    return false;
+  }
+
+  // Check if the params[0] pilar contains a favorable pivot
+  isPilarFavorablePivot(params: string[]): boolean {
+    const pilarName = params[0];
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const pivotElements = pilarsAttr.elligiblePivotData.getValue();
+    let pilarDeity = this.getPilarDeity(pilarName);
+    let deityElement = pilarsAttr.deityAttr.getDeityElement(pilarDeity);
+    //console.log("isPilarFavorablePivot",pilarName,deityElement )
+    if (ObjectHelper.findIndex(pivotElements, deityElement) !== -1) return true;
+    if (pilarName.length === 1) {
+      const pilarIdx = LunarBase.getPilarIdx(pilarName);
+      const hiddenEnERArr = pilarsAttr.getHiddenPilarDeities(pilarIdx);
+      for (let index = 0; index < hiddenEnERArr.length; index++) {
+        pilarDeity = hiddenEnERArr[index];
+        if (pilarDeity !== null) {
+          deityElement = pilarsAttr.deityAttr.getDeityElement(pilarDeity);
+          if (ObjectHelper.findIndex(pivotElements, deityElement) !== -1)
+            return true;
+        }
+      }
+    }
+    return false;
+  }
+
+
+  // Check if the params[0] has a sec deity on a favorable pilar pivot
+  isSecDeityOnFavorablePivot(params: string[]): boolean {
+    const deityList = this.checkEnumList(params[0],SecondaryDeity.VOID);
+    const pilarNames = LunarBase.ymdhCharArr
+    for (let index = 0; index < pilarNames.length; index++) {
+      const pilarName = pilarNames[index];
+      if ( this.isPilarFavorablePivot([pilarName]) ) {
+        if ( this.containsSecDeity([pilarName,deityList]) ) {
+          return true
+        }
+      }
+    }
+    return false;
+  }
+
+   // Check if the params[0] has a sec deity on a hostile pilar pivot
+   isDeityOnHostilePivot(params: string[]): boolean {
+    const secDeityList = this.checkEnumList(params[0],SecondaryDeity.VOID);
+    const pilarNames = LunarBase.ymdhCharArr
+    for (let index = 0; index < pilarNames.length; index++) {
+      const pilarName = pilarNames[index];
+      if ( this.isPilarHostilePivot([pilarName]) ) {
+        if ( this.containsSecDeity([pilarName,secDeityList]) ){
+          return true
+        }
+      }
+    }
+    return false;
+  }
+
+  // Check if the params[0] pilar contains a hostile pivot
+  isPilarHostilePivot(params: string[]): boolean {
+    const pilarName = params[0];
+
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const pivotElements = pilarsAttr.pivotHostileElements;
+    let pilarDeity = this.getPilarDeity(pilarName);
+    let deityElement = pilarsAttr.deityAttr.getDeityElement(pilarDeity);
+    //console.log("isPilarFavorablePivot",pilarName,deityElement )
+    if (ObjectHelper.findIndex(pivotElements, deityElement) !== -1) return true;
+    if (pilarName.length === 1) {
+      const pilarIdx = LunarBase.getPilarIdx(pilarName);
+      const hiddenEnERArr = pilarsAttr.getHiddenPilarDeities(pilarIdx);
+      for (let index = 0; index < hiddenEnERArr.length; index++) {
+        pilarDeity = hiddenEnERArr[index];
+        if (pilarDeity !== null) {
+          deityElement = pilarsAttr.deityAttr.getDeityElement(pilarDeity);
+          if (ObjectHelper.findIndex(pivotElements, deityElement) !== -1)
+            return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  getPivotForce(pivotElements: Element[]) {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    let force = 0;
+    for (let index = 0; index < pivotElements.length; index++) {
+      const element = pivotElements[index];
+      force += pilarsAttr.getElementForce(element);
+    }
+    return force;
+  }
+
+  isDayForceStatus(checkStatus: string) {
+    const dayForce = this.baseAttr.dayForce;
+    //console.log("isDayForceStatus", checkStatus, dayForce)
+    return dayForce === checkStatus;
+  }
+
+  isBirthSeason(seasonList: string) {
+    const seasonName = this.lunar.getmBranche().season.getName()
+    //console.log("isBirthSeason", seasonName)
+    return seasonList.indexOf(seasonName)>=0 ;
+  }
+
+
+
+  isPivotSupport() {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const pivotFavorableForce = this.getPivotForce(
+      pilarsAttr.elligiblePivotData.getValue()
+    );
+    const pivotHostileForce = this.getPivotForce(
+      pilarsAttr.pivotHostileElements
+    );
+    return pivotFavorableForce >= pivotHostileForce;
+  }
+
+  containsDeity(params: string[]): boolean {
+    if (params.length !== 2) return false;
+    const pilarNames = params[0].split("/");
+    const deityList = this.checkEnumList(params[1],ElementNEnergyRelation.RW);
+    //console.log("containsDeity ", pilarNames, deityList)
+    for (let index = 0; index < pilarNames.length; index++) {
+      const pilarName = pilarNames[index];
+      if (this.isPilarDeityInDeityList(pilarName, deityList)) return true;
+    }
+    return false;
+  }
+
+
+  containsTrunkDeity(params: string[]): boolean {
+    if (params.length !== 2) return false;
+    const pilarNames = params[0].split("/");
+    const deityList = this.checkEnumList(params[1],ElementNEnergyRelation.RW);
+    //console.log("containsTrunkDeity ", pilarNames, deityList)
+    for (let index = 0; index < pilarNames.length; index++) {
+      const pilar = this.getPilar(pilarNames[index])
+      if (deityList.indexOf(pilar.deity.getName())>=0 ) return true;
+    }
+    return false;
+  }
+
+  containsHiddenDeity(params: string[]): boolean {
+    if (params.length !== 2) return false;
+    const pilarNames = params[0].split("/");
+    const deityList = this.checkEnumList(params[1],ElementNEnergyRelation.RW);
+    const pilarsAttr = this.lunar.pilarsAttr
+    //console.log("containsHiddenDeity ", pilarNames, deityList)
+    for (let index = 0; index < pilarNames.length; index++) {
+      const pilarName = pilarNames[index];
+      const pilarIdx = LunarBase.getPilarIdx(pilarName);
+      const hiddenEnERArr = pilarsAttr.getHiddenPilarDeities(pilarIdx);
+      if (null != hiddenEnERArr) {
+        for (let index = 0; index < hiddenEnERArr.length; index++) {
+          const hiddenDeity = hiddenEnERArr[index];
+          if (
+            hiddenDeity !== null &&
+            deityList.indexOf(hiddenDeity.getName()) >= 0
+          ) return true
+
+        }
+      }
+    }
+    return false;
+  }
+
+
+  containsDeityNHidden(params: string[]): boolean {
+    if (params.length !== 2) return false;
+    const pilarNames = params[0].split("/");
+    const deityList =this.checkEnumList(params[1],ElementNEnergyRelation.RW);
+    //console.log("containsDeity ", pilarNames, deityList)
+    for (let index = 0; index < pilarNames.length; index++) {
+      const pilarName = pilarNames[index];
+      if (this.isPilarDeityInDeityList(pilarName, deityList,2)) return true;
+    }
+    return false;
+  }
+
+
+  hasPilarDeityNHidden(params: string[]): boolean {
+    params.unshift("Y/M/D/H");
+    return this.containsDeityNHidden(params)
+  }
+
+  isPilarDeityInDeityList(pilarName: string, deityList: string, count=1): boolean {
+    const deityName = this.getPilarDeity(pilarName).getName();
+    //console.log("isPilarDeityInDeityList ", deityName, deityList)
+    this.checkEnumList(deityList,ElementNEnergyRelation.RW);
+    let countHit=count;
+    if (deityList.indexOf(deityName) >= 0) {
+      countHit--
+      if ( countHit<=0 ) return true;
+    }
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const pilarIdx = LunarBase.getPilarIdx(pilarName);
+    const hiddenEnERArr = pilarsAttr.getHiddenPilarDeities(pilarIdx);
+    if (null != hiddenEnERArr) {
+      for (let index = 0; index < hiddenEnERArr.length; index++) {
+        const hiddenDeity = hiddenEnERArr[index];
+        if (
+          hiddenDeity !== null &&
+          deityList.indexOf(hiddenDeity.getName()) >= 0
+        )
+        countHit--
+        if ( countHit<=0 ) return true;
+      }
+    }
+    return false;
+  }
+
+  // Return true if params[0] brancheName is on the same pilar as params[0] deities
+  isBrancheDeities(params: string[]) {
+    if (params.length < 2) return false;
+    const deitiesName = this.checkEnumList(params[1],ElementNEnergyRelation.RW)
+    const brancheName = this.checkEnumList(params[0],Branche.RAT)
+    //console.log("isBrancheDeity ", params);
+    const pilarNames = LunarBase.ymdhCharArr;
+    for (let index = 0; index < pilarNames.length; index++) {
+      const pilarName = pilarNames[index];
+      const pilar = this.getPilar(pilarName);
+      if (brancheName.indexOf(pilar.branche.getName())>=0) {
+        if (this.isPilarDeityInDeityList(pilarName, deitiesName)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  // Check if the attrVal is among a nth greatest deity count
+  isHeighDeityCount(params: string[], isGroup: boolean): boolean {
+    if (params.length !== 2) return false;
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const nth = +params[0];
+    const deityList = this.checkEnumList(params[1],ElementNEnergyRelation.RW)
+    let dArr = null;
+    if (isGroup) {
+      dArr = pilarsAttr.deityAttr.getOrderedCountDeityGroupName();
+    } else {
+      dArr = pilarsAttr.deityAttr.getOrderedCountDeityName();
+    }
+    const len = dArr.length - 1;
+
+    //console.log("isHeighDeityCount ", params, nth, deityList, dArr)
+    for (let index = 0; index < dArr.length; index++) {
+      const deityName = dArr[len - index];
+      //console.log("isHeighDeityCount ", deityName,  deityList.indexOf(deityName))
+      if (deityList.indexOf(deityName) >= 0) return true;
+      if (index === nth) break;
+    }
+    return false;
+  }
+
+  // Check if the attrVal is among a lowest deity count
+  isLowDeityCount(params: string[], isGroup: boolean): boolean {
+    if (params.length !== 2) return false;
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const nth = +params[0];
+    const deityList = this.checkEnumList(params[1],ElementNEnergyRelation.RW)
+    let dArr = null;
+    if (isGroup) {
+      dArr = pilarsAttr.deityAttr.getOrderedCountDeityGroupName();
+    } else {
+      dArr = pilarsAttr.deityAttr.getOrderedCountDeityName();
+    }
+    //console.log("isLowDeityCount ",params, nth, deityList, dArr)
+    for (let index = 0; index < dArr.length; index++) {
+      const deityName = dArr[index];
+      //console.log("isLowDeityCount ", deityName,  deityList.indexOf(deityName))
+      if (deityList.indexOf(deityName) >= 0) return true;
+      if (index === nth) break;
+    }
+    return false;
+  }
+
+  // Check if the params[1] Qi list has  params[0] favorale count
+  hasQiType(params: string[]): boolean {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    let countHit = +params[0];
+    const checkQiTypeList =params[1].split("/")
+    for (let index = 0; index < checkQiTypeList.length; index++) {
+      const checkQiTypeName = checkQiTypeList[index];
+      const checkQiType = QiType.getQiTypeByName(checkQiTypeName);
+      if (pilarsAttr.qiTypeData.isFavorable(checkQiType)) {
+        countHit--;
+        if (countHit === 0) return true;
+      }
+    }
+    return false;
+  }
+
+
+  // Check if the params[1] secondary deity list has No  presence count
+  hasZeroSecDeity(params: string[]): boolean {
+    const countHit = +params[0];
+    const checkDeityList = this.checkTransformEnumList(params[1],SecondaryDeity.THIENVIET)
+    //console.log("hasZeroSecDeity", params, checkDeityList);
+    let count = checkDeityList.length;
+    const pilarNames = LunarBase.ymdhCharArr;
+    for (let pilarIdx = 0; pilarIdx < pilarNames.length; pilarIdx++) {
+      const pilarName = pilarNames[pilarIdx];
+      const secDeitiesRec = this.getPilarSecDeitiesRec(pilarName);
+      for (let index = 0; index < secDeitiesRec.length; index++) {
+        const secDeityName = secDeitiesRec[index].secDeity.getName();
+        if (checkDeityList.indexOf(secDeityName) >= 0) {
+          count--;
+          if (count<countHit) return false;
+        }
+      }
+    }
+    return true;
+  }
+
+    // Check if the params[1] secondary deity list has more params[0]  presence count
+    hasSecDeity(params: string[]): boolean {
+      let countHit = +params[0];
+      const checkSecDeityList = this.checkEnumList(params[1],SecondaryDeity.VOID)
+      //console.log("hasSecDeity", countHit, checkDeityList)
+      const pilarNames = LunarBase.ymdhCharArr;
+      for (let pilarIdx = 0; pilarIdx < pilarNames.length; pilarIdx++) {
+        const pilarName = pilarNames[pilarIdx];
+        const secDeitiesRec = this.getPilarSecDeitiesRec(pilarName);
+        for (let index = 0; index < secDeitiesRec.length; index++) {
+          const secDeityName = secDeitiesRec[index].secDeity.getName();
+          if (checkSecDeityList.indexOf(secDeityName) >= 0) {
+            countHit--;
+            if (countHit === 0) return true;
+          }
+        }
+      }
+      return false;
+    }
+
+  // Check if the params deity list has  params[0] checkNonZero presence count
+  hasNonZeroDeityCount(params: string[], checkNonZero: boolean): boolean {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    let countHit = +params[0];
+    const checkDeityList = this.checkTransformEnumList(params[1],ElementNEnergyRelation.RW)
+    //console.log("hasDeityCount", params, countHit, checkDeityList)
+    for (let index = 1; index < checkDeityList.length; index++) {
+      const deityName = checkDeityList[index];
+      const deity = DeityHelper.getDeityByName(deityName);
+      const deityCount = pilarsAttr.getDeityCount(deity);
+      if (checkNonZero === (deityCount !== 0)) {
+        countHit--;
+        if (countHit === 0) return true;
+      }
+    }
+    return false;
+  }
+
+  isPilarWithDeityNSecDeity(params: string[]): boolean {
+    const pilarName = params[0];
+    const deityList =this.checkEnumList(params[1],ElementNEnergyRelation.RW)
+    const secDeityList =this.checkEnumList(params[2],SecondaryDeity.VOID)
+    const pilarHasDeity = this.isPilarDeityInDeityList(pilarName, deityList);
+    const pilarHasSecDeity = this.isPilarSecDeityInSecDeityList(
+      pilarName,
+      secDeityList
+    );
+    //console.log("hasBothPilarDeityNSecDeity", params, pilarHasDeity, pilarHasSecDeity)
+    return pilarHasDeity && pilarHasSecDeity;
+  }
+
+  isPilarWithBothSecNDeity(params: string[]): boolean {
+    const pilarName = params[0];
+    const deityList =this.checkEnumList(params[1],ElementNEnergyRelation.RW)
+    const secDeityList =this.checkEnumList(params[2],SecondaryDeity.VOID)
+    const pilarHasDeity = this.isPilarDeityInDeityList(pilarName, deityList);
+    const pilarHasSecDeity = this.isPilarSecDeityInSecDeityList(
+      pilarName,
+      secDeityList
+    );
+    //console.log("isPilarWithBothSecNDeity", params);
+    return pilarHasDeity && pilarHasSecDeity;
+  }
+
+
+  isPilarWithBothDeity(params: string[]): boolean {
+    const pilarName = params[0];
+    const deityList1 =this.checkEnumList(params[1],ElementNEnergyRelation.RW)
+    const deityList2 = this.checkEnumList(params[2],ElementNEnergyRelation.RW)
+    const pilarHasDeity1 = this.isPilarDeityInDeityList(pilarName, deityList1);
+    const pilarHasDeity2 = this.isPilarDeityInDeityList(pilarName, deityList2);
+   //console.log("isPilarWithBothDeity", params);
+    return pilarHasDeity1 && pilarHasDeity2;
+  }
+
+
+  hasPilarWithBothDeityNSecDeity(params: string[]): boolean {
+    const deityList = this.checkEnumList(params[0],ElementNEnergyRelation.RW)
+    const secDeityList = this.checkEnumList(params[1],SecondaryDeity.VOID)
+    const pilarNames = LunarBase.ymdhCharArr;
+    //console.log("hasPilarWithBothDeityNSecDeity", params);
+    for (let index = 0; index < pilarNames.length; index++) {
+      const pilarName = pilarNames[index];
+      const checkParams = [pilarName, deityList, secDeityList];
+      if (this.isPilarWithBothSecNDeity(checkParams)) return true;
+    }
+    return false;
+  }
+
+  hasPilarWithBothDeity(params: string[]): boolean {
+    const deityList1 =this.checkEnumList(params[0],ElementNEnergyRelation.RW)
+    const deityList2 = this.checkEnumList(params[1],ElementNEnergyRelation.RW)
+    const pilarNames = LunarBase.ymdhCharArr;
+    //console.log("hasPilarWithBothDeity", params);
+    for (let index = 0; index < pilarNames.length; index++) {
+      const pilarName = pilarNames[index];
+      const checkParams = [pilarName, deityList1, deityList2];
+      if (this.isPilarWithBothDeity(checkParams)) return true;
+    }
+    return false;
+  }
+
+  // Check if the pilar branche name is among the branche List
+  isPilarBranche(pilarName: string, brancheList: string): boolean {
+    this.checkEnumList(brancheList,Branche.RAT)
+    const pilar = this.getPilar(pilarName);
+    const brancheName = pilar.branche.getName();
+    //console.log("isPilarBranche ",pilarName, pilar, brancheList, brancheName )
+    return brancheList.indexOf(brancheName) >= 0;
+  }
+
+  // Check if the pilar branche name is among the branche List
+  isBranche(params: string[]): boolean {
+    if (params.length !== 2) return false;
+    const pilarName = params[0];
+    const brancheList = this.checkEnumList(params[1],Branche.RAT)
+    //console.log("isBranche ",params )
+    return this.isPilarBranche(pilarName, brancheList);
+  }
+
+   // Check if the branche list is define in 4 pilar
+   // HasBranche°Count,BrancheList
+   hasBranche(params: string[]): boolean {
+    let count=+params[0]
+    const brancheList = this.checkEnumList(params[1],Branche.RAT)
+    this.checkEnumList(brancheList, Branche.RAT)
+    //console.log("hasBranche ",params )
+    for (let index = 0; index < LunarBase.ymdhCharArr.length; index++) {
+      const pilarName = LunarBase.ymdhCharArr[index];
+      if ( this.isBranche([pilarName,brancheList])) {
+        count--;
+        if ( count===0 ) return true
+      }
+    }
+    return false
+  }
+
+  // Period Deity pivot element and birth pilar transformed to a bad
+  // Check Val -1 or -2
+  // To be redifined in period subclass
+  isPDeityElemBadTransformed(params: string[]) {
+    return false;
+  }
+
+  hasTrunk(params: string[]): boolean {
+    let countHit = +params[0];
+    const checkTrunks = this.checkEnumList(params[1],Trunk.JIA)
+    this.checkEnumList(checkTrunks, Trunk.JIA)
+    //console.log("hasPilarTrunk ", attrVal)
+    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
+      if (checkTrunks.indexOf(this.lunar.getTrunk(pilarIdx).getName()) >= 0) {
+        countHit--;
+        if (countHit === 0) return true;
+      }
+    }
+    return false;
+  }
+  // Usage PilarBrancheTamHopHoa°PilarName,PilarBrancheName[,+ for can be transformed ]
+  hasPilarBrancheTamHopHoa(params: string[]): boolean {
+    const pilarName = params[0];
+    const chechBrancheName = this.checkEnumList(params[1],Branche.RAT);
+    let combListtype = CombAttr.BRANCHECOMB3TYPE ;
+    if ( params.length==3 ) {
+      if (params[2]==="+" ) {
+        combListtype = CombAttr.BRANCHECOMB3WITHTRANSFORMTYPE ;
+      }
+    }
+    const pilar = this.getPilar(pilarName)
+    //console.log("hasPilarBrancheTamHopHoa ", params, pilar)
+    if (chechBrancheName.indexOf(pilar.branche.getName())>=0 ) {
+      const pilarAttr = this.lunar.pilarsAttr
+      const comb5Pilars = pilarAttr.getCombListByType(pilarName,combListtype)
+      return comb5Pilars.length>=0
+    }
+    return false;
+  }
+
+    // Usage PilarTamHopHoa°PilarName1,PilarName2,+ for can be transformed ]
+    hasPilarBrancheTamHop(params: string[]): boolean {
+      const pilarIdx1 = LunarBase.getPilarIdx(params[0])
+      const pilarIdx2 = LunarBase.getPilarIdx(params[1])
+      const combAttr = this.lunar.pilarsAttr.combList.getPilarsCombTypeAttrList(
+        CombAttr.BRANCHECOMB3TYPE,
+        pilarIdx1,pilarIdx2
+      );
+      return combAttr.length>0
+    }
+
+    // Usage BrancheTamHopHoa°PilarBrancheName[,+ for can be transformed ]
+    hasBrancheTamHopHoa(params: string[]): boolean {
+      //console.log("hasBrancheTamHopHoa ", params)
+      for (let index = 0; index < LunarBase.ymdhCharArr.length; index++) {
+        const pilarName = LunarBase.ymdhCharArr[index];
+        if ( this.hasPilarBrancheTamHopHoa([pilarName].concat(params))) return true;
+      }
+      return false
+    }
+
+  // Usage PilarTrunkHopHoa°PilarName,PilarTrunkName[,+ for can be transformed ]
+  hasPilarTrunkHopHoa(params: string[]): boolean {
+    const pilarName = params[0];
+    const checkTrunkName =   this.checkEnumList(params[1],Trunk.JIA)
+    let comb5Listtype = CombAttr.TRUNKCOMB5TYPE ;
+    if ( params.length==3 ) {
+      if (params[2]==="+" ) {
+        comb5Listtype = CombAttr.TRUNKCOMB5WITHTRANSFORMTYPE ;
+      }
+    }
+    const pilar = this.getPilar(pilarName)
+   // console.log("hasPilarTrunkHopHoa ", params, pilar)
+    if (checkTrunkName.indexOf(pilar.trunk.getName())>=0 ) {
+      const pilarAttr = this.lunar.pilarsAttr
+      const comb5Pilars = pilarAttr.getCombListByType(pilarName,comb5Listtype)
+      return comb5Pilars.length>=0
+    }
+    return false;
+  }
+
+  // Usage TrunkHopHoa°PilarTrunkName[,+ for can be transformed ]
+  hasTrunkHopHoa(params: string[]): boolean {
+   // console.log("hasTrunkHopHoa ", params)
+    for (let index = 0; index < LunarBase.ymdhCharArr.length; index++) {
+      const pilarName = LunarBase.ymdhCharArr[index];
+      const newParams = [pilarName].concat(params);
+      if ( this.hasPilarTrunkHopHoa(newParams)) return true;
+    }
+    return false
+  }
+
+  hasPilarTrunk(params: string[]): boolean {
+    const pilarNames = params[0].split("/");
+    const checkTrunks = this.checkEnumList(params[1],Trunk.JIA)
+    //console.log("hasPilarTrunk ", params);
+    for (let index = 0; index < pilarNames.length; index++) {
+      const pilarName = pilarNames[index];
+      const pilar = this.getPilar(pilarName);
+      if ( checkTrunks.indexOf(pilar.trunk.getName()) >= 0) return true
+    }
+
+    return false;
+  }
+
+  // Bad params[0] and params[1] xx branche
+  isBadBranche(params: string[]) {
+    if (params.length !== 2) return false;
+    const pilar1 = this.getPilar(params[0]);
+    const pilar2 = this.getPilar(params[1]);
+    //console.log("isBadBranche ", pilar1, pilar2)
+    return BrancheHelper.isBadYearAgeNPeriod(pilar1.branche, pilar2.branche);
+  }
+
+  // Period non favorable. Overrided in sub class
+  isBadPeriod() {
+    return false;
+  }
+
+  // attrVal is hostile deity pivot
+  isDeityHostilePivot(attrVal: string) {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const pivotHostileElements = pilarsAttr.pivotHostileElements;
+    const deityName = this.checkEnumList(attrVal,ElementNEnergyRelation.RW)
+    let deityElement = pilarsAttr.deityAttr.getDeityElementByName(deityName);
+    //console.log("isDeityHostilePivot",attrVal, deityElement,pivotHostileElements)
+    return ObjectHelper.findIndex(pivotHostileElements, deityElement) !== -1;
+  }
+
+
+
+  // Period LifeCycle name and Force Check
+  isPerLCleStatus(attrVal: string) {
+    const periodNb = this.getPeriodNb();
+    const lifeCycle = this.lunar.getPeriodLifeCycle(periodNb);
+    const forceFavorable = this.lunar.isFavorableLifeCycle(periodNb, lifeCycle);
+    const lfNameNForce =
+      lifeCycle.getName() + StringHelper.bool2Str(forceFavorable);
+    //console.log("isPerLCleStatus",attrVal,lfNameNForce)
+    return attrVal.indexOf(lfNameNForce) >= 0;
+  }
+
+  // Same year pilar trunk branche
+  isSamePilarTrunkBranche(params: string[]) {
+    if (params.length !== 2) return false;
+    const pilar1 = this.getPilar(params[0]);
+    const pilar2 = this.getPilar(params[1]);
+    //console.log("isSamePilarTrunkBranche",params,pilar1,pilar2)
+    return pilar1.trunk === pilar2.trunk && pilar1.branche === pilar2.branche;
+  }
+
+  // checkPilarName Pivot Hostile
+  isPilarDeityHostilePivot(checkPilarName: string) {
+    const pilar = this.getPilar(checkPilarName);
+    const deityName = pilar.deity.getName();
+    //console.log("isPilarDeityHostilePivot",checkPilarName, deityName )
+    return this.isDeityHostilePivot(deityName);
+  }
+
+  // Check Structure
+  isStructures(param: string) {
+    const pilarsAttr = this.lunar.pilarsAttr;
+    const structureNames = pilarsAttr.getStructureNames();
+    const structures = this.checkEnumList(param,BaziStructure.CHINH_AN)
+    //console.log("isStructures",structures, structureNames)
+    for (let index = 0; index < pilarsAttr.structure.length; index++) {
+      const structName = structureNames[index];
+      if (structures.indexOf(structName) >= 0) return true;
+    }
+    return false;
+  }
+
+  hasPilarBrancheWeakened(params: string[]) {
+    let countHit = +params[0];
+    for (let index = 0; index < LunarBase.PILARS_LEN; index++) {
+      const pilar = this.lunar.getPilar(index);
+      if (pilar.isBrancheWeakenedByTrunk()) {
+        countHit--;
+        if (countHit === 0) return true;
+      }
+    }
+    return false;
+  }
+
+  //pilar element is in elementList
+  isPilarElement(pilarName: string, checkElement: string) {
+    const pilar = this.getPilar(pilarName);
+    const pilarElementName = pilar.getElement().getName();
+    //console.log("isPilarElement", pilar,checkElement, pilarElementName)
+    return checkElement.indexOf(pilarElementName) >= 0;
+  }
+
+  //pilar element is in elementList
+  isPilarElementClashed(params: string[]) {
+    if (params.length !== 2) return false;
+    const pilar1 = this.getPilar(params[0]);
+    const pilar2 = this.getPilar(params[1]);
+    const pilar1Element = pilar1.getElement();
+    const pilar2Element = pilar2.getElement();
+    //console.log("isPilarElementClashed",params, pilar1, pilar2)
+    return (
+      pilar1Element.isDestructive(pilar2Element) ||
+      pilar2Element.isDestructive(pilar1Element)
+    );
+  }
+
+  isPilarTrunkClash(params: string[]) {
+    if (params.length !== 2) return false;
+    const pilar1 = this.getPilar(params[0]);
+    const pilar2 = this.getPilar(params[1]);
+    //console.log("isPilarTrunkClash",params, pilar1, pilar2)
+    return pilar1.isTrunkClashed(pilar2);
+  }
+
+  isPilarBrancheClash(params: string[]) {
+    const pilar1Name = params[0]
+    const pilar1 = this.getPilar(pilar1Name);
+    let checkPilarList = LunarBase.ymdhCharArr
+    if ( params.length===2 ) {
+      checkPilarList = params[1].split("/")
+    }
+    //console.log("isPilarBrancheClash",params, pilar1, checkPilarList)
+    for (let index = 0; index < checkPilarList.length; index++) {
+      const checkPilarName = checkPilarList[index];
+      if ( checkPilarName!==pilar1Name ) {
+        const  checkPilar = this.getPilar(checkPilarName);
+        if ( pilar1.isBrancheClashed(checkPilar ) ) return true
+      }
+
+    }
+    return false;
+  }
+
+  hasBrancheClash()  {
+    for (let pilar1 = 0; pilar1 < LunarBase.ymdhCharArr.length; pilar1++) {
+      const pilar1Name = LunarBase.ymdhCharArr[pilar1];
+      for (let pilar2 = pilar1+1; pilar2 < LunarBase.ymdhCharArr.length; pilar2++) {
+        const pilar2Name = LunarBase.ymdhCharArr[pilar2];
+        if ( this.isPilarBrancheClash([pilar1Name,pilar2Name]) ) {
+          return true
+        }
+      }
+    }
+    return false
+  }
+  isPilarCompatible(params: string[]) {
+    if (params.length !== 2) return false;
+    const pilar1 = this.getPilar(params[0]);
+    const pilar2 = this.getPilar(params[1]);
+    //console.log("isPilarCompatible",params, pilar1, pilar2)
+    return pilar1.isCompatible(pilar2);
+  }
+
+  // Deity on Pilar Lifecycle favorable
+  isDeityOnPilarLifeCycleFavorable(params: string[]) {
+    if (params.length < 3) return false;
+    const checkDeityList = this.checkEnumList(params[0],ElementNEnergyRelation.RW);
+    const checkLifeCycleNameList = this.checkEnumList(params[1],ElementLifeCycle.TOMB);
+    const checkIsFavorable = params[2] === "+";
+    //console.log("isDeityOnPilarLifeCycleFavorable",attrVal,checkDeityList, checkLifeCycleNameList, checkIsFavorable)
+    const pilars = this.lunar.getPilars();
+    const periodNb = this.getPeriodNb();
+
+    for (let pilarIdx = 0; pilarIdx < pilars.length; pilarIdx++) {
+      const pilar = pilars[pilarIdx];
+      const pilarDeity = pilar.deity;
+      const forceFavorable = this.lunar.isFavorableLifeCycle(
+        periodNb,
+        pilar.lifeCycle
+      );
+      //console.log(" forceFavorable ",forceFavorable,checkIsFavorable)
+      if (checkIsFavorable === forceFavorable) {
+        //console.log(" pilarDeity ",checkDeityList, checkLifeCycleNameList, pilarDeity, pilar)
+        if (checkDeityList.indexOf(pilarDeity.getName()) >= 0) {
+          if (checkLifeCycleNameList.indexOf(pilar.lifeCycle.getName()) >= 0) {
+            //console.log("isDeityOnPilarLifeCycleFavorable FOUND",attrVal,checkDeityList, checkLifeCycleNameList, checkIsFavorable)
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  // Pilar has lifecycle
+  isPilarLifeCycle(params: string[]) {
+    const pilarName = params[0];
+    const checkLifeCycleNameList = this.checkEnumList(params[1],ElementLifeCycle.TOMB);
+   //console.log("isPilarLifeCycle", params);
+    const pilar = this.getPilar(pilarName);
+    return checkLifeCycleNameList.indexOf(pilar.lifeCycle.getName()) >= 0;
+  }
+
+
+  // Pilar with Deity and Lifecycle
+  isPilarDeityLifeCycle(params: string[]) {
+    if (params.length != 3) return false;
+    const checkPilarList = params[0].split("/");
+    const checkDeityList = this.checkEnumList(params[1],ElementNEnergyRelation.RW);
+    const checkLifeCycleNameList = this.checkEnumList(params[2],ElementLifeCycle.TOMB);
+      for (let index = 0; index < checkPilarList.length; index++) {
+        const checkPilar = checkPilarList[index];
+        const pilar = this.getPilar(checkPilar);
+        if ( checkDeityList.indexOf(pilar.deity.getName()) >=0 && checkLifeCycleNameList.indexOf(pilar.lifeCycle.getName()) >= 0) return true
+    }
+    return false;
+  }
+
+    // Pilar with both trunk and Lifecycle
+    isPilarTrunkLifeCycle(params: string[]) {
+      if (params.length != 3) return false;
+      const checkPilarList = params[0].split("/");
+      const checkTrunkList = this.checkEnumList(params[1],Trunk.BING);
+      const checkLifeCycleNameList = this.checkEnumList(params[2],ElementLifeCycle.TOMB);
+      //console.log("isPilarTrunkLifeCycle ",params )
+      for (let index = 0; index < checkPilarList.length; index++) {
+          const checkPilar = checkPilarList[index];
+          const pilar = this.getPilar(checkPilar);
+          if ( checkTrunkList.indexOf(pilar.trunk.getName()) >=0 && checkLifeCycleNameList.indexOf(pilar.lifeCycle.getName()) >= 0) return true
+      }
+      return false;
+    }
+
+        // Pilar with both branche and Lifecycle
+        isPilarBrancheLifeCycle(params: string[]) {
+          if (params.length != 3) return false;
+          const checkPilarList = params[0].split("/");
+          const checkBrancheList = this.checkEnumList(params[1],Branche.RAT);
+          const checkLifeCycleNameList = this.checkEnumList(params[2],ElementLifeCycle.TOMB);
+          //console.log("isPilarBrancheLifeCycle ",params, )
+          for (let index = 0; index < checkPilarList.length; index++) {
+              const checkPilar = checkPilarList[index];
+              const pilar = this.getPilar(checkPilar);
+              if ( checkBrancheList.indexOf(pilar.branche.getName()) >=0 && checkLifeCycleNameList.indexOf(pilar.lifeCycle.getName()) >= 0) return true
+          }
+          return false;
+        }
+
+
+    // Any Pilar with Deity and Lifecycle
+    isTrunkLifeCycle(params: string[]) {
+      if (params.length != 2) return false;
+      const myParams = ["Y/M/D/H"].concat(params)
+      return this.isPilarTrunkLifeCycle(myParams);
+    }
+
+        // Any Pilar with Deity and Lifecycle
+    isBrancheLifeCycle(params: string[]) {
+      if (params.length != 2) return false;
+      const myParams = ["Y/M/D/H"].concat(params)
+      return this.isPilarBrancheLifeCycle(myParams);
+     }
+
+  hasAtLeast3SameYearHostileBranche() {
+    let branche = this.lunar.get3PlusSameBranche();
+    //console.log("hasAtLeast3SameYearHostileBranche",branche)
+    if (branche !== null) {
+      const yearBranche = this.studyYear.getyBranche();
+      return !BrancheHelper.getMainRelation(yearBranche, branche).isFavorable();
+    }
+    return false;
+  }
+
+  isTrunkCompatible(params: string[]) {
+    if (params.length < 2) return false;
+    const pilar1 = this.getPilar(params[0]);
+    const pilar2 = this.getPilar(params[1]);
+    //console.log("isTrunkCompatible", params, pilar1, pilar2)
+    return pilar1.isTrunkCompatible(pilar2);
+  }
+
+  // Is  params pilar has minCount clashed
+  isPilarNClashed(minCount: number, params: string[]) {
+    let count = minCount;
+    for (let pilar1Idx = 0; pilar1Idx < params.length; pilar1Idx++) {
+      const pilar1 = this.getPilar(params[pilar1Idx]);
+      for (let index = pilar1Idx; index < params.length; index++) {
+        const pilar2 = this.getPilar(params[index]);
+        if (pilar1.isTrunkBrancheClashed(pilar2)) {
+          count--;
+          if (count === 0) return true;
+        }
+      }
+    }
+    //console.log("isPilarNClashed", minCount, params, count)
+    return false;
+  }
+
+  // Is params[0] minimum count pilar clashed
+  isPilarXClashed(params: string[]) {
+    if (params.length < 3) return false;
+    const minCount = +params[0];
+    params.shift();
+    //console.log("isPilarXClashed", minCount, params)
+    return this.isPilarNClashed(minCount, params);
+  }
+
+  // Is
+  isPilarByNameClashed(checkPilarName: string, pilarsCheckList: string[]) {
+    const checkPilar = this.getPilar(checkPilarName);
+    //console.log("isPilarByNameClashed 1",checkPilar, pilarsCheckList)
+    for (let pilarIdx = 0; pilarIdx < pilarsCheckList.length; pilarIdx++) {
+      const pilar = this.getPilar(pilarsCheckList[pilarIdx]);
+      if (checkPilar.isTrunkBrancheClashed(pilar)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+    // Is
+    isPilarByNameTrunkClashed(checkPilarName: string, pilarsCheckList: string[]) {
+      const checkPilar = this.getPilar(checkPilarName);
+     //console.log("isPilarByNameTrunkClashed",checkPilar, pilarsCheckList)
+      for (let pilarIdx = 0; pilarIdx < pilarsCheckList.length; pilarIdx++) {
+        const pilar = this.getPilar(pilarsCheckList[pilarIdx]);
+        if (checkPilar.isTrunkClashed(pilar)) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+  // Is params[0] and params[1] pilar is all clashed
+  isPilarClashed(params: string[]) {
+    if (params.length < 3) return false;
+    let count = +params[0];
+    const checkPilarName = params[1];
+    let pilarsCheckList = params[2].split("/");
+    if (pilarsCheckList.length == 0) {
+      pilarsCheckList = ["Period", "Destin", "Year", "Y", "M", "D", "H"];
+      const index = pilarsCheckList.indexOf(checkPilarName);
+      if (index !== -1) {
+        pilarsCheckList.splice(index, 1);
+      }
+    }
+    //console.log("isPilarClashed",params,checkPilar,checkPilarName, count, pilarsCheckList)
+    for (let pilarIdx = 0; pilarIdx < pilarsCheckList.length; pilarIdx++) {
+      if (this.isPilarByNameClashed(checkPilarName, pilarsCheckList)) {
+        count--;
+        if (count === 0) return true;
+      }
+    }
+    return false;
+  }
+
+    // Is params[0] and params[1] pilar is all clashed
+    isPilarTrunkClashed(params: string[]) {
+      if (params.length < 3) return false;
+      let count = +params[0];
+      const checkPilarName = params[1];
+      let pilarsCheckList = params[2].split("/");
+      if (pilarsCheckList.length == 0) {
+        pilarsCheckList = ["Period", "Destin", "Year", "Y", "M", "D", "H"];
+        const index = pilarsCheckList.indexOf(checkPilarName);
+        if (index !== -1) {
+          pilarsCheckList.splice(index, 1);
+        }
+      }
+      //console.log("isPilarClashed",params,checkPilar,checkPilarName, count, pilarsCheckList)
+      for (let pilarIdx = 0; pilarIdx < pilarsCheckList.length; pilarIdx++) {
+        if (this.isPilarByNameTrunkClashed(checkPilarName, pilarsCheckList)) {
+          count--;
+          if (count === 0) return true;
+        }
+      }
+      return false;
+    }
+  // Check Genre  1==isMan
+  isGenre(params: string[]) {
+    if (params.length === 0) return false;
+    //console.log("isGenre ", params,this.lunar.isMan && params[0]==="1")
+    return this.lunar.isMan && params[0] === "m";
+  }
+
+  isPilarNotClashed(params: string[]) {
+    const len = params.length;
+    //console.log("isPilarNotClashed", params)
+    for (let pIdx1 = 0; pIdx1 < len; pIdx1++) {
+      const currPilar1 = this.getPilar(params[pIdx1]);
+      for (let pIdx2 = pIdx1 + 1; pIdx2 < len; pIdx2++) {
+        const currPilar2 = this.getPilar(params[pIdx2]);
+        //console.log("isPilarNotClashed", currPilar1, currPilar2, currPilar1.isPilarClashed(currPilar2))
+        if (currPilar1.isPilarClashed(currPilar2)) return false;
+      }
+    }
+    return true;
+  }
+
+  //anyPilar clashed with pilar containing one of the deities name
+  isDeityPilarCLashed(params: string[]) {
+    if (params.length !== 2) return false;
+    const checkPilar = this.getPilar(params[0]);
+    const deitiesName = this.checkEnumList(params[1],ElementNEnergyRelation.RW);
+    const pilarsAttr = this.lunar.pilarsAttr;
+    //console.log("isDeityPilarCLashed", params, checkPilar)
+    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
+      const pilar = this.lunar.getPilar(pilarIdx);
+      if (checkPilar.isTrunkBrancheClashed(pilar)) {
+        let pilarDeityName = pilarsAttr.getPilarDeity(pilarIdx).getName();
+        if (deitiesName.indexOf(pilarDeityName) >= 0) return true;
+        //Hidden deity
+        let hiddenDeities = pilarsAttr.getHiddenPilarDeities(pilarIdx);
+        for (let hiddenIdx = 0; hiddenIdx < hiddenDeities.length; hiddenIdx++) {
+          const deity = hiddenDeities[hiddenIdx];
+          if (deity !== null && deitiesName.indexOf(deity.getName()) >= 0)
+            return true;
+        }
+      }
+    }
+    return false;
+  }
+
+
+  //anyPilar clashed with any pilar containing one of the deities name
+  // DeityOnClashedPilar°count,DeityList,
+  isDeityOnCLashedPilar(params: string[]) {
+    if (params.length !== 2) return false;
+    const checkdeityList=this.checkEnumList(params[1],ElementNEnergyRelation.RW);
+    let count = +params[0]
+    for (let pilarIdx = 0; pilarIdx < LunarBase.ymdhCharArr.length; pilarIdx++) {
+      const checkPilarName = LunarBase.ymdhCharArr[pilarIdx]
+      if ( this.isDeityPilarCLashed([checkPilarName,checkdeityList])) {
+        count--;
+        if ( count===0 ) return true
+      }
+    }
+    return false;
+  }
+
+  // To be override in period sub class
+  getPeriodNb() {
+    return 0;
+  }
+
+  // Check van enfant, adolescent, ...
+  isPeriodNb(params: string[]) {
+    const checkFrom = +params[0];
+    const currPeriodNb = this.getPeriodNb();
+    let checkTo = 10;
+    if (params.length >= 2) checkTo = +params[1];
+    //console.log("isPeriodNb", params, currPeriodNb, checkFrom, checkTo)
+    return currPeriodNb >= checkFrom && currPeriodNb <= checkTo;
+  }
+
+  isDayTMaster(param:string) {
+    const trunkName = this.checkEnumList(param,Trunk.BING);
+    const dTrunk = this.lunar.pilars[ LunarBase.DINDEX].trunk;
+    return trunkName==dTrunk.getName()
+  }
+
+  isDayEMaster(param:string) {
+    const elementName = this.checkEnumList(param,Element.EARTH);
+    const dElement = this.baseAttr.dTrunkElementNEnergy.element;
+    return elementName==dElement.getName()
+  }
+
+
+  isAttrPresent(key: string, attrKey: string, attrVal: string): boolean {
+    const params = attrVal.split(",");
+    this.checkMethod=attrKey + " "+ attrVal
+    switch (attrKey) {
+      case "HighDeity":
+        return this.isHeighDeityCount(params, false);
+      case "LowDeity":
+        return this.isLowDeityCount(params, false);
+      case "HasDeity":
+        return this.hasNonZeroDeityCount(params, true);
+        case "HighDeityGrp":
+          return this.isHeighDeityCount(params, true);
+        case "LowDeityGrp":
+          return this.isLowDeityCount(params, true);
+
+      case "HasSecDeity":
+        return this.hasSecDeity(params);
+      case "HasTrunk":
+        return this.hasTrunk(params);
+      case "TrunkHopHoa":
+        return this.hasTrunkHopHoa(params);
+        case "PilarTrunkHopHoa":
+          return this.hasPilarTrunkHopHoa(params);
+
+      case "HasPilarWithBothDeitySecDeity":
+        return this.hasPilarWithBothDeityNSecDeity(params);
+       case "PilarWithBothDeitySecDeity":
+          return this.isPilarWithBothSecNDeity(params);
+      case "PilarWithBothDeity":
+            return this.isPilarWithBothDeity(params);
+      case "HasPilarWithBothDeity":
+          return this.hasPilarWithBothDeity(params);
+      case "PilarWithBothDeityNSecDeity":
+        return this.isPilarWithDeityNSecDeity(params);
+      case "ZeroDeity":
+        return this.hasNonZeroDeityCount(params, false);
+      case "ZeroSecDeity":
+        return this.hasZeroSecDeity(params);
+
+      case "DeityPilarClashed":
+        return this.isDeityPilarCLashed(params);
+      case "DeityOnCLashedPilar":
+        return this.isDeityOnCLashedPilar(params);
+      case "PDeityElemBadTransformed":
+        return this.isPDeityElemBadTransformed(params);
+      case "DeityElement":
+        return this.isDeityElement(params)
+      case "DeityHostilePivot":
+        return this.isDeityHostilePivot(attrVal);
+      case "BrancheDeity":
+        return this.isBrancheDeities(params);
+      case "DeityOnPilarLifeCycleFavorable":
+        return this.isDeityOnPilarLifeCycleFavorable(params);
+     case "DeityLifeCycle":
+          params.unshift("Y/M/D/H")
+          return this.isPilarDeityLifeCycle(params);
+     case "PilarDeityLifeCycle":
+            return this.isPilarDeityLifeCycle(params);
+     case "PilarTrunkLifeCycle":
+              return this.isPilarTrunkLifeCycle(params);
+     case "TrunkLifeCycle":
+                return this.isTrunkLifeCycle(params);
+      case "PilarTDeity":
+            return this.containsTrunkDeity(params);
+      case "PilarBDeity":
+              return this.containsHiddenDeity(params);
+      case "PilarTNBDeity":
+                return this.containsTrunkDeity(params) && this.containsHiddenDeity(params);
+      case "PilarTOBDeity":
+                return this.containsDeity(params);
+      case "PilarDeityNHidden":
+                  return this.containsDeityNHidden(params);
+      case "HasPilarDeityNHidden":
+            return this.hasPilarDeityNHidden(params);
+      case "PilarSecDeity":
+        return this.containsSecDeity(params);
+      case "PYDeity":
+        return (
+          this.isPilarDeityInDeityList("Period", attrVal) ||
+          this.isPilarDeityInDeityList("Year", attrVal)
+        );
+      case "PilarLifeCycle":
+        return this.isPilarLifeCycle(params);
+      case "PilarTrunk":
+        return this.hasPilarTrunk(params);
+      case "PilarTClashed":
+          return this.isPilarTrunkClashed(params);
+      case "PilarClashed":
+        return this.isPilarClashed(params);
+      case "PilarXClashed":
+        return this.isPilarXClashed(params);
+      case "PilarNotClashed":
+        return this.isPilarNotClashed(params);
+      case "PilarDeityPivotHostile":
+        return this.isPilarDeityHostilePivot(attrVal);
+      case "SamePilarTrunkBranche":
+        return this.isSamePilarTrunkBranche(params);
+      case "PilarElement":
+        return this.isPilarElement(params[0], params[1]);
+      case "PYElement":
+        return (
+          this.isPilarElement("Period", attrVal) ||
+          this.isPilarElement("Year", attrVal)
+        );
+      case "PilarTrunkClash":
+        return this.isPilarTrunkClash(params);
+      case "PilarBrancheClash":
+        return this.isPilarBrancheClash(params);
+
+      case "PilarCompatible":
+        return this.isPilarCompatible(params);
+      case "PilarElementClash":
+        return this.isPilarElementClashed(params);
+      case "PilarFavorablePivot":
+        return this.isPilarFavorablePivot(params);
+      case "PilarHostilePivot":
+        return this.isPilarHostilePivot(params);
+      case "HasPilarBrancheWeakened":
+        return this.hasPilarBrancheWeakened(params);
+
+      case "PivotFavorable":
+        return this.isFavorablePivot(params);
+      case "PivotFavorableElement":
+        return this.isElementFavorablePivot(attrVal);
+      case "PivotHostile":
+        return this.isHostilePivot(params);
+      case "PivotSupport":
+        return this.isPivotSupport();
+
+      case "SecDeityOnPivotFavorable":
+        return this.isSecDeityOnFavorablePivot(params);
+        case "SecDeityOnPivotHostile":
+          return this.isDeityOnHostilePivot(params);
+      case "SecDeityClashed":
+        return this.isSecDeityClashed(params);
+      case "SecDeitiesOnSamePilar":
+        return this.hasSecDeitiesOnSamePilar(params);
+      case "SecDeityOnPilarLifeCycle":
+        return this.isSecDeityOnPilarLifeCycle(params);
+
+      case "QiType":
+        return this.hasQiType(params);
+
+      case "QuyNhan":
+        return this.hasQuyNhan;
+      case "NoQuyNhan":
+        return !this.hasQuyNhan;
+      case "Genre":
+        return this.isGenre(params);
+
+      case "PilarBrancheLifeCycle":
+          return this.isPilarBrancheLifeCycle(params);
+      case "BrancheLifeCycle":
+          return this.isBrancheLifeCycle(params);
+      case "Branche":
+        return this.isBranche(params);
+      case "HasBranche":
+          return this.hasBranche(params);
+      case "BrancheClashed":
+          return this.hasBrancheClash();
+      case "PYBranche":
+        return (
+          this.isPilarBranche("Period", attrVal) ||
+          this.isPilarBranche("Year", attrVal)
+        );
+      case "BadBranche":
+        return this.isBadBranche(params);
+      case "BrancheTamHopHoa":
+          return this.hasBrancheTamHopHoa(params);
+        case "PilarBrancheTamHopHoa":
+            return this.hasPilarBrancheTamHopHoa(params);
+        case "PilarTamHop":
+            return this.hasPilarBrancheTamHop(params);
+
+      case "BadPeriod":
+        return this.isBadPeriod();
+      case "PerLCyleStatus":
+        return this.isPerLCleStatus(attrVal);
+      case "Structures":
+        return this.isStructures(attrVal);
+      case "AtLeastSameYearHostileBranche":
+        return this.hasAtLeast3SameYearHostileBranche();
+      case "TrunkCompatible":
+        return this.isTrunkCompatible(params);
+      case "AgePeriod":
+        return this.isPeriodNb(params);
+      case "ElementForce":
+        return this.isElementForce(params)
+      case "ElementBalanced":
+        return this.isBalancedElement()
+      case "TrunkElementPresent":
+          return this.isTrunkElementPresent(attrVal);
+      case "DayForce":
+        return this.isDayForceStatus(attrVal);
+      case "BirthSeason":
+        return this.isBirthSeason(attrVal);
+      case "DayTMaster":
+        return this.isDayTMaster(attrVal);
+        case "DayEMaster":
+          return this.isDayEMaster(attrVal);
+      default:
+        console.log("UNKNOW CASE ", attrKey, key);
+    }
+    return false;
+  }
+
+  filterOnHeader(header: string) {
+    const selectHeaders = PropertyHelper.getHeaderKeys(header);
+    const logMe = false;
+    const startKeyIdx = 2;
+    if (logMe) console.log(header, selectHeaders);
+    for (let index = 0; index < selectHeaders.length; index++) {
+      let key = selectHeaders[index];
+      this.checkKey=key
+      let res = true;
+      let CHECKALL = true; // break on first check is false
+      const keyArr = key.split(".");
+      const len = keyArr.length - 1;
+      const idx = keyArr[len].indexOf("&");
+      if (idx === -1) {
+        console.log("MISSING &", key);
+      } else {
+        keyArr[len] = keyArr[len].substring(0, idx);
+      }
+      for (let index = startKeyIdx; index <= len; index++) {
+        let currAttrkey = keyArr[index];
+        const paramIdx = currAttrkey.indexOf("°");
+        let currAttrVal = "NONE";
+        // parameter
+        if (paramIdx > 0) {
+          currAttrVal = currAttrkey.substring(paramIdx + 1);
+          currAttrkey = currAttrkey.substring(0, paramIdx);
+        }
+        let isPositive = true;
+        if  (currAttrkey[0] === "-" || currAttrkey[0] === "!") {
+          isPositive = false;
+          currAttrkey = currAttrkey.substring(1);
+        }
+        //console.log( "KEY", key, currAttrkey, currAttrVal)
+        if (isPositive !== this.isAttrPresent(key, currAttrkey, currAttrVal)) {
+          res = false;
+          if (!CHECKALL) break;
+        }
+      }
+      if (res) {
+        let res = this.addBaseComment0(key, true);
+        //console.log("FOUND KEY", res, key);
+      }
+    }
+  }
+
+  filterbyHeader(header: string) {
+    const dayForce = this.baseAttr.dayForce;
+    this.filterOnHeader(header + "0");
+    this.filterOnHeader(header + "+"); // Testing purpose
+    this.filterOnHeader(header + "-"); // Testing purpose
+    //this.comentOnHeader(header+dayForce);
+  }
+
+  //
+  filterObservation(header: string, isDestin: boolean) {
+    if (!isDestin) this.filterbyHeader("PY.");
+    this.filterbyHeader(header);
+  }
+
+  override comment() {
     super.comment();
     this.evalBaseDestinyPoint();
     this.evalCurrAttr();
-    this.commentOnSecDeity();
-    if (!this.hasQuyNhan) {
-      this.addUpdatePtsBaseComment("QuyNhanNotPresent");
-    }
-    this.commentOnElementNEnergyRelation();
-    this.commentOnVoid();
-    this.commentOnTrunkTransform();
-    this.commentSeasonCombinaison();
-    this.commentBrancheCombinaison();
-    this.commentOnDeitiesCount();
-    this.commentPilarDeities();
-    this.commentOnDayForceCombination();
-    this.commentOnElement();
-    this.commentOnStructure();
-    this.commentOnBaziDayMaster();
-    this.commentOnPilar();
-    this.commentOnElligiblePivots();
+    this.filterObservation("Destin.", true);
   }
 }

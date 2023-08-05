@@ -174,6 +174,29 @@ export class CombinationList {
     return false;
   }
 
+  getPilarsCombTypeAttrList(
+    type: number,
+    pilar1Idx: number,
+    pilar2Idx: number
+  ) {
+    let res = [];
+    for (let index = 0; index < this.combList.length; index++) {
+      const combAttr = this.combList[index];
+      if (combAttr.type === type) {
+        let foundDataArr = combAttr.branchAttrs;
+        if (combAttr.isTrunkData()) {
+          foundDataArr = combAttr.trunkAttrs;
+        }
+        if (ObjectHelper.hasItem(foundDataArr, pilar1Idx) &&
+            ObjectHelper.hasItem(foundDataArr, pilar2Idx)) {
+            res.push(combAttr);
+        }
+      }
+    }
+    return res;
+  }
+
+
   getCombTypeAttrList(
     type: number,
     pilarIdx: number,

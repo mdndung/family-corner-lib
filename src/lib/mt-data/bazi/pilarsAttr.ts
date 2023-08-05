@@ -27,6 +27,7 @@ import { MessageHelper } from "../../helper/messageHelper";
 import { StringHelper } from "../../helper/stringHelper";
 import { DeityAttr } from "./deityAttr";
 import { BaziStructure } from "./bazi-structure";
+import { SecDeityAttr } from "./SecDeityAttr";
 
 
 export class PilarsAttr {
@@ -47,8 +48,7 @@ export class PilarsAttr {
   trunkRelation: ElementNEnergyRelation[][] = null;
   dayHiddenRelation: ElementNEnergyRelation[][] = null;
 
-  secondaryDeityPilars: SecondaryDeity[][] = null;
-  secDeityForceArr: number[] = null;
+  secondaryDeityPilars: SecDeityAttr[] = null;
 
   elementNEnergyForce: DataWithLog[] = null;
   elementForce: DataWithLog[] = null;
@@ -89,7 +89,6 @@ export class PilarsAttr {
 
     QiHelper.addPivotForce(lunar);
     this.initStructure();
-    this.countSecDeities();
     this.evalDeityCount();
     this.evalDeityForce();
     this.evalDeityElement();
@@ -140,36 +139,6 @@ export class PilarsAttr {
   }
 
 
-  countSecDeities() {
-    const secDeities = SecondaryDeity.AMDUONGLECH.getValues();
-    const pilarWeightArr = [1, 2, 5, 2, 3];
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const pilars = this.lunar.pilars;
-    this.secDeityForceArr = ObjectHelper.newArray(secDeities.length, 0);
-    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
-      const lifeCycle = ElementLifeCycle.getElementLifeCycle(
-        pilars[pilarIdx].trunk,
-        pilars[LunarBase.DINDEX].branche
-      );
-      let deityForce =
-        pilarWeightArr[pilarIdx] *
-        (pilarsAttr.trunkForceArr[pilarIdx].getValue() +
-          pilarsAttr.trunkForceArr[pilarIdx].getValue());
-      if (!lifeCycle.isFavorable()) deityForce = -deityForce;
-      for (
-        let index = 0;
-        index < this.secondaryDeityPilars[pilarIdx].length;
-        index++
-      ) {
-        const secDeity = this.secondaryDeityPilars[pilarIdx][index];
-        if (secDeity.isFavorable()) {
-          this.secDeityForceArr[secDeity.ordinal()] += deityForce;
-        } else {
-          this.secDeityForceArr[secDeity.ordinal()] -= deityForce;
-        }
-      }
-    }
-  }
 
   getHiddenTrunkName(branche: Branche, trunk: Trunk, element: Element) {
     return branche + " Hidden trunk " + trunk + " " + element;
@@ -426,7 +395,7 @@ export class PilarsAttr {
   }
 
   private evalDeityElement() {
-    const allDeities = ElementNEnergyRelation.DR.getValues();
+    const allDeities = ElementNEnergyRelation.getValues();
     const len = allDeities.length;
     const dayMasterElement = this.lunar.getDayMasterElement();
     const pilarsAttr = this.lunar.pilarsAttr;
@@ -460,8 +429,7 @@ export class PilarsAttr {
   getStrongerCountDeityGroup(minCount: number):ElementNEnergyRelation[]{
     const res:ElementNEnergyRelation[] = [];
     const pilarsAttr = this.lunar.pilarsAttr;
-    const eNERValues =
-      ElementNEnergyRelation.DR.getValues() as ElementNEnergyRelation[];
+    const eNERValues =ElementNEnergyRelation.getValues() ;
     const len = eNERValues.length;
     for (let index = 0; index <len ; index++) {
       const deity = eNERValues[index].getBaseGroup();
@@ -475,8 +443,7 @@ export class PilarsAttr {
   getStrongerCountDeityName(minCount: number):ElementNEnergyRelation[]{
     const res:ElementNEnergyRelation[] = [];
     const pilarsAttr = this.lunar.pilarsAttr;
-    const eNERValues =
-      ElementNEnergyRelation.DR.getValues() as ElementNEnergyRelation[];
+    const eNERValues = ElementNEnergyRelation.getValues();
     const len = eNERValues.length;
     for (let index = 0; index <len ; index++) {
       const deity = eNERValues[index];
@@ -487,6 +454,10 @@ export class PilarsAttr {
     return res;
   }
 
+  getCombListByType(pilarName: string, type:number) {
+    const pilarIdx = LunarBase.getPilarIdx(pilarName)
+   return this.combList.getCombTypeAttrList(type,pilarIdx);
+  }
 
   private evalDeityLeverage() {
     // Deity force statuses
@@ -556,7 +527,7 @@ export class PilarsAttr {
 
 
   private evalDeityCount() {
-    const eNERValues = ElementNEnergyRelation.DR.getValues();
+    const eNERValues = ElementNEnergyRelation.getValues();
     const len = eNERValues.length;
     const pilarsAttr = this.lunar.pilarsAttr;
     const dIndex = LunarBase.DINDEX;
@@ -576,8 +547,7 @@ export class PilarsAttr {
   }
 
   private evalDeityForce() {
-    const eNERValues =
-      ElementNEnergyRelation.DR.getValues() as ElementNEnergyRelation[];
+    const eNERValues = ElementNEnergyRelation.getValues();
     const len = eNERValues.length;
     const pilarsAttr = this.lunar.pilarsAttr;
     pilarsAttr.deityAttr.force = ObjectHelper.newArray(len, 0);
@@ -643,13 +613,6 @@ export class PilarsAttr {
       }
     }
     return false;
-  }
-
-  hasSecDeity(pilarIdx: number, secDeity: SecondaryDeity) {
-    return ObjectHelper.hasItem(
-      this.lunar.pilarsAttr.secondaryDeityPilars[pilarIdx],
-      secDeity
-    );
   }
 
   setOnlyPrincipalForce(pilarIdx: number, force: number, detail?: string) {
@@ -1305,14 +1268,18 @@ export class PilarsAttr {
 
   }
 
-    getPivotSupportCount( supportFavorable: boolean ) {
+  // Return the count of non pivot element that is supportFavorable to pivot
+  // NonPivotElementSupportCount
+    getNonPivotElementSupportCount( supportFavorable: boolean ) {
       const elementValues = Element.WATER.getValues();
       const elligibleElements = this.elligiblePivotData.getValue();
       let count=0;
       for (let index = 0; index < elementValues.length; index++) {
         const element = elementValues[index] as Element;
-        if ( !ObjectHelper.hasItem(elligibleElements,element) ) {
-          if ( this.isPivotSupport(element,supportFavorable ) ) count++;
+        if ( this.getElementForce(element)  > 0 ) {
+          if ( !ObjectHelper.hasItem(elligibleElements,element) ) {
+            if ( this.isPivotSupport(element,supportFavorable ) ) count++;
+          }
         }
       }
       return count
@@ -1343,53 +1310,6 @@ export class PilarsAttr {
       }
       return '0'
     }
-
-
-  getPivotStatus(element: Element) {
-    const isElligible = this.isElligilePivotElement(element);
-    const strongSupport = 5; // 5
-    const pivotSupport = 1; 1;
-    const strongHostile = 4;// 4;
-    const pivotHostile = 2;// 2;
-    let res = 0;
-    if (isElligible) {
-      if (this.isFavorableElement(element)) {
-        res = strongSupport;
-      } else {
-        res = pivotSupport;
-      }
-    } else {
-      if (this.isFavorableElement(element)) {
-        res = strongHostile;
-      } else {
-        res = pivotHostile;
-      }
-    }
-    return res;
-  }
-
-  getPivotStatusStr(element: Element) {
-    const isElligible = this.isElligilePivotElement(element);
-    const strongSupport = 5 ; // 5
-    const pivotSupport = 1; 1;
-    const strongHostile = 4;// 4;
-    const pivotHostile = 2;// 2;
-    let res = 0;
-    if (isElligible) {
-      if (this.isFavorableElement(element)) {
-        res = strongSupport;
-      } else {
-        res = pivotSupport;
-      }
-    } else {
-      if (this.isFavorableElement(element)) {
-        res = strongHostile;
-      } else {
-        res = pivotHostile;
-      }
-    }
-    return res;
-  }
 
   initEE() {
     const lunar = this.lunar;
@@ -1576,6 +1496,8 @@ export class PilarsAttr {
     return force > this.averageElementForce;
   }
 
+
+
   getDayForceLabel(): string {
     const force = this.getDayElementNFriendForce();
     const dayStatusFavorable = this.qiTypeData.isFavorable(QiType.DAYSTATUS)
@@ -1590,6 +1512,18 @@ export class PilarsAttr {
 
   isVeryWeakedElement(element: Element) {
     return this.getElementForce(element) <= this.weakThreshHold / 2;
+  }
+
+  isTOOFavorableElement(element: Element) {
+    return (this.getElementForce(element)*2/3 > this.favorableThreshHold)
+  }
+
+  getElementForceChar(element:Element) {
+    if ( this.isWeakedElement(element) ) return "--";
+    if ( this.isWeakedElement(element) ) return "-";
+    if ( this.isTOOFavorableElement(element) ) return "++";
+    if ( this.isFavorableElement(element) ) return "+";
+    return "0"
   }
 
   getElementForce(element: Element) {

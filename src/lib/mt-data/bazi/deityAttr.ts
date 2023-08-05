@@ -2,6 +2,7 @@ import { ElementNEnergyRelation } from "../feng-shui/elementNEnergyRelation";
 import { Element } from "../feng-shui/element";
 import { ObjectHelper } from "../../helper/objectHelper";
 import { DeityHelper } from "../../helper/deityHelper";
+import { DeityRec } from "./deityRec";
 
 export class DeityAttr {
 
@@ -11,6 +12,8 @@ export class DeityAttr {
   elements: Element[] = null;
   countOrderedDeityName : string[] = null;
   countOrderedDeityGroupName : string[] = null;
+
+  detiesRec: DeityRec[];
 
   getDeityElement(deity:ElementNEnergyRelation) {
     return this.elements[deity.ordinal()]

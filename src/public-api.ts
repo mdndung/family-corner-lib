@@ -50,6 +50,8 @@ export * from './lib/mt-data/bazi/lunar';
 export * from './lib/mt-data/bazi/lunarBase';
 export * from './lib/mt-data/bazi/pilarsAttr';
 export * from './lib/mt-data/bazi/season';
+export * from './lib/mt-data/bazi/SecDeityRec';
+export * from './lib/mt-data/bazi/SecDeityAttr';
 export * from './lib/mt-data/bazi/secondaryDeity';
 export * from './lib/mt-data/bazi/trunk';
 

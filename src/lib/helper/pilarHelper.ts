@@ -17,7 +17,7 @@ export class PilarHelper {
     const pilarsAttr = bazi.pilarsAttr;
     const pivotHostileElements = pilarsAttr.pivotHostileElements;
     const pivotCompatibleElements = pilarsAttr.elligiblePivotData.getValue();
-    const pilarElement = checkPilar.nagiaElement;
+    const pilarElement = checkPilar.getElement();
     if (pilarElement.isCompatible(pivotHostileElements)) {
       return new DataWithLog(
         -1,
@@ -50,7 +50,7 @@ export class PilarHelper {
   ) {
     const pilarsAttr = bazi.pilarsAttr;
     const pivotCompatibleElements = pilarsAttr.elligiblePivotData.getValue();
-    const pilarElement = checkPilar.nagiaElement;
+    const pilarElement = checkPilar.getElement();
     for (let ElementIdx = 0; ElementIdx < pivotCompatibleElements.length; ElementIdx++) {
       const element = pivotCompatibleElements[ElementIdx];
       if ( pilarElement.isDestructive(element)) {

@@ -59,17 +59,7 @@ export class BaziYearObservation extends BaziPeriodObservation {
     let temp = "";
     const tempFix =
       dayForce + ".DO7K." + do7KForce + ".DRIR." + drIRForce + DOT;
-    for (let index = 0; index < pivotElements.length; index++) {
-      const pivotElement = pivotElements[index];
-      if (yearElement.isDestructive(pivotElement)) {
-        // Ref3p182 Pivot.-.DO7K.+.DRIR.+.Hostile&"
-        temp = "Year.Pivot." + tempFix + "Hostile";
-        this.addSupportBaseComment(2, temp);
-        temp = "Year.Pivot." + yearElement.getName() + DOT+pivotElement.getName();
-        // Year.Pivot.YearElement.PivotElement
-        this.addSupportBaseComment(2, temp);
-      }
-    }
+
   }
 
 
@@ -103,22 +93,6 @@ export class BaziYearObservation extends BaziPeriodObservation {
             pilarChar +
             ".Trunk.clash";
           this.addUpdatePtsBaseComment(temp);
-        }
-
-        const clashPilarIdx = LunarBase.getPilarIdx(pilarChar);
-        // secdeity info
-        for (let index = 0; index < secDeiTies[clashPilarIdx].length; index++) {
-          const secDeity = secDeiTies[clashPilarIdx][index];
-          temp = prefix + pilarChar+DOT+ secDeity.getName() + this.noQuyNhanSuffix;
-          // Year.-.Pilar.SecDeity.NoQuy
-          this.addUpdatePtsBaseComment(temp);
-          /*
-          // Year.-.ClashType.SecDeity.NoQuy
-          temp =
-            prefix + pilarStr + DOT + secDeity.getName() + this.noQuyNhanSuffix;
-          console.log("Check 11", temp);
-          this.addUpdatePtsBaseComment(temp);
-          */
         }
 
         ObjectHelper.pushIfNotExist(pilarChars, pilarChar);
@@ -185,16 +159,6 @@ export class BaziYearObservation extends BaziPeriodObservation {
             // Period.Year.Pilar.Clash.Pilar.NoQuy
             this.addUpdatePtsBaseComment(temp);
           }
-          // Sec Deity
-          const clashPilarIdx = LunarBase.getPilarIdx(branchePilar);
-          // secdeity info
-          for (let index = 0; index < secDeiTies[clashPilarIdx].length; index++) {
-            const secDeity = secDeiTies[clashPilarIdx][index];
-            temp = "Year.Pilar.Clash." + branchePilar + DOT + secDeity.getName() + this.noQuyNhanSuffix;
-            // Year.Pilar.Clash.YMHD.DecDeity.NoQuy
-            this.addUpdatePtsBaseComment(temp);
-          }
-
         }
       }
     }
@@ -303,6 +267,7 @@ export class BaziYearObservation extends BaziPeriodObservation {
     }
   }
 
+
   commentOnYear(currStudyYear: Bazi) {
 
     this.studyYear=currStudyYear;
@@ -311,7 +276,7 @@ export class BaziYearObservation extends BaziPeriodObservation {
     this.evalCurrAttr(currStudyYear);
     this.commentOnYearPilar(currStudyYear);
     this.commentOnQiYear(currStudyYear);
-    this.commentOnPeriodOrYear("Year.", this.yearAttr);
+    this.filterObservation("Year.", false);
     this.commentOnYearTamTai(currStudyYear);
   }
 }

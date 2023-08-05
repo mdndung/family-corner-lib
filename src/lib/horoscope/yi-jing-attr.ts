@@ -4,6 +4,7 @@ import { ObjectHelper } from '../helper/objectHelper';
 import { PivotHelper } from '../helper/pivot-helper';
 import { QiHelper } from '../helper/qiHelper';
 import { TrunkHelper } from '../helper/trunkHelper';
+import { SecDeityAttr } from '../mt-data/bazi/SecDeityAttr';
 import { Branche } from '../mt-data/bazi/branche';
 import { Lunar } from '../mt-data/bazi/lunar';
 import { LunarBase } from '../mt-data/bazi/lunarBase';
@@ -23,7 +24,7 @@ export class YiJingAttr {
   qiTypeData?: QiTypeDataRec = null;
   lunar: Lunar= null;
   isFavorable = false;
-  secondaryDeityPilar: SecondaryDeity[][]= null;
+  secDeitiesAttr: SecDeityAttr[]= null;
   locThanTrunk: Trunk[]= null;
   favorableCount: number= null;
   totalCount: number= null;
@@ -33,7 +34,7 @@ export class YiJingAttr {
   constructor(lunar: Lunar, yiJing: YiJing, baseQiForce: QiTypeDataRec) {
     this.lunar = lunar;
     this.currYiJing=yiJing;
-    this.secondaryDeityPilar=SecondaryDeity.evalSecondaryDeity(lunar,lunar);
+    this.secDeitiesAttr=SecondaryDeity.evalSecondaryDeity(lunar,lunar);
     this.locThanTrunk=SecondaryDeity.evalLocThanTrunk(lunar,lunar);
     this.initThemeQiForce(baseQiForce);
     this.evalFavorable();

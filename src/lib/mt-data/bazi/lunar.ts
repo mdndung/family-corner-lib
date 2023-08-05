@@ -235,7 +235,7 @@ export class Lunar {
 
 
   getPilarElement( index: number ) {
-		return this.getPilar(index).nagiaElement;
+		return this.getPilar(index).getElement();
 	}
 
 

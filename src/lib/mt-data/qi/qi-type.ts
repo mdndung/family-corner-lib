@@ -148,6 +148,10 @@ export class QiType extends EnumBaseClass {
     this.isGeneralType = isGeneralType;
   }
 
+  static getQiTypeByName(name:string) {
+    return QiType.BIRTHCONTROLYEARELEMENT.getEnumByName(name) as QiType
+  }
+
   override getClassName() {return 'Qi.Type';}
 
 }

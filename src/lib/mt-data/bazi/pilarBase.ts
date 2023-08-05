@@ -10,7 +10,9 @@ import { MyCalendar } from "../date/mycalendar";
 import { Element } from "../feng-shui/element";
 import { ElementLifeCycle } from "../feng-shui/elementLifeCycle";
 import { ElementNEnergyRelation } from "../feng-shui/elementNEnergyRelation";
+import { SecDeityAttr } from "./SecDeityAttr";
 import { BrancheRelation } from "./brancheRelation";
+import { SecondaryDeity } from "./secondaryDeity";
 
 export class PilarBase  {
 
@@ -33,6 +35,7 @@ export class PilarBase  {
   nagiaElement: Element;
   lifeCycle: ElementLifeCycle;
   deity: ElementNEnergyRelation;
+  secDeityAttr: SecDeityAttr = null;
 
   constructor(trunk: Trunk, branche: Branche) {
     this.trunk= trunk; this.branche= branche;
@@ -43,6 +46,14 @@ export class PilarBase  {
 
   toString() {
     return this.trunk.getName()+' '+ this.branche.getName() ;
+  }
+
+  getSecDeityAttr() {
+    if ( this.secDeityAttr===null ) {
+      this.secDeityAttr=new SecDeityAttr();
+      SecondaryDeity.evalPilarSecDeity(this.secDeityAttr,this.trunk, this.branche,null)
+    }
+    return this.secDeityAttr
   }
 
   getNagiaIndex () {
@@ -104,8 +115,13 @@ export class PilarBase  {
     return ! this.isPilarClashed(pilar) ;
    }
 
+
    getEnergy() {
     // Assume trunk, branche has same energy
     return this.trunk.elementNEnergy.energy;
+   }
+
+   getElement() {
+    return this.nagiaElement
    }
 }

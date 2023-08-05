@@ -74,25 +74,8 @@ export class PropertyHelper {
   //PilarCompatible.xx YPC year Pilar xx compatible
   //DeityOnPilarLifeCycleFavorable
 
-  private static Key0Attr =  ["C0", "C3", "C6", "C7", "C13"]
-
-  public static KeyCodes = [
-    "HasDeity", "HasGDeity", "HeighDeity", "NONE", "NONE",
-    "NONE" , "DeityPivot", "NONE", "NONE", "NONE",
-    "Branche", "PDeityElemBadTransformed", "NONE", "BadBranche","BadPeriod",
-    "PilarTrunk", "LowDeity", "NONE", "NONE", "NONE",
-    "HasPYDeity", "NONE", "DeityFavorablePivot", "DeityHostilePivot", "PerLCyleStatus",
-    "BrancheDeity", "BrancheDeityWithHidden", "NONE", "NONE", "SamePilarTrunkBranche",
-    "NONE","PilarDeityPivotHostile","C9","Structures","PilarElement",
-    "PilarBrancheClash", "PilarCompatible","NONE", "NONE", "PYBranche",
-    "DeityOnPilarLifeCycleFavorable", "C13", "isTrunkCompatible"
-  ]
 
   private static catKeys: any = null  ;
-
-  static hasNoAttr(key:string) {
-    return ObjectHelper.hasItem(PropertyHelper.Key0Attr,key)
-  }
 
   static initHelper(session: ObsPeriod, sessionDate: MyCalendar) {
     this.currObsSession = session;
@@ -100,6 +83,10 @@ export class PropertyHelper {
     let keys = Object.keys(definedKeysJson);
     if ( PropertyHelper.catKeys === null ) {
       PropertyHelper.catKeys= [];
+
+      PropertyHelper.catKeys["Destin.-"] = keys.filter(value => /^Destin\.\-/.test(value));
+      PropertyHelper.catKeys["Destin.+"] = keys.filter(value => /^Destin\.\+/.test(value));
+      PropertyHelper.catKeys["Destin.0"] = keys.filter(value => /^Destin\.0/.test(value));
 
       PropertyHelper.catKeys["PY.-"] = keys.filter(value => /^PY\.\-/.test(value));
       PropertyHelper.catKeys["PY.+"] = keys.filter(value => /^PY\.\+/.test(value));
@@ -292,10 +279,21 @@ export class PropertyHelper {
                                                               "Father"
                                                             )
                                                           ) {
-                                                            console.log(
-                                                              "CHECK key ",
-                                                              key
-                                                            );
+                                                            if (
+                                                              !key.startsWith(
+                                                                "Husband"
+                                                              )
+                                                            ) {
+                                                              if (
+                                                                !key.startsWith(
+                                                                  "F."
+                                                                )
+                                                              ) {
+                                                              console.log(
+                                                                "CHECK key ",
+                                                                key
+                                                              );
+                                                            } }
                                                           }
                                                         }
                                                       }
@@ -435,7 +433,7 @@ export class PropertyHelper {
                 const keyAttr1 = PropertyHelper.getPropertyAttr(currMessage);
                 this.findNAddBaseKeys(baseKeyArr, originKeyAttr, keyAttr1);
               } else {
-                console.log("TBD check currMessage not handle", currMessage);
+                console.log("TBD check currMessage not handle", keyAttr, currMessage);
               }
             }
           }

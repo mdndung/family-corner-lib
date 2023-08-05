@@ -3,7 +3,9 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { ObjectHelper } from '../../helper/objectHelper';
 import { EnumBaseClass } from '../enumBaseClass';
+import { ElementLifeCycle } from '../feng-shui/elementLifeCycle';
 import { ElementNEnergy } from '../feng-shui/elementNenergy';
+import { SecDeityAttr } from './SecDeityAttr';
 import { Branche } from './branche';
 import { Lunar } from './lunar';
 import { LunarBase } from './lunarBase';
@@ -762,8 +764,18 @@ export class SecondaryDeity extends EnumBaseClass {
     return firstVoidBranche;
   }
 
+  static evalPilarSecDeity (secDeityAttr: SecDeityAttr,trunk: Trunk, branche:Branche, season: Season) {
+
+    secDeityAttr.add(SecondaryDeity.getThienXich( season,trunk, branche));
+    if ( season!==null )
+      secDeityAttr.add(SecondaryDeity.getTuPhe( season,trunk, branche));
+    secDeityAttr.add(SecondaryDeity.getAmDuongLech(trunk,branche));
+    secDeityAttr.add(SecondaryDeity.getKhoiCuong(trunk,branche));
+
+  }
+
   static evalBrancheSecDeity (pilars: PilarBase[], branche:Branche, currIdx: number) {
-    const deitySet: SecondaryDeity[]=[];
+    const secDeityAttr = new SecDeityAttr();
     const yearTrunk = pilars[LunarBase.YINDEX].trunk;
     const dayTrunk = pilars[LunarBase.DINDEX].trunk;
     const yearBranche = pilars[LunarBase.YINDEX].branche;
@@ -771,87 +783,113 @@ export class SecondaryDeity extends EnumBaseClass {
     const monthBranche = pilars[LunarBase.MINDEX].branche;
     const season = monthBranche.season;
 
-    const addIfNonNull = ObjectHelper.pushIfNotExist;
-    addIfNonNull(deitySet,SecondaryDeity.getThienKhoi(yearTrunk, dayTrunk, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getThienViet(yearTrunk, dayTrunk, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getThaiCuc(dayTrunk, branche));
+    secDeityAttr.add(SecondaryDeity.getThienKhoi(yearTrunk, dayTrunk, branche));
+    secDeityAttr.add(SecondaryDeity.getThienViet(yearTrunk, dayTrunk, branche));
+    secDeityAttr.add(SecondaryDeity.getThaiCuc(dayTrunk, branche));
 
 
-    addIfNonNull(deitySet,SecondaryDeity.getQuocAn(yearTrunk, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getQuocAn(dayTrunk, branche));
+    secDeityAttr.add(SecondaryDeity.getQuocAn(yearTrunk, branche));
+    secDeityAttr.add(SecondaryDeity.getQuocAn(dayTrunk, branche));
     const secDeity = SecondaryDeity.getLocThan(dayTrunk, branche);
     if ( secDeity!== null ) {
-      addIfNonNull(deitySet,secDeity);
+      secDeityAttr.add(secDeity);
     }
-    addIfNonNull(deitySet,SecondaryDeity.getVanTinh(yearTrunk, dayTrunk, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getHocSi(yearTrunk, dayTrunk, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getThienLoc(dayBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getKimDu(dayTrunk, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getHongDiem(dayTrunk, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getLuuHa(dayTrunk, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getKinhDuong( dayTrunk, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getTuong(dayBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getTuong(yearBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getVanTinh(yearTrunk, dayTrunk, branche));
+    secDeityAttr.add(SecondaryDeity.getHocSi(yearTrunk, dayTrunk, branche));
+    secDeityAttr.add(SecondaryDeity.getThienLoc(dayBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getKimDu(dayTrunk, branche));
+    secDeityAttr.add(SecondaryDeity.getHongDiem(dayTrunk, branche));
+    secDeityAttr.add(SecondaryDeity.getLuuHa(dayTrunk, branche));
+    secDeityAttr.add(SecondaryDeity.getKinhDuong( dayTrunk, branche));
+    secDeityAttr.add(SecondaryDeity.getTuong(dayBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getTuong(yearBranche, branche));
 
-    addIfNonNull(deitySet,SecondaryDeity.getHoaCai(dayBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getHoaCai(yearBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getDaoHoa(yearBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getKiepSat(dayBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getCoThan(dayBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getQuaTu(dayBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getHoaCai(dayBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getHoaCai(yearBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getDaoHoa(yearBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getKiepSat(dayBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getCoThan(dayBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getQuaTu(dayBranche, branche));
 
-    addIfNonNull(deitySet,SecondaryDeity.getCachGoc(dayBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getVongThan(dayBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getDichMa(dayBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getDichMa(yearBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getCachGoc(dayBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getVongThan(dayBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getDichMa(dayBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getDichMa(yearBranche, branche));
 
-    addIfNonNull(deitySet,SecondaryDeity.getLongDuc(yearBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getKimQuy(yearBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getHongLoan(yearBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getThienCau(yearBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getCauGiao(yearBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getNguQuy(yearBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getTuePha(yearBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getThienLa(yearBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getThienLa(dayBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getLongDuc(yearBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getKimQuy(yearBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getHongLoan(yearBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getThienCau(yearBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getCauGiao(yearBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getNguQuy(yearBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getTuePha(yearBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getThienLa(yearBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getThienLa(dayBranche, branche));
 
-    addIfNonNull(deitySet,SecondaryDeity.getHuyetNhan(yearBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getHuyetNhan(yearBranche, branche));
     const trunk = pilars[currIdx].trunk;
-    addIfNonNull(deitySet,SecondaryDeity.getThienDuc(monthBranche, trunk, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getNguyetDuc(monthBranche, trunk));
-    addIfNonNull(deitySet,SecondaryDeity.getThienXich( season,trunk, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getTuPhe( season,trunk, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getAmDuongLech(trunk,branche));
-    addIfNonNull(deitySet,SecondaryDeity.getThienY(monthBranche, branche));
-    addIfNonNull(deitySet,SecondaryDeity.getTamKy(pilars, currIdx));
+    secDeityAttr.add(SecondaryDeity.getThienDuc(monthBranche, trunk, branche));
+    secDeityAttr.add(SecondaryDeity.getNguyetDuc(monthBranche, trunk));
+    secDeityAttr.add(SecondaryDeity.getThienY(monthBranche, branche));
+    secDeityAttr.add(SecondaryDeity.getTamKy(pilars, currIdx));
 
-    return deitySet;
+    this.evalPilarSecDeity (secDeityAttr, pilars[currIdx].trunk, branche, season)
+    pilars[currIdx].secDeityAttr = secDeityAttr;
+    return secDeityAttr;
   }
 
-  static evalSecondaryDeity(lunar: Lunar, currLunar: Lunar):SecondaryDeity[][] {
+  static evalSecondaryDeity(lunar: Lunar, currLunar: Lunar):SecDeityAttr[] {
     let secDeityPilars=[];
     const pilars = currLunar.pilars;
     const yearTrunk = lunar.getyTrunk();
     const yearBranche = lunar.getyBranche();
     const dayTrunk = lunar.getdTrunk();
     const dayBranche = lunar.getdBranche();
-    const addIfNonNull = ObjectHelper.pushIfNotExist;
 
     for (let i = 0; i < LunarBase.PILARS_LEN; i++) {
-        const branche =  pilars[i].branche;
+      const branche =  pilars[i].branche;
+      const secDeityAttr = SecondaryDeity.evalBrancheSecDeity(pilars,branche,i);
 
-       const deitySet = SecondaryDeity.evalBrancheSecDeity(pilars,branche,i);
-
-       if ( i===LunarBase.DINDEX ) {
-        addIfNonNull(deitySet,SecondaryDeity.getPhucTinh(dayTrunk, dayBranche));
-        addIfNonNull(deitySet,SecondaryDeity.getKimThan(currLunar));
+      if ( i===LunarBase.DINDEX ) {
+        secDeityAttr.add(SecondaryDeity.getPhucTinh(dayTrunk, dayBranche));
+        secDeityAttr.add(SecondaryDeity.getKimThan(currLunar));
       }
-      secDeityPilars[i]=deitySet;
+      secDeityPilars[i]=secDeityAttr;
     }
     SecondaryDeity.addVoidSecDeity(lunar,secDeityPilars,LunarBase.DINDEX,pilars,SecondaryDeity.getFirstVoidBranche(dayTrunk,dayBranche));
     SecondaryDeity.addVoidSecDeity(lunar,secDeityPilars,LunarBase.YINDEX,pilars,SecondaryDeity.getFirstVoidBranche(yearTrunk,yearBranche));
 
+    SecondaryDeity.countSecDeities(lunar,secDeityPilars)
+
     return secDeityPilars;
+}
+
+
+static countSecDeities(lunar: Lunar, secondaryDeityPilars: SecDeityAttr[] ) {
+  const pilarWeightArr = [1, 2, 5, 2, 3];
+  const pilarsAttr = lunar.pilarsAttr;
+  const pilars = lunar.pilars;
+  for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
+    const lifeCycle = ElementLifeCycle.getElementLifeCycle(
+      pilars[pilarIdx].trunk,
+      pilars[LunarBase.DINDEX].branche
+    );
+    let deityForce =
+      pilarWeightArr[pilarIdx] *
+      (pilarsAttr.trunkForceArr[pilarIdx].getValue() +
+        pilarsAttr.trunkForceArr[pilarIdx].getValue());
+    if (!lifeCycle.isFavorable()) deityForce = -deityForce;
+    const pilarSecDeityAttr = secondaryDeityPilars[pilarIdx];
+    const secDeityRecArr = pilarSecDeityAttr.getSecDeityRec()
+    for (
+      let index = 0;
+      index < secDeityRecArr.length;
+      index++
+    ) {
+      const secDeityRec = secDeityRecArr[index];
+      secDeityRec.addForce(deityForce);
+    }
+  }
 }
 
 static addVoidSecDeity(lunar: Lunar, secDeityPilars: any[], fromPilarIdx: number,pilars: PilarBase[], fstVoidBranche: Branche) {
@@ -866,7 +904,7 @@ static addVoidSecDeity(lunar: Lunar, secDeityPilars: any[], fromPilarIdx: number
       if ( i!== fromPilarIdx ) {
           const iBr = pilars[i].branche;
           if ( iBr===fstVoidBranche || iBr===oVoidBranche ) {
-            ObjectHelper.pushIfNotExist(secDeityPilars[i],SecondaryDeity.VOID);
+            secDeityPilars[i].add(SecondaryDeity.VOID);
           }
       }
     }
