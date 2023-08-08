@@ -15,6 +15,7 @@ import { TuViHoroscope } from './tuviHoroscope';
 import { SelectHoroscopeOption } from './selectHoroscopeOption';
 import { BaziHoroscope } from './baziHoroscope';
 import { Temporal } from 'temporal-polyfill';
+import { PropertyHelper } from '../helper/PropertyHelper';
 
 export class MyHoroscope {
 
@@ -58,8 +59,10 @@ export class MyHoroscope {
       this.baseLunar.isMan,
       this.doc
     );
+    PropertyHelper.resetDefinedPropFile();
 
     if ( selectHoroscope.isBaziSelected() ) {
+      PropertyHelper.addBaziPropFile();
       hGen.addContributor(
         new BaziHoroscope(this.baseBirthDate, studyDate, this.baseLunar.isMan)
       );
@@ -67,6 +70,7 @@ export class MyHoroscope {
 
 
     if ( selectHoroscope.isHalacSelected() ) {
+      PropertyHelper.addHalacPropFile();
       hGen.addContributor(
         new HalacHoroscope(this.baseBirthDate, studyDate, this.baseLunar.isMan)
       );
@@ -74,6 +78,7 @@ export class MyHoroscope {
     if ( selectHoroscope.isZodiacSelected() ) {
       const genrePrefix = this.baseLunar.getGenrePrefix();
       const birthTheme = new ZodiacTheme(this.baseBirthDate, this.baseBirthLieu,genrePrefix);
+      PropertyHelper.addZodiacPropFile();
       hGen.addContributor(
         new ZodiacHoroscope(
           this.baseBirthDate,
@@ -86,6 +91,7 @@ export class MyHoroscope {
       );
     }
     if ( selectHoroscope.isTuViSelected() ) {
+      PropertyHelper.addTuviPropFile();
       hGen.addContributor(
         new TuViHoroscope(
           this.baseBirthDate,

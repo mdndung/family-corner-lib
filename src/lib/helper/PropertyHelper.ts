@@ -2,7 +2,9 @@
 // Must enable resolveJsonModule compiter option to true in tsconfig.jsonimport { ObjectHelper } from 'family-corner-lib';
 import baseKeysJson from "../data/baseKeys.json";
 import definedKeysJson from "../data/definedKeys.json";
-
+import baziKeysJson from "../data/bazi.json";
+import ref17KeysJson from "../data/ref17.json";
+import zodiacKeysJson from "../data/zodiac.json";
 import { ObjectHelper } from "../helper/objectHelper";
 import { MyCalendar } from "../mt-data/date/mycalendar";
 import { PropertyAttr } from "../mt-data/property/propertyAttr";
@@ -18,6 +20,8 @@ export class PropertyHelper {
   // Cache of current found properties key string
   private static recursiveFindcache: any[];
 
+  private static definedJsonPropFiles: any [];
+
   // Genre property of the person
   //
   private static currGenre = "XX.";
@@ -27,61 +31,44 @@ export class PropertyHelper {
 
   constructor() {}
 
-  public static KeyCategories = ["PY.-", "PY.+", "PY.0", "Period.-", "Period.+", "Period.0", "Year.-", "Year.+", "Year.0"]
-  // HasDeity.pilarName,DeityList pilarName has deity in  DeityList(/ separated)
-  // HasGDeity.pilarName,DeityList pilarName has  base group in  DeityList(/ separated)
-
-  //Y0.xx Y0 ==== Year, xx=Year Deity name
-  // YG0.xx YG0 ==== Year, xx=Year Deity GROUP name
-  // PY0.xx PY0 ==== Period or Year, xx=Period  or Year Deity name
-  // PYG0.xx PY0 ==== Period  or Year, xx=Period  or Year Deity GROUP name
-  // DC.n.xx DC0 ==== Deity Count Rang n max, xx Deity name
-  // DCG0n.xx DCG0 ==== Deity Count Rang max, xx Deity GROUP name
-  // DCxn.xx DC1 ==== Daity Count Rang lowest max-1, xx Deity name
-  // DCGxn.xx DCG1 ==== Deity Count Rang lowest max-1, xx Deity GROUP name
-  // DPI.xx DPI ==== DPivot, xx Deity name
-  // DPIG.xx DPIF ==== DPivot, xx Deity GROUP name
-
-  //Y1.xx Y1 ==== Year, xx=Year Year Chinese name
-  //PY1.xx Y1 ==== Year, xx=Period Year Year Chinese name
-  //COx.n,xxx CO Computation type n with xxx parameters
-  //COx.1,p1,p2 CO.1 Computation 1 is params[0] and params[1] pilar clashed
-  // (Period P, Study Year S, Lunar Year Y, ...)
-  //COx.7 CO7 Has no Quy
-  //COx.9,xx Check genre xx 1==Male 0==Female
-  //COx.15,anyPilar(s),Deity COx15 anyPilar clashed with pilar containing one of the deities name
-
-  //PDeityElemBadTransformed C0 Computation case 0
-
-  //C2.xx C2 Computation case 2 Bad study year and birth xx branche
-  //C3 C3 Computation case 3 Period non favorable
-  //C4.xx C3 xxx Computation case 3 xxx is favorable deity
-  //C5.xx C3 xxx Computation case 5 xxx is hostile deity
-  //T0.xx T0 Any trunk xx trunk name
-  //PerLCyleStatus.xx PerLCyleStatus LifeCycle xx LifeCyName N Force (eg. ATTIRE+)
-
-  //BD0.pilar,xx BYD0  Pilar pilar Deity List  without checkHidden
-  //BD1.pilar,xx BYD0  Pilar pilar Deity List with checkHidden
-
-  //SamePilarTrunkBranche  Same year pilar trunk branche
-  //NoQuy  has no Quy nhan
-  //PilarDeityPivotHostile  checkPilarName Pivot Hostile
-
-  //S0.xx Cach xx Deity name
-  //PilarBrancheClash pila1 pilar2  clashed
-  //EBn0.xx En0 is Pilar branche n element xx
-  //YBBC.xx YBBC year Pilar Branche xx clash
-  //PilarCompatible.xx YPC year Pilar xx compatible
-  //DeityOnPilarLifeCycleFavorable
-
-
   private static catKeys: any = null  ;
+
+  static addPropFileIfNotExist(jsonFile:any) {
+    ObjectHelper.pushIfNotExist(PropertyHelper.definedJsonPropFiles,jsonFile)
+  }
+
+  static resetDefinedPropFile() {
+    PropertyHelper.definedJsonPropFiles = [ definedKeysJson];
+  }
+
+  static addBaziPropFile() {
+    PropertyHelper.addPropFileIfNotExist(baziKeysJson)
+  }
+
+  static addTuviPropFile() {
+    PropertyHelper.addPropFileIfNotExist(ref17KeysJson)
+  }
+
+  static addZodiacPropFile() {
+    PropertyHelper.addPropFileIfNotExist(zodiacKeysJson)
+  }
+
+  static addHalacPropFile() {
+   // Nothing to add. Halac properties are in base
+  }
 
   static initHelper(session: ObsPeriod, sessionDate: MyCalendar) {
     this.currObsSession = session;
     PropertyHelper.initCache(session, sessionDate);
-    let keys = Object.keys(definedKeysJson);
-    if ( PropertyHelper.catKeys === null ) {
+    PropertyHelper.setBaziProp()
+  }
+
+
+  static setBaziProp () {
+
+    let keys = Object.keys(baziKeysJson);
+
+    if ( PropertyHelper.catKeys === null|| PropertyHelper.catKeys.length===0 ) {
       PropertyHelper.catKeys= [];
 
       PropertyHelper.catKeys["Destin.-"] = keys.filter(value => /^Destin\.\-/.test(value));
@@ -99,15 +86,9 @@ export class PropertyHelper {
       PropertyHelper.catKeys["Year.-"] = keys.filter(value => /^Year\.\-/.test(value));
       PropertyHelper.catKeys["Year.+"] = keys.filter(value => /^Year\.\+/.test(value));
       PropertyHelper.catKeys["Year.0"] = keys.filter(value => /^Year\.0/.test(value));
-      /*
-      for (let index = 0; index < PropertyHelper.KeyCategories.length; index++) {
-        const element =  PropertyHelper.KeyCategories[index];
-        console.log("PropertyHelper ",PropertyHelper.catKeys[element] );
-      }
-      */
+
     }
   }
-
   static getHeaderKeys(header:string) : string []{
     return PropertyHelper.catKeys[header]
   }
@@ -193,15 +174,20 @@ export class PropertyHelper {
     PropertyHelper.enableCache();
   }
 
-  static getPropertyAttr(key: string): PropertyAttr {
-    let attr = PropertyHelper.getCurrCachedPropertyAttr(key);
-
-    if (ObjectHelper.isNaN(attr)) {
-      attr = new PropertyAttr(key);
+  static addPropertyAttr(attr: PropertyAttr) {
+    if (!ObjectHelper.isNaN(attr)) {
       if (PropertyHelper.save2GCache && !attr.isUndef()) {
         PropertyHelper.initOppositeAttr(attr);
-        PropertyHelper.gCache.put(PropertyHelper.currObsSession, key, attr);
+        PropertyHelper.gCache.put(PropertyHelper.currObsSession, attr.key, attr);
       }
+    }
+  }
+
+  static getPropertyAttr(key: string): PropertyAttr {
+    let attr = PropertyHelper.getCurrCachedPropertyAttr(key);
+    if (ObjectHelper.isNaN(attr)) {
+      attr = new PropertyAttr(key);
+      this.addPropertyAttr(attr);
     }
     return attr;
   }
@@ -224,18 +210,29 @@ export class PropertyHelper {
     return res;
   }
 
-  static getJsonElementAttr(jsondata: any, key: string) {
-    type keyType = keyof typeof jsondata;
-    const attr = jsondata[key as keyType];
+  static getBaseJsonElementAttr(key: string) {
+    type keyType = keyof typeof baseKeysJson;
+    const attr = baseKeysJson [key as keyType];
     return attr;
+  }
+
+ static getDefinedElementAttr(key: string) {
+  let attr = null ;
+  for (let index = 0; index < PropertyHelper.definedJsonPropFiles.length; index++) {
+    const jsondata = PropertyHelper.definedJsonPropFiles[index];
+    type keyType = keyof typeof jsondata;
+    attr = jsondata[key as keyType];
+    if (! ObjectHelper.isNaN(attr) ) break
+  }
+   return attr;
   }
 
   static getPropTypeElementAttr(propType: PropertyType, key: string) {
     if (propType === PropertyType.BASE) {
-      return PropertyHelper.getJsonElementAttr(baseKeysJson, key);
+      return PropertyHelper.getBaseJsonElementAttr(key);
     } else {
-      const attr = PropertyHelper.getJsonElementAttr(definedKeysJson, key);
-      if (attr !== null && key.length>3) {
+      const attr = PropertyHelper.getDefinedElementAttr(key);
+      if ( !ObjectHelper.isNaN(attr)  && key.length>3) {
         const xIndex = key.indexOf("&");
         if (xIndex < 0 ) {
           if (!key.startsWith("Ref")) {
@@ -325,26 +322,17 @@ export class PropertyHelper {
     }
   }
 
-  static getJsonElementPropertyAtIdx(jsondata: any, key: string, idx: number) {
+  static getJsonElementPropertyAtIdx( key: string, idx: number) {
     let res: any = null;
-    const attr = PropertyHelper.getJsonElementAttr(jsondata, key);
+    const attr = PropertyHelper.getDefinedElementAttr(key);
     if (!ObjectHelper.isNaN(attr)) {
       res = attr[idx];
     }
     return res;
   }
 
-  static getJsonElementForce(jsondata: any, key: string) {
+  static getJsonElementProperty(key: string) {
     return PropertyHelper.getJsonElementPropertyAtIdx(
-      jsondata,
-      key,
-      0
-    ) as number;
-  }
-
-  static getJsonElementProperty(jsondata: any, key: string) {
-    return PropertyHelper.getJsonElementPropertyAtIdx(
-      jsondata,
       key,
       1
     ) as string;
@@ -362,19 +350,23 @@ export class PropertyHelper {
         //console.log('Calling getProperty for base key');
         break;
       case PropertyType.DEFINED:
-        res = PropertyHelper.getJsonElementProperty(definedKeysJson, key);
+        res = PropertyHelper.getJsonElementProperty( key);
         break;
       case PropertyType.INDIRECT:
         key = attr.getOtherKey();
         if (!ObjectHelper.isNaN(key)) {
-          res = PropertyHelper.getJsonElementProperty(definedKeysJson, key);
+          res = PropertyHelper.getJsonElementProperty(key);
         }
     }
     return res;
   }
 
   static isDefinedProp(key: string) {
-    return PropertyHelper.isArrayElementPresent(definedKeysJson, key);
+    for (let index = 0; index < PropertyHelper.definedJsonPropFiles.length; index++) {
+      const jsondata = PropertyHelper.definedJsonPropFiles[index];
+      if ( PropertyHelper.isArrayElementPresent(jsondata, key) ) return true
+    }
+    return false;
   }
 
   static isFCachePresent(key: string) {

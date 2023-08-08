@@ -44,25 +44,6 @@ export class BaziYearObservation extends BaziPeriodObservation {
     this.incForce(yearQi.getForce(QiType.YEARCONTROLBIRTHELEMENT));
   }
 
-  // Ref3p182 Year.DayMaster.DayForce.DO7K.Force.DRIR.Force.Hostile&"
-  // Year.Pivot.deity.Hostile
-  // Year.Pivot.YearElement.PivotElement
-  commentOnYearDayMaster(currLunarYear: Bazi) {
-    const DOT = ".";
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const dayForce = this.baseAttr.dayForce;
-    const do7KForce = this.baseAttr.do7KForce;
-    const drIRForce = this.baseAttr.drIRForce;
-    // Ref3p182.
-    const pivotElements = pilarsAttr.elligiblePivotData.getValue();
-    const yearElement = this.yearAttr.element;
-    let temp = "";
-    const tempFix =
-      dayForce + ".DO7K." + do7KForce + ".DRIR." + drIRForce + DOT;
-
-  }
-
-
   //Year.YearStatus.ClashTypePilarChar.-.NoQuy
  // Year.YearStatus.Pilar.SecDeity.NoQuy
   //Year.DeityGrpName.DayForce.pilar."Trunk.class"
@@ -164,87 +145,6 @@ export class BaziYearObservation extends BaziPeriodObservation {
     }
   }
 
-  // Year.YearStatus
-  //Year.YearStatus.TrunkClashType.NoQuy
-  //Year.YearStatus.BrancheClashType.NoQuy
-  // Year.YCB.YearElement-  Ref3p558p18,19..22
-  commentOnQiYear(currStudyYear: Bazi) {
-    const pilarsAttr = this.lunar.pilarsAttr;
-    const statusSuffix = pilarsAttr.getPivotElementStatus(
-      this.yearAttr.element
-    );
-    let yPrefix = "Year." + statusSuffix;
-    const DOT = ".";
-    //Year.YearStatus
-    this.addUpdatePtsBaseComment(yPrefix);
-    if (statusSuffix === "-") {
-      yPrefix += DOT;
-      //Year.YearStatus.BrancheClashType.
-      const bPilarClash = this.commentOnPilarClash(
-        this.yearAttr.branchePilarClash,
-        yPrefix,
-        false
-      );
-      const tPilarClash = this.commentOnPilarClash(
-        this.yearAttr.trunkPilarClash,
-        yPrefix,
-        true
-      );
-      this.commentOnBothPilarClash(tPilarClash, bPilarClash);
-
-      const yearQi = this.yearAttr.yearQi;
-      const yElement = currStudyYear.getdTrunk().getElement();
-      let force = yearQi.getForce(QiType.YEARCONTROLBIRTHELEMENT);
-      if (force !== 0) {
-        let forceSuffix = StringHelper.number2Str(
-          yearQi.getForce(QiType.YEARCONTROLBIRTHELEMENT)
-        );
-        let temp =
-          yPrefix +
-          QiType.YEARCONTROLBIRTHELEMENT.getName() +
-          DOT +
-          yElement.getName() +
-          DOT +
-          forceSuffix;
-        // Year.YCB.YearElement-  Ref3p558p18,19..
-        this.addUpdatePtsBaseComment(temp);
-      }
-    }
-  }
-
-  //Year.Ref8p272p9
-  // Year.Ref8p276p35
-  //Year.Ref8p273p10
-  //Year.Ref8p276p36
-  commentOnYearPilar(currStudyYear: Bazi) {
-    const studyYearTrunk = currStudyYear.getyTrunk();
-    const studyYearBranche = currStudyYear.getyBranche();
-    const birthYearTrunk = this.lunar.getyTrunk();
-    const birthYearBranche = this.lunar.getyBranche();
-    let temp = "";
-    if (
-      studyYearTrunk === birthYearTrunk &&
-      studyYearBranche === birthYearBranche
-    ) {
-      temp = "Year.Ref8p272p9";
-      this.addUpdatePtsBaseComment(temp);
-    }
-    if (studyYearTrunk.isCompatibleTrunk(birthYearTrunk)) {
-      temp = "Year.Ref8p276p35";
-      this.addUpdatePtsBaseComment(temp);
-      if (
-        BrancheHelper.getMainRelation(
-          studyYearBranche,
-          birthYearBranche
-        ).isFavorable()
-      ) {
-        temp = "Year.Ref8p273p10";
-        this.addUpdatePtsBaseComment(temp);
-      }
-    }
-
-  }
-
   commentOnYearTamTai(currStudyYear: Bazi) {
     const yearQiRec = this.yearAttr.yearQi;
     let qiData = yearQiRec.getData(QiType.YEARTAMTAI);
@@ -274,8 +174,6 @@ export class BaziYearObservation extends BaziPeriodObservation {
     this.lunar.evalPeriodData();
     this.evalBaseYearPoint(currStudyYear);
     this.evalCurrAttr(currStudyYear);
-    this.commentOnYearPilar(currStudyYear);
-    this.commentOnQiYear(currStudyYear);
     this.filterObservation("Year.", false);
     this.commentOnYearTamTai(currStudyYear);
   }

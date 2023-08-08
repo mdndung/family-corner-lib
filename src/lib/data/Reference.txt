@@ -38,6 +38,7 @@ Ref 10a Les 4 piliers de la destinée vol 1
 Ref 10b Les 4 piliers de la destinée vol 2
 Ref 11 Lich van nien
 Ref 12 Phong thuy thanh cong trong cuoc doi. Tuan kiet
+
 Ref 13 Tu vi dau so va than so hoc.pdf Le quan Tiem
 Ref 14 Lap va giai tu vi Vu duc Huynh
 Ref 15 MuonLuanDoanDungSoTuVi.pdf
@@ -46,6 +47,7 @@ Ref 17 Tu-Vi-dau-so-tan-bien-ban-day-du.pdf
 Ref 18 TuViAoBi.pdf
 Ref 19 TuViThucHanh.pdf
 Ref 20 Livre Tuvi Hamso
+
 Ref 21 Chon ngay tot trong gian gian
    see Ref21p34-xxx pour relation entre saison et position soleil dans l'année\
    Ref21p62 jours hostile
@@ -83,6 +85,7 @@ Ref23: Tim hieu co dich huyen khong hoc.pdf a suivre
 Ref24:  Ban ve Lich Van Nien
 Ref25: Ngoc Hap Chanh Tong
 Ref26: Bat trach minh canh Thieu vy hoa
+
 Ref28: Toute l'astrologie Louis Lassine
 Ref28b: Cours pratique d'astrologie Louis Lassine biblio Chauderon
 Ref29: Cours complet d'astrologie pratique Roland LEGRAND

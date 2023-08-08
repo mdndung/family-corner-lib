@@ -111,13 +111,14 @@ export class ObservationBase {
     if ( this.isRawKeyExist(rawKey) ) return true;
     // Insert if exist property
     if (typeof updPts === 'undefined' )  updPts=false;
-    if ( this.insertRawKeyifExistProp(rawKey,'&',updPts) ) return true;;
-    if ( this.insertRawKeyifExistProp(rawKey,'&-',updPts) ) return true;
-    if ( this.insertRawKeyifExistProp(rawKey,'&+',updPts) ) return true;
-    if ( this.insertRawKeyifExistProp(rawKey,'&-.-',updPts) ) return true;
-    if ( this.insertRawKeyifExistProp(rawKey,'&-.+',updPts) ) return true;
-    if ( this.insertRawKeyifExistProp(rawKey,'&+.-',updPts) ) return true;
-    if ( this.insertRawKeyifExistProp(rawKey,'&+.+',updPts) ) return true;
+    if ( rawKey.indexOf("&")<0  )rawKey += "&";
+    if ( this.insertRawKeyifExistProp(rawKey,'',updPts) ) return true;;
+    if ( this.insertRawKeyifExistProp(rawKey,'-',updPts) ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'+',updPts) ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'-.-',updPts) ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'-.+',updPts) ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'+.-',updPts) ) return true;
+    if ( this.insertRawKeyifExistProp(rawKey,'+.+',updPts) ) return true;
 
     return false;
   }

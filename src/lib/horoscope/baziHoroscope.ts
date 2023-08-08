@@ -6,6 +6,7 @@ import { HoroscopeContributor } from "./horoscopeContributor";
 import { ObsPeriod } from "../observations/obsPeriod";
 import { StringHelper } from "../helper/stringHelper";
 import { BaziObservation } from "../mt-data/bazi/baziObservations";
+import { PropertyHelper } from "../helper/PropertyHelper";
 
 export class BaziHoroscope extends HoroscopeContributor {
 
@@ -28,7 +29,6 @@ export class BaziHoroscope extends HoroscopeContributor {
     }
 
     init(currAge: number): void {
-      console.log(' TBD BaziHoroscope init. Update the baseQiTypeData for the current period depending on currAge ', currAge);
     }
 
     override initBaseQiType(lunar: Lunar) {

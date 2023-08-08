@@ -171,9 +171,7 @@ export class HalacHoroscope extends HoroscopeContributor {
     }
 
     genDayTheme(currAge: number) {
-
         const studyLunar = new Lunar(this.studyDate, this.isMan);
-
         const sectDate = DateHelper.getPrevSectionalDate(this.studyDate);
         const sectionalLunar = new Lunar(sectDate, this.isMan);
         const sectAge = sectDate.getYear() - this.birthYear;
@@ -190,7 +188,6 @@ export class HalacHoroscope extends HoroscopeContributor {
 
 
     init(currAge: number): void {
-
     }
 
     genBirthTheme(currAge: number): void {
@@ -203,7 +200,7 @@ export class HalacHoroscope extends HoroscopeContributor {
     }
 
     genMainTheme(theme: YiJing, basePeriodIdx: number) {
-        this.genPrincNComplementTheme(theme, basePeriodIdx);
+      this.genPrincNComplementTheme(theme, basePeriodIdx);
     }
 
 

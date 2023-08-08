@@ -1501,7 +1501,6 @@ export class PilarsAttr {
   getDayForceLabel(): string {
     const force = this.getDayElementNFriendForce();
     const dayStatusFavorable = this.qiTypeData.isFavorable(QiType.DAYSTATUS)
-    console.log(this.qiTypeData.getData(QiType.DAYSTATUS))
     if (this.isFavorable(force)&&dayStatusFavorable) return "Label.Day.Favorable";
     return "Label.Day.Weak";
   }

@@ -11,6 +11,7 @@ import { BrancheRelation } from '../mt-data/bazi/brancheRelation';
 import { TuViPalace } from '../mt-data/tuvi/tuviPalace';
 import { BaziHelper } from '../helper/baziHelper';
 import { TuViRing } from '../mt-data/tuvi/tuviRing';
+import { PropertyHelper } from '../helper/PropertyHelper';
 
 export class TuViHoroscope extends HoroscopeContributor {
   birthLunar: Lunar;

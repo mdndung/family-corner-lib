@@ -1738,8 +1738,10 @@ export class BaziObservationBase extends ObservationBase {
         }
       }
       if (res) {
-        let res = this.addBaseComment0(key, true);
-        //console.log("FOUND KEY", res, key);
+        res = this.addBaseComment0(key, true);
+        if ( res ) {
+          console.log("Added KEY", res, key);
+        }
       }
     }
   }

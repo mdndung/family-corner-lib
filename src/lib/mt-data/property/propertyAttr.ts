@@ -18,8 +18,9 @@ export class PropertyAttr {
   // Variant base for originKeyAttrArr
   private variant1: any ;
 
-  constructor(key: string) {
+  constructor(key: string,keyType=PropertyType.UNDEF) {
     this.key = key;
+    this.keyType  = keyType;
     this.variant1=null;
     this.variant2=null;
     this.initKeyAttr();
@@ -246,7 +247,6 @@ export class PropertyAttr {
   }
 
   initKeyAttr() {
-    this.keyType  = PropertyType.UNDEF;
     this.initProp(PropertyType.DEFINED);
     this.initProp(PropertyType.BASE);
     this.initOtherKey();
