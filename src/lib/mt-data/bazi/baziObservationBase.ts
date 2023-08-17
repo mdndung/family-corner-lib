@@ -55,15 +55,18 @@ export class BaziObservationBase extends ObservationBase {
     }
   }
 
+ override getLunar() {
+  return this.lunar
+ }
+
   protected getLimitCount(count: number, limit: number) {
     if (count > 2) count = limit;
     return count;
   }
 
-  protected getPilar(pilarName: string) {
+  protected override getPilar(pilarName: string) {
     if (pilarName === "Destin") return this.lunar.menhPilar;
-    const pilarIdx = LunarBase.getPilarIdx(pilarName);
-    return this.lunar.pilars[pilarIdx];
+    return super.getPilar(pilarName);
   }
 
   protected getPilarSecDeity(pilarName: string) {
@@ -307,6 +310,8 @@ export class BaziObservationBase extends ObservationBase {
     return dotPos;
   }
 
+
+
   // Return true if the pilar sec deities is in the secDeityList
   isPilarSecDeityInSecDeityList(pilarNameList: string, secDeityList: string, count=1) {
     const pilarNames = pilarNameList.split("/")
@@ -325,31 +330,6 @@ export class BaziObservationBase extends ObservationBase {
 
     return false;
   }
-
-  checkKey = "";
-  checkMethod = "";
-
-  checkEnumList (param:string, model: EnumBaseClass) {
-    if ( ObjectHelper.isNaN(param) ) {
-      console.log("Missing param",model )
-      console.log(this.checkMethod, this.checkKey)
-      return "";
-    }
-    const params = param.split("/")
-    for (let index = 0; index < params.length; index++) {
-      const element = params[index];
-      if ( null===model.getEnumByName(element) ) {
-        console.log("Could not find ", element, "in ", param, "for model ", model.getName())
-        console.log(this.checkMethod, this.checkKey)
-      }
-    }
-    return param;
-  }
-
-  checkTransformEnumList (param:string, model: EnumBaseClass) {
-    return this.checkEnumList(param,model).split("/");
-  }
-
 
   // Sec Deity on Pilar Lifecycle
   isSecDeityOnPilarLifeCycle(params: string[]) {
@@ -608,7 +588,7 @@ export class BaziObservationBase extends ObservationBase {
     //console.log("containsDeity ", pilarNames, deityList)
     for (let index = 0; index < pilarNames.length; index++) {
       const pilarName = pilarNames[index];
-      if (this.isPilarDeityInDeityList(pilarName, deityList)) return true;
+      if (this.isPilarDeityInDeityList([pilarName, deityList])) return true;
     }
     return false;
   }
@@ -658,7 +638,7 @@ export class BaziObservationBase extends ObservationBase {
     //console.log("containsDeity ", pilarNames, deityList)
     for (let index = 0; index < pilarNames.length; index++) {
       const pilarName = pilarNames[index];
-      if (this.isPilarDeityInDeityList(pilarName, deityList,2)) return true;
+      if (this.isPilarDeityInDeityList([pilarName, deityList],2)) return true;
     }
     return false;
   }
@@ -669,7 +649,9 @@ export class BaziObservationBase extends ObservationBase {
     return this.containsDeityNHidden(params)
   }
 
-  isPilarDeityInDeityList(pilarName: string, deityList: string, count=1): boolean {
+  isPilarDeityInDeityList(params: string[], count=1): boolean {
+    const pilarName=params[0]
+    const deityList=params[1]
     const deityName = this.getPilarDeity(pilarName).getName();
     //console.log("isPilarDeityInDeityList ", deityName, deityList)
     this.checkEnumList(deityList,ElementNEnergyRelation.RW);
@@ -706,7 +688,7 @@ export class BaziObservationBase extends ObservationBase {
       const pilarName = pilarNames[index];
       const pilar = this.getPilar(pilarName);
       if (brancheName.indexOf(pilar.branche.getName())>=0) {
-        if (this.isPilarDeityInDeityList(pilarName, deitiesName)) {
+        if (this.isPilarDeityInDeityList([pilarName, deitiesName])) {
           return true;
         }
       }
@@ -840,7 +822,7 @@ export class BaziObservationBase extends ObservationBase {
     const pilarName = params[0];
     const deityList =this.checkEnumList(params[1],ElementNEnergyRelation.RW)
     const secDeityList =this.checkEnumList(params[2],SecondaryDeity.VOID)
-    const pilarHasDeity = this.isPilarDeityInDeityList(pilarName, deityList);
+    const pilarHasDeity = this.isPilarDeityInDeityList([pilarName, deityList]);
     const pilarHasSecDeity = this.isPilarSecDeityInSecDeityList(
       pilarName,
       secDeityList
@@ -853,7 +835,7 @@ export class BaziObservationBase extends ObservationBase {
     const pilarName = params[0];
     const deityList =this.checkEnumList(params[1],ElementNEnergyRelation.RW)
     const secDeityList =this.checkEnumList(params[2],SecondaryDeity.VOID)
-    const pilarHasDeity = this.isPilarDeityInDeityList(pilarName, deityList);
+    const pilarHasDeity = this.isPilarDeityInDeityList([pilarName, deityList]);
     const pilarHasSecDeity = this.isPilarSecDeityInSecDeityList(
       pilarName,
       secDeityList
@@ -867,8 +849,8 @@ export class BaziObservationBase extends ObservationBase {
     const pilarName = params[0];
     const deityList1 =this.checkEnumList(params[1],ElementNEnergyRelation.RW)
     const deityList2 = this.checkEnumList(params[2],ElementNEnergyRelation.RW)
-    const pilarHasDeity1 = this.isPilarDeityInDeityList(pilarName, deityList1);
-    const pilarHasDeity2 = this.isPilarDeityInDeityList(pilarName, deityList2);
+    const pilarHasDeity1 = this.isPilarDeityInDeityList([pilarName, deityList1]);
+    const pilarHasDeity2 = this.isPilarDeityInDeityList([pilarName, deityList2]);
    //console.log("isPilarWithBothDeity", params);
     return pilarHasDeity1 && pilarHasDeity2;
   }
@@ -900,41 +882,6 @@ export class BaziObservationBase extends ObservationBase {
     return false;
   }
 
-  // Check if the pilar branche name is among the branche List
-  isPilarBranche(pilarName: string, brancheList: string): boolean {
-    this.checkEnumList(brancheList,Branche.RAT)
-    const pilar = this.getPilar(pilarName);
-    const brancheName = pilar.branche.getName();
-    //console.log("isPilarBranche ",pilarName, pilar, brancheList, brancheName )
-    return brancheList.indexOf(brancheName) >= 0;
-  }
-
-  // Check if the pilar branche name is among the branche List
-  isBranche(params: string[]): boolean {
-    if (params.length !== 2) return false;
-    const pilarName = params[0];
-    const brancheList = this.checkEnumList(params[1],Branche.RAT)
-    //console.log("isBranche ",params )
-    return this.isPilarBranche(pilarName, brancheList);
-  }
-
-   // Check if the branche list is define in 4 pilar
-   // HasBranche°Count,BrancheList
-   hasBranche(params: string[]): boolean {
-    let count=+params[0]
-    const brancheList = this.checkEnumList(params[1],Branche.RAT)
-    this.checkEnumList(brancheList, Branche.RAT)
-    //console.log("hasBranche ",params )
-    for (let index = 0; index < LunarBase.ymdhCharArr.length; index++) {
-      const pilarName = LunarBase.ymdhCharArr[index];
-      if ( this.isBranche([pilarName,brancheList])) {
-        count--;
-        if ( count===0 ) return true
-      }
-    }
-    return false
-  }
-
   // Period Deity pivot element and birth pilar transformed to a bad
   // Check Val -1 or -2
   // To be redifined in period subclass
@@ -942,19 +889,7 @@ export class BaziObservationBase extends ObservationBase {
     return false;
   }
 
-  hasTrunk(params: string[]): boolean {
-    let countHit = +params[0];
-    const checkTrunks = this.checkEnumList(params[1],Trunk.JIA)
-    this.checkEnumList(checkTrunks, Trunk.JIA)
-    //console.log("hasPilarTrunk ", attrVal)
-    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
-      if (checkTrunks.indexOf(this.lunar.getTrunk(pilarIdx).getName()) >= 0) {
-        countHit--;
-        if (countHit === 0) return true;
-      }
-    }
-    return false;
-  }
+
   // Usage PilarBrancheTamHopHoa°PilarName,PilarBrancheName[,+ for can be transformed ]
   hasPilarBrancheTamHopHoa(params: string[]): boolean {
     const pilarName = params[0];
@@ -1027,19 +962,6 @@ export class BaziObservationBase extends ObservationBase {
     return false
   }
 
-  hasPilarTrunk(params: string[]): boolean {
-    const pilarNames = params[0].split("/");
-    const checkTrunks = this.checkEnumList(params[1],Trunk.JIA)
-    //console.log("hasPilarTrunk ", params);
-    for (let index = 0; index < pilarNames.length; index++) {
-      const pilarName = pilarNames[index];
-      const pilar = this.getPilar(pilarName);
-      if ( checkTrunks.indexOf(pilar.trunk.getName()) >= 0) return true
-    }
-
-    return false;
-  }
-
   // Bad params[0] and params[1] xx branche
   isBadBranche(params: string[]) {
     if (params.length !== 2) return false;
@@ -1055,10 +977,10 @@ export class BaziObservationBase extends ObservationBase {
   }
 
   // attrVal is hostile deity pivot
-  isDeityHostilePivot(attrVal: string) {
+  isDeityHostilePivot(params: string[]) {
     const pilarsAttr = this.lunar.pilarsAttr;
     const pivotHostileElements = pilarsAttr.pivotHostileElements;
-    const deityName = this.checkEnumList(attrVal,ElementNEnergyRelation.RW)
+    const deityName = this.checkEnumList(params[0],ElementNEnergyRelation.RW)
     let deityElement = pilarsAttr.deityAttr.getDeityElementByName(deityName);
     //console.log("isDeityHostilePivot",attrVal, deityElement,pivotHostileElements)
     return ObjectHelper.findIndex(pivotHostileElements, deityElement) !== -1;
@@ -1091,7 +1013,7 @@ export class BaziObservationBase extends ObservationBase {
     const pilar = this.getPilar(checkPilarName);
     const deityName = pilar.deity.getName();
     //console.log("isPilarDeityHostilePivot",checkPilarName, deityName )
-    return this.isDeityHostilePivot(deityName);
+    return this.isDeityHostilePivot([deityName]);
   }
 
   // Check Structure
@@ -1403,12 +1325,6 @@ export class BaziObservationBase extends ObservationBase {
       }
       return false;
     }
-  // Check Genre  1==isMan
-  isGenre(params: string[]) {
-    if (params.length === 0) return false;
-    //console.log("isGenre ", params,this.lunar.isMan && params[0]==="1")
-    return this.lunar.isMan && params[0] === "m";
-  }
 
   isPilarNotClashed(params: string[]) {
     const len = params.length;
@@ -1493,9 +1409,8 @@ export class BaziObservationBase extends ObservationBase {
   }
 
 
-  isAttrPresent(key: string, attrKey: string, attrVal: string): boolean {
-    const params = attrVal.split(",");
-    this.checkMethod=attrKey + " "+ attrVal
+  override isAttrPresent(attrKey: string,params: string[]): boolean {
+    const param0 = params[0]
     switch (attrKey) {
       case "HighDeity":
         return this.isHeighDeityCount(params, false);
@@ -1541,7 +1456,7 @@ export class BaziObservationBase extends ObservationBase {
       case "DeityElement":
         return this.isDeityElement(params)
       case "DeityHostilePivot":
-        return this.isDeityHostilePivot(attrVal);
+        return this.isDeityHostilePivot(params);
       case "BrancheDeity":
         return this.isBrancheDeities(params);
       case "DeityOnPilarLifeCycleFavorable":
@@ -1570,14 +1485,13 @@ export class BaziObservationBase extends ObservationBase {
       case "PilarSecDeity":
         return this.containsSecDeity(params);
       case "PYDeity":
+        const deityList = params[0]
         return (
-          this.isPilarDeityInDeityList("Period", attrVal) ||
-          this.isPilarDeityInDeityList("Year", attrVal)
+          this.isPilarDeityInDeityList(["Period", deityList]) ||
+          this.isPilarDeityInDeityList(["Year", deityList])
         );
       case "PilarLifeCycle":
         return this.isPilarLifeCycle(params);
-      case "PilarTrunk":
-        return this.hasPilarTrunk(params);
       case "PilarTClashed":
           return this.isPilarTrunkClashed(params);
       case "PilarClashed":
@@ -1587,15 +1501,15 @@ export class BaziObservationBase extends ObservationBase {
       case "PilarNotClashed":
         return this.isPilarNotClashed(params);
       case "PilarDeityPivotHostile":
-        return this.isPilarDeityHostilePivot(attrVal);
+        return this.isPilarDeityHostilePivot(param0);
       case "SamePilarTrunkBranche":
         return this.isSamePilarTrunkBranche(params);
       case "PilarElement":
         return this.isPilarElement(params[0], params[1]);
       case "PYElement":
         return (
-          this.isPilarElement("Period", attrVal) ||
-          this.isPilarElement("Year", attrVal)
+          this.isPilarElement("Period", param0) ||
+          this.isPilarElement("Year", param0)
         );
       case "PilarTrunkClash":
         return this.isPilarTrunkClash(params);
@@ -1616,7 +1530,7 @@ export class BaziObservationBase extends ObservationBase {
       case "PivotFavorable":
         return this.isFavorablePivot(params);
       case "PivotFavorableElement":
-        return this.isElementFavorablePivot(attrVal);
+        return this.isElementFavorablePivot(param0);
       case "PivotHostile":
         return this.isHostilePivot(params);
       case "PivotSupport":
@@ -1640,23 +1554,19 @@ export class BaziObservationBase extends ObservationBase {
         return this.hasQuyNhan;
       case "NoQuyNhan":
         return !this.hasQuyNhan;
-      case "Genre":
-        return this.isGenre(params);
 
       case "PilarBrancheLifeCycle":
           return this.isPilarBrancheLifeCycle(params);
       case "BrancheLifeCycle":
           return this.isBrancheLifeCycle(params);
-      case "Branche":
-        return this.isBranche(params);
       case "HasBranche":
           return this.hasBranche(params);
       case "BrancheClashed":
           return this.hasBrancheClash();
       case "PYBranche":
         return (
-          this.isPilarBranche("Period", attrVal) ||
-          this.isPilarBranche("Year", attrVal)
+          this.checkPilarBranche(["Period", param0]) ||
+          this.checkPilarBranche(["Year", param0])
         );
       case "BadBranche":
         return this.isBadBranche(params);
@@ -1670,9 +1580,9 @@ export class BaziObservationBase extends ObservationBase {
       case "BadPeriod":
         return this.isBadPeriod();
       case "PerLCyleStatus":
-        return this.isPerLCleStatus(attrVal);
+        return this.isPerLCleStatus(param0);
       case "Structures":
-        return this.isStructures(attrVal);
+        return this.isStructures(param0);
       case "AtLeastSameYearHostileBranche":
         return this.hasAtLeast3SameYearHostileBranche();
       case "TrunkCompatible":
@@ -1684,86 +1594,37 @@ export class BaziObservationBase extends ObservationBase {
       case "ElementBalanced":
         return this.isBalancedElement()
       case "TrunkElementPresent":
-          return this.isTrunkElementPresent(attrVal);
+          return this.isTrunkElementPresent(param0);
       case "DayForce":
-        return this.isDayForceStatus(attrVal);
+        return this.isDayForceStatus(param0);
       case "BirthSeason":
-        return this.isBirthSeason(attrVal);
+        return this.isBirthSeason(param0);
       case "DayTMaster":
-        return this.isDayTMaster(attrVal);
+        return this.isDayTMaster(param0);
         case "DayEMaster":
-          return this.isDayEMaster(attrVal);
+          return this.isDayEMaster(param0);
       default:
-        console.log("UNKNOW CASE ", attrKey, key);
+        super.isAttrPresent(attrKey,params)
     }
     return false;
   }
 
-  filterOnHeader(header: string) {
-    const selectHeaders = PropertyHelper.getHeaderKeys(header);
-    const logMe = false;
-    const startKeyIdx = 2;
-    if (logMe) console.log(header, selectHeaders);
-    for (let index = 0; index < selectHeaders.length; index++) {
-      let key = selectHeaders[index];
-      this.checkKey=key
-      let res = true;
-      let CHECKALL = true; // break on first check is false
-      const keyArr = key.split(".");
-      const len = keyArr.length - 1;
-      const idx = keyArr[len].indexOf("&");
-      if (idx === -1) {
-        console.log("MISSING &", key);
-      } else {
-        keyArr[len] = keyArr[len].substring(0, idx);
-      }
-      for (let index = startKeyIdx; index <= len; index++) {
-        let currAttrkey = keyArr[index];
-        const paramIdx = currAttrkey.indexOf("°");
-        let currAttrVal = "NONE";
-        // parameter
-        if (paramIdx > 0) {
-          currAttrVal = currAttrkey.substring(paramIdx + 1);
-          currAttrkey = currAttrkey.substring(0, paramIdx);
-        }
-        let isPositive = true;
-        if  (currAttrkey[0] === "-" || currAttrkey[0] === "!") {
-          isPositive = false;
-          currAttrkey = currAttrkey.substring(1);
-        }
-        //console.log( "KEY", key, currAttrkey, currAttrVal)
-        if (isPositive !== this.isAttrPresent(key, currAttrkey, currAttrVal)) {
-          res = false;
-          if (!CHECKALL) break;
-        }
-      }
-      if (res) {
-        res = this.addBaseComment0(key, true);
-        if ( res ) {
-          console.log("Added KEY", res, key);
-        }
-      }
-    }
-  }
-
-  filterbyHeader(header: string) {
-    const dayForce = this.baseAttr.dayForce;
-    this.filterOnHeader(header + "0");
-    this.filterOnHeader(header + "+"); // Testing purpose
-    this.filterOnHeader(header + "-"); // Testing purpose
-    //this.comentOnHeader(header+dayForce);
-  }
-
   //
-  filterObservation(header: string, isDestin: boolean) {
-    if (!isDestin) this.filterbyHeader("PY.");
-    this.filterbyHeader(header);
+  override filterObservation(header: string, genPeriodOrYear: boolean) {
+    const dayForce = this.baseAttr.dayForce;
+    if (genPeriodOrYear) {
+      this.filterObservation("PY.",false);
+    }
+    this.filterOnHeader(header + "0"); // For common dayForce
+    this.filterOnHeader(header +"+"); // Testing purpose
+    this.filterOnHeader(header+ "-"); // Testing purpose
+    //this.filterOnHeader(header,dayForce);
   }
 
   override comment() {
     super.comment();
     this.evalBaseDestinyPoint();
     this.evalCurrAttr();
-    this.filterObservation("Destin.", true);
+    this.filterObservation("Destin.", false);
   }
 }

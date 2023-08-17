@@ -22,7 +22,9 @@ export class TuViNoBocObservation extends TuViPalaceObservationBase {
   constructor(palace: TuViPalace, tuviHoroscope: TuViHoroscope) {
     super(palace, tuviHoroscope);
   }
-
+  getHeaderSuffix(): string {
+    return "NoBoc"
+  }
 
   isMenhStarFavorable( starArr: TuViStar[]) {
     let res = false;

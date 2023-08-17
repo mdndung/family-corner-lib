@@ -77,6 +77,6 @@ export class BaziPeriodObservation extends BaziObservationBase {
     this.studyYear=currStudyYear;
     this.lunar.evalPeriodData();
     this.evalPeriodPoint(currStudyYear)
-    this.filterObservation("Period.", false);
+    this.filterObservation("Period.", true);
   }
 }

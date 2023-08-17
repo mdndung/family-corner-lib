@@ -18,6 +18,9 @@ export class TuViPhuMauObservation extends TuViPalaceObservationBase {
     super(palace, tuviHoroscope);
   }
 
+  getHeaderSuffix(): string {
+    return "PhuMau"
+  }
 
   genRef17p142() {
     const starPalace = TuViStar.THAIDUONG.getPalace();

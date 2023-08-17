@@ -188,8 +188,10 @@ export class TuViPalace {
   }
 
   hasOppositePalaceStarB(star: TuViStar, forceStatus: boolean) {
+    const oppositePalace = this.getOppositePalace();
+    if (null==oppositePalace) return false ;
     return (
-      this.getOppositePalace().containsStar(star) &&
+      oppositePalace.containsStar(star) &&
       star.force > 0=== forceStatus
     );
   }
@@ -289,7 +291,9 @@ export class TuViPalace {
   }
 
   hasOppositePalaceStarArr(starArr: TuViStar[], minCount: number) {
-    return this.getOppositePalace().countStar(starArr) >= minCount;
+    const oppositePalace = this.getOppositePalace();
+    if (null==oppositePalace) return false ;
+    return oppositePalace.countStar(starArr) >= minCount;
   }
 
   getOppositePalace() {
@@ -298,10 +302,9 @@ export class TuViPalace {
   }
 
   hasRelationPalaceStar(star: TuViStar, relation: BrancheRelation) {
-    const favorableCombinedPalaces =
-      this.getPalaceWithBrancheRelation(relation);
-    for (let index = 0; index < favorableCombinedPalaces.length; index++) {
-      const tuViPalace = favorableCombinedPalaces[index];
+    const relationPalaces =this.getPalaceWithBrancheRelation(relation);
+    for (let index = 0; index < relationPalaces.length; index++) {
+      const tuViPalace = relationPalaces[index];
       if (tuViPalace.containsStar(star)) {return true;}
     }
     return false;
@@ -329,7 +332,9 @@ export class TuViPalace {
 
   // Same as hasRelationPalaceStar(star,BrancheRelation.CLASH)
   hasOppositePalaceStar(star: TuViStar) {
-    return this.getOppositePalace().containsStar(star);
+    const oppositePalace = this.getOppositePalace();
+    if (null==oppositePalace) return false ;
+    return oppositePalace.containsStar(star);
   }
 
   hasSupportStarWithTransform(star: TuViStar) {
@@ -452,6 +457,15 @@ export class TuViPalace {
     if (incVal <= 0) {return;} // Point is from 1 to 10.  Avoid zero or negative points
     this.points += incVal;
     this.maxPoints += 10;
+  }
+
+  isFavorable() {
+
+    if ( this.maxPoints>0 ) {
+      return this.getNote() > TuViPalace.GOODNOTESREFERENCE
+    }
+    return this.isGoodStarFavorable()
+
   }
 
   initTuViRingForce() {

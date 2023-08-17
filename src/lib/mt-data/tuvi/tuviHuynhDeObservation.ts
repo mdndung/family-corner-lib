@@ -20,6 +20,9 @@ export class TuViHuynhDeObservation extends TuViPalaceObservationBase {
     super(palace, tuviHoroscope);
   }
 
+  getHeaderSuffix(): string {
+    return "HuynhDe"
+  }
 
   genRef17p246() {
     let count =0;

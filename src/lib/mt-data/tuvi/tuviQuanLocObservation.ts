@@ -13,6 +13,9 @@ export class TuViQuanLocObservation extends TuViPalaceObservationBase {
     super(palace, tuviHoroscope);
   }
 
+  getHeaderSuffix(): string {
+    return "QuanLoc"
+  }
 
   genTuViStar() {
     if (this.hasStar(TuViStar.TUVI)) {

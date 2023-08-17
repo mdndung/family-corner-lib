@@ -12,6 +12,10 @@ export class TuViDienTrachObservation extends TuViPalaceObservationBase {
     super(palace, tuviHoroscope);
   }
 
+  getHeaderSuffix(): string {
+    return "DienTrach"
+  }
+
   genTuViStar() {
     if (this.hasStar(TuViStar.TUVI)) {
       this.addSupportBaseComment(8, 'Ref17p171p1');

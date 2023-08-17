@@ -154,7 +154,7 @@ export class TuViStar extends EnumBaseClass {
     TuViStar.TROTINHTOT
   );
   static HOAKY = new TuViStar(
-    '',
+    'HOAKY',
     ElementNEnergy.WATERYANG,
     TuViStar.TROTINHXAU
   );
@@ -602,6 +602,15 @@ export class TuViStar extends EnumBaseClass {
     return TuViStar.TUVI.getValues() as TuViStar[];
   }
 
+  static getDiaStatusByName(name:string) {
+    if ( name==="MIEUDIA") return TuViStar.MIEUDIA;
+    if ( name==="VUONGDIA") return TuViStar.VUONGDIA;
+    if ( name==="DACDIA") return TuViStar.DACDIA;
+    if ( name==="BINHDIA") return TuViStar.BINHDIA;
+    if ( name==="HAMDIA") return TuViStar.HAMDIA;
+    console.log("UNKNOW DIA NAME ",name)
+    return TuViStar.DIANOTAVAILABLE;
+  }
 
   override getClassName() {
     return 'TuVi.Star';

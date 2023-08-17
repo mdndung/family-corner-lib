@@ -15,6 +15,10 @@ export class TuViPhucDucObservation extends TuViPalaceObservationBase {
     super(palace, tuviHoroscope);
   }
 
+  getHeaderSuffix(): string {
+    return "PhucDuc"
+  }
+
   // Force String depend on palace type and note
   override evalForceString() {
         let res = "&+.+";

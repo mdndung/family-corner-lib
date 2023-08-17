@@ -13,6 +13,11 @@ export class TuViTaiBachObservation extends TuViPalaceObservationBase {
     super(palace, tuviHoroscope);
   }
 
+  getHeaderSuffix(): string {
+    return "TaiBach"
+  }
+
+
   genTuVi() {
     if (this.hasStar(TuViStar.TUVI)) {
       if (this.palace.chinhTinhCount >= 1) {

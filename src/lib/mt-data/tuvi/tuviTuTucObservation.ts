@@ -16,6 +16,9 @@ export class TuViTuTucObservation extends TuViPalaceObservationBase {
     super(palace, tuviHoroscope);
   }
 
+  getHeaderSuffix(): string {
+    return "TuTuc"
+  }
 
   genRef17p225_p226() {
     if (this.hasStar(TuViStar.TUVI)) {

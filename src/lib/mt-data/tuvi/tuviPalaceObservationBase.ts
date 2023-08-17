@@ -19,6 +19,7 @@ import { ElementLifeCycle } from '../feng-shui/elementLifeCycle';
 import { TuViPalace } from './tuviPalace';
 import { TuViRing } from './tuviRing';
 import { TuViStar } from './tuviStar';
+import { LunarBase } from '../bazi/lunarBase';
 
 export abstract class TuViPalaceObservationBase extends ObservationBase {
   static SINHDIA = ElementLifeCycle.BIRTH;
@@ -156,7 +157,7 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
     );
   }
 
-  hasManyGoodStars() {
+  hasManyGoodStars(): boolean {
     return this.palace.goodBadChinhTinhBalanceForce > 0 &&
       this.palace.goodActiveChinhTinhCount > 0 &&
       this.palace.trungTinhForce > 0;
@@ -171,7 +172,7 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
     return this.hasSupportStars(starArr, countMax);
   }
 
-  hasRelationGoodSupportPalaceStar(relation: BrancheRelation) {
+  hasRelationGoodSupportPalaceStar(relation: BrancheRelation): boolean {
     return this.palace.hasRelationGoodSupportPalaceStar(relation);
   }
 
@@ -183,13 +184,11 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
     return this.palace.hasRelationPalaceStar(star, relation);
   }
 
-  hasManyGoodSupportStars() {
-    return (
-      this.hasManyGoodStars ||
+  hasManyGoodSupportStars() : boolean {
+    return this.hasManyGoodStars() ||
       this.hasRelationGoodSupportPalaceStar(BrancheRelation.COMBINATION) ||
       this.hasRelationGoodSupportPalaceStar(BrancheRelation.TRANSFORMPLUS) ||
       this.hasRelationGoodSupportPalaceStar(BrancheRelation.TRANSFORMRESTRICT)
-    );
   }
 
   hasFavorableStars() {
@@ -397,38 +396,6 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
     }
   }
 
-  genRef17p86p9() {
-    if (this.palace.branche === Branche.TIGER) {
-      if (
-        this.hasSupportStars0(TuViStarHelper.KHOAQUYENLOC) &&
-        this.hasStars(TuViStarHelper.KINHBAT, 1)
-      ) {
-        if (!this.hasTuanTrietKhong) {this.addBaseComment('Ref17p86p9');}
-      }
-    }
-  }
-
-  genRef17p89p3() {
-    if (this.hasStar(TuViStar.THAIAM)) {
-      this.addBaseComment('Ref17p89p3');
-    }
-  }
-
-  genRef17p101p2() {
-    if (this.hasStarWithStatus(TuViStar.CUMON, TuViStar.HAMDIA)) {
-      if (this.hasStars(TuViStarHelper.KINHDA, 1)) {
-        this.addSupportBaseComment(3, 'Ref17p101p2');
-      }
-    }
-  }
-
-  genRef17p103p6() {
-    // Menh case but seems apply also for than (cas Thuy)
-    if (this.hasStar(TuViStar.TUONGQUAN) && !this.isMan()) {
-      this.addSupportBaseComment(6, 'Ref17p103p6');
-    }
-  }
-
   genRef17p116p6() {
     if (this.hasStar(TuViStar.VUKHUC)) {
       if (
@@ -502,6 +469,20 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
 
   hasOppositePalaceStar(star: TuViStar) {
     return this.palace.hasOppositePalaceStar(star);
+  }
+
+  // Cung Xung Chieu: Ref14p52 (Ref17 p23)
+  getCungXungChieu() : TuViPalace {
+    /*
+    let PigBrancheIdx = Branche.PIG.ordinal();
+    let thisBrancheIdx = this.palace.branche.ordinal()
+    let diff = PigBrancheIdx-thisBrancheIdx
+    if ( diff%3===0 ) {
+      console.log(" No Opposite Relation for Palace branche ",this.palace.branche)
+      return null
+    }
+    */
+    return this.palace.getNextPalace(6)
   }
 
   hasOppositeStar(starArr: TuViStar[], forceStatus: boolean) {
@@ -1662,10 +1643,14 @@ commentOnStarPeriod( currAge: number,  studyLunar: Lunar,  isPeriodEnd: boolean,
 }
 
 
+
+
 commentOnYearPeriod( currAge: number, lunar: Lunar, isPeriodEnd: boolean) {
     // Done in another place this.initComment();
     this.commentOnMenhThanNPeriod();
     this.commentOnStarPeriod(currAge, lunar,isPeriodEnd,false);
+    this.filterObservation(this.getTuViPeriodHeader(), false);
+    this.filterObservation(this.getTuViYearHeader(), false);
 }
 
 
@@ -1677,10 +1662,6 @@ commentOnYearPeriod( currAge: number, lunar: Lunar, isPeriodEnd: boolean) {
       this.genRef17p62p23();
       this.genRef17p62p24();
       this.genRef17p62p25();
-      this.genRef17p86p9();
-      this.genRef17p89p3();
-      this.genRef17p101p2();
-      this.genRef17p103p6();
       this.genRef17p116p6();
       this.genRef17p120p8();
       this.genRef17p126p5();
@@ -2956,11 +2937,404 @@ override adjustDegree(degree: number) {
   return degree + Math.round((10 - degree) * this.currPeriodComplementForceFactor);
 }
 
+override getLunar() {
+  return this.tuviHoroscope.birthLunar
+}
+
+// Usage LunarTrunk°PilarNameList,TrunkList
+checkLunarTrunk(params: string[]): boolean {
+  const pilarNames = params[0].split("/");
+  const checkTrunks = this.checkEnumList(params[1],Trunk.JIA)
+  for (let index = 0; index < pilarNames.length; index++) {
+    const pilarName = pilarNames[index];
+    const pilar = this.getPilar(pilarName);
+    if ( checkTrunks.indexOf(pilar.trunk.getName()) >= 0) return true
+  }
+  return false;
+}
+
+
+// Usage PalaceBranche°BrancheList
+checkPalaceBranche(params: string[]): boolean {
+  const checkBranches = this.checkEnumList(params[0],Branche.COCK)
+  return checkBranches.indexOf(this.palace.branche.getName()) >= 0
+}
+
+// Usage PalaceTuMo
+checkPalaceTuMo(): boolean {
+  return this.isPartOfTuMo
+}
+
+// Usage PalaceTuSinh
+checkPalaceTuSinh(): boolean {
+  return BrancheHelper.isTuSinh(this.palace.branche)
+}
+
+// Usage HanStatus°+-
+// Usage Status°+-
+checkPalaceStatus(palace:TuViPalace, params: string[]): boolean {
+  const checkStatus = params[0]
+  return palace.isFavorable()===(checkStatus==='+')
+}
+
+
+// Usage HanStatus°+-
+checkHanStatus(params: string[]): boolean {
+  return this.checkPalaceStatus(this.tuviHoroscope.yDaihan,params)
+}
+
+
+
+// Usage MeetHostileStars
+checkMeetHostileStars(): boolean {
+  return this.hasHostileStars() ||this.hasCombinedSatTinh
+}
+
+// Usage HasHostileStar
+checkHasStatTinh(): boolean {
+  return this.hasSatTinh()
+}
+
+
+// Usage HasGoodtars
+checkHasGoodStars(): boolean {
+  return this.hasManyGoodSupportStars()
+}
+
+
+
+// Usage StarNeighBor°Count,StarList
+checkStarNeighBor(params: string[]): boolean {
+  let count=+params[0]
+  const starList = this.checkGetEnumList(params[1],TuViStar.ANQUANG) as TuViStar[]
+  for (let index = 0; index < starList.length; index++) {
+    const star = starList[index]
+    if ( this.hasPrevNextStar(star) )  {
+      count--;
+      if ( count<=0 ) return true
+    }
+  }
+  return false;
+}
+
+
+
+// Usage Star°Number,StarList
+checkStars(params: string[]): boolean {
+  let count=+params[0]
+  const starList = this.checkEnumList(params[1],TuViStar.ANQUANG)
+  const starSet =this.palace.starSet;
+  for (let index = 0; index < starSet.length; index++) {
+    const tuViStar = starSet[index];
+    if (starList.indexOf(tuViStar.getName())>=0 ) {
+      count--;
+      if ( count<=0 ) return true
+    }
+  }
+  return false
+}
+
+// Usage StarXungChieu°Number,StarList
+checkXungChieuStars(params: string[]): boolean {
+  const cungXungChieu = this.getCungXungChieu();
+  if ( null!== cungXungChieu ){
+    return cungXungChieu.palaceObservation.checkStars(params)
+  }
+  return false
+}
+
+// Usage StarXungChieuGrp°Number,StarList
+checkXungChieuStarsGrp(params: string[]): boolean {
+  const cungXungChieu = this.getCungXungChieu();
+  if ( null!== cungXungChieu ){
+    const starGrp = TuViStarHelper.toStarGroupList(params[1])
+    return cungXungChieu.palaceObservation.checkStars([params[0],starGrp])
+  }
+  return false
+}
+// Usage StarHoiHop°Number,StarList
+checkHoiHopStars(params: string[]): boolean {
+  if ( params.length !==2 ) {
+    console.log("Invalid param ", this.checkMethod, this.checkKey)
+  }
+  const count=+params[0]
+  const checkStars = TuViStarHelper.findStarGroupName(params[1])
+  return this.hasSupportStars(checkStars,count)
+}
+
+// Usage StarTamHop°Number,StarList
+checkTamHopStars(params: string[]): boolean {
+  let count=+params[0]
+  const checkStars = this.checkGetEnumList(params[1],TuViStar.ANQUANG) as TuViStar[]
+  for (let index = 0; index < checkStars.length; index++) {
+    const star = checkStars[index];
+    if ( this.hasRelationPalaceStar(star, BrancheRelation.COMBINATION)  ) {
+      count--;
+      if (count<=0) return true
+    }
+  }
+  return false
+}
+
+
+// Usage StarAnNguOne°Star
+checkAnNguOneStar(params: string[]): boolean {
+  const checkStars = this.checkGetEnumList(params[0],TuViStar.ANQUANG) as TuViStar[]
+  const checkStar = checkStars[0];
+  const checkStarName=params[0]
+  if ( checkStar === TuViStar.TUANKHONG || checkStar === TuViStar.TRIETKHONG ) {
+    if (this.hasTuanTrietKhong ) return true
+  }
+  const checkParams = ["1",checkStarName]
+  if ( this.checkXungChieuStars(checkParams)) return true
+  if ( this.checkStars(checkParams)) return true ;
+  if ( this.checkTamHopStars(checkParams)) return true ;
+  return false
+}
+
+// Usage StarsAnNgu°Count,StarList
+checkAnNguStars(params: string[]): boolean {
+  let count=+params[0]
+  const checkStars = this.checkEnumListSplit(params[1],TuViStar.ANQUANG)
+  for (let index = 0; index < checkStars.length; index++) {
+    const checkStar = checkStars[index];
+    if ( this.checkAnNguOneStar([checkStar]) ) {
+      count--;
+      if (count<=0) return true
+    }
+
+  }
+  return false
+}
+
+
+// Usage TuanTriet
+checkTuanTriet(): boolean {
+  return this.checkAnNguOneStar(["TUANKHONG"]) || this.checkAnNguOneStar(["TRIETKHONG"])
+}
+
+// Usage StarNhiHop°Number,StarList
+checkNhiHopStars(params: string[]): boolean {
+  let count=+params[0]
+  const checkStars = this.checkGetEnumList(params[1],TuViStar.ANQUANG) as TuViStar[]
+  for (let index = 0; index < checkStars.length; index++) {
+    const star = checkStars[index];
+    if ( this.hasSupportStarWithTransform(star)) {
+      count--;
+      if (count<=0) return true
+    }
+  }
+  return false
+}
+
+// Usage StarHopSinh°Number,StarList
+// Usage StarHopKhac°Number,StarList
+checkHopSinhKhacStars(params: string[], checkCompatibleElement: boolean): boolean {
+  let count=+params[0]
+  const checkStars = this.checkGetEnumList(params[1],TuViStar.ANQUANG) as TuViStar[]
+  const tuviStarMap = this.tuviHoroscope.tuviPalaceStarMap
+  const palaceBranche = this.palace.branche
+  const palaceBrancheElement = palaceBranche.getElement()
+  for (let index = 0; index < checkStars.length; index++) {
+    const star = checkStars[index];
+    const checkBranche = tuviStarMap.getStarBranche(star);
+    if ( BrancheRelation.isRelationPresent(this.palace.branche,checkBranche,BrancheRelation.TRANSFORMPLUS)) {
+      if ( checkCompatibleElement===palaceBrancheElement.isFavorable(checkBranche.getElement())) {
+        count--;
+        if (count<=0) return true
+      }
+    }
+  }
+  return false
+}
+
+// Usage StarHamDia°Count,StarList
+checkStarsStatus(params: string[],status:number, checkFunc: any): boolean {
+  let count=1
+  let starList = params[0]
+  if ( params.length>=2 ) {
+    count = +params[0]
+    starList = params[1]
+  }
+  const checkStars = this.checkGetEnumList(starList,TuViStar.ANQUANG) as TuViStar[]
+  const starSet =this.palace.starSet;
+  for (let index = 0; index < checkStars.length; index++) {
+    const star = checkStars[index];
+    if ( ObjectHelper.hasItem(starSet,star) && checkFunc(star.diaStatus, status)) {
+      count--;
+      if (count<=0) return true
+    }
+  }
+  return false
+}
+
+// Usage StarDiaStatus°Count,StarList,DiaStatusNameList
+checkStarsDiaStatus(params: string[], checkFunc: any): boolean {
+  const diaStatusList = params[2].split("/")
+  for (let index = 0; index < diaStatusList.length; index++) {
+    const diaStatus = TuViStar.getDiaStatusByName(diaStatusList[index]);
+    if ( this.checkStarsStatus(params, diaStatus,checkFunc) ) return true
+  }
+  return false
+}
+
+// Usage StarGEDacDia°count,StarList
+checkDiaStatus(params: string[],diaStatus:number, checkFunc: any): boolean {
+  return this.checkStarsStatus(params, diaStatus,checkFunc)
+}
+
+checkEqual(param1: number,param2: number) {
+  return param1===param2
+}
+
+checkGT(param1: number,param2: number) {
+  return param1>param2
+}
+
+checkLT(param1: number,param2: number) {
+  return param1<param2
+}
+
+checkGE(param1: number,param2: number) {
+  return param1>=param2
+}
+
+checkLE(param1: number,param2: number) {
+  return param1<=param2
+}
+
+
+// usage Genre°(f,m)(+,-))
+checkGenreWEnergy(params: string[]) {
+  const param0 = params[0]
+  let res = this.checkGenreOnly(params);
+  if ( ! res ) return res ;
+  if (param0.length===1 ) return res;
+  const brancheEnergy = this.getLunar().getyBranche().getEnergy()
+  return brancheEnergy.isYin() && param0[1] === "-";
+}
+
+  // Usage StarBranche°Star,Branche
+
+  checkStarBranche(params: string[]): boolean {
+    const checkStars = this.checkGetEnumList(params[0],TuViStar.ANQUANG) as TuViStar[];
+    const checkBranches = this.checkGetEnumList(params[1],Branche.COCK) as Branche[];
+    const checkStar=checkStars[0]
+    const tuviStarMap = this.tuviHoroscope.tuviPalaceStarMap
+    const checkStarBranche = tuviStarMap.getStarBranche(checkStar);
+    for (let index = 0; index < checkBranches.length; index++) {
+      const checkBranche = checkBranches[index];
+      if ( checkStarBranche===checkBranche) return true
+    }
+    return false
+  }
+
+override isAttrPresent( attrKey: string, params: string[]): boolean {
+  switch (attrKey) {
+    case "LunarTrunk":
+      return this.checkLunarTrunk(params);
+    case "PalaceBranche":
+        return this.checkPalaceBranche(params);
+    case "PalaceTuMo":
+        return this.checkPalaceTuMo();
+    case "PalaceTuSinh":
+        return this.checkPalaceTuSinh();
+    case "Star":
+        return this.checkStars(params);
+    case "StarOpposite":
+          return this.checkXungChieuStars(params);
+    case "StarHamDia":
+          return this.checkStarsStatus(params,TuViStar.HAMDIA,this.checkEqual);
+   case "StarDacDia":
+            return this.checkStarsStatus(params,TuViStar.DACDIA,this.checkEqual);
+    case "StarVuongDia":
+              return this.checkStarsStatus(params,TuViStar.VUONGDIA,this.checkEqual);
+    case "StarMieuDia":
+            return this.checkStarsStatus(params,TuViStar.MIEUDIA,this.checkEqual);
+    case "StarEQDiaStatus":
+              return this.checkStarsDiaStatus(params,this.checkEqual);
+    case "StarGEDacDia":
+          return this.checkDiaStatus(["1",params[0]],TuViStar.DACDIA,this.checkGE);
+    case "StarGEVuongDia":
+            return this.checkDiaStatus(["1",params[0]],TuViStar.VUONGDIA,this.checkGE);
+
+    case "StarGEDiaStatus":
+        return this.checkStarsDiaStatus(params,this.checkGE);
+    case "StarAnNgu":
+      return this.checkAnNguStars(params);
+      case "StarAnNguOne":
+        return this.checkAnNguOneStar([params[0]]);
+
+    case "StarTamHop":
+        return this.checkTamHopStars(params);
+    case "StarHoiChieu":
+      return this.checkTamHopStars(params)||this.checkXungChieuStars(params);
+    case "StarHoiHop":
+        return this.checkHoiHopStars(params);
+    case "StarNhiHop":
+        return this.checkNhiHopStars(params);
+    case "StarHopKhac":
+        return this.checkHopSinhKhacStars(params,false);
+    case "StarHopSinh":
+        return this.checkHopSinhKhacStars(params,true);
+    case "StarXungChieuGrp":
+          return this.checkXungChieuStarsGrp(params);
+    case "StarXungChieu":
+        return this.checkXungChieuStars(params);
+    case "MeetHostileStars":
+          return this.checkMeetHostileStars();
+    case "HasHostileStars":
+            return this.checkHasStatTinh();
+    case "MeetGoodStars":
+            return this.hasManyGoodSupportStars();
+    case "StarNeighBor":
+        return this.checkStarNeighBor(params);
+    case "PalaceStatus":
+          return this.checkPalaceStatus(this.palace,params);
+    case "HanStatus":
+      return this.checkHanStatus(params);
+    case "TuanTriet":
+        return this.checkTuanTriet();
+    case "Genre":
+        return this.checkGenreWEnergy(params);
+    case "StarBranche":
+        return this.checkStarBranche(params);
+    default:
+        return super.isAttrPresent(attrKey,params)
+    }
+    return false;
+  }
+
+
+
+  abstract getHeaderSuffix(): string;
+
+  getTuViDestinHeader(): string {
+    return "TuVi."+this.getHeaderSuffix()
+  }
+
+  getTuViPeriodHeader(): string  {
+    return "TuViPeriod."+this.getHeaderSuffix()
+  }
+
+  getTuViYearHeader(): string  {
+    return "TuViYear."+this.getHeaderSuffix()
+  }
+
+  override filterObservation(header: string, genPeriodOrYear: boolean) {
+    this.filterOnHeader(header);
+  }
+
 override comment() {
   super.comment();
   this.commentOnThan();
   this.checkThuongCach();
   this.checkTrungCach();
+  if (this.palace.isThan) {
+    this.filterObservation("TuVi.Than", false);
+  }
+  this.filterObservation(this.getTuViDestinHeader(), false);
+
 }
 
 

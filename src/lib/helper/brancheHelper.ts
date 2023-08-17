@@ -30,9 +30,6 @@ export class BrancheHelper {
     return Branche.RAT.getEnum((cYear-1)%12) as Branche;
   }
 
-  static AGRESSIVE = new BrancheRelation("A"); // Tri the, Vo An
-
-
   static getMonthBranche(monthIndexBase1: number) {
     const monthIndexBase0 = monthIndexBase1-1;
     return Branche.TIGER.getEnumNextNElement(monthIndexBase0) as Branche;
@@ -328,6 +325,9 @@ export class BrancheHelper {
 		}
 	}
 
+  static getBrancheRelationList(branche: Branche) {
+    return BrancheRelation.RELATIONARR[branche.ordinal()] ;
+  }
 
   static getBrancheRelation( brancheRow: Branche,  brancheCol: Branche) {
     return BrancheRelation.RELATIONARR[brancheRow.ordinal()][brancheCol.ordinal()] ;

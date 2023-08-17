@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { ObjectHelper } from '../helper/objectHelper';
 import { PropertyHelper } from '../helper/PropertyHelper';
+import { ObjectHelper } from '../helper/objectHelper';
 import { StringHelper } from '../helper/stringHelper';
+import { Bazi } from '../mt-data/bazi/bazi';
+import { Branche } from '../mt-data/bazi/branche';
+import { Lunar } from '../mt-data/bazi/lunar';
+import { LunarBase } from '../mt-data/bazi/lunarBase';
+import { Trunk } from '../mt-data/bazi/trunk';
+import { EnumBaseClass } from '../mt-data/enumBaseClass';
 import { QiForce } from '../mt-data/qi/qi-force';
 import { QiType } from '../mt-data/qi/qi-type';
 import { QiTypeDataRec } from '../mt-data/qi/qi-type-data-rec';
@@ -15,6 +21,10 @@ export class ObservationBase {
   isInit: boolean = false ;
   rawPropCache: string[] = [];
   prefixGenre: string;
+
+  // Used for log purpose when problem while checking key
+  checkKey = "";
+  checkMethod = "";
 
   constructor(genrePrefix: string) {
     // Initialized when generated only
@@ -73,7 +83,7 @@ export class ObservationBase {
     if (note < 45) {
       res = '&-';
     }
-    console.log("evalForceString", note, res);
+    //console.log("evalForceString", note, res);
     return res;
   }
 
@@ -266,6 +276,249 @@ export class ObservationBase {
 
   updateForce() {
     // Nothing. To be defined in subclass if necessary
+  }
+
+
+getLunar() : Lunar {
+  console.log("GetLunar must be redefined in subClass")
+  return null
+}
+
+
+  checkEnumList (param:string, model: EnumBaseClass) {
+    if ( ObjectHelper.isNaN(param) ) {
+      console.log("Missing param",model )
+      console.log(this.checkMethod, this.checkKey)
+      return "";
+    }
+    const params = param.split("/")
+    for (let index = 0; index < params.length; index++) {
+      const element = params[index];
+      if ( null===model.getEnumByName(element) ) {
+        console.log("Could not find ", element, "in ", param, "for model ", model.getName())
+        console.log(this.checkMethod, this.checkKey)
+      }
+    }
+    return param;
+  }
+
+  checkEnumListSplit (param:string, model: EnumBaseClass) {
+    return this.checkEnumList(param,model).split("/");
+  }
+
+  checkGetEnumList (param:string, model: EnumBaseClass) {
+    if ( ObjectHelper.isNaN(param) ) {
+      console.log("Missing param",model )
+      console.log(this.checkMethod, this.checkKey)
+      return "";
+    }
+    let res = []
+    const params = param.split("/")
+    for (let index = 0; index < params.length; index++) {
+      const element = params[index];
+      const enumElement = model.getEnumByName(element)
+      if ( null===enumElement ) {
+        console.log("Could not find ", element, "in ", param, "for model ", model.getName())
+        console.log(this.checkMethod, this.checkKey)
+      } else {
+        res.push(enumElement)
+      }
+    }
+    return res;
+  }
+
+  protected getPilar(pilarName: string) {
+    return this.getLunar().getPilarByName(pilarName)
+  }
+
+  checkTransformEnumList (param:string, model: EnumBaseClass) {
+    return this.checkEnumList(param,model).split("/");
+  }
+
+
+  checkGenreOnly(params:string[]) {
+    if (params.length === 0) return false;
+    return this.getLunar().isMan && params[0] === "m";
+  }
+
+
+  // Check if the pilar branche name is among the branche List
+  checkPilarBranche(params:string[]): boolean {
+    const pilarName=params[0]
+    const brancheList=params[1]
+    this.checkEnumList(brancheList,Branche.RAT)
+    const pilar = this.getPilar(pilarName);
+    const brancheName = pilar.branche.getName();
+    //console.log("isPilarBranche ",pilarName, pilar, brancheList, brancheName )
+    return brancheList.indexOf(brancheName) >= 0;
+  }
+
+  // Check if the pilar branche name is among the branche List
+  // Usage: Branche°Period/Year/Y/M/D/H,BranceList
+  //
+  checkBranche(params: string[]): boolean {
+    if (params.length !== 2) return false;
+    const pilarName = params[0];
+    const brancheList = this.checkEnumList(params[1],Branche.RAT)
+    //console.log("isBranche ",params )
+    return this.checkPilarBranche([pilarName, brancheList]);
+  }
+
+
+  // Usage: BithHour°from,to
+  //
+  checkBirthHour(params: string[]): boolean {
+    if (params.length !== 2) return false;
+    const fromHour = +params[0]
+    const toHour = +params[1]
+    const checkHour = this.getLunar().birthDate.getHour()
+    return fromHour<=checkHour&&checkHour<=toHour;
+  }
+
+   // Usage: BithNight
+  //
+  checkBirthNight(): boolean {
+    return !this.checkBirthHour(["6", "19"])
+  }
+
+
+  // Usage: Trunk°Period/Year/Y/M/D/H,BranceList
+  checkTrunk(params: string[]): boolean {
+    const pilarNames = params[0].split("/");
+    const checkTrunks = this.checkEnumList(params[1],Trunk.JIA)
+    for (let index = 0; index < pilarNames.length; index++) {
+      const pilarName = pilarNames[index];
+      const pilar = this.getPilar(pilarName);
+      if ( checkTrunks.indexOf(pilar.trunk.getName()) >= 0) return true
+    }
+
+    return false;
+  }
+
+
+  // Usage: HasTrunk°Count,TrunkList
+  hasTrunk(params: string[]): boolean {
+    let countHit = +params[0];
+    const trunkList = this.checkEnumList(params[1],Trunk.JIA)
+    //console.log("hasPilarTrunk ", attrVal)
+    for (let index = 0; index < LunarBase.ymdhCharArr.length; index++) {
+      const pilarName = LunarBase.ymdhCharArr[index];
+      const pilar = this.getPilar(pilarName);
+      if ( this.checkTrunk([pilarName,trunkList])) {
+        countHit--;
+        if (countHit === 0) return true;
+      }
+    }
+    return false;
+  }
+
+
+   // Check if the branche list is define in 4 pilar
+   // HasBranche°Count,BrancheList
+   // Usage: HasBranche°Count,BrancheList
+   hasBranche(params: string[]): boolean {
+    let count=+params[0]
+    const brancheList = this.checkEnumList(params[1],Branche.RAT)
+    //console.log("hasBranche ",params )
+    for (let index = 0; index < LunarBase.ymdhCharArr.length; index++) {
+      const pilarName = LunarBase.ymdhCharArr[index];
+      if ( this.checkBranche([pilarName,brancheList])) {
+        count--;
+        if ( count===0 ) return true
+      }
+    }
+    return false
+  }
+
+  isAttrPresent(attrKey: string, params: string[]): boolean {
+    // Put Here common check function
+    switch (attrKey) {
+      case "Genre":
+        return this.checkGenreOnly(params);
+      case "Trunk":
+        return this.checkTrunk(params);
+      case "Branche":
+          return this.checkBranche(params);
+      case "BirthHour":
+        return this.checkBirthHour(params);
+      case "BirthNight":
+          return this.checkBirthNight();
+      case "OR":
+        return this.processFuncSuite(params[0],"||","$",true)
+    default:
+      console.log("UNKNOWN CASE ", attrKey, this.checkKey);
+    }
+    return false;
+  }
+
+  processFuncSuite(funcList:string,funcSep:string,paramSep:string,exitOnTrue:boolean) {
+    const keyArr = funcList.split(funcSep);
+    const len = keyArr.length - 1;
+    const startKeyIdx = 2;
+    const idx = keyArr[len].indexOf("&");
+    if (idx >=0 -1) {
+      keyArr[len] = keyArr[len].substring(0, idx);
+    }
+    let res =true ;
+    const CHECKALL = true; // break on first check is false
+    for (let index = startKeyIdx; index <= len; index++) {
+      let currAttrkey = keyArr[index];
+      const paramIdx = currAttrkey.indexOf(paramSep);
+      let currAttrVal = "NONE";
+      // parameter
+      if (paramIdx > 0) {
+        currAttrVal = currAttrkey.substring(paramIdx + 1);
+        currAttrkey = currAttrkey.substring(0, paramIdx);
+      }
+      let isPositive = true;
+
+      if  (currAttrkey[0] === "-" || currAttrkey[0] === "!") {
+        isPositive = false;
+        currAttrkey = currAttrkey.substring(1);
+      }
+
+      this.checkMethod=currAttrkey + " "+ currAttrVal
+      if (isPositive !== this.isAttrPresent(currAttrkey, currAttrVal.split(","))) {
+        res = false;
+        if (!CHECKALL) break;
+      } else {
+        if ( exitOnTrue && !CHECKALL ) break
+      }
+    }
+    return res;
+  }
+
+  filterOnHeader(header: string) {
+    const selectHeaders = PropertyHelper.getHeaderKeys(header);
+    if ( ObjectHelper.isNaN(selectHeaders)) {
+      console.log("No Header found ", header);
+      return
+    }
+    const logMe = false;
+    const startKeyIdx = 2;
+    if (logMe) console.log(header, selectHeaders);
+    for (let index = 0; index < selectHeaders.length; index++) {
+      let key = selectHeaders[index];
+      this.checkKey=key
+      let res = true;
+      const idx = key.indexOf("&");
+      if (idx === -1) {
+        console.log("MISSING &", key);
+      }
+      res = this.processFuncSuite(key,".","°",false);
+      if (res) {
+        res = this.addBaseComment0(key, true);
+        if ( res ) {
+          console.log("Added KEY", res, key);
+        }
+      }
+    }
+  }
+
+
+  //
+  filterObservation(header: string, isDestin: boolean) {
+    console.log("filterObservation must be redefined in subclass")
   }
 
 }

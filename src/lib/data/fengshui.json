@@ -1,0 +1,645 @@
+{
+
+
+  "Label.Trigram.1.Attr.BodyParts": [ 0 , "=Ref5p173p1b" ],
+  "Label.Trigram.1.Attr.People": [ 0 , "=Ref5p173p1a" ],
+ "Label.Trigram.2.Attr.BodyParts": [ 0 , "=Ref5p175p1b" ],
+  "Label.Trigram.2.Attr.People": [ 0 , "=Ref5p175p1a" ],
+  "Label.Trigram.3.Attr.BodyParts": [ 0 , "=Ref5p177p1b" ],
+  "Label.Trigram.3.Attr.People": [ 0 , "=Ref5p177p1a" ],
+  "Label.Trigram.4.Attr.BodyParts": [ 0 , "=Ref5p179p1b" ],
+  "Label.Trigram.4.Attr.People": [ 0 , "=Ref5p179p1a" ],
+  "Label.Trigram.5.Attr.BodyParts": [ 0 , "=Ref5p181p1b" ],
+  "Label.Trigram.6.Attr.BodyParts": [ 0 , "=Ref5p183p1b" ],
+ "Label.Trigram.6.Attr.People": [ 0 , "=Ref5p183p1a" ],
+ "Label.Trigram.7.Attr.BodyParts": [ 0 , "=Ref5p185p1b" ],
+  "Label.Trigram.7.Attr.People": [ 0 , "=Ref5p185p1a" ],
+ "Label.Trigram.8.Attr.BodyParts": [ 0 , "=Ref5p187p1b" ],
+  "Label.Trigram.8.Attr.People": [ 0 , "=Ref5p187p1a" ],
+ "Label.Trigram.9.Attr.BodyParts": [ 0 , "=Ref5p189p1b" ],
+ "Label.Trigram.9.Attr.People": [ 0 , "=Ref5p189p1a" ],
+ "Mariage.Gua.Trigram.Relation.D1":
+ [ 0 , "=Mariage.East.West.Group.false.1==Ref19bp189p2" ],
+ "Mariage.Gua.Trigram.Relation.D2":
+ [ 0 , "=Mariage.East.West.Group.false.1==Ref19bp188p6" ],
+ "Mariage.Gua.Trigram.Relation.D3":
+ [ 0 , "=Mariage.East.West.Group.false.1==Ref19bp188p5" ],
+ "Mariage.Gua.Trigram.Relation.D4":
+ [ 0 , "=Mariage.East.West.Group.true.0==Ref19bp189p1" ],
+ "Mariage.Gua.Trigram.Relation.F1":
+ [ 0 , "=Mariage.East.West.Group.false.0==Ref19bp188p1" ],
+ "Mariage.Gua.Trigram.Relation.F2":
+ [ 0 , "=Mariage.East.West.Group.false.0==Ref19bp188p2" ],
+ "Mariage.Gua.Trigram.Relation.F3":
+ [ 0 , "=Mariage.East.West.Group.false.0==Ref19bp188p3" ],
+ "Mariage.Gua.Trigram.Relation.F4":
+ [ 0 , "=Mariage.East.West.Group.false.0==Ref19bp188p4" ],
+ "Zone.AddInfo.Mountain.Ok.Facade.Ok":
+ [ 0 , "=Zone.AddInfo.Mountain.Ok.Facade.Ok.0==DotNewLine==Zone.AddInfo.Mountain.Ok.Facade.Ok.1" ],
+ "Mariage.East.West.Group.false":
+ [ 0 , "=Label.Relation.Hostile==Mariage.East.West.Group.false.1" ],
+ "Mariage.East.West.Group.true":
+ [ 0 , "=Label.Relation.Favorable=Mariage.East.West.Group.false.0" ],
+
+
+
+ "Element.EARTH.BodyParts":
+ [ 0 , "=Label.Trigram.2.Attr.BodyParts==Label.Trigram.5.Attr.BodyParts==Label.Trigram.8.Attr.BodyParts" ],
+ "Element.FIRE.BodyParts": [ 0 , "=Label.Trigram.9.Attr.BodyParts" ],
+ "Element.METAL.BodyParts":
+ [ 0 , "=Label.Trigram.6.Attr.BodyParts==Label.Trigram.7.Attr.BodyParts" ],
+ "Element.WATER.BodyParts": [ 0 , "=Label.Trigram.1.Attr.BodyParts" ],
+ "Element.WOOD.BodyParts":
+ [ 0 , "=Label.Trigram.3.Attr.BodyParts==Label.Trigram.4.Attr.BodyParts" ],
+
+
+
+ "DirectionOnLimit.Comment.NONE": [ 0 , "=DirectionOnLimit.NONE" ],
+"DirectionOnLimit.Comment.ON_ELEMENT_LINE_BORDER":
+[ 0 , "=DirectionOnLimit.ON_ELEMENT_LINE_BORDER==DotNewLine==DirectionOnLimit.Comment.HOSTILE" ],
+"DirectionOnLimit.Comment.ON_MOUNTAIN_BORDER":
+ [ 0 , "=DirectionOnLimit.ON_MOUNTAIN_BORDER==DotNewLine==DirectionOnLimit.Comment.NEUTRAL" ],
+"DirectionOnLimit.Comment.ON_MOUNTAIN_LINE_BORDER":
+[ 0 , "=DirectionOnLimit.ON_MOUNTAIN_LINE_BORDER==DotNewLine==DirectionOnLimit.Comment.NEUTRAL" ],
+"DirectionOnLimit.Comment.ON_ZONE_BORDER":
+[ 0 , "=DirectionOnLimit.ON_ZONE_BORDER==DotNewLine==DirectionOnLimit.Comment.VERYHOSTILE" ],
+ "Label.Direction": [ 0 , "=Direction" ],
+"Label.Door.Direction.On.Branche": [ 0 , "=RefX1" ],
+ "Label.Door.Direction.On.Branche.Detail": [ 0 , "=RefX1Detail" ],
+"Label.Door.Eight.ShaQI.Relation":
+[ 0 , "=Label.Door.Eight.ShaQI.Relation.0==Label.Eight.Palace.ShaQI" ],
+"Label.Door.Eight.ShaQI.Relation.Details.2a": [ 0 , "=Ref1p255p2a" ],
+"Label.Door.Eight.ShaQI.Relation.Details.2e": [ 0 , "=Ref1p256p1" ],
+"Label.Door.Eight.ShaQI.Relation.Reason1":
+[ 0 , "=Label.Eight.Palace.ShaQI.Relation.General.0" ],
+"Label.Door.Eight.ShaQI.Relation.Reason2":
+[ 0 , "=Label.Eight.Palace.ShaQI.Relation.General.1" ],
+ "Label.Door.Facing.Same.Zone.Star.NGU_CAT": [ 0 , "=Ref6p59p1" ],
+"Label.Door.Proposed.Direction.Favorable": [ 0 , "=Ref18p36p1" ],
+"Label.Door.Zone.Facing.Zone.Star.NGU_CAT": [ 0 , "=Ref6p59p2" ],
+"Label.Door.Zone.Hostile.Facing.NGU_CAT": [ 0 , "=Ref6p59p3" ],
+"Label.Door.Zone.NGU_CAT.Support.Facing.Hostile": [ 0 , "=Ref6p64p1a" ],
+"Label.Four.Road.ShaQI.1.Hostile":
+[ 0 , "=Label.Four.Road.ShaQI.1.Hostile.0==Label.Four.Road.ShaQI.1.Hostile.1" ],
+"Label.Four.Road.ShaQI.2.Hostile":
+[ 0 , "=Label.Four.Road.ShaQI.2.Hostile.0==Label.Four.Road.ShaQI.1.Hostile.1" ],
+"Label.Kichen.Direction.To.Facing.Star.1.KO":
+[ 0 , "=Label.Kichen.Direction.To.Facing.Star.1.OK" ],
+ "Label.Kichen.Direction.To.Facing.Star.3.KO":
+[ 0 , "=Label.Kichen.Direction.To.Facing.Star.3.OK" ],
+ "Label.Kichen.Direction.To.Facing.Star.4.KO":
+[ 0 , "=Label.Kichen.Direction.To.Facing.Star.4.OK" ],
+"Label.Kichen.Direction.To.Facing.Star.6.KO":
+[ 0 , "=Label.Kichen.Direction.To.Facing.Star.6.OK" ],
+"Label.Kichen.Direction.To.Facing.Star.7.KO":
+[ 0 , "=Label.Kichen.Direction.To.Facing.Star.7.OK" ],
+"Label.Kichen.Direction.To.Facing.Star.8.KO":
+ [ 0 , "=Label.Kichen.Direction.To.Facing.Star.8.OK" ],
+ "Label.Kichen.Direction.To.Facing.Star.9.KO":
+[ 0 , "=Label.Kichen.Direction.To.Facing.Star.9.OK" ],
+"Label.Kitchen.12.Animals.KO.Year": [ 0 , "=Label.KO==Ref6p155p1" ],
+"Label.Kitchen.Add.Influence.Yang":
+[ 0 , "=Label.Kitchen.Add.Influence==Ref26p181==Ref26p183p1b" ],
+"Label.Kitchen.Add.Influence.Yin":
+[ 0 , "=Label.Kitchen.Add.Influence==Ref26p35==Ref26p183p1a" ],
+"Label.Kitchen.Center.Zone":
+[ 0 , "=Label.Kitchen.North.Zone.0==Label.Kitchen.Zone.Avoid.Center==Label.Kitchen.Center.Zone.0" ],
+"Label.Kitchen.Metal.Zone":
+[ 0 , "=Label.Kitchen.North.Zone.0==Label.Kitchen.Zone.Avoid.Metal==Label.Kitchen.Metal.Zone.0" ],
+"Label.Kitchen.Mountain.Facade.Zone.KO":
+[ 0 , "=Label.Kitchen.North.Zone.0==Label.Kitchen.Mountain.Facade.Zone.KO.0" ],
+"Label.Kitchen.Mountain.Facade.Zone.OK":
+[ 0 , "=Label.Kitchen.Mountain.Zone.OK.0==Label.Kitchen.Mountain.Facade.Zone.OK.0" ],
+"Label.Kitchen.Mountain.Zone.OK":
+[ 0 , "=Label.Kitchen.Mountain.Zone.OK.0==Label.Kitchen.Mountain.Zone.OK.1" ],
+"Label.Kitchen.North.Zone":
+[ 0 , "=Label.Kitchen.North.Zone.0==Label.Kitchen.Zone.Avoid.Kham" ],
+"Label.Kitchen.Zone.Omen.Hostile":
+[ 0 , "=Label.Kitchen.Zone.Omen.Hostile.0==Label.Kitchen.Zone.Avoid.Favorable" ],
+"Label.Mountain.Favorable.Sitting.Facing.Hostile": [ 0 , "=Ref1p290p7" ],
+ "Label.Mountain.Favorable.Zone.SENG_QI_WANG_QI": [ 0 , "=Ref1p290p5" ],
+"Label.Mountain.Favorable.Zone.ZUO_QI": [ 0 , "=Ref1p290p6" ],
+"Label.Mountain.Water.Zone.Yin.Details": [ 0 , "=Ref1p296p1" ],
+"Label.Person.Bed.Direction.F1":
+[ 0 , "=Label.Person.Bed.Direction.OK==DotNewLine==Label.Person.Bed.Direction.F1.0" ],
+"Label.Person.Bed.Direction.F4":
+[ 0 , "=Label.Person.Bed.Direction.OK==DotNewLine==Label.Person.Bed.Direction.F4.0" ],
+"Label.Person.Zone.Sitting.Facing.KO":
+[ 0 , "=Label.Person.Zone.Sitting.Facing==DotNewLine==Label.Person.Zone.Sitting.Facing.KO.0" ],
+"Label.Person.Zone.Sitting.Facing.OK":
+[ 0 , "=Label.Person.Zone.Sitting.Facing==DotNewLine==Label.Person.Zone.Sitting.Facing.OK.0" ],
+"Label.SHENGQI.At.Zone.Influence": [ 0 , "=Label.SHENGQI.At.Zone" ],
+"Label.SanSha.Direction": [ 0 , "=Label.SanSha==Label.SanSha.Direction.0" ],
+"Label.Sitting.Star.Favorable.Facing.Favorable.Zone": [ 0 , "=Ref13p62_6Title" ],
+"Label.Sitting.Star.Favorable.Facing.Hostile.Zone": [ 0 , "=Ref13p62_6Title" ],
+"Label.Sitting.Star.Hostile.Facing.Favorable.Zone": [ 0 , "=Ref13p62_2Title" ],
+"Label.Sitting.Star.Hostile.Facing.Hostile.Zone": [ 0 , "=Ref13p62_5Title" ],
+"Label.Star.JOU_BI.Flow.In":
+[ 0 , "=Star.JOU_BI==Label.Star.JOU_BI.Flow.In.0" ],
+ "Label.Star.JOU_BI.Flow.Out":
+[ 0 , "=Star.JOU_BI==Label.Star.JOU_BI.Flow.Out.0" ],
+"Label.Star.JU_MEN.Flow.In":
+[ 0 , "=Star.JU_MEN==Label.Star.JU_MEN.Flow.In.0" ],
+"Label.Star.JU_MEN.Flow.Out":
+[ 0 , "=Star.JU_MEN==Label.Star.JU_MEN.Flow.Out.0" ],
+"Label.Star.LIAN_ZHEN.Flow.In":
+[ 0 , "=Star.LIAN_ZHEN==Label.Star.LIAN_ZHEN.Flow.In.0" ],
+"Label.Star.LIAN_ZHEN.Flow.Out":
+[ 0 , "=Star.LIAN_ZHEN==Label.Star.LIAN_ZHEN.Flow.Out.0" ],
+"Label.Star.LU_CUN.Flow.In":
+[ 0 , "=Star.LU_CUN==Label.Star.LU_CUN.Flow.In.0" ],
+"Label.Star.LU_CUN.Flow.Out":
+ [ 0 , "=Star.LU_CUN==Label.Star.LU_CUN.Flow.Out.0" ],
+"Label.Star.PO_JUN.Flow.In":
+[ 0 , "=Star.PO_JUN==Label.Star.PO_JUN.Flow.In.0" ],
+"Label.Star.PO_JUN.Flow.Out":
+[ 0 , "=Star.PO_JUN==Label.Star.PO_JUN.Flow.Out.0" ],
+"Label.Star.TAN_LANG.Flow.In":
+[ 0 , "=Star.TAN_LANG==Label.Star.TAN_LANG.Flow.In.0" ],
+"Label.Star.TAN_LANG.Flow.Out":
+[ 0 , "=Star.TAN_LANG==Label.Star.TAN_LANG.Flow.Out.0" ],
+"Label.Star.WEN_QU.Flow.In":
+[ 0 , "=Star.WEN_QU==Label.Star.WEN_QU.Flow.In.0" ],
+"Label.Star.WEN_QU.Flow.Out":
+[ 0 , "=Star.WEN_QU==Label.Star.WEN_QU.Flow.Out.0" ],
+"Label.Star.WU_QU.Flow.In": [ 0 , "=Star.WU_QU==Label.Star.WU_QU.Flow.In.0" ],
+"Label.Star.WU_QU.Flow.Out":
+[ 0 , "=Star.WU_QU==Label.Star.WU_QU.Flow.Out.0" ],
+"Label.Star.ZUO_FU.Flow.In":
+[ 0 , "=Star.ZUO_FU==Label.Star.JOU_BI.Flow.In.0" ],
+"Label.Star.ZUO_FU.Flow.Out":
+[ 0 , "=Star.ZUO_FU==Label.Star.JOU_BI.Flow.Out.0" ],
+ "Label.TaiSui.Direction": [ 0 , "=Label.TaiSui==Label.TaiSui.Direction.0" ],
+"Label.Thanh.Mon.Chinh.Details":
+[ 0 , "=Label.Thanh.Mon.Chinh.Details.0==Ref17p4ThanhMon" ],
+"Label.Thanh.Mon.Hidden.Details.1": [ 0 , "=Ref17p4ThanhMonp1" ],
+"Label.Thanh.Mon.Hidden.Details.2.1": [ 0 , "=Ref17p4ThanhMonp2" ],
+"Label.Thanh.Mon.Hidden.Details.2.2": [ 0 , "=Ref17p4ThanhMonp3" ],
+"Label.Thanh.Mon.Hidden.Details.3": [ 0 , "=Ref17p4ThanhMonp4" ],
+"Label.Water.Favorable.Chieu.Than.HouseType.PHU_MAU_TAM_BAN_QUAI": [ 0 , "=Ref2p48p1" ],
+ "Label.Water.Favorable.Face.SENG_QI": [ 0 , "=Ref1p290p1" ],
+"Label.Water.Favorable.Face.WANG_QI": [ 0 , "=Ref1p290p2" ],
+"Label.Water.Favorable.Face.ZUO_QI": [ 0 , "=Ref1p290p1" ],
+"Label.Water.Favorable.JiJing.Fire": [ 0 , "=Ref1p290p3" ],
+"Label.Water.Favorable.Linh.Than.HouseType.PHU_MAU_TAM_BAN_QUAI": [ 0 , "=Ref2p47p4" ],
+"Label.Water.Favorable.Linh.Than.Sitting.Hostile": [ 0 , "=Ref2p47p3" ],
+"Label.Water.Favorable.Sitting.Facing.Hostile": [ 0 , "=Ref1p290p4" ],
+"Label.Water.HauThien.To.TienThien.Hostile": [ 0 , "=Ref14p123p1" ],
+"Label.Water.Hostile.Chinh.Than": [ 0 , "=Ref2p47p2" ],
+"Label.Water.TienThien.To.HauThien.Hostile": [ 0 , "=Ref14p123p2" ],
+"Label.Yin.Zone.Details":
+[ 0 , "=Label.Yin.Zone.Details.0==Label.Mountain.Water.Zone.Yin.Details" ],
+ "Label.Zone.PhanPhucNgamSolution": [ 0 , "=Ref1p285p1" ],
+"Label.Zone.View.Earth": [ 0 , "=Ref1p285p1a" ],
+"Label.Zone.View.Water": [ 0 , "=Ref1p285p1b" ],
+"Mountain.BING": [ 0 , "=Trunk.BING" ],
+"Mountain.DING": [ 0 , "=Trunk.DING" ],
+"Mountain.GEN": [ 0 , "=TriGram.GEN" ],
+"Mountain.GENG": [ 0 , "=Trunk.GENG" ],
+"Mountain.GUI": [ 0 , "=Trunk.GUI" ],
+"Mountain.JIA": [ 0 , "=Trunk.JIA" ],
+ "Mountain.KUN": [ 0 , "=TriGram.KUN" ],
+"Mountain.QIAN": [ 0 , "=TriGram.QIAN" ],
+"Mountain.REN": [ 0 , "=Trunk.REN" ],
+ "Mountain.XIN": [ 0 , "=Trunk.XIN" ],
+"Mountain.XUN": [ 0 , "=TriGram.XUN" ],
+"Mountain.YI": [ 0 , "=Trunk.YI" ],
+"StarRelation.Facing.Favorable.1.1":
+[ 0 , "=StarRelation.Facing.Favorable.1.1.0==DotNewLineTab==StarRelation.Favorable.1.1" ],
+"StarRelation.Facing.Favorable.7.6": [ 0 , "=StarRelation.Sitting.Favorable.7.6" ],
+"StarRelation.Facing.Hostile.2.5":
+[ 0 , "=StarRelation.Facing.Hostile.2.5.0==StarRelation.Incendie.nt" ],
+"StarRelation.Facing.Hostile.2.7":
+[ 0 , "=StarRelation.Facing.Hostile.2.7.0==StarRelation.Incendie.nt" ],
+"StarRelation.Facing.Hostile.5.2":
+[ 0 , "=StarRelation.Facing.Hostile.5.2.0==StarRelation.Incendie.nt" ],
+"StarRelation.Facing.Hostile.5.7": [ 0 , "=StarRelation.Incendie" ],
+"StarRelation.Facing.Hostile.7.2":
+[ 0 , "=StarRelation.Facing.Hostile.7.2.0==StarRelation.Incendie.nt" ],
+"StarRelation.Facing.Hostile.7.5": [ 0 , "=StarRelation.Incendie" ],
+"StarRelation.Facing.Hostile.7.9": [ 0 , "=StarRelation.Incendie" ],
+"StarRelation.Facing.Hostile.9.7":
+[ 0 , "=StarRelation.Facing.Hostile.9.7.0==StarRelation.Incendie.nt" ],
+"StarRelation.STUDY_FAVORABLE_SITTING_FACING_MOUNTAIN": [ 0 , "=Ref5p291p1b" ],
+"StarRelation.STUDY_FAVORABLE_SITTING_FACING_WATER": [ 0 , "=Ref5p291p1a" ],
+"StarRelation.STUDY_FAVORABLE_STAR_COMBINAISON.Favorable": [ 0 , "=Ref6p92p1" ],
+"StarRelation.STUDY_FAVORABLE_STAR_COMBINAISON.Hostile": [ 0 , "=Ref6p92p2" ],
+ "StarRelation.Sitting.Favorable.1.1":
+[ 0 , "=StarRelation.Sitting.Favorable.1.1.0==DotNewLineTab==StarRelation.Favorable.1.1" ],
+"ZoneQIType.Comment.CENTER":
+[ 0 , "=ZoneQIType.CENTER==ZoneQIType.Comment.CENTER.0" ],
+"ZoneQIType.Comment.ZONE_FACING_PHAN_NGAM_FAVORABLE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHAN_NGAM_HUONG_FAVORABLE==DotNewLine==HouseType.Comment.DON_CUNG_PHAN_NGAM_HUONG_FAVORABLE" ],
+"ZoneQIType.Comment.ZONE_FACING_PHAN_NGAM_HOSTILE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHAN_NGAM_HUONG_HOSTILE==DotNewLine==HouseType.Comment.DON_CUNG_PHAN_NGAM_HUONG_HOSTILE" ],
+"ZoneQIType.Comment.ZONE_FACING_PHUC_NGAM_FAVORABLE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHUC_NGAM_HUONG_FAVORABLE==DotNewLine==HouseType.Comment.DON_CUNG_PHUC_NGAM_HUONG_FAVORABLE" ],
+"ZoneQIType.Comment.ZONE_FACING_PHUC_NGAM_HOSTILE":
+ [ 0 , "=HouseType.Reason.DON_CUNG_PHUC_NGAM_HUONG_HOSTILE==DotNewLine==HouseType.Comment.DON_CUNG_PHUC_NGAM_HUONG_HOSTILE" ],
+"ZoneQIType.Comment.ZONE_FORTUNE_HEALTH_QI":
+[ 0 , "=ZoneQIType.ZONE_FORTUNE_HEALTH_QI==DotNewLine==Zone.AddInfo.Check.Mountain.Facade.With.Ext.Environment" ],
+"ZoneQIType.Comment.ZONE_FORTUNE_PLUS_HEALTH_PLUS_QI":
+[ 0 , "=ZoneQIType.ZONE_FORTUNE_PLUS_HEALTH_PLUS_QI==DotNewLine==Zone.AddInfo.Mountain.Ok.Facade.Ok" ],
+"ZoneQIType.Comment.ZONE_FORTUNE_PLUS_HEALTH_QI":
+[ 0 , "=ZoneQIType.ZONE_FORTUNE_PLUS_HEALTH_QI==DotNewLine==Zone.AddInfo.Facade.Ok" ],
+"ZoneQIType.Comment.ZONE_FORTUNE_PLUS_QI":
+[ 0 , "=ZoneQIType.ZONE_FORTUNE_PLUS_QI==DotNewLine==Zone.AddInfo.Facade.Ok" ],
+ "ZoneQIType.Comment.ZONE_FORTUNE_QI":
+[ 0 , "=ZoneQIType.ZONE_FORTUNE_QI==DotNewLine==Zone.AddInfo.Check.Mountain.Facade.With.Ext.Environment" ],
+ "ZoneQIType.Comment.ZONE_FORTUNE_STAR_QI":
+[ 0 , "=ZoneQIType.ZONE_FORTUNE_STAR_QI==DotNewLine==Zone.AddInfo.Check.Mountain.Facade.With.Ext.Environment" ],
+"ZoneQIType.Comment.ZONE_HEALTH_STAR_QI":
+[ 0 , "=ZoneQIType.ZONE_HEALTH_STAR_QI==DotNewLine==Zone.AddInfo.Check.Mountain.Facade.With.Ext.Environment" ],
+"ZoneQIType.Comment.ZONE_MISS_FORTUNE_MISS_HEALTH_QI":
+[ 0 , "=ZoneQIType.ZONE_MISS_FORTUNE_MISS_HEALTH_QI==DotNewLine==Zone.AddInfo.Mountain.Ko.Facade.Ko" ],
+"ZoneQIType.Comment.ZONE_MOUNTAIN_PHAN_NGAM_FAVORABLE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHAN_NGAM_TOA_FAVORABLE==DotNewLine==HouseType.Comment.DON_CUNG_PHAN_NGAM_TOA_FAVORABLE" ],
+ "ZoneQIType.Comment.ZONE_MOUNTAIN_PHAN_NGAM_HOSTILE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHAN_NGAM_TOA_HOSTILE==DotNewLine==HouseType.Comment.DON_CUNG_PHAN_NGAM_TOA_HOSTILE" ],
+"ZoneQIType.Comment.ZONE_MOUNTAIN_PHUC_NGAM_FAVORABLE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHUC_NGAM_TOA_FAVORABLE==DotNewLine==HouseType.Comment.DON_CUNG_PHUC_NGAM_TOA_FAVORABLE" ],
+"ZoneQIType.Comment.ZONE_MOUNTAIN_PHUC_NGAM_HOSTILE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHUC_NGAM_TOA_HOSTILE==DotNewLine==HouseType.Comment.DON_CUNG_PHUC_NGAM_TOA_HOSTILE" ],
+"ZoneQIType.ZONE_FACING_PHAN_NGAM_FAVORABLE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHAN_NGAM_HUONG_FAVORABLE==DotNewLine==ZoneQIType.ZONE_FACING_PHAN_NGAM_FAVORABLE.0" ],
+"ZoneQIType.ZONE_FACING_PHAN_NGAM_HOSTILE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHAN_NGAM_HUONG_HOSTILE" ],
+"ZoneQIType.ZONE_FACING_PHUC_NGAM_FAVORABLE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHUC_NGAM_HUONG_FAVORABLE==DotNewLine==ZoneQIType.ZONE_FACING_PHAN_NGAM_FAVORABLE.0" ],
+"ZoneQIType.ZONE_FACING_PHUC_NGAM_HOSTILE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHUC_NGAM_HUONG_HOSTILE" ],
+"ZoneQIType.ZONE_MOUNTAIN_PHAN_NGAM_FAVORABLE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHAN_NGAM_TOA_FAVORABLE==DotNewLine==ZoneQIType.ZONE_MOUNTAIN_PHAN_NGAM_FAVORABLE.0" ],
+"ZoneQIType.ZONE_MOUNTAIN_PHAN_NGAM_HOSTILE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHAN_NGAM_TOA_HOSTILE" ],
+"ZoneQIType.ZONE_MOUNTAIN_PHUC_NGAM_FAVORABLE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHUC_NGAM_TOA_FAVORABLE==DotNewLine==ZoneQIType.ZONE_MOUNTAIN_PHUC_NGAM_FAVORABLE.0" ],
+"ZoneQIType.ZONE_MOUNTAIN_PHUC_NGAM_HOSTILE":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHUC_NGAM_TOA_HOSTILE" ],
+"ZoneType.Comment.Center.Facade.Favorable": [ 0 , "=ZoneType.Comment.Good.Link.Relation" ],
+"ZoneType.Comment.Center.Facade.WANG_QI": [ 0 , "=HouseType.Comment.NHAP_TU" ],
+"ZoneType.Comment.Center.Mountain.Favorable": [ 0 , "=ZoneType.Comment.Good.Link.Relation" ],
+ "ZoneType.Comment.Center.Mountain.Favorable.Facade.Favorable": [ 0 , "=ZoneType.Comment.Good.Link.Relation" ],
+"ZoneType.Comment.Center.Mountain.Hostile.Facade.Hostile": [ 0 , "=ZoneType.Comment.Bad.Link.Relation" ],
+"ZoneType.Comment.Facade.Favorable": [ 0 , "=Zone.AddInfo.Facade.Ok" ],
+"ZoneType.Comment.Mountain.Favorable":
+[ 0 , "=ZoneType.Comment.Mountain.Favorable.0==Zone.AddInfo.Mountain.Ok" ],
+"ZoneType.Comment.Mountain.Favorable.Facade.Favorable": [ 0 , "=Zone.AddInfo.Mountain.Ok.Facade.Ok" ],
+ "ZoneType.Comment.Mountain.Hostile.Facade.Hostile": [ 0 , "=Zone.AddInfo.Mountain.Ko.Facade.Ko" ],
+
+
+"HouseType.Comment.DAO_HUONG":
+[ 0 , "=HouseType.DAO_HUONG==DotNewLine==HouseType.Comment.DAO_HUONG.0" ],
+"HouseType.Comment.DAO_SON":
+[ 0 , "=HouseType.DAO_SON==DotNewLine==HouseType.Comment.DAO_SON.0" ],
+"HouseType.Comment.DAO_SON_DAO_HUONG":
+[ 0 , "=HouseType.DAO_SON_DAO_HUONG==DotNewLine==HouseType.Comment.DAO_SON_DAO_HUONG.0" ],
+"HouseType.Comment.DON_CUNG_PHAN_NGAM_HUONG_FAVORABLE":
+[ 0 , "=HouseType.DON_CUNG_PHAN_NGAM_HUONG_FAVORABLE==DotNewLine==Ref5p300p2DF" ],
+"HouseType.Comment.DON_CUNG_PHAN_NGAM_HUONG_HOSTILE":
+[ 0 , "=HouseType.DON_CUNG_PHAN_NGAM_HUONG_HOSTILE==DotNewLine==Ref5p300p2DH" ],
+"HouseType.Comment.DON_CUNG_PHAN_NGAM_TOA_FAVORABLE":
+[ 0 , "=HouseType.DON_CUNG_PHAN_NGAM_TOA_FAVORABLE==DotNewLine==Ref5p300p2MF" ],
+"HouseType.Comment.DON_CUNG_PHAN_NGAM_TOA_HOSTILE":
+[ 0 , "=HouseType.DON_CUNG_PHAN_NGAM_TOA_HOSTILE==DotNewLine==Ref5p300p2MH" ],
+"HouseType.Comment.DON_CUNG_PHUC_NGAM_HUONG_FAVORABLE":
+[ 0 , "=HouseType.DON_CUNG_PHUC_NGAM_HUONG_FAVORABLE==DotNewLine==Ref5p300p2DF" ],
+"HouseType.Comment.DON_CUNG_PHUC_NGAM_HUONG_HOSTILE":
+[ 0 , "=HouseType.DON_CUNG_PHUC_NGAM_HUONG_HOSTILE==DotNewLine==Ref5p300p2DH" ],
+"HouseType.Comment.DON_CUNG_PHUC_NGAM_TOA_FAVORABLE":
+[ 0 , "=HouseType.DON_CUNG_PHUC_NGAM_TOA_FAVORABLE==DotNewLine==Ref5p300p2MF" ],
+"HouseType.Comment.DON_CUNG_PHUC_NGAM_TOA_HOSTILE":
+[ 0 , "=HouseType.DON_CUNG_PHUC_NGAM_TOA_HOSTILE==DotNewLine==Ref5p300p2MH" ],
+"HouseType.Comment.HA_THUY":
+[ 0 , "=HouseType.HA_THUY==HouseType.Comment.HA_THUY.0" ],
+"HouseType.Comment.HOP_THAP": [ 0 , "=HouseType.Comment.PERIOD_INDEPENDANT" ],
+"HouseType.Comment.HOP_THAP_HUONG":
+[ 0 , "=HouseType.HOP_THAP_HUONG==DotNewLine==HouseType.Comment.HOP_THAP" ],
+"HouseType.Comment.HOP_THAP_TOA":
+[ 0 , "=HouseType.HOP_THAP_TOA==DotNewLine==HouseType.Comment.HOP_THAP" ],
+"HouseType.Comment.HOP_THAP_TOA_HUONG":
+[ 0 , "=HouseType.HOP_THAP_TOA_HUONG==DotNewLine==HouseType.Comment.HOP_THAP" ],
+"HouseType.Comment.LIEN_CHAU_TAM_BAN_QUAI":
+[ 0 , "=HouseType.LIEN_CHAU_TAM_BAN_QUAI==DotNewLine==HouseType.Comment.PERIOD_INDEPENDANT" ],
+"HouseType.Comment.NHAP_TU":
+[ 0 , "=HouseType.NHAP_TU==HouseType.Comment.NHAP_TU.0" ],
+"HouseType.Comment.PHU_MAU_TAM_BAN_QUAI":
+[ 0 , "=HouseType.PHU_MAU_TAM_BAN_QUAI==DotNewLine==HouseType.Comment.PERIOD_INDEPENDANT==DotNewLine==HouseType.Comment.PHU_MAU_TAM_BAN_QUAI.0" ],
+"HouseType.Comment.SONG_TINH_HOI_HUONG":
+[ 0 , "=HouseType.SONG_TINH_HOI_HUONG==HouseType.Comment.SONG_TINH_HOI_HUONG.0" ],
+"HouseType.Comment.SONG_TINH_HOI_TOA":
+[ 0 , "=HouseType.SONG_TINH_HOI_TOA==DotNewLine==HouseType.Comment.SONG_TINH_HOI_TOA.0" ],
+"HouseType.Comment.THUONG_SON":
+[ 0 , "=HouseType.THUONG_SON==HouseType.Comment.THUONG_SON.0" ],
+"HouseType.Comment.THUONG_SON_HA_THUY":
+[ 0 , "=HouseType.THUONG_SON_HA_THUY==DotNewLine==HouseType.Comment.THUONG_SON_HA_THUY.0" ],
+"HouseType.Comment.TOAN_CUC_PHAN_NGAM_HUONG_FAVORABLE":
+[ 0 , "=HouseType.TOAN_CUC_PHAN_NGAM_HUONG_FAVORABLE==DotNewLine==Ref5p300p2DF" ],
+"HouseType.Comment.TOAN_CUC_PHAN_NGAM_HUONG_HOSTILE":
+[ 0 , "=HouseType.TOAN_CUC_PHAN_NGAM_HUONG_HOSTILE==DotNewLine==Ref5p300p1H" ],
+"HouseType.Comment.TOAN_CUC_PHAN_NGAM_TOA_FAVORABLE":
+[ 0 , "=HouseType.TOAN_CUC_PHAN_NGAM_TOA_FAVORABLE==DotNewLine==Ref5p300p1MF" ],
+"HouseType.Comment.TOAN_CUC_PHAN_NGAM_TOA_HOSTILE":
+[ 0 , "=HouseType.TOAN_CUC_PHAN_NGAM_TOA_HOSTILE==DotNewLine==Ref5p300p1H" ],
+"HouseType.Comment.TOAN_CUC_PHUC_NGAM_HUONG_FAVORABLE":
+[ 0 , "=HouseType.TOAN_CUC_PHUC_NGAM_HUONG_FAVORABLE==DotNewLine==Ref5p300p2DF" ],
+"HouseType.Comment.TOAN_CUC_PHUC_NGAM_HUONG_HOSTILE":
+[ 0 , "=HouseType.TOAN_CUC_PHUC_NGAM_HUONG_HOSTILE==DotNewLine==Ref5p300p1H" ],
+"HouseType.Comment.TOAN_CUC_PHUC_NGAM_TOA_FAVORABLE":
+[ 0 , "=HouseType.TOAN_CUC_PHUC_NGAM_TOA_FAVORABLE==DotNewLine==Ref5p300p1MF" ],
+"HouseType.Comment.TOAN_CUC_PHUC_NGAM_TOA_HOSTILE":
+[ 0 , "=HouseType.TOAN_CUC_PHUC_NGAM_TOA_HOSTILE==DotNewLine==Ref5p300p1H" ],
+"HouseType.Comment.TOA_72_KHONGVONG":
+[ 0 , "=HouseType.TOA_72_KHONGVONG==DotNewLine==HouseType.Comment.TOA_72_KHONGVONG.0" ],
+"Label.Bed.General.0_1": [ 0 , "=Ref3p73p1" ],
+"Label.Door.General.0_1": [ 0 , "=Ref6p64p1" ],
+"Label.Door.General.0_1_1": [ 0 , "=Ref3p73p2" ],
+"Label.Door.General.0_1_2": [ 0 , "=Ref6p64p2" ],
+"Label.Door.General.0_2_1": [ 0 , "=Ref6p65p1" ],
+"Label.Door.General.0_2_2": [ 0 , "=RefX1" ],
+"Label.Door.General.0_2_5": [ 0 , "=Ref6p45p1" ],
+"Label.Eight.Palace.ShaQI.Relation.Comment": [ 0 , "=Label.Eight.Palace.ShaQI" ],
+"Label.Eight.Palace.ShaQI.Relation.General.6.Key": [ 0 , "=Example" ],
+"Label.Four.Road.ShaQI.Relation.Comment": [ 0 , "=Label.Four.Road.ShaQI" ],
+"Label.HouseType.General.1": [ 0 , "=HouseType.Reason.SONG_TINH_HOI_HUONG" ],
+"Label.HouseType.General.1.Key": [ 0 , "=HouseType.SONG_TINH_HOI_HUONG" ],
+"Label.HouseType.General.10": [ 0 , "=HouseType.Reason.HOP_THAP_TOA_HUONG" ],
+"Label.HouseType.General.10.Key": [ 0 , "=HouseType.HOP_THAP_TOA_HUONG" ],
+"Label.HouseType.General.10_0": [ 0 , "=HouseType.Comment.HOP_THAP_TOA_HUONG" ],
+"Label.HouseType.General.11": [ 0 , "=HouseType.Reason.NHAP_TU" ],
+"Label.HouseType.General.11.Key": [ 0 , "=HouseType.NHAP_TU" ],
+"Label.HouseType.General.11_0": [ 0 , "=HouseType.Comment.NHAP_TU" ],
+"Label.HouseType.General.12":
+[ 0 , "=HouseType.Reason.TOAN_CUC_PHUC_NGAM_TOA_FAVORABLE" ],
+"Label.HouseType.General.12.Key":
+[ 0 , "=HouseType.TOAN_CUC_PHUC_NGAM_TOA_FAVORABLE" ],
+"Label.HouseType.General.12_0":
+[ 0 , "=HouseType.Comment.TOAN_CUC_PHUC_NGAM_TOA_FAVORABLE" ],
+"Label.HouseType.General.13":
+[ 0 , "=HouseType.Reason.TOAN_CUC_PHAN_NGAM_TOA_FAVORABLE" ],
+"Label.HouseType.General.13.Key":
+[ 0 , "=HouseType.TOAN_CUC_PHAN_NGAM_TOA_FAVORABLE" ],
+"Label.HouseType.General.13_0":
+[ 0 , "=HouseType.Comment.TOAN_CUC_PHAN_NGAM_TOA_FAVORABLE" ],
+"Label.HouseType.General.14":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHUC_NGAM_TOA_FAVORABLE" ],
+"Label.HouseType.General.14.Key":
+[ 0 , "=HouseType.DON_CUNG_PHUC_NGAM_TOA_FAVORABLE" ],
+"Label.HouseType.General.14_0":
+[ 0 , "=HouseType.Comment.DON_CUNG_PHUC_NGAM_TOA_FAVORABLE" ],
+"Label.HouseType.General.15":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHAN_NGAM_TOA_FAVORABLE" ],
+"Label.HouseType.General.15.Key":
+[ 0 , "=HouseType.DON_CUNG_PHAN_NGAM_TOA_FAVORABLE" ],
+"Label.HouseType.General.15_0":
+[ 0 , "=HouseType.Comment.DON_CUNG_PHAN_NGAM_TOA_FAVORABLE" ],
+"Label.HouseType.General.16":
+[ 0 , "=HouseType.Reason.TOAN_CUC_PHUC_NGAM_HUONG_FAVORABLE" ],
+"Label.HouseType.General.16.Key":
+[ 0 , "=HouseType.TOAN_CUC_PHUC_NGAM_HUONG_FAVORABLE" ],
+"Label.HouseType.General.16_0":
+[ 0 , "=HouseType.Comment.TOAN_CUC_PHUC_NGAM_HUONG_FAVORABLE" ],
+"Label.HouseType.General.17":
+[ 0 , "=HouseType.Reason.TOAN_CUC_PHAN_NGAM_HUONG_FAVORABLE" ],
+"Label.HouseType.General.17.Key":
+[ 0 , "=HouseType.TOAN_CUC_PHAN_NGAM_HUONG_FAVORABLE" ],
+"Label.HouseType.General.17_0":
+[ 0 , "=HouseType.Comment.TOAN_CUC_PHAN_NGAM_HUONG_FAVORABLE" ],
+"Label.HouseType.General.18":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHUC_NGAM_HUONG_FAVORABLE" ],
+"Label.HouseType.General.18.Key":
+[ 0 , "=HouseType.DON_CUNG_PHUC_NGAM_HUONG_FAVORABLE" ],
+"Label.HouseType.General.18_0":
+[ 0 , "=HouseType.Comment.DON_CUNG_PHUC_NGAM_HUONG_FAVORABLE" ],
+"Label.HouseType.General.19":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHAN_NGAM_HUONG_FAVORABLE" ],
+"Label.HouseType.General.19.Key":
+[ 0 , "=HouseType.DON_CUNG_PHAN_NGAM_HUONG_FAVORABLE" ],
+"Label.HouseType.General.19_0":
+[ 0 , "=HouseType.Comment.DON_CUNG_PHAN_NGAM_HUONG_FAVORABLE" ],
+"Label.HouseType.General.1_0": [ 0 , "=HouseType.Comment.SONG_TINH_HOI_HUONG" ],
+"Label.HouseType.General.2": [ 0 , "=HouseType.Reason.DAO_SON" ],
+"Label.HouseType.General.2.Key": [ 0 , "=HouseType.DAO_SON" ],
+"Label.HouseType.General.20":
+[ 0 , "=HouseType.Reason.TOAN_CUC_PHUC_NGAM_TOA_HOSTILE" ],
+"Label.HouseType.General.20.Key":
+[ 0 , "=HouseType.TOAN_CUC_PHUC_NGAM_TOA_HOSTILE" ],
+"Label.HouseType.General.20_0":
+[ 0 , "=HouseType.Comment.TOAN_CUC_PHUC_NGAM_TOA_HOSTILE" ],
+"Label.HouseType.General.21":
+[ 0 , "=HouseType.Reason.TOAN_CUC_PHAN_NGAM_TOA_HOSTILE" ],
+"Label.HouseType.General.21.Key":
+[ 0 , "=HouseType.TOAN_CUC_PHAN_NGAM_TOA_HOSTILE" ],
+"Label.HouseType.General.21_0":
+[ 0 , "=HouseType.Comment.TOAN_CUC_PHAN_NGAM_TOA_HOSTILE" ],
+"Label.HouseType.General.22":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHUC_NGAM_TOA_HOSTILE" ],
+"Label.HouseType.General.22.Key":
+[ 0 , "=HouseType.DON_CUNG_PHUC_NGAM_TOA_HOSTILE" ],
+"Label.HouseType.General.22_0":
+[ 0 , "=HouseType.Comment.DON_CUNG_PHUC_NGAM_TOA_HOSTILE" ],
+"Label.HouseType.General.23":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHAN_NGAM_TOA_HOSTILE" ],
+"Label.HouseType.General.23.Key":
+[ 0 , "=HouseType.DON_CUNG_PHAN_NGAM_TOA_HOSTILE" ],
+"Label.HouseType.General.23_0":
+[ 0 , "=HouseType.Comment.DON_CUNG_PHAN_NGAM_TOA_HOSTILE" ],
+"Label.HouseType.General.24":
+[ 0 , "=HouseType.Reason.TOAN_CUC_PHUC_NGAM_HUONG_HOSTILE" ],
+"Label.HouseType.General.24.Key":
+[ 0 , "=HouseType.TOAN_CUC_PHUC_NGAM_HUONG_HOSTILE" ],
+"Label.HouseType.General.24_0":
+[ 0 , "=HouseType.Comment.TOAN_CUC_PHUC_NGAM_HUONG_HOSTILE" ],
+"Label.HouseType.General.25":
+[ 0 , "=HouseType.Reason.TOAN_CUC_PHAN_NGAM_HUONG_HOSTILE" ],
+"Label.HouseType.General.25.Key":
+[ 0 , "=HouseType.TOAN_CUC_PHAN_NGAM_HUONG_HOSTILE" ],
+"Label.HouseType.General.25_0":
+[ 0 , "=HouseType.Comment.TOAN_CUC_PHAN_NGAM_HUONG_HOSTILE" ],
+"Label.HouseType.General.26":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHUC_NGAM_HUONG_HOSTILE" ],
+"Label.HouseType.General.26.Key":
+[ 0 , "=HouseType.DON_CUNG_PHUC_NGAM_HUONG_HOSTILE" ],
+"Label.HouseType.General.26_0":
+[ 0 , "=HouseType.Comment.DON_CUNG_PHUC_NGAM_HUONG_HOSTILE" ],
+"Label.HouseType.General.27":
+[ 0 , "=HouseType.Reason.DON_CUNG_PHAN_NGAM_HUONG_HOSTILE" ],
+"Label.HouseType.General.27.Key":
+[ 0 , "=HouseType.DON_CUNG_PHAN_NGAM_HUONG_HOSTILE" ],
+"Label.HouseType.General.27_0":
+[ 0 , "=HouseType.Comment.DON_CUNG_PHAN_NGAM_HUONG_HOSTILE" ],
+"Label.HouseType.General.28":
+[ 0 , "=HouseType.Reason.LIEN_CHAU_TAM_BAN_QUAI" ],
+"Label.HouseType.General.28.Key": [ 0 , "=HouseType.LIEN_CHAU_TAM_BAN_QUAI" ],
+"Label.HouseType.General.28_0":
+[ 0 , "=HouseType.Comment.LIEN_CHAU_TAM_BAN_QUAI" ],
+"Label.HouseType.General.29": [ 0 , "=HouseType.Reason.PHU_MAU_TAM_BAN_QUAI" ],
+"Label.HouseType.General.29.Key": [ 0 , "=HouseType.PHU_MAU_TAM_BAN_QUAI" ],
+"Label.HouseType.General.29_0": [ 0 , "=HouseType.Comment.PHU_MAU_TAM_BAN_QUAI" ],
+"Label.HouseType.General.2_0": [ 0 , "=HouseType.Comment.DAO_SON" ],
+"Label.HouseType.General.3": [ 0 , "=HouseType.Reason.HA_THUY" ],
+"Label.HouseType.General.3.Key": [ 0 , "=HouseType.HA_THUY" ],
+"Label.HouseType.General.30": [ 0 , "=HouseType.Reason.DAO_SON_DAO_HUONG" ],
+"Label.HouseType.General.30.Key": [ 0 , "=HouseType.DAO_SON_DAO_HUONG" ],
+"Label.HouseType.General.30_0": [ 0 , "=HouseType.Comment.DAO_SON_DAO_HUONG" ],
+"Label.HouseType.General.3_0": [ 0 , "=HouseType.Comment.HA_THUY" ],
+"Label.HouseType.General.4": [ 0 , "=HouseType.Reason.DAO_HUONG" ],
+"Label.HouseType.General.4.Key": [ 0 , "=HouseType.DAO_HUONG" ],
+"Label.HouseType.General.4_0": [ 0 , "=HouseType.Comment.DAO_HUONG" ],
+"Label.HouseType.General.5": [ 0 , "=HouseType.Reason.THUONG_SON" ],
+"Label.HouseType.General.5.Key": [ 0 , "=HouseType.THUONG_SON" ],
+"Label.HouseType.General.5_0": [ 0 , "=HouseType.Comment.THUONG_SON" ],
+"Label.HouseType.General.6": [ 0 , "=HouseType.Reason.SONG_TINH_HOI_TOA" ],
+"Label.HouseType.General.6.Key": [ 0 , "=HouseType.SONG_TINH_HOI_TOA" ],
+"Label.HouseType.General.6_0": [ 0 , "=HouseType.Comment.SONG_TINH_HOI_TOA" ],
+"Label.HouseType.General.7": [ 0 , "=HouseType.Reason.THUONG_SON_HA_THUY" ],
+"Label.HouseType.General.7.Key": [ 0 , "=HouseType.THUONG_SON_HA_THUY" ],
+"Label.HouseType.General.7_0": [ 0 , "=HouseType.Comment.THUONG_SON_HA_THUY" ],
+"Label.HouseType.General.8": [ 0 , "=HouseType.Reason.HOP_THAP_TOA" ],
+"Label.HouseType.General.8.Key": [ 0 , "=HouseType.HOP_THAP_TOA" ],
+"Label.HouseType.General.8_0": [ 0 , "=HouseType.Comment.HOP_THAP_TOA" ],
+"Label.HouseType.General.9": [ 0 , "=HouseType.Reason.HOP_THAP_HUONG" ],
+"Label.HouseType.General.9.Key": [ 0 , "=HouseType.HOP_THAP_HUONG" ],
+"Label.HouseType.General.9_0": [ 0 , "=HouseType.Comment.HOP_THAP_HUONG" ],
+"Label.Kitchen.General.0": [ 0 , "=Ref6p156p1a" ],
+"Label.Kitchen.General.0_0": [ 0 , "=Label.Kitchen.Zone.Avoid.Favorable" ],
+"Label.Kitchen.General.0_1": [ 0 , "=Label.Kitchen.Zone.Avoid.Kham" ],
+"Label.Kitchen.General.0_10": [ 0 , "=Ref19p65p6" ],
+"Label.Kitchen.General.0_11": [ 0 , "=Ref19p65p7" ],
+"Label.Kitchen.General.0_12": [ 0 , "=Ref19p65p8" ],
+"Label.Kitchen.General.0_2": [ 0 , "=Label.Kitchen.Zone.Avoid.Metal" ],
+"Label.Kitchen.General.0_5": [ 0 , "=Ref19p65p1" ],
+"Label.Kitchen.General.0_6": [ 0 , "=Ref19p65p2" ],
+"Label.Kitchen.General.0_7": [ 0 , "=Ref19p65p3" ],
+"Label.Kitchen.General.0_8": [ 0 , "=Ref19p65p4" ],
+"Label.Kitchen.General.0_9": [ 0 , "=Ref19p65p5" ],
+"Label.Kitchen.General.1_0": [ 0 , "=Ref19p66p1" ],
+"Label.Kitchen.General.1_0_0": [ 0 , "=Ref6p67p2" ],
+"Label.Kitchen.General.1_0_1": [ 0 , "=Ref6p67p3" ],
+"Label.Kitchen.General.1_0_2": [ 0 , "=Ref6p67p4" ],
+"Label.Kitchen.General.1_0_3": [ 0 , "=Ref19p66p2" ],
+"Label.Kitchen.General.1_1": [ 0 , "=Ref6p67p5" ],
+"Label.Kitchen.General.1_1_0": [ 0 , "=Ref6p67p6" ],
+"Label.Kitchen.General.1_2": [ 0 , "=Ref6p69p1" ],
+"Label.Kitchen.General.1_2_0": [ 0 , "=Ref6p69p2" ],
+"Label.Kitchen.General.1_2_1": [ 0 , "=Ref6p69p3" ],
+"Label.Kitchen.General.1_2_2": [ 0 , "=Ref6p69p4" ],
+"Label.Water.General.0": [ 0 , "=Label.Water.General.0.0==Ref14p179p1" ],
+"Mariage.Age.Branche.AutoPunition.true":
+[ 0 , "=Mariage.Gua.Combination.East.true.0==Ref24p29b" ],
+"Mariage.Age.Branche.Clash.true":
+[ 0 , "=Mariage.Gua.Combination.East.true.0==Ref24p28" ],
+"Mariage.Age.Trunk.Clash.true":
+[ 0 , "=Mariage.Gua.Combination.East.true.0==Ref24p29a" ],
+"Mariage.Branche.COCK.DOG": [ 0 , "=Mariage.Branche.Clash" ],
+"Mariage.Branche.MONKEY.PIG": [ 0 , "=Mariage.Branche.Clash" ],
+"Mariage.Branche.OX.HORSE": [ 0 , "=Mariage.Branche.Clash" ],
+"Mariage.Branche.RABBIT.DRAGON": [ 0 , "=Mariage.Branche.Clash" ],
+"Mariage.Branche.RAT.GOAT": [ 0 , "=Mariage.Branche.Clash" ],
+"Mariage.Branche.TIGER.SNAKE": [ 0 , "=Mariage.Branche.Clash" ],
+"Mariage.Branche.Trunk.Element.Relation.GENERATE":
+[ 0 , "=Mariage.Gua.Combination.East.false.0==Ref9p467p5b" ],
+"Mariage.Day.Branche.Same.true":
+[ 0 , "=Mariage.Gua.Combination.East.true.0==Ref9p470" ],
+"Mariage.Day.Trunk.Same.true":
+[ 0 , "=Mariage.Gua.Combination.East.true.0==Ref9p470" ],
+"Mariage.Element.EARTH.EARTH.false": [ 0 , "=Mariage.Element.EARTH.EARTH.true" ],
+"Mariage.Element.EARTH.EARTH.true":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.EARTH.EARTH.true.0" ],
+"Mariage.Element.EARTH.FIRE.true":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.FIRE.EARTH.true.0" ],
+"Mariage.Element.EARTH.METAL.true":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.FIRE.EARTH.true.0" ],
+"Mariage.Element.EARTH.WATER.false":
+[ 0 , "=Mariage.Element.Bad.Combi==Mariage.Element.WATER.EARTH.false.0" ],
+"Mariage.Element.EARTH.WATER.true":
+[ 0 , "=Mariage.ElementRelation.EARTH.WATER.RESTRICT.BUT.COMPATIBLE" ],
+"Mariage.Element.EARTH.WOOD.false":
+[ 0 , "=Mariage.Element.Bad.Combi==Mariage.Element.EARTH.WOOD.false.0" ],
+"Mariage.Element.EARTH.WOOD.true":
+[ 0 , "=Mariage.ElementRelation.EARTH.WOOD.RESTRICT.BUT.COMPATIBLE" ],
+"Mariage.Element.FIRE.EARTH.true":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.FIRE.EARTH.true.0" ],
+"Mariage.Element.FIRE.FIRE.false":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.FIRE.FIRE.false.0" ],
+"Mariage.Element.FIRE.FIRE.true":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.FIRE.FIRE.true.0" ],
+"Mariage.Element.FIRE.METAL.false":
+[ 0 , "=Mariage.Element.Bad.Combi==Mariage.Element.METAL.FIRE.false.0" ],
+"Mariage.Element.FIRE.METAL.true":
+[ 0 , "=Mariage.ElementRelation.FIRE.METAL.RESTRICT.BUT.COMPATIBLE" ],
+"Mariage.Element.FIRE.WATER.false":
+[ 0 , "=Mariage.Element.Bad.Combi==Mariage.Element.FIRE.WATER.false.0" ],
+"Mariage.Element.FIRE.WATER.true":
+[ 0 , "=Mariage.ElementRelation.FIRE.WATER.RESTRICT.BUT.COMPATIBLE" ],
+"Mariage.Element.FIRE.WOOD.true":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.WOOD.FIRE.true.0" ],
+"Mariage.Element.METAL.EARTH.true":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.FIRE.EARTH.true.0" ],
+"Mariage.Element.METAL.FIRE.false":
+[ 0 , "=Mariage.Element.Bad.Combi==Mariage.Element.METAL.FIRE.false.0" ],
+"Mariage.Element.METAL.FIRE.true":
+[ 0 , "=Mariage.ElementRelation.METAL.FIRE.RESTRICT.BUT.COMPATIBLE" ],
+"Mariage.Element.METAL.METAL.false":
+[ 0 , "=Mariage.Element.Bad.Combi==Mariage.Element.METAL.METAL.false.0" ],
+"Mariage.Element.METAL.METAL.true":
+[ 0 , "=Mariage.Element.Bad.Combi==Mariage.Element.METAL.METAL.true.0" ],
+"Mariage.Element.METAL.WATER.true":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.METAL.WATER.true.0" ],
+"Mariage.Element.METAL.WOOD.false":
+[ 0 , "=Mariage.Element.Bad.Combi==Mariage.Element.WOOD.METAL.false.0" ],
+"Mariage.Element.METAL.WOOD.true":
+[ 0 , "=Mariage.ElementRelation.METAL.WOOD.RESTRICT.BUT.COMPATIBLE" ],
+"Mariage.Element.WATER.EARTH.false":
+[ 0 , "=Mariage.Element.Bad.Combi==Mariage.Element.WATER.EARTH.false.0" ],
+"Mariage.Element.WATER.EARTH.true":
+[ 0 , "=Mariage.ElementRelation.WATER.EARTH.RESTRICT.BUT.COMPATIBLE" ],
+"Mariage.Element.WATER.FIRE.false":
+[ 0 , "=Mariage.Element.Bad.Combi==Mariage.Element.FIRE.WATER.false.0" ],
+"Mariage.Element.WATER.FIRE.true":
+[ 0 , "=Mariage.ElementRelation.WATER.FIRE.RESTRICT.BUT.COMPATIBLE" ],
+"Mariage.Element.WATER.METAL.true":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.METAL.WATER.true.0" ],
+"Mariage.Element.WATER.WATER.false": [ 0 , "=Mariage.Element.WATER.WATER.true" ],
+"Mariage.Element.WATER.WATER.true":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.WATER.WATER.true.0" ],
+"Mariage.Element.WATER.WOOD.true":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.WATER.WOOD.true.0" ],
+"Mariage.Element.WOOD-WATER.true":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.WATER.WOOD.true.0" ],
+"Mariage.Element.WOOD.EARTH.false":
+[ 0 , "=Mariage.Element.Bad.Combi==Mariage.Element.EARTH.WOOD.false.0" ],
+"Mariage.Element.WOOD.EARTH.true":
+[ 0 , "=Mariage.ElementRelation.WOOD.EARTH.RESTRICT.BUT.COMPATIBLE" ],
+"Mariage.Element.WOOD.FIRE.true":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.WOOD.FIRE.true.0" ],
+"Mariage.Element.WOOD.METAL.false":
+[ 0 , "=Mariage.Element.Bad.Combi==Mariage.Element.WOOD.METAL.false.0" ],
+"Mariage.Element.WOOD.METAL.true":
+[ 0 , "=Mariage.ElementRelation.WOOD.METAL.RESTRICT.BUT.COMPATIBLE" ],
+"Mariage.Element.WOOD.WOOD.false":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.WOOD.WOOD.false.0" ],
+"Mariage.Element.WOOD.WOOD.true":
+[ 0 , "=Mariage.Element.Good.Combi==Mariage.Element.WOOD.WOOD.true.0" ],
+"Mariage.Gua.Combination.East.false":
+[ 0 , "=Mariage.Gua.Combination.East.false.0==Ref25p144Top149Favorable" ],
+"Mariage.Gua.Combination.East.true":
+[ 0 , "=Mariage.Gua.Combination.East.true.0==Ref25p144Top149Hostile" ],
+"Mariage.Trunk.BING.GENG": [ 0 , "=Mariage.Trunk.Clash" ],
+"Mariage.Trunk.BING.REN": [ 0 , "=Mariage.Trunk.Clash" ],
+"Mariage.Trunk.Branche.Element.BOTH.GENERATE.true":
+[ 0 , "=Mariage.Gua.Combination.East.false.0==Ref9p467p5" ],
+"Mariage.Trunk.Branche.Element.Relation.GENERATE":
+[ 0 , "=Mariage.Gua.Combination.East.false.0==Ref9p467p5a" ],
+"Mariage.Trunk.DING.GUI": [ 0 , "=Mariage.Trunk.Clash" ],
+"Mariage.Trunk.DING.XIN": [ 0 , "=Mariage.Trunk.Clash" ],
+"Mariage.Trunk.JI.GUI": [ 0 , "=Mariage.Trunk.Clash" ],
+"Mariage.Trunk.JIA.GENG": [ 0 , "=Mariage.Trunk.Clash" ],
+"Mariage.Trunk.JIA.WU": [ 0 , "=Mariage.Trunk.Clash" ],
+"Mariage.Trunk.WU.REN": [ 0 , "=Mariage.Trunk.Clash" ],
+"Mariage.Trunk.YI.JI": [ 0 , "=Mariage.Trunk.Clash" ],
+"Mariage.Trunk.YI.XIN": [ 0 , "=Mariage.Trunk.Clash" ],
+"Mariage.Year.Trunk.Branche.Compatible":
+[ 0 , "=Mariage.Gua.Combination.East.false.0==Ref9p494Partiel" ]
+
+}

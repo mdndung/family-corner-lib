@@ -31,7 +31,7 @@ export class PropertyHelper {
 
   constructor() {}
 
-  private static catKeys: any = null  ;
+  private static catKeys: any = []  ;
 
   static addPropFileIfNotExist(jsonFile:any) {
     ObjectHelper.pushIfNotExist(PropertyHelper.definedJsonPropFiles,jsonFile)
@@ -42,11 +42,13 @@ export class PropertyHelper {
   }
 
   static addBaziPropFile() {
-    PropertyHelper.addPropFileIfNotExist(baziKeysJson)
+    PropertyHelper.addPropFileIfNotExist(baziKeysJson);
+    PropertyHelper.setBaziProp()
   }
 
   static addTuviPropFile() {
     PropertyHelper.addPropFileIfNotExist(ref17KeysJson)
+    PropertyHelper.setTuViProp()
   }
 
   static addZodiacPropFile() {
@@ -60,7 +62,19 @@ export class PropertyHelper {
   static initHelper(session: ObsPeriod, sessionDate: MyCalendar) {
     this.currObsSession = session;
     PropertyHelper.initCache(session, sessionDate);
-    PropertyHelper.setBaziProp()
+  }
+
+  static setTuViProp () {
+
+    let keys = Object.keys(ref17KeysJson);
+
+    if ( ObjectHelper.isNaN(PropertyHelper.getHeaderKeys("TuVi.Menh."))) {
+      PropertyHelper.catKeys["TuVi.Menh"] = keys.filter(value => /^TuVi\.Menh\./.test(value));
+      PropertyHelper.catKeys["TuViPeriod.Menh"] = keys.filter(value => /^TuViPeriod\.Menh\./.test(value));
+      PropertyHelper.catKeys["TuViYear.Menh"] = keys.filter(value => /^TuViYear\.Menh\./.test(value));
+
+      PropertyHelper.catKeys["TuVi.Than"] = keys.filter(value => /^TuVi\.Than\./.test(value));
+    }
   }
 
 
@@ -68,9 +82,7 @@ export class PropertyHelper {
 
     let keys = Object.keys(baziKeysJson);
 
-    if ( PropertyHelper.catKeys === null|| PropertyHelper.catKeys.length===0 ) {
-      PropertyHelper.catKeys= [];
-
+    if (ObjectHelper.isNaN(PropertyHelper.getHeaderKeys("Destin.0"))) {
       PropertyHelper.catKeys["Destin.-"] = keys.filter(value => /^Destin\.\-/.test(value));
       PropertyHelper.catKeys["Destin.+"] = keys.filter(value => /^Destin\.\+/.test(value));
       PropertyHelper.catKeys["Destin.0"] = keys.filter(value => /^Destin\.0/.test(value));
@@ -86,9 +98,9 @@ export class PropertyHelper {
       PropertyHelper.catKeys["Year.-"] = keys.filter(value => /^Year\.\-/.test(value));
       PropertyHelper.catKeys["Year.+"] = keys.filter(value => /^Year\.\+/.test(value));
       PropertyHelper.catKeys["Year.0"] = keys.filter(value => /^Year\.0/.test(value));
-
     }
   }
+
   static getHeaderKeys(header:string) : string []{
     return PropertyHelper.catKeys[header]
   }
