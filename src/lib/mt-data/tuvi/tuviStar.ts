@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 /* eslint-disable @typescript-eslint/naming-convention */
+import { BrancheHelper } from '../../helper/brancheHelper';
 import { ObjectHelper } from '../../helper/objectHelper';
 import { EnumBaseClass } from '../enumBaseClass';
 import { ElementNEnergy } from '../feng-shui/elementNenergy';
@@ -587,7 +588,7 @@ export class TuViStar extends EnumBaseClass {
   omen: Omen= null;
   force: number= null;
   diaStatus: number= null;
-  private palace: TuViPalace= null;
+  protected palace: TuViPalace= null;
 
   constructor(name: string, eer: ElementNEnergy, omen: Omen) {
     super(name);
@@ -661,7 +662,7 @@ export class TuViStar extends EnumBaseClass {
     }
   }
 
-  isFavorable() {
+  isFavorable(): boolean {
     return this.force > 0;
   }
 

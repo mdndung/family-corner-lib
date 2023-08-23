@@ -55,7 +55,7 @@ export class TuViHuynhDeObservation extends TuViPalaceObservationBase {
     }
     if (this.hasAllStars([TuViStar.THIENTUONG, TuViStar.TUYET]) ||
             this.hasAllStars([TuViStar.THAIAM, TuViStar.THIENPHUC]) ||
-            this.hasAllStars(TuViStarHelper.CUCO) ||
+            this.hasAllStars(TuViStarHelper.COCU) ||
             this.hasAllStars(TuViStarHelper.CONGUYETDONGLUONG) ||
             this.hasAllStars([TuViStar.PHUCBINH, TuViStar.TUONGQUAN])
             ) {

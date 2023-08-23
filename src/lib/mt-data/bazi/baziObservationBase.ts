@@ -59,6 +59,10 @@ export class BaziObservationBase extends ObservationBase {
   return this.lunar
  }
 
+ override getStudyDate() {
+  return this.studyYear.birthDate
+}
+
   protected getLimitCount(count: number, limit: number) {
     if (count > 2) count = limit;
     return count;
@@ -759,12 +763,11 @@ export class BaziObservationBase extends ObservationBase {
   }
 
 
-  // Check if the params[1] secondary deity list has No  presence count
+  // Usage ZeroSecDeity°Count,SecDeityList
   hasZeroSecDeity(params: string[]): boolean {
-    const countHit = +params[0];
+    let count = +params[0];
     const checkDeityList = this.checkTransformEnumList(params[1],SecondaryDeity.THIENVIET)
     //console.log("hasZeroSecDeity", params, checkDeityList);
-    let count = checkDeityList.length;
     const pilarNames = LunarBase.ymdhCharArr;
     for (let pilarIdx = 0; pilarIdx < pilarNames.length; pilarIdx++) {
       const pilarName = pilarNames[pilarIdx];
@@ -773,11 +776,11 @@ export class BaziObservationBase extends ObservationBase {
         const secDeityName = secDeitiesRec[index].secDeity.getName();
         if (checkDeityList.indexOf(secDeityName) >= 0) {
           count--;
-          if (count<countHit) return false;
+          if (count<=0) return true
         }
       }
     }
-    return true;
+    return false;
   }
 
     // Check if the params[1] secondary deity list has more params[0]  presence count
@@ -1412,6 +1415,7 @@ export class BaziObservationBase extends ObservationBase {
   override isAttrPresent(attrKey: string,params: string[]): boolean {
     const param0 = params[0]
     switch (attrKey) {
+
       case "HighDeity":
         return this.isHeighDeityCount(params, false);
       case "LowDeity":

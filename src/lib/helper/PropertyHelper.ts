@@ -69,11 +69,15 @@ export class PropertyHelper {
     let keys = Object.keys(ref17KeysJson);
 
     if ( ObjectHelper.isNaN(PropertyHelper.getHeaderKeys("TuVi.Menh."))) {
+      PropertyHelper.catKeys["TuVi.Base"] = keys.filter(value => /^TuVi\.Base\./.test(value));
+
       PropertyHelper.catKeys["TuVi.Menh"] = keys.filter(value => /^TuVi\.Menh\./.test(value));
       PropertyHelper.catKeys["TuViPeriod.Menh"] = keys.filter(value => /^TuViPeriod\.Menh\./.test(value));
       PropertyHelper.catKeys["TuViYear.Menh"] = keys.filter(value => /^TuViYear\.Menh\./.test(value));
 
       PropertyHelper.catKeys["TuVi.Than"] = keys.filter(value => /^TuVi\.Than\./.test(value));
+
+      PropertyHelper.catKeys["TuVi.PhuMau"] = keys.filter(value => /^TuVi\.PhuMau\./.test(value));
     }
   }
 

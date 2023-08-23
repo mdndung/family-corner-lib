@@ -350,7 +350,7 @@ export class TuViThienDiObservation extends TuViPalaceObservationBase {
     }
     if (this.hasTuanTrietKhong) {
         this.addSupportBaseComment(4, "Ref17p205p3");
-        if (this.hasStars(TuViStarHelper.THAMPHA,1)) {
+        if (this.hasStars(TuViStarHelper.PHATHAM,1)) {
             this.addSupportBaseComment(4, "Ref17p205p4");
         }
         if (this.hasAllStars(TuViStarHelper.TUONGTUONG)) {
@@ -388,7 +388,6 @@ export class TuViThienDiObservation extends TuViPalaceObservationBase {
 
 
  commentThienDi() {
-    this.genRef17p120p8();
     this.genTuVi();
     this.genLiemTrinh();
     this.genThienDong();

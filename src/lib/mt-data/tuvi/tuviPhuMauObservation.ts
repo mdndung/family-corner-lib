@@ -22,73 +22,10 @@ export class TuViPhuMauObservation extends TuViPalaceObservationBase {
     return "PhuMau"
   }
 
-  genRef17p142() {
-    const starPalace = TuViStar.THAIDUONG.getPalace();
-    const isDayBorn = this.isBornInDay();
-    if (starPalace.branche===TuViStar.THAIAM.getPalace().branche) {
-        const observation = starPalace.palaceObservation;
-
-        if (!observation.hasTuanTrietKhong) {
-            if (isDayBorn) {
-                this.addBaseComment("Ref17p142p7");
-            } else {
-                this.addBaseComment("Ref17p142p8");
-            }
-        } else {
-            if (isDayBorn) {
-                this.addBaseComment("Ref17p142p9");
-            } else {
-                this.addBaseComment("Ref17p142p10");
-            }
-        }
-    } else {
-        if (this.tuviHoroscope.tuviPalaceStarMap.isThaiDuongFavorable) {
-            if (this.tuviHoroscope.tuviPalaceStarMap.isThaiAmFavorable) {
-                if (isDayBorn) {
-                    this.addBaseComment("Ref17p142p3");
-                } else {
-                    this.addBaseComment("Ref17p142p4");
-                }
-            } else {
-                this.addBaseComment("Ref17p142p1");
-            }
-        } else {
-            if (this.tuviHoroscope.tuviPalaceStarMap.isThaiAmFavorable) {
-                this.addBaseComment("Ref17p142p2");
-            } else {
-                if (isDayBorn) {
-                    this.addBaseComment("Ref17p142p5");
-                } else {
-                    this.addBaseComment("Ref17p142p6");
-                }
-            }
-
-        }
-    }
-}
 
 genTuViStar() {
     if (this.hasStar(TuViStar.TUVI)) {
-        if (this.palace.chinhTinhCount===1) {
-            if (this.palace.branche===Branche.HORSE) {
-                this.addSupportBaseComment(9, "Ref17p142p11");
-            }
-            if (this.palace.branche===Branche.RAT) {
-                this.addSupportBaseComment(8, "Ref17p142p12");
-            }
-        }
-        if (this.hasStar(TuViStar.THIENPHUR)) {
-            this.addSupportBaseComment(7, "Ref17p142p13");
-        }
-        if (this.hasStar(TuViStar.THIENTUONG)) {
-            this.addSupportBaseComment(7, "Ref17p142p14");
-        }
-        if (this.hasStar(TuViStar.THATSAT)) {
-            this.addSupportBaseComment(5, "Ref17p142p15");
-        }
-        if (this.hasStar(TuViStar.PHAQUAN)) {
-            this.addSupportBaseComment(5, "Ref17p142p16");
-        }
+
         if (this.hasStar(TuViStar.THAMLANG)) {
             this.addSupportBaseComment(5, "Ref17p143p1");
         }
@@ -486,7 +423,6 @@ genTuanTrietStar() {
 }
 
 commentPhuMau() {
-    this.genRef17p142();
     this.genTuViStar();
     this.genLiemTrinhStar();
     this.genThienDongStar();
@@ -526,6 +462,38 @@ override updateForce() {
     super.updateForce();
     this.updateForceFromObservation(this.getObservations(TuViRing.PhucDuc));
 }
+
+
+// Usage MotherDeadBeforeFather
+checkMotherDeadBeforeFather(): boolean {
+  const nhat=TuViStar.THAIDUONG
+  const nhatBranche=nhat.getPalace().branche
+  const nguyet=TuViStar.THAIDUONG
+  const nguyetBranche=nguyet.getPalace().branche
+  const isDayBorn =  this.isBornInDay();
+  if ( nhatBranche===nguyetBranche ) {
+    const observation = nhat.getPalace().palaceObservation
+    return observation.hasTuanTrietKhong === !isDayBorn
+  } else {
+    const starMap = this.tuviHoroscope.tuviPalaceStarMap
+    if (starMap.isThaiDuongFavorable&&starMap.isThaiAmFavorable) {
+      return !isDayBorn
+    } else {
+      return starMap.isThaiDuongFavorable
+    }
+  }
+
+}
+
+override isAttrPresent( attrKey: string, params: string[]): boolean {
+  switch (attrKey) {
+    case "MotherDeadBeforeFather":
+      return this.checkMotherDeadBeforeFather();
+    default:
+        return super.isAttrPresent(attrKey,params)
+    }
+    return false;
+  }
 
 override comment() {
     super.comment();

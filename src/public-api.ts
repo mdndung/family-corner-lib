@@ -6,8 +6,6 @@ export * from './lib/family-corner-lib.service';
 export * from './lib/family-corner-lib.component';
 export * from './lib/family-corner-lib.module';
 
-export * from './lib/mt-card/mt-card.component';
-
 export * from './lib/helper/baziHelper';
 export * from './lib/helper/brancheHelper';
 export * from './lib/helper/calcHelper';

@@ -56,6 +56,12 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
     return this.palace.getName();
   }
 
+  protected override getPilar (pilarChar: string) {
+    if ( pilarChar==="Year" || pilarChar==="Period")
+      return this.tuviHoroscope.studyLunar.getPilar(LunarBase.YINDEX);
+    return super.getPilar(pilarChar);
+  }
+
   getPalaceElement() {
     return this.palace.branche.getElement();
   }
@@ -402,32 +408,7 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
         this.hasStarWithStatus(TuViStar.VANXUONG, TuViStar.DACDIA) ||
         this.hasStarWithStatus(TuViStar.VANKHUC, TuViStar.DACDIA)
       ) {
-        this.addSupportBaseComment(8, 'Ref17p116p6');
       }
-    }
-  }
-
-  genRef17p120p8() {
-    if (this.hasStar(TuViStar.LOCTON)) {
-      if (BrancheHelper.isRatHorse(this.palace.branche)) {
-        if (this.hasStar(TuViStar.DIAKHONG) && this.hasManyGoodSupportStars()) {
-          this.addSupportBaseComment(8, 'Ref17p120p8');
-        }
-      }
-    }
-  }
-
-  genRef17p126p5() {
-    if (this.hasSupportStars0(TuViStarHelper.KINHDAHOALINH)) {
-      this.addSupportBaseComment(4, 'Ref17p126p5');
-    }
-    if (
-      this.hasStarWithStatus(TuViStar.KINHDUONG, TuViStar.HAMDIA) ||
-      this.hasStarWithStatus(TuViStar.DALA, TuViStar.HAMDIA) ||
-      this.hasStarWithStatus(TuViStar.HOATINH, TuViStar.HAMDIA) ||
-      this.hasStarWithStatus(TuViStar.LINHTINH, TuViStar.HAMDIA)
-    ) {
-      this.incPoints(2);
     }
   }
 
@@ -613,7 +594,7 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
         }
       }
       if (BrancheHelper.isRabbitCock(this.palace.branche)) {
-        if (this.hasAllStars(TuViStarHelper.CUCO)) {
+        if (this.hasAllStars(TuViStarHelper.COCU)) {
           this.addSupportBaseComment(10, 'Ref17p260p6');
         }
       }
@@ -1662,9 +1643,6 @@ commentOnYearPeriod( currAge: number, lunar: Lunar, isPeriodEnd: boolean) {
       this.genRef17p62p23();
       this.genRef17p62p24();
       this.genRef17p62p25();
-      this.genRef17p116p6();
-      this.genRef17p120p8();
-      this.genRef17p126p5();
       this.checkPhiThuongCach();
       this.genNgheoHenCuc();
       this.genRef20p151c7a();
@@ -2941,6 +2919,10 @@ override getLunar() {
   return this.tuviHoroscope.birthLunar
 }
 
+override getStudyDate() {
+  return this.tuviHoroscope.studyDate
+}
+
 // Usage LunarTrunk°PilarNameList,TrunkList
 checkLunarTrunk(params: string[]): boolean {
   const pilarNames = params[0].split("/");
@@ -2991,8 +2973,10 @@ checkMeetHostileStars(): boolean {
 }
 
 // Usage HasHostileStar
-checkHasStatTinh(): boolean {
-  return this.hasSatTinh()
+checkHasStatTinh(params: string[]): boolean {
+  let chechCount=1
+  if( params.length>1 ) chechCount = +params[0]
+  return this.palace.satTinhCount >= chechCount;
 }
 
 
@@ -3003,12 +2987,11 @@ checkHasGoodStars(): boolean {
 
 
 
-// Usage StarNeighBor°Count,StarList
-checkStarNeighBor(params: string[]): boolean {
-  let count=+params[0]
-  const starList = this.checkGetEnumList(params[1],TuViStar.ANQUANG) as TuViStar[]
-  for (let index = 0; index < starList.length; index++) {
-    const star = starList[index]
+// Usage StarGiapCungr°Count,StarList
+checkStarGiapCung(params: string[]): boolean {
+  let {count, checkStars} = this.getStarList(params)
+  for (let index = 0; index < checkStars.length; index++) {
+    const star = checkStars[index]
     if ( this.hasPrevNextStar(star) )  {
       count--;
       if ( count<=0 ) return true
@@ -3021,9 +3004,10 @@ checkStarNeighBor(params: string[]): boolean {
 
 // Usage Star°Number,StarList
 checkStars(params: string[]): boolean {
-  let count=+params[0]
-  const starList = this.checkEnumList(params[1],TuViStar.ANQUANG)
+  let {count, starList} = this.toStarList(params)
+ starList = this.checkEnumList(starList,TuViStar.ANQUANG)
   const starSet =this.palace.starSet;
+  if (count > starList.length) {count = starList.length;}
   for (let index = 0; index < starSet.length; index++) {
     const tuViStar = starSet[index];
     if (starList.indexOf(tuViStar.getName())>=0 ) {
@@ -3055,7 +3039,7 @@ checkXungChieuStarsGrp(params: string[]): boolean {
 // Usage StarHoiHop°Number,StarList
 checkHoiHopStars(params: string[]): boolean {
   if ( params.length !==2 ) {
-    console.log("Invalid param ", this.checkMethod, this.checkKey)
+    console.log("Invalid param ", params, this.checkMethod, this.checkKey, this.prevKey)
   }
   const count=+params[0]
   const checkStars = TuViStarHelper.findStarGroupName(params[1])
@@ -3064,8 +3048,8 @@ checkHoiHopStars(params: string[]): boolean {
 
 // Usage StarTamHop°Number,StarList
 checkTamHopStars(params: string[]): boolean {
-  let count=+params[0]
-  const checkStars = this.checkGetEnumList(params[1],TuViStar.ANQUANG) as TuViStar[]
+  let {count, checkStars} = this.getStarList(params)
+  if (count > checkStars.length) {count = checkStars.length;}
   for (let index = 0; index < checkStars.length; index++) {
     const star = checkStars[index];
     if ( this.hasRelationPalaceStar(star, BrancheRelation.COMBINATION)  ) {
@@ -3094,8 +3078,9 @@ checkAnNguOneStar(params: string[]): boolean {
 
 // Usage StarsAnNgu°Count,StarList
 checkAnNguStars(params: string[]): boolean {
-  let count=+params[0]
-  const checkStars = this.checkEnumListSplit(params[1],TuViStar.ANQUANG)
+  let {count, starList} = this.toStarList(params)
+  const checkStars = this.checkEnumListSplit(starList,TuViStar.ANQUANG)
+  if (count > checkStars.length) {count = checkStars.length;}
   for (let index = 0; index < checkStars.length; index++) {
     const checkStar = checkStars[index];
     if ( this.checkAnNguOneStar([checkStar]) ) {
@@ -3113,10 +3098,11 @@ checkTuanTriet(): boolean {
   return this.checkAnNguOneStar(["TUANKHONG"]) || this.checkAnNguOneStar(["TRIETKHONG"])
 }
 
+
 // Usage StarNhiHop°Number,StarList
 checkNhiHopStars(params: string[]): boolean {
-  let count=+params[0]
-  const checkStars = this.checkGetEnumList(params[1],TuViStar.ANQUANG) as TuViStar[]
+  let {count, checkStars} = this.getStarList(params)
+  if (count > checkStars.length) {count = checkStars.length;}
   for (let index = 0; index < checkStars.length; index++) {
     const star = checkStars[index];
     if ( this.hasSupportStarWithTransform(star)) {
@@ -3130,11 +3116,11 @@ checkNhiHopStars(params: string[]): boolean {
 // Usage StarHopSinh°Number,StarList
 // Usage StarHopKhac°Number,StarList
 checkHopSinhKhacStars(params: string[], checkCompatibleElement: boolean): boolean {
-  let count=+params[0]
-  const checkStars = this.checkGetEnumList(params[1],TuViStar.ANQUANG) as TuViStar[]
+  let {count, checkStars} = this.getStarList(params)
   const tuviStarMap = this.tuviHoroscope.tuviPalaceStarMap
   const palaceBranche = this.palace.branche
   const palaceBrancheElement = palaceBranche.getElement()
+  if (count > checkStars.length) {count = checkStars.length;}
   for (let index = 0; index < checkStars.length; index++) {
     const star = checkStars[index];
     const checkBranche = tuviStarMap.getStarBranche(star);
@@ -3148,16 +3134,34 @@ checkHopSinhKhacStars(params: string[], checkCompatibleElement: boolean): boolea
   return false
 }
 
-// Usage StarHamDia°Count,StarList
-checkStarsStatus(params: string[],status:number, checkFunc: any): boolean {
+toStarList( params: string[]) {
   let count=1
   let starList = params[0]
   if ( params.length>=2 ) {
     count = +params[0]
     starList = params[1]
   }
+  return {count, starList}
+}
+
+getStarList (params: string[]) {
+  let {count, starList} = this.toStarList(params)
   const checkStars = this.checkGetEnumList(starList,TuViStar.ANQUANG) as TuViStar[]
-  const starSet =this.palace.starSet;
+  if ( count>checkStars.length ) count = checkStars.length
+  return {count, checkStars}
+}
+
+// Usage StarHamDia°Count,StarList
+// Do not check Star in Palace star list if count < 0
+// ....
+checkStarsStatus(params: string[],status:number, checkFunc: any): boolean {
+  let {count, checkStars} = this.getStarList(params)
+  let starSet =this.palace.starSet;
+  if ( count<0 ) {
+    count=-count;
+    starSet = checkStars
+  }
+  if (count > checkStars.length) {count = checkStars.length;}
   for (let index = 0; index < checkStars.length; index++) {
     const star = checkStars[index];
     if ( ObjectHelper.hasItem(starSet,star) && checkFunc(star.diaStatus, status)) {
@@ -3214,9 +3218,23 @@ checkGenreWEnergy(params: string[]) {
   return brancheEnergy.isYin() && param0[1] === "-";
 }
 
-  // Usage StarBranche°Star,Branche
+  // Usage StarForce°(+,-),StarList
+  override checkStarForce(params:string[]) {
+    const checkFavorable = params[0]=="+"
+    const starList = this.checkGetEnumList(params[1],TuViStar.ANQUANG) as TuViStar[]
+    for (let index = 0; index < starList.length; index++) {
+      const star = starList[index];
+      if ( checkFavorable!=star.isFavorable() ) {
+        return false
+      }
+    }
 
-  checkStarBranche(params: string[]): boolean {
+    return true;
+  }
+
+
+  // Usage StarBranche°Star,BrancheList
+  checkStarBranches(params: string[]): boolean {
     const checkStars = this.checkGetEnumList(params[0],TuViStar.ANQUANG) as TuViStar[];
     const checkBranches = this.checkGetEnumList(params[1],Branche.COCK) as Branche[];
     const checkStar=checkStars[0]
@@ -3228,6 +3246,20 @@ checkGenreWEnergy(params: string[]) {
     }
     return false
   }
+
+    // Usage StarPrincipalCount°CheckNumber
+    // If CheckNumber<=0 then checkLE abs(CheckNumber)
+     // If CheckNumber>0 then checkGE
+     // chinhTinhCount
+    checkPrincipalStarCount(params: string[]): boolean {
+      const fromCount = +params[0]
+      const chinhTinhCount=this.palace.chinhTinhCount
+      if ( fromCount>0 ) {
+        return chinhTinhCount>fromCount
+      } else {
+        return chinhTinhCount<=-fromCount
+      }
+    }
 
 override isAttrPresent( attrKey: string, params: string[]): boolean {
   switch (attrKey) {
@@ -3265,6 +3297,7 @@ override isAttrPresent( attrKey: string, params: string[]): boolean {
       case "StarAnNguOne":
         return this.checkAnNguOneStar([params[0]]);
 
+
     case "StarTamHop":
         return this.checkTamHopStars(params);
     case "StarHoiChieu":
@@ -3279,16 +3312,19 @@ override isAttrPresent( attrKey: string, params: string[]): boolean {
         return this.checkHopSinhKhacStars(params,true);
     case "StarXungChieuGrp":
           return this.checkXungChieuStarsGrp(params);
+
+    case "StarToaChieu":
+     return this.checkStars(params)||this.checkXungChieuStars(params);
     case "StarXungChieu":
         return this.checkXungChieuStars(params);
     case "MeetHostileStars":
           return this.checkMeetHostileStars();
     case "HasHostileStars":
-            return this.checkHasStatTinh();
+            return this.checkHasStatTinh(params);
     case "MeetGoodStars":
             return this.hasManyGoodSupportStars();
-    case "StarNeighBor":
-        return this.checkStarNeighBor(params);
+    case "StarGiapCung":
+        return this.checkStarGiapCung(params);
     case "PalaceStatus":
           return this.checkPalaceStatus(this.palace,params);
     case "HanStatus":
@@ -3297,8 +3333,12 @@ override isAttrPresent( attrKey: string, params: string[]): boolean {
         return this.checkTuanTriet();
     case "Genre":
         return this.checkGenreWEnergy(params);
+    case "StarGoodNb":
+        return this.goodStarsCount==(+params[0]);
     case "StarBranche":
-        return this.checkStarBranche(params);
+        return this.checkStarBranches(params);
+    case "StarPrincipalCount":
+          return this.checkPrincipalStarCount(params);
     default:
         return super.isAttrPresent(attrKey,params)
     }

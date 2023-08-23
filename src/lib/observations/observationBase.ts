@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-
 import { PropertyHelper } from '../helper/PropertyHelper';
 import { ObjectHelper } from '../helper/objectHelper';
 import { StringHelper } from '../helper/stringHelper';
@@ -8,6 +7,7 @@ import { Branche } from '../mt-data/bazi/branche';
 import { Lunar } from '../mt-data/bazi/lunar';
 import { LunarBase } from '../mt-data/bazi/lunarBase';
 import { Trunk } from '../mt-data/bazi/trunk';
+import { MyCalendar } from '../mt-data/date/mycalendar';
 import { EnumBaseClass } from '../mt-data/enumBaseClass';
 import { QiForce } from '../mt-data/qi/qi-force';
 import { QiType } from '../mt-data/qi/qi-type';
@@ -24,7 +24,9 @@ export class ObservationBase {
 
   // Used for log purpose when problem while checking key
   checkKey = "";
+  prevKey = "";
   checkMethod = "";
+  traceOn = false ;
 
   constructor(genrePrefix: string) {
     // Initialized when generated only
@@ -284,12 +286,15 @@ getLunar() : Lunar {
   return null
 }
 
+getStudyDate() : MyCalendar {
+  console.log("getStudyDate must be redefined in subClass")
+  return null
+}
 
   checkEnumList (param:string, model: EnumBaseClass) {
     if ( ObjectHelper.isNaN(param) ) {
-      console.log("Missing param",model )
-      console.log(this.checkMethod, this.checkKey)
-      return "";
+      console.log("Missing param 1",model ,this.checkMethod, this.checkKey)
+      //return "";
     }
     const params = param.split("/")
     for (let index = 0; index < params.length; index++) {
@@ -308,8 +313,7 @@ getLunar() : Lunar {
 
   checkGetEnumList (param:string, model: EnumBaseClass) {
     if ( ObjectHelper.isNaN(param) ) {
-      console.log("Missing param",model )
-      console.log(this.checkMethod, this.checkKey)
+      console.log("Missing param 2",model,this.checkMethod, this.checkKey )
       return "";
     }
     let res = []
@@ -339,6 +343,42 @@ getLunar() : Lunar {
   checkGenreOnly(params:string[]) {
     if (params.length === 0) return false;
     return this.getLunar().isMan && params[0] === "m";
+  }
+
+  /// Usage StarForce°(+,-),StarList
+  checkStarForce(params:string[]) {
+    console.log("checkStarForce Must Be override in sub class ")
+    return false;
+  }
+
+  getStudyAge() {
+    const birthYear=this.getLunar().birthDate.getYear()
+    const studyYear=this.getStudyDate().getYear()
+    return studyYear-birthYear
+  }
+
+  checkOld(params:string[]) {
+    if (params.length === 0) return false;
+    const currAge = this.getStudyAge()
+    return currAge>=60;
+  }
+
+  checkChild(params:string[]) {
+    if (params.length === 0) return false;
+    const currAge = this.getStudyAge()
+    return currAge<=12;
+  }
+
+  checkYoung(params:string[]) {
+    if (params.length === 0) return false;
+    const currAge = this.getStudyAge()
+    return currAge>12&&currAge<=19
+  }
+
+  checkAdult(params:string[]) {
+    if (params.length === 0) return false;
+    const currAge = this.getStudyAge()
+    return currAge>19&&currAge<60
   }
 
 
@@ -433,6 +473,18 @@ getLunar() : Lunar {
   isAttrPresent(attrKey: string, params: string[]): boolean {
     // Put Here common check function
     switch (attrKey) {
+      case "TraceOn":
+        console.log("TraceOn", this.checkKey)
+        this.traceOn = true;
+        return true;
+     case "Child":
+        return this.checkChild(params);
+      case "YoungAge":
+        return this.checkYoung(params);
+      case "Adult":
+        return this.checkAdult(params);
+      case "OldAge":
+        return this.checkOld(params);
       case "Genre":
         return this.checkGenreOnly(params);
       case "Trunk":
@@ -443,8 +495,10 @@ getLunar() : Lunar {
         return this.checkBirthHour(params);
       case "BirthNight":
           return this.checkBirthNight();
+      case "StarForce":
+            return this.checkStarForce(params);
       case "OR":
-        return this.processFuncSuite(params[0],"||","$",true)
+        return this.processFuncSuite(params.toString(),"||","$",true);
     default:
       console.log("UNKNOWN CASE ", attrKey, this.checkKey);
     }
@@ -456,7 +510,7 @@ getLunar() : Lunar {
     const len = keyArr.length - 1;
     const startKeyIdx = 2;
     const idx = keyArr[len].indexOf("&");
-    if (idx >=0 -1) {
+    if (idx >=0 ) {
       keyArr[len] = keyArr[len].substring(0, idx);
     }
     let res =true ;
@@ -469,6 +523,8 @@ getLunar() : Lunar {
       if (paramIdx > 0) {
         currAttrVal = currAttrkey.substring(paramIdx + 1);
         currAttrkey = currAttrkey.substring(0, paramIdx);
+      } else {
+        currAttrkey=currAttrkey
       }
       let isPositive = true;
 
@@ -477,14 +533,19 @@ getLunar() : Lunar {
         currAttrkey = currAttrkey.substring(1);
       }
 
-      this.checkMethod=currAttrkey + " "+ currAttrVal
-      if (isPositive !== this.isAttrPresent(currAttrkey, currAttrVal.split(","))) {
+      this.checkMethod=currAttrkey + " ("+ currAttrVal+")"
+      const isChecked =  this.isAttrPresent(currAttrkey, currAttrVal.split(","))
+      if ( this.traceOn ) {
+        console.log("TRACE", this.checkMethod, " Checked ", isChecked )
+      }
+      if (isPositive !== isChecked ) {
         res = false;
         if (!CHECKALL) break;
       } else {
         if ( exitOnTrue && !CHECKALL ) break
       }
     }
+
     return res;
   }
 
@@ -495,7 +556,8 @@ getLunar() : Lunar {
       return
     }
     const logMe = false;
-    const startKeyIdx = 2;
+    this.traceOn=false
+    this.prevKey=header
     if (logMe) console.log(header, selectHeaders);
     for (let index = 0; index < selectHeaders.length; index++) {
       let key = selectHeaders[index];
