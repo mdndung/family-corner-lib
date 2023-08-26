@@ -78,7 +78,8 @@ export class PropertyHelper {
       PropertyHelper.catKeys["TuVi.Than"] = keys.filter(value => /^TuVi\.Than\./.test(value));
 
       PropertyHelper.catKeys["TuVi.PhuMau"] = keys.filter(value => /^TuVi\.PhuMau\./.test(value));
-    }
+      PropertyHelper.catKeys["TuVi.PhucDuc"] = keys.filter(value => /^TuVi\.PhuDuc\./.test(value));
+   }
   }
 
 

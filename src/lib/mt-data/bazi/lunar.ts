@@ -18,6 +18,7 @@ import { LunarBase } from './lunarBase';
 import { SecondaryDeity } from './secondaryDeity';
 import { PilarBase } from './pilarBase';
 import { BaziHelper } from '../../helper/baziHelper';
+import { ElementNEnergyRelation } from '../feng-shui/elementNEnergyRelation';
 
 export class Lunar {
 
@@ -175,7 +176,9 @@ export class Lunar {
     }
   }
 
-  getTrunkDeity(trunk: Trunk) {
+  getTrunkDeity(trunk: Trunk, logMe=false) {
+    const res = BaziHelper.eNeTrunkRelation(trunk, this.getdTrunk())
+    if ( logMe ) console.log(res, trunk, this.getdTrunk(), this)
     return BaziHelper.eNeTrunkRelation(trunk, this.getdTrunk());
   }
 
@@ -185,6 +188,19 @@ export class Lunar {
       this.pilars[index].deity=deity
     }
 
+  }
+
+  getHiddenDeities(pilarIdx: number) {
+    const br = this.getPilar(pilarIdx).branche
+    const hiddenTrunks = BrancheHelper.getHiddenTrunk(br);
+    const res: ElementNEnergyRelation[] = [];
+    hiddenTrunks.forEach(trunk => {
+      res.push(BaziHelper.eNeTrunkRelation(
+        trunk,
+        this.getdTrunk()
+      ));
+    });
+    return res;
   }
 
 

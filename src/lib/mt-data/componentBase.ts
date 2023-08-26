@@ -102,4 +102,16 @@ export class ComponentBase {
   getBaseEnumEE(idx: number) {
     return ElementNEnergy.EARTHYANG.getEnum(idx);
   }
+
+  isBirthtype (type: number) {
+    return type===0
+  }
+
+  isPeriodtype (type: number) {
+    return type===1
+  }
+
+  isYeartype (type: number) {
+    return type===2
+  }
 }

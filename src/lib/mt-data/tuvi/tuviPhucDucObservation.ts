@@ -34,122 +34,8 @@ export class TuViPhucDucObservation extends TuViPalaceObservationBase {
         return this.palace.getNote() > 50;
     }
 
-   genTuViStar() {
-        if (this.hasStar(TuViStar.TUVI)) {
-            if (this.palace.chinhTinhCount===1) {
-                if (this.palace.branche===Branche.HORSE) {
-                    this.addSupportBaseComment(8, "Ref17p150p1");
-                }
-                if (this.palace.branche===Branche.RAT) {
-                    this.addSupportBaseComment(7, "Ref17p150p2");
-                }
-            }
-            if (this.hasAllStars(TuViStarHelper.PHUTUONG)) {
-                this.addSupportBaseComment(9, "Ref17p150p3");
-            }
-
-            if (this.hasStar(TuViStar.THATSAT)) {
-                this.addSupportBaseComment(6, "Ref17p150p4");
-            }
-            if (this.hasStar(TuViStar.PHAQUAN)) {
-                this.addSupportBaseComment(3, "Ref17p150p5");
-            }
-            if (this.hasStar(TuViStar.THAMLANG)) {
-                this.addSupportBaseComment(3, "Ref17p150p6");
-            }
-            if (this.hasSatTinh) {
-                this.addSupportBaseComment(4, "Ref17p159p8");
-
-            }
-        }
-    }
-
-   genLiemTrinhStar() {
-        if (this.hasStar(TuViStar.LIEMTRINH)) {
-            if (this.palace.branche===Branche.TIGER || this.palace.branche===Branche.MONKEY) {
-                if (this.palace.chinhTinhCount===1) {
-                    this.addSupportBaseComment(6, "Ref17p151p1");
-                }
-            }
-            if (this.hasStar(TuViStar.THIENPHUR)) {
-                this.addSupportBaseComment(8, "Ref17p151p2");
-            }
-            if (this.hasStar(TuViStar.THIENTUONG)) {
-                this.addSupportBaseComment(7, "Ref17p151p3");
-            }
-            if (this.hasStar(TuViStar.PHAQUAN)) {
-                this.addSupportBaseComment(4, "Ref17p151p4");
-            }
-            if (this.hasStar(TuViStar.THAMLANG)) {
-                this.addSupportBaseComment(4, "Ref17p151p5");
-            }
-            if (this.hasStar(TuViStar.THATSAT)) {
-                this.addSupportBaseComment(2, "Ref17p151p6");
-            }
-        }
-    }
-
-   genThienDongStar() {
-        if (this.hasStar(TuViStar.THIENDONG)) {
-            if (this.palace.chinhTinhCount===1) {
-                if (this.palace.branche===Branche.RABBIT) {
-                    this.addSupportBaseComment(8, "Ref17p151p7");
-                }
-                if (this.palace.branche===Branche.COCK) {
-                    this.addSupportBaseComment(3, "Ref17p151p8");
-                }
-                if (BrancheHelper.isSnakePig(this.palace.branche)) {
-                    this.addSupportBaseComment(6, "Ref17p151p9");
-                }
-            }
-            if (BrancheHelper.isDragonDog(this.palace.branche) || this.hasStar(TuViStar.CUMON)) {
-                this.addSupportBaseComment(4, "Ref17p151p10");
-            }
-            if (this.hasStar(TuViStar.THIENLUONG)) {
-                this.addSupportBaseComment(8, "Ref17p152p1");
-            }
-            if (this.hasStar(TuViStar.THAIAM)) {
-                if (this.palace.branche===Branche.RAT) {
-                    this.addSupportBaseComment(8, "Ref17p152p2");
-                }
-                if (this.palace.branche===Branche.HORSE) {
-                    this.addSupportBaseComment(3, "Ref17p152p3");
-                }
-            }
-
-        }
-    }
-
-   genVuKhucStar() {
-        if (this.hasStar(TuViStar.VUKHUC)) {
-            if (this.palace.chinhTinhCount===1) {
-              if (BrancheHelper.isDragonDog(this.palace.branche) || this.hasStar(TuViStar.THAMLANG)) {
-                    this.addSupportBaseComment(7, "Ref17p152p4");
-                }
-            }
-            if (this.hasStar(TuViStar.THIENPHUR)) {
-                this.addSupportBaseComment(7, "Ref17p152p5");
-            }
-            if (this.hasStar(TuViStar.THIENTUONG)) {
-                this.addSupportBaseComment(8, "Ref17p152p6");
-            }
-            if (this.hasStar(TuViStar.PHAQUAN)) {
-                this.addSupportBaseComment(5, "Ref17p152p7");
-            }
-            if (this.hasStar(TuViStar.THATSAT)) {
-                this.addSupportBaseComment(3, "Ref17p152p8");
-            }
-        }
-    }
-
    genThaiDuongStar() {
         if (this.hasStar(TuViStar.THAIDUONG)) {
-          if (BrancheHelper.isTigerToHorse(this.palace.branche)) {
-                this.addSupportBaseComment(7, "Ref17p152p9");
-            }
-            if (BrancheHelper.isMonkeyToRat(this.palace.branche)) {
-                this.addSupportBaseComment(3, "Ref17p152p10");
-            }
 
             if (this.hasStar(TuViStar.THAIAM)) {
                 this.addSupportBaseComment(4, "Ref17p153p1");
@@ -609,10 +495,6 @@ export class TuViPhucDucObservation extends TuViPalaceObservationBase {
     }
 
    commentPhucDuc() {
-        this.genTuViStar();
-        this.genLiemTrinhStar();
-        this.genThienDongStar();
-        this.genVuKhucStar();
         this.genThaiDuongStar();
         this.genThienCo();
         this.genThienPhuRStar();

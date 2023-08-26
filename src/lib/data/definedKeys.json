@@ -27,8 +27,8 @@
 
   "RefNgheY":[0,"= Careera.1044"],
   "RefKheoTay":[0,"=Persona.286"],
-  "RefLapNghiepXa":[0,"=Lifea.1006==Careerb.27==Careera.1008"],
-  "RefLamViecHayDiXa":[0,"=Lifeb.23"],
+  "RefLapNghiepXa":[0,"=Careerb.27==Careerb.2004==Lifea.1006==Careerb.27==Careera.1008==Lifea.1014"],
+  "RefLamViecHayDiXa":[0,"=Lifeb.23==Lifeb.2018"],
   "RefNghiepQuanSu":[0,"=Careera.120"],
   "RefKheoGiuCua":[1,"=Fortunea.16"],
   "RefBuonBanTot":[1,"=Careera.81"],
@@ -57,7 +57,7 @@
   "RefBiCan":[0,"=Healthb.104"],
 
   "RefManhKhoe":[1,"=Healtha.3"],
-  "RefMayMan":[1,"=Persona.200a"],
+  "RefMayMan":[1,"=Persona.200a==Lifea.1015"],
 
   "RefMenhXau":[-1,"=Lifeb.2008"],
   "RefDocAc":[-1,"=Personb.2011"],
@@ -98,17 +98,31 @@
   "RefMaoHiem":[0,"=Persona.284"],
   "RefQuaQuyet":[0,"=Persona.18a==Persona.132"],
 
+
+  "RefNenOXaChaMe":[-1,"=Parentb.2011"],
+  "RefMeChaOmDau":[-1,"=Parentb.84"],
+  "RefMeChaAnChoi":[-1,"=Parentb.2015"],
+  "RefMe0Khoe":[-1,"=Parentb.2008"],
+  "RefMe0Tho":[-1,"=Parentb.2016"],
+  "RefMeChaTaiHoa":[-1,"=Parentb.2003==Parentb.2007"],
+  "RefMeChaBatChinh":[-1,"=Parentb.2017"],
+  "Ref0GiaTaiChaMe":[-1,"=Parentb.87"],
   "RefMeChaXaCach":[-1,"=Parentb.2009"],
+  "RefMeChaSomXaCach":[-1,"=Parentb.2013"],
   "RefKhacHayXaChaMe":[-1,"=Parentb.2002"],
   "RefGiaDinhLyTan":[-1,"=Parentb.2001"],
   "RefCon0HopMeCha":[-1,"=Parentb.2000"],
-  "RefMeChaBatHoa":[-1,"=Parentb.90"],
+  "RefMeChaBatHoa":[-1,"=Parentb.90==Parentb.2006"],
   "RefMeChaVatVa":[-1,"=Parentb.2004"],
   "RefMeDiTruocCha":[0,"=Parenta.1002"],
   "RefChaDiTruocMe":[0,"=Parenta.1001"],
-  "RefMeChaNgheo":[0,"=Origina.9"],
+  "RefMeChaNgheo":[0,"=Origina.9==Parentb.2010"],
   "RefLamConNuoi":[0,"=Parentb.2005"],
+  "RefMeChaDanhChuc":[0,"=Parenta.18"],
+  "RefMeCha0GiauThiSang":[0,"=Parenta.41"],
+  "RefChaLaTruong":[0,"=Parenta.1019"],
   "RefMeChaQuyHien":[1,"=Parenta.1003"],
+  "RefMeChaTroGiup":[1,"=Parenta.1020"],
   "RefMeChaCoPhuc":[1,"=Parenta.1"],
   "RefMeChaTho":[1,"=Parenta.1005==Parenta.1015"],
   "RefMeChaGiauSang":[1,"=Parenta.1007"],
@@ -116,9 +130,14 @@
   "RefGiaTaiChaMe":[1,"=Parenta.1008"],
   "RefMeChaSongToan":[1,"=Parenta.12"],
   "RefGiaDinhYenVui":[1,"=Parenta.1009"],
-  "RefMeChaKhaGia":[1,"=Parenta.1011==Origina.2==Parenta.1014"],
+  "RefMeChaKhaGia":[1,"=Parenta.1011==Origina.2==Parenta.1014==Parenta.1013"],
   "RefMeChaPhuQuy":[1,"=Parenta.1010"],
-
+  "RefMeChaNhanDuc":[1,"=Parenta.1018"],
+  "RefMeChaCoUyQuyen":[1,"=Parenta.1016"],
+  "RefMeChaPhucTho":[1,"=Parenta.1006"],
+  "RefTrongNhaHoaKhi":[1,"=Parenta.1021"],
+  "RefMeChaHienLanh":[1,"=Parenta.14"],
+  "RefMeChaDanhGia":[1,"=Parenta.1023"],
 
 
   "RefKhacChong":[0,"=Husbandb.26"],
@@ -137,6 +156,7 @@
   "RefSomXaChaMeAnhEm":[0,"=Lifeb.2027"],
   "RefKhongDuocDeYPhongThuong":[-1,"=Careerb.2005"],
   "RefNhieuNguyKhon":[-1,"=Lifeb.2030"],
+  "RefThieuThoi0ToaiY":[-1,"=Lifeb.2002"],
 
   "RefHocGioi":[1,"=Studya.4b"],
   "RefTaiGioi":[1,"=Persona.1017"],
@@ -179,18 +199,21 @@
   "RefHonNhanTracTro":[-1,"=Mariageb.24"],
   "RefTaiHoaDotNhienDen":[-1,"=Lifeb.70a"],
   "RefSuotDoiLaoKho":[-1,"=Lifeb.2028b"],
+    "RefGapTroNgai":[-1,"=Lifeb.2036"],
   "RefNgheoKho":[-1,"Fortuneb.2003"],
   "RefThieuThoiNgheoKho":[-1,"Lifeb.2004b"],
   "RefKhongXungYVuaLong":[-1,"=Lifeb.2000==Lifeb.2019"],
-  "RefSungSuongToaiY":[0,"=Lifea.1001==Persona.201"],
+  "RefSungSuongToaiY":[0,"=Lifea.1001==Persona.201==Lifea.1018"],
+  "RefSungSuongVeGia":[1,"=Lifea.1003"],
   "RefDoiVatVa":[-1,"=Careerb.21==Lifeb.28a==Lifeb.2015"],
   "RefTienTaiKhoKiem":[-1,"=Fortuneb.2018b"],
   "RefTungThieu":[-1,"=Fortuneb.2018"],
   "RefNgheoHen":[-1,"=Fortuneb.31"],
   "RefCoDon": [-1,"=Personb.194==Lifeb.2010"],
-  "RefLyTo": [0,"=Lifeb.23"],
+  "RefLyTo": [0,"=Lifeb.23==Lifeb.2035==Parentb.2020"],
+  "RefThoLyTo": [0,"=Lifeb.2034==Lifea.1016"],
   "RefDoSuMatThoiCo": [0,"=Persona.18a"],
-  "RefSomLyTo": [0,"=Lifeb.2017"],
+  "RefSomLyTo": [0,"=Lifeb.2017==Lifea.1006==Lifeb.2033"],
   "RefNghienNgap": [-1,"=Healthb.2017"],
   "RefLangBat": [-1,"=Lifeb.48==Lifeb.2013"],
   "RefNayDayMaiDo": [0,"=Lifeb.2013"],
@@ -202,13 +225,13 @@
   "RefTaiHoaYeuTu": [-1,"=Healthb.32==Lifeb.78"],
   "RefTaiHoaVeGia":[-1,"=Lifeb.69"],
   "RefTaiHoa": [-1,"=Lifeb.2053==Lifeb.2515==Lifeb.78"],
-  "RefTuToi": [-1,"=Lifeb.64"],
+  "RefTuToi": [-1,"=Lifeb.64==Careerb.61"],
   "RefKienTung": [-1,"=Lifeb.64b"],
   "RefTaiHoaTuToi": [-1,"=RefTaiHoa==RefTuToi"],
   "RefCoTaiNan": [-1,"=Healthb.33"],
   "RefKhongTho": [-1, "=Personb.319==Lifeb.20"],
   "RefCongDanhTracTro": [-1, "=Careerb.22==Careerb.30"],
-  "RefHayThatBai": [-1, "=Lifeb.70b==Lifeb.78==Careerb.23"],
+  "RefHayThatBai": [-1, "=Lifeb.70b==Lifeb.78==Careerb.23==Lifeb.2020"],
   "RefThieuTai": [-1, "=Fortuneb.26"],
   "RefSinhKeLoLang": [-1, "=Lifeb.2016"],
   "RefCongDanhNheBuoc":[1,"=Careera.1020"],
@@ -221,6 +244,7 @@
   "RefKhongLauBen":[-1,"=Lifeb.2004a==Careerb.2007"],
   "RefNanHoaTai":[-1,"=Lifeb.2006"],
   "RefNanSongNuoc":[-1,"=Healthb.2012"],
+  "Ref0HuongPhuc":[-1,"=Personb.2061"],
 
   "RefSoTuHanh": [0, "=Lifea.1005"],
   "RefPhatDanhTai":[1,"=Careera.1029"],
@@ -232,7 +256,7 @@
   "RefKhaGia": [1,"=Fortunea.12"],
   "RefKhongKhaGia": [0,"=Fortuneb.2005"],
   "Refphuctho": [1, "=Healtha.1003"],
-  "RefHuongPhuc":[1,"=Persona.253b"],
+  "RefHuongPhuc":[1,"=Persona.253b==Lifea.1012"],
   "RefTaiQuanSongMy":  [1, "=Persona.1034"],
   "RefTho": [1, "=Persona.174a"],
   "RefQuanChuc": [1, "=Careera.1036b"],
@@ -243,6 +267,10 @@
   "RefTrungNienLamAnKha":[1,"Careera.55b"],
   "RefThanhDatSom":[1,"=Careera.13"],
   "RefGapQuyNhan":[1,"=Lifea.15"],
+  "RefTranhTaiHoa":[1,"=Lifea.1013"],
+  "RefHoQuyHien":[0,"=Parenta.1025"],
+
+
   "RefDuocKinhPhuc":[1,"=Persona.1001b==Persona.244==Lifea.171"],
   "RefQuyMen":[1,"=Persona.1001b==Relationa.1017==Persona.1001a==Relationa.4"],
 
@@ -254,11 +282,13 @@
 
 
   "Ref0QuaQuyet": [-1, "=Personb.189"],
-  "Ref0BenChi": [-1, "=Personb.2022"],
+  "Ref0BenChi": [-1, "=Personb.2022==Lifeb.2025"],
+  "RefHayThayDoiCongViec": [0, "=Careerb.2003"],
   "Ref0ThongMinh": [-1, "=Personb.2006"],
   "RefAnNgonMacDep": [-1, "=Personb.2036"],
   "RefHamChoi": [-1, "=Personb.2006b"],
   "RefChoiBoi": [-1, "=Personb.2026"],
+  "RefDaiPhaTai": [-1, "=Fortuneb.24"],
   "RefKeoKiet": [0, "=Personb.63"],
   "RefBiKhinhBi": [0, "=Personb.2028"],
 
@@ -276,7 +306,7 @@
   "RefVanTaiLoiLac": [1, "=Persona.131a"],
   "RefTaiSanKhongBen":[-1,"=Fortuneb.2004==Careerb.2007"],
   "RefCoNghiepThangTram": [0, "=Careerb.2006==Careerb.2007==Careerb.2007"],
-
+  "RefKinhDoanhBatLoi": [0, "=Careerb.24.0==Careerb.24"],
 
   "RefVanVoNghiep": [1, "=RefVoNghiep==RefVanNghiep==Persona.1013"],
 
@@ -299,10 +329,9 @@
 
 
 
-"BusinessBadb.1": [ 0 , "=Careerb.24" ],
- "BusinessBadb.3": [ 0 , "=Careerb.24" ],
+"BusinessBadb.1": [ 0 , "=RefKinhDoanhBatLoi" ],
+ "BusinessBadb.3": [ 0 , "=RefKinhDoanhBatLoi" ],
  "CareerGooda.11": [ 0 , "=Lifea.48a" ],
- "Careerb.24": [ 0 , "=Lifeb.2068==Careerb.24.0" ],
 
 
  "Ref13p62_1Detail":
@@ -582,7 +611,7 @@
   ],
   "Halac.1.3.yao&": [
     0,
-    "=Lifeb.2068==Lifeb.2115"
+    "=RefKinhDoanhBatLoi==Lifeb.2115"
   ],
   "Halac.1.3.yao&-": [
     -2,
@@ -2113,7 +2142,7 @@
   ],
   "Halac.2.2&": [
     0,
-    "=Lifeb.2516==Careerb.24==Relationb.22==Lifeb.2124"
+    "=Lifeb.2516==RefKinhDoanhBatLoi==Relationb.22==Lifeb.2124"
   ],
   "Halac.2.2.yao&+": [
     2,
@@ -3084,7 +3113,7 @@
   ],
   "Halac.26.1.ymd.all&": [
     0,
-    "=Date.Status.Middle==Halac.Positive.42==Lifeb.2068"
+    "=Date.Status.Middle==Halac.Positive.42==RefKinhDoanhBatLoi"
   ],
   "Halac.26.1.ymd.all&-": [
     -2,
@@ -3304,7 +3333,7 @@
   ],
   "Halac.27.3.ymd.all&": [
     0,
-    "=Date.Status.Bad==BusinessBadb.1==Lifeb.64b==Lifeb.132==Lifeb.2068"
+    "=Date.Status.Bad==BusinessBadb.1==Lifeb.64b==Lifeb.132==RefKinhDoanhBatLoi"
   ],
   "Halac.27.3.ymd.all&-": [
     -2,
@@ -5789,7 +5818,7 @@
   ],
   "Halac.43.2.ymd.all&-": [
     -2,
-    "=Date.Status.Bad==BusinessGooda.2==Lifeb.2068==Lifeb.231"
+    "=Date.Status.Bad==BusinessGooda.2==RefKinhDoanhBatLoi==Lifeb.231"
   ],
   "Halac.43.2.ymd.study&": [
     0,
@@ -6819,7 +6848,7 @@
   ],
   "Halac.5.4.yao&-": [
     -2,
-    "=Careerb.24"
+    "=RefKinhDoanhBatLoi"
   ],
   "Halac.5.4.ymd.age&": [
     0,
@@ -8479,7 +8508,7 @@
   ],
   "Halac.60.6.ymd.all&": [
     0,
-    "=Date.Status.Bad==Lifeb.2068==CareerMiddle.15"
+    "=Date.Status.Bad==RefKinhDoanhBatLoi==CareerMiddle.15"
   ],
   "Halac.60.6.ymd.all&-": [
     -2,
@@ -8535,7 +8564,7 @@
   ],
   "Halac.61.3.ymd.all&-": [
     -2,
-    "=Date.Status.Bad==Lifeb.2036==Lifeb.108"
+    "=Date.Status.Bad==RefGapTroNgai==Lifeb.108"
   ],
   "Halac.61.3.ymd.study&": [
     0,
@@ -8559,7 +8588,7 @@
   ],
   "Halac.61.4.ymd.all&-": [
     -2,
-    "=Date.Status.Middle==Halac.61.4.ymd.all&==Lifeb.64b==Lifeb.2068"
+    "=Date.Status.Middle==Halac.61.4.ymd.all&==Lifeb.64b==RefKinhDoanhBatLoi"
   ],
   "Halac.61.4.ymd.study&": [
     0,
@@ -9067,7 +9096,7 @@
   ],
   "Halac.7.1.ymd.all&-": [
     -2,
-    "=Date.Status.Bad==Halac.7.1.ymd.all&==Lifeb.2036==Lifeb.72"
+    "=Date.Status.Bad==Halac.7.1.ymd.all&==RefGapTroNgai==Lifeb.72"
   ],
   "Halac.7.2&": [
     0,

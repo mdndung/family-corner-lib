@@ -1968,10 +1968,6 @@
     0,
     "=Relationb.2066"
   ],
-  "M.Ref32p40p2b": [
-    0,
-    "=Parentb.2012"
-  ],
   "M.Ref32p44p5": [
     0,
     "=Relationa.1037"
@@ -1979,10 +1975,6 @@
   "M.Ref32p47p5": [
     0,
     "=Healthb.2104==Healthb.2105"
-  ],
-  "M.Ref32p56p2": [
-    0,
-    "=Parentb.2012"
   ],
   "M.Ref32p74p3": [
     0,
@@ -6985,7 +6977,7 @@
   ],
   "Ref32p127p6": [
     0,
-    "=Parentb.2012==Healthb.67"
+    "=Healthb.67"
   ],
   "Ref32p127p7": [
     0,

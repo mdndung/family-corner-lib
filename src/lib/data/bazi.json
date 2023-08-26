@@ -1152,10 +1152,9 @@
 "Year.0.PilarWithBothDeityNSecDeity°Year,DW/IW,DMA&": [1, "=Ref7_2ap16b"],
 
 
-"BusinessBadb.1": [ 0 , "=Careerb.24" ],
- "BusinessBadb.3": [ 0 , "=Careerb.24" ],
+"BusinessBadb.1": [ 0 , "=RefKinhDoanhBatLoi" ],
+ "BusinessBadb.3": [ 0 , "=RefKinhDoanhBatLoi" ],
  "CareerGooda.11": [ 0 , "=Lifea.48a" ],
- "Careerb.24": [ 0 , "=Lifeb.2068==Careerb.24.0" ],
 
 
 "Ref8p269p15a":[0,"=Lifea.10a==Careera.8==Careera.129==Careera.1508==Careera.159==Careera.1029"],
@@ -1967,13 +1966,13 @@
   "Ref8p149p1b": [ 0,"=Personb.26"],
   "Ref8p149p3": [0,"=Careerb.23==Personb.189==Careerb.79" ],
   "Ref8p149p4": [0, "=Lifea.15==Careera.7"],
-  "Ref8p149p4a": [0, "=Careerb.24"],
+  "Ref8p149p4a": [0, "=RefKinhDoanhBatLoi"],
   "Ref8p149p4b": [0, "=Persona.3==Careera.95" ],
   "Ref8p149p5": [0,"=Persona.13==Fortunea.5a==Relationa.5"],
   "Ref8p150p1b": [0,"=Lifeb.22"],
   "Ref8p150p2a": [ 0,"=Persona.13==Relationa.5"],
   "Ref8p150p2b": [0,"=Careerb.25"],
-  "Ref8p150p3": [ 0,"=Careerb.24==Careerb.23"],
+  "Ref8p150p3": [ 0,"=RefKinhDoanhBatLoi==Careerb.23"],
   "Ref8p150p4": [ 0,"=Relationa.15==Childa.1" ],
   "Ref8p151p1f": [0,"=Lifea.6==Personb.140" ],
   "Ref8p151p2a": [ 0, "=BroSisb.23"],

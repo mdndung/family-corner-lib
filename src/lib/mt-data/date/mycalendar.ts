@@ -145,6 +145,12 @@ export class MyCalendar {
     return  count;
   }
 
+  diffYear(dCal: MyCalendar) {
+    const count = this.diffDate(dCal);
+    const dayPerYear=365
+    return  Math.floor(count/dayPerYear);
+  }
+
   afterDate(dCal: MyCalendar) {
     const rTo = this.getRelativeTo(dCal);
     const seconds1 = this.duration.total({unit:'second',relativeTo:rTo});
