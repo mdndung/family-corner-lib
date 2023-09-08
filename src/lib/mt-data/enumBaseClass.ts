@@ -58,7 +58,7 @@ export class EnumBaseClass {
     return res;
   }
 
-  getEnumByName(name: string) {
+  getEnumByName(name: string,logOnError=true) {
     const values=  this.getValues();
     if (ObjectHelper.isNaN(values)) {
       console.log('getEnumByName null problem class ', this.getClassName(),
@@ -68,8 +68,10 @@ export class EnumBaseClass {
       const element = values[index];
       if ( element.getName()==name ) return element;
     }
-    console.log('getEnumByName null problem class ', this.getClassName(),
+    if (logOnError) {
+      console.log('getEnumByName null problem class ', this.getClassName(),
       ' not found ', name);
+    }
     return null;
   }
 

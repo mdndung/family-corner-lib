@@ -12,8 +12,6 @@ import { Trunk } from "./trunk";
 import { Temporal } from "temporal-polyfill";
 import { ElementLifeCycle } from "../feng-shui/elementLifeCycle";
 import { ObjectHelper } from "../../helper/objectHelper";
-import { NagiaHelper } from "../../helper/nagiaHelper";
-import { ElementNEnergyRelation } from "../feng-shui/elementNEnergyRelation";
 import { PeriodPilar } from "./periodPilar";
 import { PilarBase } from "./pilarBase";
 

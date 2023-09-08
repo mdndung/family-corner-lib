@@ -1,25 +1,26 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { threadId } from 'worker_threads';
-import { BaziHelper } from '../../helper/baziHelper';
-import { BrancheHelper } from '../../helper/brancheHelper';
-import { ObjectHelper } from '../../helper/objectHelper';
-import { TrunkHelper } from '../../helper/trunkHelper';
-import { TuViHelper } from '../../helper/tuviHelper';
-import { TuViStarHelper } from '../../helper/tuviStarHelper';
-import { TuViHoroscope } from '../../horoscope/tuviHoroscope';
-import { ObservationBase } from '../../observations/observationBase';
-import { Branche } from '../bazi/branche';
-import { BrancheRelation } from '../bazi/brancheRelation';
-import { Lunar } from '../bazi/lunar';
-import { Trunk } from '../bazi/trunk';
-import { Element } from '../feng-shui/element';
-import { ElementRelation } from '../feng-shui/element-relation';
-import { ElementLifeCycle } from '../feng-shui/elementLifeCycle';
-import { TuViPalace } from './tuviPalace';
-import { TuViRing } from './tuviRing';
-import { TuViStar } from './tuviStar';
-import { LunarBase } from '../bazi/lunarBase';
+import { threadId } from "worker_threads";
+import { BaziHelper } from "../../helper/baziHelper";
+import { BrancheHelper } from "../../helper/brancheHelper";
+import { ObjectHelper } from "../../helper/objectHelper";
+import { TrunkHelper } from "../../helper/trunkHelper";
+import { TuViHelper } from "../../helper/tuviHelper";
+import { TuViStarHelper } from "../../helper/tuviStarHelper";
+import { TuViHoroscope } from "../../horoscope/tuviHoroscope";
+import { ObservationBase } from "../../observations/observationBase";
+import { Branche } from "../bazi/branche";
+import { BrancheRelation } from "../bazi/brancheRelation";
+import { Lunar } from "../bazi/lunar";
+import { Trunk } from "../bazi/trunk";
+import { Element } from "../feng-shui/element";
+import { ElementRelation } from "../feng-shui/element-relation";
+import { ElementLifeCycle } from "../feng-shui/elementLifeCycle";
+import { TuViPalace } from "./tuviPalace";
+import { TuViRing } from "./tuviRing";
+import { TuViStar } from "./tuviStar";
+import { LunarBase } from "../bazi/lunarBase";
+import { DateHelper } from "../../helper/dateHelper";
 
 export abstract class TuViPalaceObservationBase extends ObservationBase {
   static SINHDIA = ElementLifeCycle.BIRTH;
@@ -27,16 +28,16 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
   static BAIDIA = ElementLifeCycle.BATH;
   static TUYETDIA = ElementLifeCycle.REPOSE;
 
-  palace: TuViPalace= null;
-  tuviHoroscope: TuViHoroscope= null;
-  hasTuanTrietKhong: boolean= null;
-  goodStarsCount: number= null;
-  badStarsCount: number= null;
-  goodChinhTinhSupportPalace: number= null;
-  goodTrungTinhSupportPalace: number= null;
-  hasCombinedSatTinh: boolean= null;
-  satTinhCombinatedCount: number= null;
-  isPartOfTuMo: boolean= null;
+  palace: TuViPalace = null;
+  tuviHoroscope: TuViHoroscope = null;
+  hasTuanTrietKhong: boolean = null;
+  goodStarsCount: number = null;
+  badStarsCount: number = null;
+  goodChinhTinhSupportPalace: number = null;
+  goodTrungTinhSupportPalace: number = null;
+  hasCombinedSatTinh: boolean = null;
+  satTinhCombinatedCount: number = null;
+  isPartOfTuMo: boolean = null;
   currPeriodComplementForceFactor = 0.0;
   hasMajorStarWithFavorableElement: boolean = false;
 
@@ -48,16 +49,15 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
     this.hasCombinedSatTinh =
       this.getSatTinhCombinedCount() > TuViPalace.AVAILSTARNBCOUNT;
     this.isPartOfTuMo = palace.branche.getElement() === Element.EARTH;
-    this.hasMajorStarWithFavorableElement=false;
-
+    this.hasMajorStarWithFavorableElement = false;
   }
 
   override getName() {
     return this.palace.getName();
   }
 
-  protected override getPilar (pilarChar: string) {
-    if ( pilarChar==="Year" || pilarChar==="Period")
+  protected override getPilar(pilarChar: string) {
+    if (pilarChar === "Year" || pilarChar === "Period")
       return this.tuviHoroscope.studyLunar.getPilar(LunarBase.YINDEX);
     return super.getPilar(pilarChar);
   }
@@ -100,20 +100,19 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
   // Return true if this star is present in this palace and has effect
   // See Ref17p293
   hasValuableStar(star: TuViStar) {
-    if (this.palace.hasStar([star]) ) {
-       if ( ObjectHelper.hasItem(TuViStarHelper.NorthStarGroup,star) ) {
+    if (this.palace.hasStar([star])) {
+      if (ObjectHelper.hasItem(TuViStarHelper.NorthStarGroup, star)) {
         // North group start effect is only strong when it is in
-
-       }
-    };
+      }
+    }
   }
 
   hasOneStar(starArr: TuViStar[]) {
-    return this.palace.hasSomeStars(starArr,1);
+    return this.palace.hasSomeStars(starArr, 1);
   }
 
   hasSomeStars(starArr: TuViStar[], count: number) {
-    return this.palace.hasSomeStars(starArr,count);
+    return this.palace.hasSomeStars(starArr, count);
   }
 
   hasSomeStar(starArr: TuViStar[]) {
@@ -164,14 +163,18 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
   }
 
   hasManyGoodStars(): boolean {
-    return this.palace.goodBadChinhTinhBalanceForce > 0 &&
+    return (
+      this.palace.goodBadChinhTinhBalanceForce > 0 &&
       this.palace.goodActiveChinhTinhCount > 0 &&
-      this.palace.trungTinhForce > 0;
+      this.palace.trungTinhForce > 0
+    );
   }
 
   hasManyBadStars() {
-    return this.palace.goodBadChinhTinhBalanceForce < 0 &&
-      this.palace.satTinhCount > 0;
+    return (
+      this.palace.goodBadChinhTinhBalanceForce < 0 &&
+      this.palace.satTinhCount > 0
+    );
   }
 
   hasGoodSupportStars(starArr: TuViStar[], countMax: number) {
@@ -190,11 +193,13 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
     return this.palace.hasRelationPalaceStar(star, relation);
   }
 
-  hasManyGoodSupportStars() : boolean {
-    return this.hasManyGoodStars() ||
+  hasManyGoodSupportStars(): boolean {
+    return (
+      this.hasManyGoodStars() ||
       this.hasRelationGoodSupportPalaceStar(BrancheRelation.COMBINATION) ||
       this.hasRelationGoodSupportPalaceStar(BrancheRelation.TRANSFORMPLUS) ||
       this.hasRelationGoodSupportPalaceStar(BrancheRelation.TRANSFORMRESTRICT)
+    );
   }
 
   hasFavorableStars() {
@@ -217,7 +222,9 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
   hasOneFavorableStar(starArr: TuViStar[]) {
     for (let index = 0; index < starArr.length; index++) {
       const tuViStar = starArr[index];
-      if (this.isFavorableStar(tuViStar)) {return true;}
+      if (this.isFavorableStar(tuViStar)) {
+        return true;
+      }
     }
     return false;
   }
@@ -225,7 +232,9 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
   hasOneNonFavorableStar(starArr: TuViStar[]) {
     for (let index = 0; index < starArr.length; index++) {
       const tuViStar = starArr[index];
-      if (this.isNonFavorableStar(tuViStar)) {return true;}
+      if (this.isNonFavorableStar(tuViStar)) {
+        return true;
+      }
     }
     return false;
   }
@@ -319,88 +328,7 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
     return this.tuviHoroscope.birthLunar.isMan;
   }
 
-  genRef17p62p20() {
-    if (this.palace.ringType === TuViRing.ThienDi) {
-      if (this.palace.goodBadChinhTinhBalanceForce > 0) {
-        this.addSupportBaseComment(7, 'Ref17p62p20a');
-      }
-      if (this.hasTuanTrietKhong || this.hasHostileStars()) {
-        this.addSupportBaseComment(4, 'Ref17p62p20b');
-      }
-    }
-  }
 
-  genRef17p62p22() {
-    if (this.palace.ringType === TuViRing.PhuThe) {
-      if (this.hasStar(TuViStar.THAIAM)) {
-        this.addSupportBaseComment(5, 'Ref17p62p22a');
-      }
-      if (this.hasTuanTrietKhong) {
-        this.addSupportBaseComment(5, 'Ref17p62p22b');
-      }
-    }
-  }
-
-  genRef17p62p23() {
-    if (this.palace.ringType === TuViRing.TaiBach) {
-      if (this.palace.goodBadChinhTinhBalanceForce > 0) {
-        if (
-          this.hasSupportStars0(TuViStarHelper.CONGUYETDONGLUONG) ||
-          this.hasSupportStars0(TuViStarHelper.SATPHALIEMTHAM)
-        ) {
-          this.addSupportBaseComment(7, 'Ref17p62p23a');
-        }
-      }
-      if (this.hasSupportStars0(TuViStarHelper.HAOQUYENLOCKIEPHOA)) {
-        this.addSupportBaseComment(7, 'Ref17p62p23b1');
-        if (this.hasSupportStars0(TuViStarHelper.KINHPHUC)) {
-          this.addSupportBaseComment(4, 'Ref17p62p23b2');
-        }
-      }
-      if (this.hasSupportStars0(TuViStarHelper.LUUKIEP)) {
-        this.addSupportBaseComment(4, 'Ref17p62p23c');
-      }
-    }
-  }
-
-  genRef17p62p24() {
-    if (this.palace.ringType === TuViRing.QuanLoc) {
-      if (this.isMan()) {
-        if (
-          this.hasTuanTrietKhong &&
-          this.hasSupportStars0(TuViStarHelper.KIEPHOAKY)
-        ) {
-          this.addBaseComment('Ref17p62p24a1');
-          if (this.palace.isGoodStarFavorable()) {
-            this.addSupportBaseComment(7, 'Ref17p62p24a2');
-          }
-        }
-      } else {
-        if (
-          this.hasTuanTrietKhong &&
-          this.hasSupportStars0(TuViStarHelper.MONHO) &&
-          this.hasCombinedSatTinh
-        ) {
-          this.addSupportBaseComment(4, 'Ref17p62p24b');
-        }
-      }
-    }
-  }
-
-  genRef17p62p25() {
-    if (this.palace.ringType === TuViRing.PhucDuc) {
-      if (
-        this.palace.goodBadChinhTinhBalanceForce > 0 &&
-        this.palace.getNote() > TuViPalace.GOODNOTESREFERENCE
-      ) {
-        this.addSupportBaseComment(8, 'Ref17p62p25a');
-      } else {
-        if (this.palace.badActiveChinhTinhCount > 1 && this.hasSatTinh()) {
-          this.addSupportBaseComment(3, 'Ref17p62p25b');
-        }
-      }
-    }
-  }
 
   genRef17p116p6() {
     if (this.hasStar(TuViStar.VUKHUC)) {
@@ -453,239 +381,25 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
   }
 
   // Cung Xung Chieu: Ref14p52 (Ref17 p23)
-  getCungXungChieu() : TuViPalace {
-    /*
-    let PigBrancheIdx = Branche.PIG.ordinal();
-    let thisBrancheIdx = this.palace.branche.ordinal()
-    let diff = PigBrancheIdx-thisBrancheIdx
-    if ( diff%3===0 ) {
-      console.log(" No Opposite Relation for Palace branche ",this.palace.branche)
-      return null
-    }
-    */
-    return this.palace.getNextPalace(6)
+  getCungXungChieu(): TuViPalace {
+    return this.palace.getNextPalace(6);
   }
 
   hasOppositeStar(starArr: TuViStar[], forceStatus: boolean) {
     return this.palace.hasOppositeStar(starArr, forceStatus);
   }
 
-  genRef17p259p1_6() {
-    // Assume this is Menh or TaiBach or DienTrach Palace
-    const ringType = this.palace.ringType;
-    if (
-      ringType === TuViRing.Menh ||
-      ringType === TuViRing.TaiBach ||
-      ringType === TuViRing.DienTrach
-    ) {
-      if (
-        this.hasGoodDiaStar(TuViStar.TUONGQUAN) ||
-        this.hasPrevNextStar1(TuViStar.THIENLUONG)
-      ) {
-        this.addSupportBaseComment(9, 'Ref17p259p1');
-      }
-      if (
-        this.palace.branche === Branche.HORSE &&
-        this.hasStar(TuViStar.THAIDUONG)
-      ) {
-        this.addSupportBaseComment(9, 'Ref17p259p3');
-      }
-      if (this.palace.branche === Branche.OX) {
-        if (this.hasAllStars(TuViStarHelper.VUTHAM)) {
-          this.addSupportBaseComment(9, 'Ref17p259p4');
-        }
-      }
-      if (this.palace.branche === Branche.GOAT) {
-        if (this.hasPrevNextStarArr2(TuViStarHelper.NHATNGUYET, 2)) {
-          this.addSupportBaseComment(9, 'Ref17p259p4');
-        }
-      }
-      if (BrancheHelper.isOxGoat(this.palace.branche)) {
-        if (this.hasOppositePalaceStarArr(TuViStarHelper.NHATNGUYET, 2)) {
-          this.addSupportBaseComment(9, 'Ref17p259p5');
-        }
-      }
-      if (this.hasStar(TuViStar.THIENMA)) {
-        if (this.hasPrevNextStarArr2(TuViStarHelper.LOCVU, 2)) {
-          this.addSupportBaseComment(9, 'Ref17p259p6');
-        }
-      }
-    }
-    if (this.palace.isThan) {
-      if (this.hasSupportStars0(TuViStarHelper.PHUTUONG)) {
-        this.addSupportBaseComment(9, 'Ref17p259p2');
-      }
-    }
-  }
-
-  genPhuCuc() {
-    this.genRef17p259p1_6();
-  }
-
-  genThienInfluence() {
-    //Update with influence from thien thoi dia thoi
-    this.incPoints(this.palace.bigPeriodOnBirthElementOmen.getPointBase20()/2);
-}
-
   getObservations(ringType: TuViRing) {
     let res: TuViPalaceObservationBase = this;
     let count = 0;
     while (res != null && count <= 12) {
-      if (res.palace.ringType === ringType) {return res;}
+      if (res.palace.ringType === ringType) {
+        return res;
+      }
       res = res.palace.prev.palaceObservation;
       count++;
     }
     return null;
-  }
-
-  genRef17p259p7() {
-    let observations = this.getObservations(TuViRing.Menh);
-    if (observations.hasGoodDiaStar(TuViStar.TUVI)) {
-      this.addSupportBaseComment(10, 'Ref17p259p7');
-    }
-    observations = this.getObservations(TuViRing.QuanLoc);
-    if (
-      observations.hasOppositePalaceStarArr(TuViStarHelper.TAHUU, 2) ||
-      observations.hasOppositePalaceStarArr(TuViStarHelper.NHATNGUYET, 2)
-    ) {
-      this.addSupportBaseComment(10, 'Ref17p259p7');
-    }
-  }
-
-  genRef17p260() {
-    const ringType = this.palace.ringType;
-    if (ringType === TuViRing.Menh || ringType === TuViRing.QuanLoc) {
-      if (
-        this.hasGoodDiaStar(TuViStar.TUVI) ||
-        this.hasGoodDiaStar(TuViStar.THIENPHUR)
-      ) {
-        if (this.hasOppositePalaceStarArr(TuViStarHelper.TUPHUR, 1)) {
-          this.addSupportBaseComment(10, 'Ref17p260p1');
-        }
-      }
-      if (this.hasGoodDiaStar(TuViStar.TUVI)) {
-        if (this.hasSupportStars2(TuViStar.TAPHU, TuViStar.HUUBAT)) {
-          this.addSupportBaseComment(10, 'Ref17p260p2');
-        }
-        if (this.hasSupportStars2(TuViStar.VANXUONG, TuViStar.VANKHUC)) {
-          this.addSupportBaseComment(10, 'Ref17p260p3');
-        }
-        if (this.hasSupportStars2(TuViStar.THIENKHOI, TuViStar.THIENVIET)) {
-          this.addSupportBaseComment(10, 'Ref17p260p3');
-        }
-        if (this.hasSupportStars2(TuViStar.LONGTRI, TuViStar.PHUONGCAC)) {
-          this.addSupportBaseComment(10, 'Ref17p260p3');
-        }
-      }
-      if (
-        this.hasGoodDiaStar(TuViStar.THIENPHUR) ||
-        this.hasGoodDiaStar(TuViStar.TUONGQUAN)
-      ) {
-        if (this.hasOppositePalaceStarArr(TuViStarHelper.PHUTUONG, 1)) {
-          this.addSupportBaseComment(10, 'Ref17p260p4');
-        }
-      }
-      if (ringType === TuViRing.Menh) {
-        if (
-          this.palace.branche === Branche.RABBIT &&
-          this.hasStar(TuViStar.VUKHUC)
-        ) {
-          this.addSupportBaseComment(10, 'Ref17p260p5');
-        }
-      }
-      if (BrancheHelper.isRabbitCock(this.palace.branche)) {
-        if (this.hasAllStars(TuViStarHelper.COCU)) {
-          this.addSupportBaseComment(10, 'Ref17p260p6');
-        }
-      }
-      if (this.hasStar(TuViStar.THATSAT)) {
-        if (BrancheHelper.isTigerMonkey(this.palace.branche)) {
-          if (this.hasOppositePalaceStarArr(TuViStarHelper.TUPHUR, 2)) {
-            this.addSupportBaseComment(10, 'Ref17p260p7');
-          }
-        }
-      }
-
-      if (this.isPartOfTuMo) {
-        if (this.hasAllStars(TuViStarHelper.THAMHOA)) {
-          this.addSupportBaseComment(10, 'Ref17p260p8');
-        }
-      }
-      if (this.palace.branche === Branche.RABBIT) {
-        if (this.hasStar(TuViStar.THAIDUONG)) {
-          this.addSupportBaseComment(10, 'Ref17p260p9');
-        }
-      }
-      if (this.hasStar(TuViStar.THAIAM)) {
-        if (this.palace.branche === Branche.PIG) {
-          this.addSupportBaseComment(10, 'Ref17p260p10');
-        }
-      }
-    }
-  }
-
-  genRef17p261() {
-    const ringType = this.palace.ringType;
-    const branche = this.palace.branche;
-    if (ringType === TuViRing.Menh || ringType === TuViRing.QuanLoc) {
-      if (this.hasStar(TuViStar.THAIAM)) {
-        if (this.palace.branche === Branche.RAT) {
-          this.addSupportBaseComment(10, 'Ref17p261p1');
-        }
-      }
-      if (branche === Branche.OX) {
-        if (
-          TuViStar.THAIDUONG.getPalace().branche === Branche.SNAKE ||
-          TuViStar.THAIAM.getPalace().branche === Branche.PIG
-        ) {
-          this.addSupportBaseComment(10, 'Ref17p261p2');
-        }
-      }
-      if (branche === Branche.GOAT) {
-        if (this.hasOppositePalaceStarArr(TuViStarHelper.NHATNGUYET, 2)) {
-          this.addSupportBaseComment(10, 'Ref17p261p3');
-        }
-        if (
-          TuViStar.THAIDUONG.getPalace().branche === Branche.RABBIT &&
-          TuViStar.THAIAM.getPalace().branche === Branche.PIG
-        ) {
-          this.addSupportBaseComment(10, 'Ref17p261p4');
-        }
-      }
-
-      if (ringType === TuViRing.Menh) {
-        if (this.hasPrevNextStarArr2(TuViStarHelper.NHATNGUYET, 2)) {
-          this.addSupportBaseComment(10, 'Ref17p261p5');
-        }
-      }
-      if (this.hasGoodDiaStar(TuViStar.TUONGQUAN)) {
-        if (this.hasPrevNextStarArr1(TuViStarHelper.LOCMA)) {
-          this.addSupportBaseComment(10, 'Ref17p261p6');
-        }
-      }
-      if (this.hasGoodDiaStar(TuViStar.QUOCAN)) {
-        if (this.hasPrevNextStarArr1(TuViStarHelper.LIEMKINH)) {
-          this.addSupportBaseComment(10, 'Ref17p261p7');
-        }
-      }
-      if (branche === Branche.HORSE && this.hasStar(TuViStar.KINHDUONG)) {
-        if (this.hasSupportStars0([TuViStar.THIENMA])) {
-          this.addSupportBaseComment(10, 'Ref17p261p8');
-        }
-      }
-
-      if (this.isPartOfTuMo) {
-        if (this.hasStar(TuViStar.KINHDUONG)) {
-          if (
-            BrancheHelper.isOxDragonGoatDog(
-              this.tuviHoroscope.birthLunar.getyBranche()
-            )
-          ) {
-            this.addSupportBaseComment(10, 'Ref17p261p9');
-          }
-        }
-      }
-    }
   }
 
   hasSupportStars(starArr: TuViStar[], minCount: number) {
@@ -696,88 +410,13 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
     return this.palace.hasSupportStarWithTransform(star);
   }
 
-  genRef17p262() {
-    const ringType = this.palace.ringType;
-    if (ringType === TuViRing.Menh || ringType === TuViRing.QuanLoc) {
-      if (
-        (this.hasStar(TuViStar.THIENKHOI) &&
-          this.hasOppositePalaceStar(TuViStar.THIENVIET)) ||
-        (this.hasStar(TuViStar.TAPHU) &&
-          this.hasOppositePalaceStar(TuViStar.THIENKHOI))
-      ) {
-        this.addSupportBaseComment(10, 'Ref17p262p1');
-      }
-      if (this.hasSupportStars2(TuViStar.VANXUONG, TuViStar.VANKHUC)) {
-        if (this.hasSupportStars0(TuViStarHelper.TUEKHOIVIET)) {
-          this.addSupportBaseComment(10, 'Ref17p262p2b');
-        } else {
-          this.addSupportBaseComment(8, 'Ref17p262p2a');
-        }
-      }
-      if (this.hasSupportStars0(TuViStarHelper.KHOAQUYENLOC)) {
-        this.addSupportBaseComment(10, 'Ref17p262p3');
-      }
-      if (this.hasSupportStars(TuViStarHelper.QUYENLOCSINH, 3)) {
-        this.addSupportBaseComment(10, 'Ref17p262p4');
-      }
-      if (
-        (this.hasStar(TuViStar.HOAKHOA) &&
-          this.hasSupportStarWithTransform(TuViStar.HOALOC)) ||
-        (this.hasStar(TuViStar.HOALOC) &&
-          this.hasSupportStarWithTransform(TuViStar.HOAKHOA))
-      ) {
-        this.addSupportBaseComment(10, 'Ref17p262p5');
-      }
-      if (
-        (this.hasStar(TuViStar.LOCTON) &&
-          this.hasSupportStarWithTransform(TuViStar.HOALOC)) ||
-        (this.hasStar(TuViStar.HOALOC) &&
-          this.hasSupportStarWithTransform(TuViStar.LOCTON))
-      ) {
-        this.addSupportBaseComment(10, 'Ref17p262p6');
-      }
-      if (this.hasStars(TuViStarHelper.LOCTONHOALOC, 1)) {
-        if (this.hasPrevNextStarArr2(TuViStarHelper.VUTUONG, 2)) {
-          this.addSupportBaseComment(10, 'Ref17p262p7');
-        }
-      }
-    }
-  }
-
-  checkPhiThuongCach() {
-    const starSet = TuViStarHelper.SATPHALIEMTHAM;
-    if (this.hasSupportStars(starSet, starSet.length)) {
-      this.addSupportBaseComment(10, 'Ref17p256p1b');
-      if (
-        this.hasSupportStars(
-          TuViStarHelper.XUONGKHUCKHOIVIETTAHUUKHOAQUYENLOCDUCCACHONGDAOXXX,
-          6
-        )
-      ) {
-        this.incPoints(10);
-      }
-    }
-  }
-
-  genNgheoHenCuc() {
-    const branche = this.palace.branche;
-    if (branche === Branche.TIGER || branche === Branche.MONKEY) {
-      if (this.hasStar(TuViStar.LIEMTRINH) && this.hasTuanTrietKhong) {
-        this.addSupportBaseComment(3, 'Ref17p262p8');
-      }
-      if (this.hasStar(TuViStar.PHAQUAN) && this.hasCombinedSatTinh) {
-        this.addSupportBaseComment(3, 'Ref17p262p9');
-      }
-    }
-  }
-
   genRef20p151c7a() {
     if (this.hasSupportStars0(TuViStarHelper.CUNHAT)) {
       const branche = this.palace.branche;
       if (branche === Branche.TIGER) {
-        this.addSupportBaseComment(8, 'Ref20p151c7a1');
+        this.addSupportBaseComment(8, "Ref20p151c7a1");
       } else {
-        this.addSupportBaseComment(6, 'Ref20p151c7a2');
+        this.addSupportBaseComment(6, "Ref20p151c7a2");
       }
       if (this.hasStars(TuViStarHelper.QUYENPHUONG, 1)) {
         this.incPoints(9);
@@ -802,8 +441,8 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
     menhCucEl: Element
   ) {
     let points = 0;
-    const rel1 = BaziHelper.getRelation(palaceEl,starEl);
-    const rel2 = BaziHelper.getRelation(starEl,menhCucEl);
+    const rel1 = BaziHelper.getRelation(palaceEl, starEl);
+    const rel2 = BaziHelper.getRelation(starEl, menhCucEl);
     switch (rel1) {
       case ElementRelation.GENERATE:
         switch (rel2) {
@@ -879,140 +518,10 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
 
     return points;
   }
-
-  checkThuongCach() {
-    const hasSupportStars = this.hasSupportStars(
-      TuViStarHelper.XUONGKHUCTHUONGCACH,
-      7
-    );
-    if (hasSupportStars) {
-      if (this.hasGoodDiaStars(TuViStarHelper.TUPHUVUTUONG, 3)) {
-        this.addSupportBaseComment(10, 'Ref17p255p1a');
-      }
-      if (this.hasGoodDiaStars(TuViStarHelper.CODONGLUONG, 3)) {
-        if (this.hasGoodDiaStar(TuViStar.NGUYETDUC)) {
-          this.addSupportBaseComment(10, 'Ref17p255p1b1');
-        }
-        if (this.hasGoodDiaStar(TuViStar.THAIAM)) {
-          this.addSupportBaseComment(10, 'Ref17p255p1b2');
-        }
-      }
-      if (this.hasGoodDiaStar(TuViStar.THAIDUONG)) {
-        if (this.hasGoodDiaStar(TuViStar.CUMON)) {
-          this.addSupportBaseComment(10, 'Ref17p255p1c');
-        }
-        if (this.hasGoodDiaStar(TuViStar.THAIAM)) {
-          this.addSupportBaseComment(10, 'Ref17p255p1d');
-        }
-      }
-    }
-  }
-
-  checkTrungCach() {
-    let starArr;
-    if (this.hasStars(TuViStarHelper.CODONGLUONG, 2)) {
-      if (this.hasSupportStars(TuViStarHelper.TAHUUQUANGQUYPHUC, 2)) {
-        if (this.hasStar(TuViStar.NGUYETDUC)) {
-          this.addSupportBaseComment(8, 'Ref17p255p2a1');
-        }
-        if (this.hasStar(TuViStar.THAIAM)) {
-          this.addSupportBaseComment(8, 'Ref17p255p2a2');
-        }
-      }
-      starArr = [
-        TuViStar.TAPHU,
-        TuViStar.HUUBAT,
-        TuViStar.MO,
-        TuViStar.HOAQUYEN,
-        TuViStar.THIENKHOI,
-        TuViStar.THIENVIET,
-        TuViStar.VANXUONG,
-        TuViStar.VANKHUC,
-        TuViStar.TAUTHU,
-      ];
-      if (this.hasSupportStars(starArr,1)) {
-        if (this.hasStar(TuViStar.NGUYETDUC)) {
-          this.addSupportBaseComment(8, 'Ref17p255p2b1');
-        }
-        if (this.hasStar(TuViStar.THAIAM)) {
-          this.addSupportBaseComment(8, 'Ref17p255p2b2');
-        }
-      }
-
-      if (this.hasSupportStars(TuViStarHelper.TAHUUXUONGKHUC,1)) {
-        if (this.hasStar(TuViStar.NGUYETDUC)) {
-          this.addSupportBaseComment(8, 'Ref17p255p2c1');
-        }
-        if (this.hasStar(TuViStar.THAIAM)) {
-          this.addSupportBaseComment(8, 'Ref17p255p2c2');
-        }
-      }
-
-      if (this.hasSupportStars(TuViStarHelper.TAHUUXUONGKHUCTHAICAO,1)) {
-        this.addSupportBaseComment(7, 'Ref17p255p2h');
-      }
-      starArr = [
-        TuViStar.TUONGQUAN,
-        TuViStar.QUOCAN,
-        TuViStar.LONGDUC,
-        TuViStar.PHUONGCAC,
-        TuViStar.THIENHINH,
-        TuViStar.THIENRIEU,
-        TuViStar.HONGLOAN,
-        TuViStar.DAOHOA,
-      ];
-      if (this.hasSupportStars(starArr,1)) {
-        this.addSupportBaseComment(7, 'Ref17p255p2i');
-      }
-    }
-    if (this.hasStars(TuViStarHelper.TUPHUVUTUONG, 3)) {
-      starArr = [
-        TuViStar.LONGDUC,
-        TuViStar.PHUONGCAC,
-        TuViStar.TAPHU,
-        TuViStar.HUUBAT,
-        TuViStar.THIENHINH,
-        TuViStar.THIENRIEU,
-      ];
-      if (this.hasSupportStars(starArr,1)) {
-        this.addSupportBaseComment(7, 'Ref17p255p2d1');
-      }
-    }
-    if (this.hasStar(TuViStar.THIENCO)) {
-      if (this.hasSupportStars(TuViStarHelper.HONGRIEUDAOTHU,1)) {
-        this.addSupportBaseComment(7, 'Ref17p255p2d2');
-      }
-      if (this.hasSupportStars0(TuViStarHelper.HONGTHU)) {
-        this.addSupportBaseComment(7, 'Ref17p255p2e');
-      }
-    }
-    if (this.hasAllStars(TuViStarHelper.SATPHALIEMTHAM)) {
-      if (this.hasSupportStars(TuViStarHelper.HONGDAOTHUDUCCAC, 1)) {
-        this.addSupportBaseComment(7, 'Ref17p255p2g');
-      }
-      if (
-        this.hasStarWithStatusArr(
-          TuViStarHelper.TAHUUQUYENLOCNHATNGUYET,
-          TuViStar.HAMDIA,
-          1
-        )
-      ) {
-        this.addSupportBaseComment(7, 'Ref17p255p2k');
-      }
-    }
-
-    if (this.hasStar(TuViStar.THIENTUONG)) {
-      if (this.hasSupportStars0(TuViStarHelper.PHUFTABUUTUONGQUOC)) {
-        this.addSupportBaseComment(7, 'Ref17p255p2m');
-      }
-    }
-  }
-
-
   genThienDiaInfluence() {
     //Update with influence from thien thoi dia thoi
-    this.incPoints(this.palace.getThienDiaInfluence()/2);
-}
+    this.incPoints(this.palace.getThienDiaInfluence() / 2);
+  }
 
   updateForceFromObservation(influenceObservation: TuViPalaceObservationBase) {
     let points = 4;
@@ -1022,587 +531,71 @@ export abstract class TuViPalaceObservationBase extends ObservationBase {
     this.incPoints(points);
   }
 
-  genQuiCuc() {
-    this.genRef17p259p7();
-    this.genRef17p260();
-    this.genRef17p261();
-    this.genRef17p262();
-  }
-
-  genRef17p289( tuviMenhObservation:TuViPalaceObservationBase,  tuviThanObservation:TuViPalaceObservationBase) {
-
-    const menhBranche = tuviMenhObservation.palace.branche;
-    const yTrunk = this.getyTrunk();
-    if (tuviMenhObservation.hasSupportStars(TuViStarHelper.TUPHUVUTUONG, 4)) {
-        if (this.hasSupportStars(TuViStarHelper.TUDATUYETCUDONG,1) && this.hasCombinedSatTinh) {
-            this.addSupportBaseComment(1, "Ref17p289p1");
-        }
-        if (TrunkHelper.isJiaJi(yTrunk)) {
-            if (this.hasSupportStars0(TuViStarHelper.HONGXUONGTAUKINH)) {
-                this.addSupportBaseComment(9, "Ref17p289p2");
-            }
-        }
-    }
-    if (tuviMenhObservation.hasSupportStars(TuViStarHelper.CONGUYETDONGLUONG, 4)) {
-        if (yTrunk===Trunk.JI) {
-            if (this.hasStars(TuViStarHelper.SATPHALIEMTHAM, 2) && this.hasAllStars(TuViStarHelper.TAHUU)) {
-                this.addSupportBaseComment(8, "Ref17p289p3");
-            }
-        }
-        if (TrunkHelper.isYiXin(yTrunk)) {
-            if (tuviMenhObservation.hasSupportStars0(TuViStarHelper.HUKINHTUEKHACH)) {
-                if (this.hasSupportStars(TuViStarHelper.HUKINHTUEKHACH,1)) {
-                    this.addSupportBaseComment(8, "Ref17p289p4");
-                }
-            }
-
-        }
-    }
-    if (tuviThanObservation.hasSupportStars0(TuViStarHelper.SATPHALIEMTHAM)) {
-        if (this.hasSupportStars(TuViStarHelper.VONGHINHKHOI,1) &&
-        this.hasOppositePalaceStarArr(TuViStarHelper.DAKY, 2)) {
-            this.addSupportBaseComment(1, "Ref17p289p5");
-        }
-    }
-    if (BrancheHelper.isOxGoat(menhBranche) && tuviMenhObservation.hasStars(TuViStarHelper.TUPHUR,1)) {
-        if (this.palace.branche.getElement()===Element.EARTH && this.hasSupportStars(TuViStarHelper.TAHUU,1)) {
-            this.addSupportBaseComment(8, "Ref17p289p6a");
-            if (tuviThanObservation.hasSomeStars(TuViStarHelper.HONGLOCKHOA, 2)) {
-                this.addSupportBaseComment(9, "Ref17p289p6b");
-            }
-        }
-    }
-
-    if (menhBranche===Branche.HORSE && tuviMenhObservation.hasStar(TuViStar.TUVI)) {
-        if (tuviMenhObservation.hasSupportStars0(TuViStarHelper.KHOAQUYENLOCHINHANXUONGKHOIHONGBAT)) {
-            if (this.hasStars(TuViStarHelper.CUSATDALINH, 3)) {
-                this.addSupportBaseComment(1, "Ref17p289p7");
-            }
-        }
-    }
-
-    if (tuviMenhObservation.hasStar(TuViStar.TUVI) && menhBranche===Branche.RAT) {
-        this.addSupportBaseComment(3, "Ref17p289p8a");
-        if ((BrancheHelper.isDragonDog(this.palace.branche)) && this.hasHostileStars()) {
-            this.addSupportBaseComment(3, "Ref17p289p8b");
-        }
-    }
-    if (BrancheHelper.isTigerMonkey(menhBranche)) {
-        if (tuviMenhObservation.hasAllStars(TuViStarHelper.CUNHAT)) {
-            if ( this.hasSupportStars0(TuViStarHelper.SATHINHKIEPKY)) {
-                this.addSupportBaseComment(4, "Ref17p289p9a");
-                if ( this.hasStar(TuViStar.THIENMA)) {
-                    this.addSupportBaseComment(4, "Ref17p289p9b");
-                }
-            }
-        }
-    }
-
-}
-
-genRef17p290( tuviMenhObservation:TuViPalaceObservationBase,  tuviThanObservation: TuViPalaceObservationBase) {
-    const menhBranche = tuviMenhObservation.palace.branche;
-    const thanBranche = tuviThanObservation.palace.branche;
-    if (menhBranche===Branche.HORSE && tuviMenhObservation.hasStar(TuViStar.THAIDUONG)) {
-        if (this.hasSupportStars0(TuViStarHelper.HINHTANGHOKHOC)) {
-            this.addSupportBaseComment(8, "Ref17p290p1");
-        }
-    }
-    if (tuviMenhObservation.hasAllStars(TuViStarHelper.CUKY)) {
-        if (this.hasSupportStars0(TuViStarHelper.TUEDAPHUF)) {
-            this.addSupportBaseComment(4, "Ref17p290p2");
-        }
-    }
-    if (thanBranche===Branche.TIGER && tuviThanObservation.hasAllStars(TuViStarHelper.COTHAIAM)) {
-        if (this.hasSupportStars0(TuViStarHelper.LIEMHOLINHRIEU)) {
-            if (!this.hasAllStars(TuViStarHelper.KHOAPHUONG)) {
-                this.addSupportBaseComment(4, "Ref17p290p3a");
-                if (!this.isMan()) {
-                    this.addSupportBaseComment(4, "Ref17p290p3b");
-                }
-                if (this.hasSupportStars(TuViStarHelper.KIEPHINH,1)) {
-                    if (this.isMan()) {
-                        this.addSupportBaseComment(2, "Ref17p290p3c");
-                    } else {
-                        this.addSupportBaseComment(4, "Ref17p290p3b");
-                    }
-                }
-            }
-        }
-    }
-    if (tuviMenhObservation.hasStar(TuViStar.THAIAM)) {
-        if (menhBranche===Branche.PIG) {
-            if (this.hasSupportStars0(TuViStarHelper.XUONGKHUCQUYENKY)) {
-                this.addSupportBaseComment(8, "Ref17p290p4");
-            }
-        }
-        if (tuviMenhObservation.hasAllStars(TuViStarHelper.HONGHINHRIEUKY)) {
-            if (this.hasSupportStars0(TuViStarHelper.XUONGVU)) {
-                this.addSupportBaseComment(3, "Ref17p290p5");
-            }
-        }
-    }
-
-    if (menhBranche===Branche.RABBIT && tuviMenhObservation.hasStar(TuViStar.THIENTUONG)) {
-        if (tuviMenhObservation.hasSupportStars0(TuViStarHelper.SINHVUONGHONGDAOTAHUUQUYENXUONG)) {
-            if (this.hasSupportStars0(TuViStarHelper.PHAKIEPHINHDA)) {
-                this.addSupportBaseComment(3, "Ref17p290p6");
-            }
-        }
-    }
-
-    const yTrunk = this.getyTrunk();
-
-    if (BrancheHelper.isDragonDog(menhBranche)) {
-        if (tuviMenhObservation.hasOneStar(TuViStarHelper.VUTHAM)) {
-            if (TrunkHelper.isWuGeng(yTrunk)) {
-                if (!this.isMan()) {
-                    if (BaziHelper.isManYangOrWoManYing(this.tuviHoroscope.birthLunar)) {
-                        this.addSupportBaseComment(4, "Ref17p290p7a");
-                        if (this.hasSupportStars0(TuViStarHelper.KINHDA)) {
-                            this.addSupportBaseComment(1, "Ref17p290p7b");
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    if (tuviMenhObservation.hasStar(TuViStar.THATSAT) ||
-            tuviThanObservation.hasStar(TuViStar.THATSAT)) {
-        if (this.hasSupportStars0(TuViStarHelper.KINHDA)) {
-            this.addSupportBaseComment(2, "Ref17p290p8");
-        }
-    }
-    if (tuviMenhObservation.hasAllStars(TuViStarHelper.SATHINHLINH)) {
-        if (this.hasStar(TuViStar.BACHHO)) {
-            this.addSupportBaseComment(3, "Ref17p290p9");
-        }
-    }
-    if (TrunkHelper.isDingXin(yTrunk)) {
-        if (BrancheHelper.isTigerMonkey(menhBranche)) {
-            if (tuviMenhObservation.hasStar(TuViStar.PHAQUAN)) {
-                if (tuviMenhObservation.hasSupportStars0(TuViStarHelper.HOAVIET)) {
-                    this.addSupportBaseComment(7, "Ref17p290p10a");
-                    if (this.hasSupportStars0(TuViStarHelper.MATUYET)) {
-                        this.addSupportBaseComment(3, "Ref17p290p10b");
-                    }
-                }
-            }
-        }
-    }
-}
-
-
-genRef17p291( tuviMenhObservation: TuViPalaceObservationBase,  tuviThanObservation: TuViPalaceObservationBase) {
-    const menhBranche = tuviMenhObservation.palace.branche;
-    if (BrancheHelper.isRatHorse(menhBranche)) {
-        if (tuviMenhObservation.hasAllStars(TuViStarHelper.LIEMTUONG)) {
-            if (this.hasSupportStars(TuViStarHelper.LAVONGTHAMLINHDA,1)) {
-                this.addSupportBaseComment(1, "Ref17p291p1");
-            }
-        }
-    }
-    const yTrunk = this.getyTrunk();
-    if (BrancheHelper.isOxGoat(menhBranche)) {
-        if (TrunkHelper.isJiYi(yTrunk)) {
-          if (this.isMan() &&BaziHelper.isManYangOrWoManYing(this.tuviHoroscope.birthLunar)) {
-                if (tuviMenhObservation.hasAllStars(TuViStarHelper.LIEMSAT)) {
-                    this.addSupportBaseComment(8, "Ref17p291p2a");
-                    if (this.hasSupportStars0(TuViStarHelper.KHOASINH)) {
-                        this.addSupportBaseComment(8, "Ref17p291p2b");
-                    }
-                }
-            }
-        }
-    }
-
-    if (tuviMenhObservation.hasStar(TuViStar.THAMLANG)) {
-        if (this.hasHaoStar()) {
-            this.addSupportBaseComment(4, "Ref17p291p3");
-        }
-        if (this.hasAllStars(TuViStarHelper.LOCTONHOALOC)) {
-            this.addSupportBaseComment(8, "Ref17p291p4");
-        }
-    }
-    if (tuviMenhObservation.hasAllStars(TuViStarHelper.KIEPKHONG) || tuviMenhObservation.hasTuanTrietKhong) {
-        this.addSupportBaseComment(5, "Ref17p291p5");
-        if (tuviMenhObservation.hasAllStars(TuViStarHelper.KIEPKHONG)) {
-            if (this.palace.branche===tuviMenhObservation.palace.branche) {
-                this.addSupportBaseComment(1, "Ref17p291p6");
-            }
-        }
-    }
-    if (tuviMenhObservation.hasAllStars(TuViStarHelper.HOALINH)) {
-        if (this.hasSupportStars0(TuViStarHelper.KIEPKHONGTHUONGSU)) {
-            this.addSupportBaseComment(1, "Ref17p291p7");
-        }
-    }
-    if (tuviMenhObservation.hasAllStars(TuViStarHelper.LOCTONHOALOC)) {
-        if (this.hasHaoStar()) {
-            this.addSupportBaseComment(4, "Ref17p291p8");
-        }
-    }
-    if (tuviMenhObservation.hasHaoStar()) {
-        if (this.hasOneStar(TuViStarHelper.LOCTONHOALOC)) {
-            this.addSupportBaseComment(8, "Ref17p291p9");
-        }
-        if (this.hasHostileStars()) {
-            this.addSupportBaseComment(4, "Ref17p291p10");
-        }
-    }
-    if (tuviMenhObservation.hasOneStar(TuViStarHelper.KHOIVIET) ||
-        tuviThanObservation.hasOneStar(TuViStarHelper.KHOIVIET)) {
-        if (this.palace===tuviMenhObservation.palace ||
-          this.palace===tuviThanObservation.palace) {
-            this.addSupportBaseComment(10, "Ref17p291p11");
-        }
-    }
-    if (tuviMenhObservation.hasStar(TuViStar.TUONGQUAN)) {
-        if (tuviMenhObservation.hasSupportStars0(TuViStarHelper.CAIDAOKHUCMOC)) {
-            this.addSupportBaseComment(4, "Ref17p291p12");
-        }
-    }
-    if (TrunkHelper.isBingRen(yTrunk)) {
-        if (BrancheHelper.isSnakePig(menhBranche)) {
-            if (tuviMenhObservation.hasSupportStars0(TuViStarHelper.TUONGBINHAN)) {
-                this.addSupportBaseComment(8, "Ref17p291p13a");
-                if (this.hasSupportStars0(TuViStarHelper.PHAQUYENLOC)) {
-                    this.addSupportBaseComment(8, "Ref17p291p13b");
-                }
-            }
-        }
-    }
-    if (tuviMenhObservation.palace.chinhTinhCount===0) {
-        if (this.hasStars(TuViStarHelper.SATPHATHAM,1) &&
-        this.hasSupportStars0(TuViStarHelper.DAOHONGSUYTUYET)) {
-            this.addSupportBaseComment(1, "Ref17p291p14");
-        }
-    }
-}
-
-genRef17p292( tuviThanObservation: TuViPalaceObservationBase) {
-  const branche=this.palace.branche;
-  switch (this.getyBranche()) {
-      case Branche.COCK:
-          if (BrancheHelper.isRabbitCock(branche)) {
-              if (this.hasOneStar(TuViStarHelper.KINHDA)) {
-                  this.addSupportBaseComment(2, "Ref17p292p6");
-              }
-          }
-          break;
-      case Branche.DOG:
-          if (BrancheHelper.isDragonDog(branche)) {
-              if (tuviThanObservation.palace.branche===branche) {
-                  this.addSupportBaseComment(2, "Ref17p292p7");
-              }
-          }
-          break;
-      case Branche.DRAGON:
-          if (BrancheHelper.isDragonDog(branche)) {
-              this.addSupportBaseComment(2, "Ref17p292p2");
-              if (tuviThanObservation.palace.branche===branche) {
-                  // To enforce previous rule
-                  this.addSupportBaseComment(2, "Ref17p292p2");
-              }
-          }
-          break;
-      case Branche.GOAT:
-          if (BrancheHelper.isCockPig(branche)) {
-              this.addSupportBaseComment(2, "Ref17p292p4");
-          }
-          break;
-
-      case Branche.MONKEY:
-          if (BrancheHelper.isTigerHorseMonkey(branche)) {
-              if (this.hasAllStars(TuViStarHelper.HOALINH)) {
-                  this.addSupportBaseComment(2, "Ref17p292p5");
-              }
-          }
-          break;
-      case Branche.HORSE:
-      case Branche.OX:
-          if (BrancheHelper.isOxHorse(branche)) {
-              this.addSupportBaseComment(2, "Ref17p292p1");
-              if (this.hasStar(TuViStar.THATSAT)) {
-                this.incPoints(1);
-              }
-          }
-          break;
-      case Branche.PIG:
-          if (BrancheHelper.isSnakePig(branche)) {
-              if (this.hasOneStar(TuViStarHelper.KINHDA)) {
-                  this.addSupportBaseComment(2, "Ref17p292p8");
-              }
-          }
-          break;
-      case Branche.SNAKE:
-          if (BrancheHelper.isSnakePig(branche)) {
-              this.addSupportBaseComment(2, "Ref17p292p3");
-              if (branche===Branche.SNAKE && tuviThanObservation.palace.branche===branche) {
-                  // To enforce previous rule
-                  this.incPoints(1);
-              }
-          }
-          break;
-
-      default:
-          break;
-
-  }
-}
-
-  commentOnMenhThanNPeriod() {
-
-    // Ref17p287
-    const tuviMenhObservation = this.getObservations(TuViRing.Menh);
-    const tuviThanObservation = this.getThanObservations();
-
-    const isMenhFavorable = tuviMenhObservation.hasFavorableStars();
-    const isMenhTUPHUCUNHATCONGUYETDONGLUONG = tuviMenhObservation.hasSomeStar(TuViStarHelper.TUPHUCUNHATCONGUYETDONGLUONG);
-    const isMenhSATPHALIEMTHAM = tuviMenhObservation.hasSomeStar(TuViStarHelper.SATPHALIEMTHAM);
-    const isTUPHUCUNHATCONGUYETDONGLUONG = this.hasSomeStar(TuViStarHelper.TUPHUCUNHATCONGUYETDONGLUONG);
-    const isSATPHALIEMTHAM = this.hasSomeStar(TuViStarHelper.SATPHALIEMTHAM);
-    const isFavorable = this.hasFavorableStars();
-
-    if (isMenhFavorable && tuviThanObservation.isFavorable()) {
-        this.addSupportBaseComment(5, "Ref17p287p1");
-    }
-
-    if (!isMenhFavorable && !tuviThanObservation.isFavorable() && this.hasHostileStars()) {
-      this.addSupportBaseComment(1, "Ref17p287p2");
-    }
-
-
-    if (isMenhTUPHUCUNHATCONGUYETDONGLUONG && isMenhFavorable) {
-        if (isTUPHUCUNHATCONGUYETDONGLUONG && isFavorable) {
-          this.addSupportBaseComment(9, "Ref17p287p3");
-        }
-    }
-    if (isMenhSATPHALIEMTHAM && (isMenhFavorable)) {
-        if (isSATPHALIEMTHAM) {
-            if (isFavorable) {
-              this.addSupportBaseComment(9, "Ref17p287p4a");
-            } else {
-              this.addSupportBaseComment(6, "Ref17p287p4b");
-            }
-        }
-    }
-    if (isMenhTUPHUCUNHATCONGUYETDONGLUONG && isMenhFavorable) {
-        if (isSATPHALIEMTHAM) {
-            if (isFavorable) {
-              this.addSupportBaseComment(7, "Ref17p287p5a");
-            } else {
-              this.addSupportBaseComment(3, "Ref17p287p5b");
-            }
-        }
-    }
-    if (isMenhSATPHALIEMTHAM && (isMenhFavorable)) {
-        if (isTUPHUCUNHATCONGUYETDONGLUONG) {
-            if (isFavorable) {
-                this.addSupportBaseComment(7, "Ref17p287p6a");
-            } else {
-                this.addSupportBaseComment(3, "Ref17p287p6b");
-            }
-        }
-    }
-
-
-    if (tuviMenhObservation.hasAllStars(TuViStarHelper.VUTUONG) && isMenhFavorable) {
-        if (isTUPHUCUNHATCONGUYETDONGLUONG || isSATPHALIEMTHAM) {
-            if (isFavorable) {
-              this.addSupportBaseComment(7, "Ref17p287p7");
-            }
-        }
-    }
-
-    if (isMenhTUPHUCUNHATCONGUYETDONGLUONG || isMenhSATPHALIEMTHAM) {
-        if (isMenhFavorable) {
-            if (this.hasStars(TuViStarHelper.VUTUONG,1)) {
-                if (isFavorable) {
-                  this.addSupportBaseComment(9, "Ref17p288p1");
-                } else {
-                  this.addSupportBaseComment(7, "Ref17p288p1");
-                }
-            }
-        }
-
-    }
-    if (tuviMenhObservation.palace.chinhTinhCount === 0) {
-        if (isSATPHALIEMTHAM) {
-            if (isFavorable) {
-                this.addSupportBaseComment(8, "Ref17p288p2a");
-            } else {
-                this.addSupportBaseComment(5, "Ref17p288p2b");
-            }
-        }
-        if (this.palace.chinhTinhCount === 0) {
-            if (this.hasTuanTrietKhong) {
-                this.addSupportBaseComment(9, "Ref17p288p3b");
-            } else {
-                this.addSupportBaseComment(3, "Ref17p288p3a");
-            }
-        }
-    }
-    if (!isMenhFavorable && tuviMenhObservation.palace === this.palace) {
-        if (!(this.hasStar(TuViStar.THIENKHONG) && this.hasStar(TuViStar.KIEPSAT))) {
-            this.addSupportBaseComment(8, "Ref17p288p4");
-        } else {
-          this.incPoints(2);
-        }
-    }
-    this.genRef17p289(tuviMenhObservation, tuviThanObservation);
-    this.genRef17p290(tuviMenhObservation, tuviThanObservation);
-    this.genRef17p291(tuviMenhObservation, tuviThanObservation);
-    this.genRef17p292( tuviThanObservation);
-}
-
-    // Ref17p286
-commentTuViElementNTieuHan() {
-  const tuViElement = this.getTuViElement();
-  if (BaziHelper.getRelation(
-        tuViElement,
-        this.palace.branche.getElement()).isFavorable()) {
-    this.addSupportBaseComment(3, "Ref17p286p1_5");
-    if (tuViElement === Element.EARTH) {
-      this.addSupportBaseComment(3, "Ref17p286p5");
-    }
-    if (tuViElement === Element.WATER) {
-      this.addSupportBaseComment(3, "Ref17p286p3");
-    }
-    if (this.hasTuanTrietKhong || this.hasManyGoodStars) {
-      this.addSupportBaseComment(8, "Ref17p286p6");
-    }
-  }
-}
-
-genTuViPeriod(daihan:TuViPalace,yDaihan:TuViPalace,yTieuHan:TuViPalace,) {
-  if (this.hasStar(TuViStar.TUVI)) {
-      if (BrancheHelper.isSnakePigRabbitCock(this.palace.branche)) {
-        this.addSupportBaseComment(3, "Ref17p294p1");
-      }
-      if (this.hasTuanTrietKhong) {
-          const map = this.tuviHoroscope.tuviPalaceStarMap;
-           if (daihan.branche===yTieuHan.branche) {
-            this.addSupportBaseComment(4, "Ref17p294p2");
-          }
-          if (yDaihan.branche===yTieuHan.branche) {
-            this.addSupportBaseComment(2, "Ref17p294p2");
-          }
-      }
-      if (this.hasStars(TuViStarHelper.PHUVUTUONGTAHUUKHOAQUYENLOC, 3)) {
-        this.addSupportBaseComment(9, "Ref17p294p3");
-      }
-      if (this.hasOneStar(TuViStarHelper.KHOIVIET)) {
-        this.addSupportBaseComment(8, "Ref17p294p4");
-      }
-      if (this.hasStars(TuViStarHelper.TAMKHONGKIETKY, 3)) {
-        this.addSupportBaseComment(3, "Ref17p294p5");
-      }
-      if (this.hasStars(TuViStarHelper.KINHDAKIEPKY, 3)) {
-        this.addSupportBaseComment(4, "Ref17p294p6");
-      }
-  }
-}
-
-
-evalPeriodStatuses (  studyLunar: Lunar) {
-  // Common for all
-  // Ref17p292
-  const birthBranche=this.getyBranche()
-  const periodYearBranche = studyLunar.getyBranche();
-  const periodPalace = this.palace.getPalaceWithBranche(periodYearBranche);
-  const periodHanBranche = periodPalace.branche;
-  // Ref17p293
-  if ( this.hasSomeStars(TuViStarHelper.NorthStarGroup,3) ) {
-    if ( this.tuviHoroscope.tuviPalaceStarMap.isDuongNamAmNu ) {
-      this.incPoints(8);
-    }
-  } else {
-    if ( this.hasSomeStars(TuViStarHelper.SouthStarGroup,3) ) {
-      if ( !this.tuviHoroscope.tuviPalaceStarMap.isDuongNamAmNu ) {
+  evalPeriodStatuses(studyLunar: Lunar) {
+    // Common for all
+    // Ref17p292
+    const birthBranche = this.getyBranche();
+    const periodYearBranche = studyLunar.getyBranche();
+    const periodPalace = this.palace.getPalaceWithBranche(periodYearBranche);
+    const periodHanBranche = periodPalace.branche;
+    // Ref17p293
+    if (this.hasSomeStars(TuViStarHelper.NorthStarGroup, 3)) {
+      if (this.tuviHoroscope.tuviPalaceStarMap.isDuongNamAmNu) {
         this.incPoints(8);
       }
+    } else {
+      if (this.hasSomeStars(TuViStarHelper.SouthStarGroup, 3)) {
+        if (!this.tuviHoroscope.tuviPalaceStarMap.isDuongNamAmNu) {
+          this.incPoints(8);
+        }
+      }
+    }
+    const isBadPeriod =
+      BrancheHelper.isBadYearAgeNPeriod(birthBranche, periodHanBranche) ||
+      BrancheHelper.isClashYearAgeNPeriod(
+        birthBranche,
+        periodYearBranche,
+        this.palace
+      );
+    //
+    this.currPeriodComplementForceFactor = 0;
+    if (isBadPeriod) {
+      if (!this.hasManyGoodStars())
+        this.currPeriodComplementForceFactor = -0.25;
     }
   }
-  const isBadPeriod=
-          BrancheHelper.isBadYearAgeNPeriod(birthBranche,periodHanBranche) ||
-          BrancheHelper.isClashYearAgeNPeriod(birthBranche,periodYearBranche, this.palace)
-          ;
-  //
-  this.currPeriodComplementForceFactor = 0;
-  if ( isBadPeriod ) {
-      if ( ! this.hasManyGoodStars() )
-          this.currPeriodComplementForceFactor = -0.25;
-  }
 
+  commentOnStarPeriod(
+    currAge: number,
+    studyLunar: Lunar,
+    isPeriodEnd: boolean,
+    isDayPeriod: boolean
+  ) {
+    const map = this.tuviHoroscope.tuviPalaceStarMap;
+    const daihan = map.getDaiVanPalaceForAge(currAge,studyLunar.birthDate);
+    const daihanObs = daihan.palaceObservation;
+    const yDaihan = map.getTuViStudyYearBrancheDaiHan(currAge, daihan,studyLunar.birthDate);
+    const yDaiHanObs = yDaihan.palaceObservation;
+    const yTieuHan = map.getTuViStudyYearBrancheTieuHan(
+      studyLunar.getyBranche(),
+      currAge
+    );
+    this.evalPeriodStatuses(studyLunar);
 
-}
-
-commentOnStarPeriod( currAge: number,  studyLunar: Lunar,  isPeriodEnd: boolean,  isDayPeriod: boolean) {
-  const map = this.tuviHoroscope.tuviPalaceStarMap;
-  const daihan = map.getDaiVanPalaceForAge(currAge);
-  const daihanObs = daihan.palaceObservation;
-  const yDaihan =  map.getTuViStudyYearBrancheDaiHan(currAge,daihan);
-  const yDaiHanObs = yDaihan.palaceObservation;
-  const yTieuHan=   map.getTuViStudyYearBrancheTieuHan(studyLunar.getyBranche(), currAge);
-  this.evalPeriodStatuses(studyLunar);
-  this.genTuViPeriod(daihan,yDaihan, yTieuHan );
-
-
-  if ( isDayPeriod ) {
+    if (isDayPeriod) {
       // Nam Dau stars
-      this.genThaiAmPeriod();
-      this.genThamLangPeriod();
-      this.genCuMonPeriod(daihanObs);
-      this.genLiemTrinhPeriod();
-      this.genVuKhucPeriod();
-      this.genPhaQuanPeriod();
-      // Bac dau star group
-      this.genThienDongPeriod();
-      this.genThaiDuongPeriod();
-      this.genThienPhuRPeriod();
-      this.genThienTuongPeriod();
-      this.genThatSatPeriod();
-      this.genThienCoPeriod(daihanObs);
-  } else {
       // Ref17p293
-      if ( isPeriodEnd ) {
-          // Nam Dau stars
-          this.genThaiAmPeriod();
-          this.genThamLangPeriod();
-          this.genCuMonPeriod(daihanObs);
-          this.genLiemTrinhPeriod();
-          this.genVuKhucPeriod();
-          this.genPhaQuanPeriod();
-          this.genKinhDuongPeriod();
-          this.genDaLaPeriod();
-          this.genLocTonPeriod(daihanObs);
-          this.genTaHuuPeriod(TuViStar.TAPHU);
-          this.genTaHuuPeriod(TuViStar.HUUBAT);
-          this.genXuongKhucPeriod(TuViStar.VANXUONG);
+      if (isPeriodEnd) {
+        // Nam Dau stars
       } else {
-          // Bac dau star group
-          this.genThienDongPeriod();
-          this.genThaiDuongPeriod();
-          this.genThienPhuRPeriod();
-          this.genThienTuongPeriod();
-          this.genThienLuongPeriod();
-          this.genThatSatPeriod();
-          this.genThienCoPeriod(daihanObs);
-          this.genHoaTinhPeriod();
-          this.genLinhTinhPeriod();
-          this.genXuongKhucPeriod(TuViStar.VANKHUC);
-          this.genThienKhoiPeriod();
-          this.genThienVietPeriod();
+        // Bac dau star group
+        this.genThienVietPeriod();
       }
-      this.genDiaKhongKiepPeriod(TuViStar.DIAKHONG);
-      this.genDiaKhongKiepPeriod(TuViStar.DIAKIEP);
       this.genHoaQuyenPeriod();
       this.genHoaKhoaPeriod();
       this.genHoaKyPeriod();
-      this.genDaiTieuHaoPeriod(TuViStar.DAIHAO,daihanObs,yDaiHanObs);
-      this.genDaiTieuHaoPeriod(TuViStar.TIEUHAO,daihanObs,yDaiHanObs);
+      this.genDaiTieuHaoPeriod(TuViStar.DAIHAO, daihanObs, yDaiHanObs);
+      this.genDaiTieuHaoPeriod(TuViStar.TIEUHAO, daihanObs, yDaiHanObs);
       this.genTangMonPeriod();
       this.genBachHoPeriod();
       this.genLonnTriPhuongCacPeriod(TuViStar.LONGTRI);
@@ -1616,35 +609,25 @@ commentOnStarPeriod( currAge: number,  studyLunar: Lunar,  isPeriodEnd: boolean,
       this.genQuocAnPeriod();
       this.genDuongPhuPeriod();
       this.genThienMaPeriod(daihanObs);
-      this.genGiaiThanPeriod(daihanObs,yDaiHanObs);
+      this.genGiaiThanPeriod(daihanObs, yDaiHanObs);
       this.genThienKhongPeriod();
       this.genTuanKhongPeriod();
       this.genTrietKhongPeriod(currAge);
+    }
   }
-}
 
-
-
-
-commentOnYearPeriod( currAge: number, lunar: Lunar, isPeriodEnd: boolean) {
+  commentOnYearPeriod(currAge: number, lunar: Lunar, isPeriodEnd: boolean) {
     // Done in another place this.initComment();
-    this.commentOnMenhThanNPeriod();
-    this.commentOnStarPeriod(currAge, lunar,isPeriodEnd,false);
+    this.commentOnStarPeriod(currAge, lunar, isPeriodEnd, false);
+    this.filterObservation(this.getTuViPeriodYearXHeader(), false);
+    this.filterObservation(this.getTuViPeriodXHeader(), false);
+    this.filterObservation(this.getTuViYearXHeader(), false);
     this.filterObservation(this.getTuViPeriodHeader(), false);
     this.filterObservation(this.getTuViYearHeader(), false);
-}
-
-
+  }
 
   commentOnThan() {
     if (this.palace.isThan) {
-      this.genRef17p62p20();
-      this.genRef17p62p22();
-      this.genRef17p62p23();
-      this.genRef17p62p24();
-      this.genRef17p62p25();
-      this.checkPhiThuongCach();
-      this.genNgheoHenCuc();
       this.genRef20p151c7a();
       this.palace.starSet.forEach((tuViStar) => {
         if (tuViStar.isChinhTinh()) {
@@ -1661,1721 +644,1393 @@ commentOnYearPeriod( currAge: number, lunar: Lunar, isPeriodEnd: boolean) {
     }
   }
 
-  genThaiAmPeriod() {
-    if (this.hasStar(TuViStar.THAIAM)) {
-            if (TuViStar.THAIAM.isFavorable()) {
-                if (this.isFavorable()) {
-                    this.addSupportBaseComment(9, "Ref17p296p13");
-                }
-            } else {
-                if (this.hasHostileStars()) {
-                    this.addSupportBaseComment(3, "Ref17p296p14");
-                    if (this.hasOneStar(TuViStarHelper.DATUEHO)) {
-                        this.addSupportBaseComment(2, "Ref17p297p1");
-                    }
-                }
-            }
-            if (this.hasOneStar(TuViStarHelper.TRISAT)) {
-                this.addSupportBaseComment(5, "Ref17p297p2");
-            }
-            if (this.hasAllStars(TuViStarHelper.DAKY)) {
-                this.addSupportBaseComment(3, "Ref17p297p3");
-            }
-            if (this.hasAllStars(TuViStarHelper.HOALINH)) {
-                this.addSupportBaseComment(4, "Ref17p297p4");
-            }
-            if (this.hasStar(TuViStar.THIENHINH)) {
-                this.addSupportBaseComment(3, "Ref17p297p5");
-            }
+  genThienVietPeriod() {
+    if (this.hasStar(TuViStar.THIENVIET)) {
+      if (this.hasStars(TuViStarHelper.TUPHURXUONGKHUCKHOIVIET, 4)) {
+        this.addSupportBaseComment(9, "Ref17p304p2");
+      }
+      if (this.hasAllStars(TuViStarHelper.HINHLINH)) {
+        this.addSupportBaseComment(3, "Ref17p304p3");
+      }
     }
-}
+  }
 
-genThamLangPeriod() {
-    if (this.hasStar(TuViStar.THAMLANG)) {
-        if (TuViStar.THAMLANG.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(7, "Ref17p297p6a");
-                if (this.isPartOfTuMo) {
-                    if (BrancheHelper.isOxDragonGoatDog(this.getyBranche())) {
-                        this.addSupportBaseComment(8, "Ref17p297p6b");
-                        if (this.hasSupportStars(TuViStarHelper.HOALINH, 2)) {
-                            this.addSupportBaseComment(8, "Ref17p297p6c");
-                        }
-                    }
-                }
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(4, "Ref17p297p7");
-            }
-        }
-        if (this.hasAllStars(TuViStarHelper.VULOCMA)) {
-            this.addSupportBaseComment(7, "Ref17p297p8");
-        }
-        if (this.hasAllStars(TuViStarHelper.HONGDAO)) {
-            this.addSupportBaseComment(7, "Ref17p297p9");
-        }
-        if (this.hasOneStar(TuViStarHelper.KYLUONG)) {
-            this.addSupportBaseComment(3, "Ref17p297p10");
-        }
-        if (this.hasAllStars(TuViStarHelper.KYRIEU)) {
-            this.addSupportBaseComment(3, "Ref17p297p11");
-        }
-        if (this.hasAllStars(TuViStarHelper.KIEPKHONG)) {
-            this.addSupportBaseComment(4, "Ref17p297p12");
-        }
-        if (this.hasStar(TuViStar.BACHHO)) {
-            this.addSupportBaseComment(4, "Ref17p297p13");
-            if (BrancheHelper.isTigerDog(this.palace.branche)) {
-                this.addSupportBaseComment(4, "Ref17p297p13");
-            }
-        }
+  genHoaLocPeriod() {
+    if (this.hasStar(TuViStar.HOALOC)) {
+      if (this.hasOppositePalaceStar(TuViStar.LOCTON)) {
+        this.addSupportBaseComment(8, "Ref17p304p4");
+      }
+      if (this.hasAllStars(TuViStarHelper.THAMVU)) {
+        this.addSupportBaseComment(8, "Ref17p304p5");
+      }
     }
-}
+  }
 
-genCuMonPeriod(daihanObs:TuViPalaceObservationBase ) {
-    if (this.hasStar(TuViStar.CUMON)) {
-        if (TuViStar.CUMON.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p297p14aRef20p155L3");
-                if (this.palace.branche===Branche.PIG && this.hasOneStar(TuViStarHelper.LOCTONHOALOC)) {
-                    this.addSupportBaseComment(6, "Ref17p297p14bRef20p155L4");
-                }
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(4, "Ref17p298p1aRef20p155L5");
-                if (!daihanObs.isFavorable()) this.incPoints(2); // Ref20p155j5
-                if (this.isPartOfTuMo) {
-                    this.addSupportBaseComment(1, "Ref17p298p1b");
-                }
-            }
+  genHoaQuyenPeriod() {
+    if (this.hasStar(TuViStar.HOAQUYEN)) {
+      if (TuViStar.HOAQUYEN.isFavorable()) {
+        if (this.isFavorable()) {
+          this.addSupportBaseComment(8, "Ref17p304p6");
         }
-        if (this.hasStar(TuViStar.HOAKY)) {
-            this.addSupportBaseComment(3, "Ref17p298p2Ref20p155L1");
+      } else {
+        if (this.hasHostileStars()) {
+          this.addSupportBaseComment(4, "Ref17p304p7");
         }
-        if (this.hasStar(TuViStar.TANGMON)) {
-            this.addSupportBaseComment(3, "Ref17p298p3");
-        }
-        if (this.hasAllStars(TuViStarHelper.TANGHOALINH)) {
-            this.addSupportBaseComment(3, "Ref17p298p4Ref20p155L6");
-        }
+      }
+      if (this.hasOneStar(TuViStarHelper.THAMVU)) {
+        this.addSupportBaseComment(8, "Ref17p304p8");
+      }
+      if (this.hasTuanTrietKhong) {
+        this.addSupportBaseComment(5, "Ref17p304p9");
+      }
     }
-}
+  }
 
-genThienTuongPeriod() {
-    if (this.hasStar(TuViStar.THIENTUONG)) {
-        if (TuViStar.THIENTUONG.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p298p5");
-            }
-        } else {
-            if (this.hasHostileStars() && this.hasCombinedSatTinh) {
-                this.addSupportBaseComment(5, "Ref17p298p6");
-            }
+  genHoaKhoaPeriod() {
+    if (this.hasStar(TuViStar.HOAKHOA)) {
+      if (TuViStar.HOAKHOA.isFavorable()) {
+        if (this.isFavorable()) {
+          this.addSupportBaseComment(8, "Ref17p304p10");
         }
-        if (this.hasAllStars(TuViStarHelper.KIEPKHONG)) {
-            this.addSupportBaseComment(5, "Ref17p298p7");
-        }
-        if (this.hasAllStars(TuViStarHelper.KHOIHINH)) {
-            this.addSupportBaseComment(3, "Ref17p298p8");
-        }
-        if (this.hasTuanTrietKhong) {
-            this.addSupportBaseComment(3, "Ref17p298p9a");
-            if (this.palace.ringType===TuViRing.ThienDi) {
-                this.addSupportBaseComment(2, "Ref17p298p9b");
-            }
-        }
+      }
+      if (this.hasStars(TuViStarHelper.XUONGKHUCKHOIVIET, 3)) {
+        this.addSupportBaseComment(8, "Ref17p304p11");
+      }
     }
-}
+  }
 
-genThienLuongPeriod() {
-    if (this.hasStar(TuViStar.THIENLUONG)) {
-        if (TuViStar.THIENLUONG.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p298p10");
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(5, "Ref17p299p1a");
-                if (BrancheHelper.isRatPig(this.palace.branche)) {
-                    this.addSupportBaseComment(5, "Ref17p299p1b");
-                }
-            }
+  genHoaKyPeriod() {
+    if (this.hasStar(TuViStar.HOAKY)) {
+      if (TuViStar.HOAKY.isFavorable()) {
+        if (this.isFavorable()) {
+          this.addSupportBaseComment(7, "Ref17p305p1a");
         }
-        if (this.hasCombinedSatTinh) {
-            this.addSupportBaseComment(3, "Ref17p299p2");
+        if (this.hasAllStars(TuViStarHelper.NHATNGUYET)) {
+          this.addSupportBaseComment(8, "Ref17p305p1b");
         }
+      } else {
+        if (this.hasHostileStars()) {
+          this.addSupportBaseComment(4, "Ref17p305p2");
+        }
+      }
+      if (this.hasStar(TuViStar.TUEPHA)) {
+        this.addSupportBaseComment(5, "Ref17p305p3");
+      }
+      if (this.hasAllStars(TuViStarHelper.PHAKINH)) {
+        this.addSupportBaseComment(4, "Ref17p305p4");
+      }
+      if (this.hasAllStars(TuViStarHelper.SATDA)) {
+        this.addSupportBaseComment(3, "Ref17p305p5");
+      }
+      if (this.hasAllStars(TuViStarHelper.DAHO)) {
+        this.addSupportBaseComment(3, "Ref17p305p6");
+      }
+      if (this.hasAllStars(TuViStarHelper.KINHDA)) {
+        this.addSupportBaseComment(3, "Ref17p305p7");
+      }
+      if (this.hasAllStars(TuViStarHelper.KHONGKIEP)) {
+        this.addSupportBaseComment(3, "Ref17p305p8");
+      }
+      if (this.hasAllStars(TuViStarHelper.KIEPHINH)) {
+        this.addSupportBaseComment(3, "Ref17p305p9");
+      }
+      if (this.hasAllStars(TuViStarHelper.HONGDAO)) {
+        this.addSupportBaseComment(5, "Ref17p305p10");
+      }
     }
-}
+  }
 
-genThatSatPeriod() {
-    if (this.hasStar(TuViStar.THATSAT)) {
-        if (TuViStar.THATSAT.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p299p3a");
-                if (BrancheHelper.isTigerMonkey(this.palace.branche)) {
-                    this.addSupportBaseComment(8, "Ref17p299p3b");
-                }
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(4, "Ref17p299p4a");
-                if (this.hasCombinedSatTinh) {
-                    this.addSupportBaseComment(4, "Ref17p299p4b");
-                }
-                if (this.hasAllStars(TuViStarHelper.KINHDA)) {
-                    this.addSupportBaseComment(4, "Ref17p299p4b");
-                }
-                if (BrancheHelper.isDragonDog(this.palace.branche)) {
-                    this.addSupportBaseComment(4, "Ref17p299p4c");
-                }
-            }
+  genDaiTieuHaoPeriod(
+    haoStar: TuViStar,
+    daihanObs: TuViPalaceObservationBase,
+    yDaihanObs: TuViPalaceObservationBase
+  ) {
+    if (this.hasStar(haoStar)) {
+      if (haoStar.isFavorable()) {
+        if (this.isFavorable()) {
+          this.addSupportBaseComment(8, "Ref17p305p11");
         }
-        if (this.hasStars(TuViStarHelper.LIEMTHAMPHUONG, 2)) {
-            this.addSupportBaseComment(6, "Ref17p299p5");
+      } else {
+        if (this.hasHostileStars()) {
+          this.addSupportBaseComment(4, "Ref17p305p12a");
+          if (this.hasStars(TuViStarHelper.VUPHURLOC, 2)) {
+            this.addSupportBaseComment(3, "Ref17p305p12b");
+          }
         }
-        if (this.hasAllStars(TuViStarHelper.PHAHINH)) {
-            this.addSupportBaseComment(4, "Ref17p299p6");
+      }
+
+      if (
+        daihanObs.hasSupportStars0(TuViStarHelper.KHONGKIEPSUYPHUTOAITUKY) ||
+        yDaihanObs.hasSupportStars0(TuViStarHelper.KHONGKIEPSUYPHUTOAITUKY)
+      ) {
+        this.addSupportBaseComment(3, "Ref17p305p13");
+        if (
+          this.palace.isTieuHan() &&
+          (this.hasSupportStars0(TuViStarHelper.HINHPHIPHUBENHMOPHUCHO) ||
+            this.palace.isMenh())
+        ) {
+          this.addSupportBaseComment(1, "Ref17p305p13");
         }
-        if (this.hasStars(TuViStarHelper.PHAHAOMOCKY, 2)) {
-            this.addSupportBaseComment(4, "Ref17p299p7");
-        }
-        if (this.hasStars(TuViStarHelper.KINHPHUCKHONGHAOHOA, 3)) {
-            this.addSupportBaseComment(2, "Ref17p299p8");
-        }
-        if (this.hasHaoStar()) {
-            this.addSupportBaseComment(3, "Ref17p299p9");
-        }
-        if (this.hasStar(TuViStar.HOAKY)) {
-            this.addSupportBaseComment(3, "Ref17p299p10");
-        }
+      }
+      if (this.hasStar(TuViStar.PHAQUAN)) {
+        this.addSupportBaseComment(4, "Ref17p305p14");
+      }
+      if (this.hasAllStars(TuViStarHelper.KIEPHINH)) {
+        this.addSupportBaseComment(4, "Ref17p305p15");
+      }
+      if (this.hasStar(TuViStar.THIENTHUONG)) {
+        this.addSupportBaseComment(4, "Ref17p306p1");
+      }
+      if (this.hasAllStars(TuViStarHelper.KYMOC)) {
+        this.addSupportBaseComment(4, "Ref17p306p2");
+      }
+      if (this.hasStar(TuViStar.TUYET)) {
+        this.addSupportBaseComment(3, "Ref17p306p3");
+      }
     }
-}
+  }
 
-genPhaQuanPeriod() {
-    if (this.hasStar(TuViStar.PHAQUAN)) {
-        if (TuViStar.PHAQUAN.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p299p11aRef20p170J1a");
-                if (this.hasStars(TuViStarHelper.XUONGKHUCKHOIVIET, 2)) {
-                    this.addSupportBaseComment(8, "Ref17p299p11b");
-                }
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(4, "Ref17p299p12aRef20p170J1b");
-                if (this.hasCombinedSatTinh) {
-                    this.addSupportBaseComment(3, "Ref17p299p12b");
-                }
-                if (!this.isMan()) {
-                    this.addSupportBaseComment(4, "Ref17p299p12c");
-                }
-            }
-        }
-        if (this.hasAllStars(TuViStarHelper.LIEMHOA)) {
-            this.addSupportBaseComment(4, "Ref17p300p1Ref20p170J3");
-        }
-        if (this.hasOneStar(TuViStarHelper.SATLINH)) {
-            this.addSupportBaseComment(4, "Ref17p300p2");
-        }
-        if (this.hasStar(TuViStar.THIENHINH)) {
-            this.addSupportBaseComment(4, "Ref17p300p3");
-        }
-        if (this.hasAllStars(TuViStarHelper.HINHLINHVIET)) {
-            this.addSupportBaseComment(4, "Ref17p300p4Ref20p170J4");
-        }
-        if (this.hasStar(TuViStar.PHUONGCAC)) {
-            this.addSupportBaseComment(4, "Ref17p300p5");
-        }
-        if (this.hasOneStar(TuViStarHelper.TUEKY)) {
-            this.addSupportBaseComment(4, "Ref17p300p6Ref20p170J2");
-        }
-        if (this.hasStar(TuViStar.QUATU)) {
-            this.addSupportBaseComment(4, "Ref17p300p7");
-        }
-        if (this.hasAllStars(TuViStarHelper.PHUCTUONGRIEUTHAI)) {
-            this.addSupportBaseComment(4, "Ref17p300p8Ref20p170J5");
-        }
-    }
-}
-
-genKinhDuongPeriod() {
-  const branche=this.palace.branche;
-    if (this.hasStar(TuViStar.KINHDUONG)) {
-        if (TuViStar.KINHDUONG.isFavorable()) {
-            if (this.isFavorable()) {
-              if (BrancheHelper.isOxDragonGoatDog(branche)) {
-                    this.addSupportBaseComment(8, "Ref17p300p9b");
-                } else {
-                    this.addSupportBaseComment(5, "Ref17p300p9a");
-                }
-            }
-        } else {
-            if (this.hasHostileStars()) {
-              if (BrancheHelper.isOxDragonGoatDog(branche)) {
-                    this.addSupportBaseComment(6, "Ref17p300p10a");
-                } else {
-                    this.addSupportBaseComment(5, "Ref17p300p10a");
-                    if (this.hasCombinedSatTinh) {
-                        this.addSupportBaseComment(4, "Ref17p300p10b");
-                    }
-                }
-            }
-        }
-        if (this.hasOneStar(TuViStarHelper.DAKHONGKIEP)) {
-            this.addSupportBaseComment(3, "Ref17p300p11");
-        }
-        if (this.hasOneStar(TuViStarHelper.DAMA)) {
-            this.addSupportBaseComment(5, "Ref17p300p12");
-        }
-        if (this.hasOneStar(TuViStarHelper.KIEPCAI)) {
-            this.addSupportBaseComment(5, "Ref17p300p13");
-        }
-        if (this.hasOneStar(TuViStarHelper.DACAI)) {
-            this.addSupportBaseComment(5, "Ref17p300p14");
-        }
-        if (this.hasStar(TuViStar.THIENRIEU)) {
-            this.addSupportBaseComment(5, "Ref17p300p15");
-        }
-        if (this.hasOneStar(TuViStarHelper.KIEPHA)) {
-            this.addSupportBaseComment(3, "Ref17p300p16");
-        }
-        if (this.hasOneStar(TuViStarHelper.KIEPKY)) {
-            this.addSupportBaseComment(4, "Ref17p300p17");
-        }
-        if (this.hasStar(TuViStar.LUCSI)) {
-            this.addSupportBaseComment(5, "Ref17p300p18");
-        }
-        if (this.hasStar(TuViStar.THIENHINH)) {
-            this.addSupportBaseComment(5, "Ref17p300p19");
-        }
-    }
-}
-
-genDaLaPeriod() {
-    if (this.hasStar(TuViStar.DALA)) {
-        if (TuViStar.DALA.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(6, "Ref17p301p1");
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(2, "Ref17p301p2");
-            }
-        }
-        if (this.hasStar(TuViStar.THAITUE)) {
-            this.addSupportBaseComment(4, "Ref17p301p3");
-            if (this.hasStar(TuViStar.HOAKY)) {
-                this.addSupportBaseComment(3, "Ref17p301p4");
-            }
-            if (this.hasStar(TuViStar.THANHLONG)) {
-                this.addSupportBaseComment(3, "Ref17p301p5");
-            }
-            if (this.hasStar(TuViStar.KIEPSAT)) {
-                this.addSupportBaseComment(3, "Ref17p301p6");
-            }
-        }
-        if (this.hasAllStars(TuViStarHelper.HOKY)) {
-            this.addSupportBaseComment(3, "Ref17p301p6");
-        }
-        if (this.hasStar(TuViStar.THIENHINH)) {
-            this.addSupportBaseComment(4, "Ref17p301p7");
-        }
-        if (this.hasOneStar(TuViStarHelper.HOALINH)) {
-            this.addSupportBaseComment(4, "Ref17p301p8");
-        }
-    }
-}
-
-genHoaTinhPeriod() {
-    if (this.hasStar(TuViStar.HOATINH)) {
-        if (TuViStar.HOATINH.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(7, "Ref17p301p9a");
-                if (BrancheHelper.isRabbitHorse(this.palace.branche)) {
-                    this.addSupportBaseComment(3, "Ref17p301p9b");
-                }
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(3, "Ref17p301p10");
-            }
-        }
-        if (this.hasAllStars(TuViStarHelper.LINHMOC)) {
-            this.addSupportBaseComment(4, "Ref17p301p11");
-        }
-        if (this.hasStar(TuViStar.TANGMON)) {
-            this.addSupportBaseComment(4, "Ref17p301p12");
-        }
-    }
-}
-
-genLinhTinhPeriod() {
-    if (this.hasStar(TuViStar.LINHTINH)) {
-        if (TuViStar.LINHTINH.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p301p13");
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(2, "Ref17p301p14");
-            }
-        }
-        if (this.hasAllStars(TuViStarHelper.XUONGPHUDA)) {
-            this.addSupportBaseComment(3, "Ref17p301p15");
-        }
-        if (this.hasOneStar(TuViStarHelper.SATPHA)) {
-            this.addSupportBaseComment(4, "Ref17p301p16");
-        }
-        if (this.hasStar(TuViStar.THIENVIET)) {
-            this.addSupportBaseComment(2, "Ref17p301p17");
-        }
-    }
-}
-
-genLocTonPeriod(daihanObs: TuViPalaceObservationBase) {
-    if (this.hasStar(TuViStar.LOCTON)) {
-        if (TuViStar.LOCTON.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p302p10");
-            }
-        }
-        if (this.hasStars(TuViStarHelper.KHOAQUYENTAHUU, 2)) {
-            this.addSupportBaseComment(9, "Ref17p302p11");
-        }
-        if (this.hasStar(TuViStar.HOALOC)) {
-            this.addSupportBaseComment(5, "Ref17p302p12");
-        }
-        if (this.hasOppositePalaceStar(TuViStar.HOALOC)) {
-            this.addSupportBaseComment(9, "Ref17p302p12");
+  genTangMonPeriod() {
+    if (this.hasStar(TuViStar.TANGMON)) {
+      if (this.hasAllStars(TuViStarHelper.PHAKY)) {
+        this.addSupportBaseComment(5, "Ref17p306p4");
+      }
+      if (this.hasAllStars(TuViStarHelper.KHOCHO)) {
+        this.addSupportBaseComment(3, "Ref17p306p5");
+      }
+      if (this.hasOneStar(TuViStarHelper.KHOCHO)) {
+        if (this.hasStar(TuViStar.THIENHU)) {
+          this.addSupportBaseComment(5, "Ref17p306p6");
         }
         if (this.hasStar(TuViStar.THIENMA)) {
-            this.addSupportBaseComment(8, "Ref17p302p13");
+          this.addSupportBaseComment(5, "Ref17p306p7");
         }
-        if (this.hasAllStars(TuViStarHelper.KHONGKIEP)) {
-            this.addSupportBaseComment(4, "Ref17p302p14");
-            if (daihanObs.hasHostileStars()) {
-                this.addSupportBaseComment(1, "Ref17p302p15");
-            }
-        }
-        if (this.hasStar(TuViStar.THAITUE)) {
-            if (daihanObs.hasHostileStars()) {
-                this.addSupportBaseComment(1, "Ref17p302p15");
-            }
-        }
+      }
+      if (this.hasOneStar(TuViStarHelper.KHOCKHONG)) {
+        this.addSupportBaseComment(4, "Ref17p306p8");
+      }
+      if (this.hasStar(TuViStar.DIEUKHACH)) {
+        this.addSupportBaseComment(3, "Ref17p306p11");
+      }
+      if (this.hasStar(TuViStar.THIENHINH)) {
+        this.addSupportBaseComment(3, "Ref17p306p9");
+      }
+      if (this.hasStar(TuViStar.THAITUE)) {
+        this.addSupportBaseComment(4, "Ref17p306p10");
+      }
+
+      if (this.hasStar(TuViStar.HOATINH)) {
+        this.addSupportBaseComment(4, "Ref17p306p12");
+      }
     }
-}
+  }
 
-
-genDiaKhongKiepPeriod( star: TuViStar) {
-    if (this.hasStar(star)) {
-        if (star.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p302p1");
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(2, "Ref17p302p2");
-            }
-        }
-        if (this.hasStar(TuViStar.THAMLANG)) {
-            this.addSupportBaseComment(4, "Ref17p302p3");
-        }
-        if (this.hasStars(TuViStarHelper.TUPHUKHOIVIET, 2)) {
-            this.addSupportBaseComment(4, "Ref17p302p4");
-        }
-        if (this.hasAllStars(TuViStarHelper.TAHUU)) {
-            this.addSupportBaseComment(4, "Ref17p302p5");
-        }
-        if (this.hasStars(TuViStarHelper.SATTUEKHONGPHUCKINHHAO, 3)) {
-            this.addSupportBaseComment(1, "Ref17p302p6");
-        }
-        if (this.hasStars(TuViStarHelper.HOALINHKYTUEHAOPHUC, 3)) {
-            this.addSupportBaseComment(1, "Ref17p302p7");
-        }
-        if (this.hasStar(TuViStar.HOAQUYEN)) {
-            this.addSupportBaseComment(4, "Ref17p302p8");
-        }
-        if (this.hasAllStars(TuViStarHelper.QUANPHURF)) {
-            this.addSupportBaseComment(4, "Ref17p302p9");
-        }
-    }
-}
-
-
-genTaHuuPeriod( star: TuViStar) {
-    if (this.hasStar(star)) {
-        if (star.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p303p1a");
-                if (this.isPartOfTuMo) {
-                    this.addSupportBaseComment(8, "Ref17p303p1b");
-                }
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(2, "Ref17p303p2");
-            }
-        }
-        if (this.hasStars(TuViStarHelper.KHOAQUYENLOC, 2)) {
-            this.addSupportBaseComment(7, "Ref17p303p3");
-        }
-        if (this.hasCombinedSatTinh) {
-            this.addSupportBaseComment(4, "Ref17p303p4");
-        }
-    }
-}
-
-
-genXuongKhucPeriod(star:TuViStar) {
-    if (this.hasStar(star)) {
-        if (star.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p303p5a");
-                if (this.hasStar(TuViStar.VANXUONG)) {
-                    this.addSupportBaseComment(9, "Ref17p303p5b");
-                }
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(4, "Ref17p303p6");
-            }
-        }
-        if (this.hasAllStars(TuViStarHelper.DONGTAHUU)) {
-            this.addSupportBaseComment(7, "Ref17p303p7");
-        }
-        if (this.hasAllStars(TuViStarHelper.LIEMKINHDA)) {
-            this.addSupportBaseComment(2, "Ref17p303p8");
-        }
-        if (this.hasStar(TuViStar.HOAKY)) {
-            this.addSupportBaseComment(4, "Ref17p303p9");
-        }
-        if (this.hasStar(TuViStar.MOCDUC)) {
-            this.addSupportBaseComment(6, "Ref17p303p10");
-        }
-        if (this.hasStar(TuViStar.THAITUE)) {
-            this.addSupportBaseComment(8, "Ref17p303p11");
-        }
-        if (this.hasCombinedSatTinh) {
-            this.addSupportBaseComment(3, "Ref17p303p12a");
-            if (this.hasStar(TuViStar.LINHTINH)) {
-                this.addSupportBaseComment(4, "Ref17p303p12b");
-            }
-        }
-    }
-}
-
-genThienKhoiPeriod() {
-    if (this.hasStar(TuViStar.THIENKHOI)) {
-        if (this.hasStars(TuViStarHelper.TUPHURXUONGKHUCKHOIVIET, 4)) {
-            this.addSupportBaseComment(9, "Ref17p303p13");
-        }
-        if (this.hasStar(TuViStar.THIENHINH)) {
-            this.addSupportBaseComment(3, "Ref17p303p14");
-        }
-        if (this.hasTuanTrietKhong) {
-            this.addSupportBaseComment(3, "Ref17p304p1");
-        }
-    }
-}
-
-genThienVietPeriod() {
-    if (this.hasStar(TuViStar.THIENVIET)) {
-        if (this.hasStars(TuViStarHelper.TUPHURXUONGKHUCKHOIVIET, 4)) {
-            this.addSupportBaseComment(9, "Ref17p304p2");
-        }
-        if (this.hasAllStars(TuViStarHelper.HINHLINH)) {
-            this.addSupportBaseComment(3, "Ref17p304p3");
-        }
-
-    }
-}
-
-genHoaLocPeriod() {
-    if (this.hasStar(TuViStar.HOALOC)) {
-        if (this.hasOppositePalaceStar(TuViStar.LOCTON)) {
-            this.addSupportBaseComment(8, "Ref17p304p4");
-        }
-        if (this.hasAllStars(TuViStarHelper.THAMVU)) {
-            this.addSupportBaseComment(8, "Ref17p304p5");
-        }
-
-    }
-}
-
-genHoaQuyenPeriod() {
-    if (this.hasStar(TuViStar.HOAQUYEN)) {
-        if (TuViStar.HOAQUYEN.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p304p6");
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(4, "Ref17p304p7");
-            }
-        }
-        if (this.hasOneStar(TuViStarHelper.THAMVU)) {
-            this.addSupportBaseComment(8, "Ref17p304p8");
-        }
-        if (this.hasTuanTrietKhong) {
-            this.addSupportBaseComment(5, "Ref17p304p9");
-        }
-    }
-}
-
-genHoaKhoaPeriod() {
-    if (this.hasStar(TuViStar.HOAKHOA)) {
-        if (TuViStar.HOAKHOA.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p304p10");
-            }
-        }
-        if (this.hasStars(TuViStarHelper.XUONGKHUCKHOIVIET, 3)) {
-            this.addSupportBaseComment(8, "Ref17p304p11");
-        }
-    }
-}
-
-genHoaKyPeriod() {
-    if (this.hasStar(TuViStar.HOAKY)) {
-        if (TuViStar.HOAKY.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(7, "Ref17p305p1a");
-            }
-            if (this.hasAllStars(TuViStarHelper.NHATNGUYET)) {
-                this.addSupportBaseComment(8, "Ref17p305p1b");
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(4, "Ref17p305p2");
-            }
-        }
-        if (this.hasStar(TuViStar.TUEPHA)) {
-            this.addSupportBaseComment(5, "Ref17p305p3");
-        }
-        if (this.hasAllStars(TuViStarHelper.PHAKINH)) {
-            this.addSupportBaseComment(4, "Ref17p305p4");
-        }
-        if (this.hasAllStars(TuViStarHelper.SATDA)) {
-            this.addSupportBaseComment(3, "Ref17p305p5");
-        }
-        if (this.hasAllStars(TuViStarHelper.DAHO)) {
-            this.addSupportBaseComment(3, "Ref17p305p6");
-        }
-        if (this.hasAllStars(TuViStarHelper.KINHDA)) {
-            this.addSupportBaseComment(3, "Ref17p305p7");
-        }
-        if (this.hasAllStars(TuViStarHelper.KHONGKIEP)) {
-            this.addSupportBaseComment(3, "Ref17p305p8");
-        }
-        if (this.hasAllStars(TuViStarHelper.KIEPHINH)) {
-            this.addSupportBaseComment(3, "Ref17p305p9");
-        }
-        if (this.hasAllStars(TuViStarHelper.HONGDAO)) {
-            this.addSupportBaseComment(5, "Ref17p305p10");
-        }
-    }
-}
-
-genDaiTieuHaoPeriod( haoStar: TuViStar,daihanObs: TuViPalaceObservationBase, yDaihanObs: TuViPalaceObservationBase) {
-    if (this.hasStar(haoStar)) {
-        if (haoStar.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p305p11");
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(4, "Ref17p305p12a");
-                if (this.hasStars(TuViStarHelper.VUPHURLOC, 2)) {
-                    this.addSupportBaseComment(3, "Ref17p305p12b");
-                }
-            }
-        }
-
-        if (daihanObs.hasSupportStars0(TuViStarHelper.KHONGKIEPSUYPHUTOAITUKY) ||
-                yDaihanObs.hasSupportStars0(TuViStarHelper.KHONGKIEPSUYPHUTOAITUKY)) {
-            this.addSupportBaseComment(3, "Ref17p305p13");
-            if (this.palace.isTieuHan() && (
-                    this.hasSupportStars0(TuViStarHelper.HINHPHIPHUBENHMOPHUCHO) ||
-                            this.palace.isMenh())) {
-                this.addSupportBaseComment(1, "Ref17p305p13");
-            }
-        }
-        if (this.hasStar(TuViStar.PHAQUAN)) {
-            this.addSupportBaseComment(4, "Ref17p305p14");
-        }
-        if (this.hasAllStars(TuViStarHelper.KIEPHINH)) {
-            this.addSupportBaseComment(4, "Ref17p305p15");
-        }
-        if (this.hasStar(TuViStar.THIENTHUONG)) {
-            this.addSupportBaseComment(4, "Ref17p306p1");
-        }
-        if (this.hasAllStars(TuViStarHelper.KYMOC)) {
-            this.addSupportBaseComment(4, "Ref17p306p2");
-        }
-        if (this.hasStar(TuViStar.TUYET)) {
-            this.addSupportBaseComment(3, "Ref17p306p3");
-        }
-    }
-}
-
-genTangMonPeriod() {
-
-    if (this.hasStar(TuViStar.TANGMON)) {
-        if (this.hasAllStars(TuViStarHelper.PHAKY)) {
-            this.addSupportBaseComment(5, "Ref17p306p4");
-        }
-        if (this.hasAllStars(TuViStarHelper.KHOCHO)) {
-            this.addSupportBaseComment(3, "Ref17p306p5");
-        }
-        if (this.hasOneStar(TuViStarHelper.KHOCHO)) {
-            if (this.hasStar(TuViStar.THIENHU)) {
-                this.addSupportBaseComment(5, "Ref17p306p6");
-            }
-            if (this.hasStar(TuViStar.THIENMA)) {
-                this.addSupportBaseComment(5, "Ref17p306p7");
-            }
-        }
-        if (this.hasOneStar(TuViStarHelper.KHOCKHONG)) {
-            this.addSupportBaseComment(4, "Ref17p306p8");
-        }
-        if (this.hasStar(TuViStar.DIEUKHACH)) {
-            this.addSupportBaseComment(3, "Ref17p306p11");
-        }
-        if (this.hasStar(TuViStar.THIENHINH)) {
-            this.addSupportBaseComment(3, "Ref17p306p9");
-        }
-        if (this.hasStar(TuViStar.THAITUE)) {
-            this.addSupportBaseComment(4, "Ref17p306p10");
-        }
-
-        if (this.hasStar(TuViStar.HOATINH)) {
-            this.addSupportBaseComment(4, "Ref17p306p12");
-        }
-    }
-}
-
-genBachHoPeriod() {
-
+  genBachHoPeriod() {
     if (this.hasStar(TuViStar.BACHHO)) {
-        if (this.hasStar(TuViStar.THAMLANG)) {
-            this.addSupportBaseComment(4, "Ref17p306p13");
-            if (BrancheHelper.isTigerDog(this.palace.branche)) {
-                this.addSupportBaseComment(4, "Ref17p306p13");
-            }
+      if (this.hasStar(TuViStar.THAMLANG)) {
+        this.addSupportBaseComment(4, "Ref17p306p13");
+        if (BrancheHelper.isTigerDog(this.palace.branche)) {
+          this.addSupportBaseComment(4, "Ref17p306p13");
         }
-        if (this.hasStar(TuViStar.THATSAT)) {
-            this.addSupportBaseComment(3, "Ref17p306p14");
-        }
-        if (this.hasSomeStar(TuViStarHelper.KIEPHINH)) {
-            this.addSupportBaseComment(4, "Ref17p306p15");
-        }
-        if (this.hasStar(TuViStar.THIENKHOC)) {
-            this.addSupportBaseComment(5, "Ref17p306p16");
-        }
-        if (this.hasAllStars(TuViStarHelper.KHOCRIEU)) {
-            this.addSupportBaseComment(3, "Ref17p306p17");
-        }
-        if (this.hasStar(TuViStar.PHILIEM)) {
-            this.addSupportBaseComment(8, "Ref17p306p18");
-        }
-        if (this.hasStar(TuViStar.TAUTHU)) {
-            this.addSupportBaseComment(8, "Ref17p306p19");
-        }
+      }
+      if (this.hasStar(TuViStar.THATSAT)) {
+        this.addSupportBaseComment(3, "Ref17p306p14");
+      }
+      if (this.hasSomeStar(TuViStarHelper.KIEPHINH)) {
+        this.addSupportBaseComment(4, "Ref17p306p15");
+      }
+      if (this.hasStar(TuViStar.THIENKHOC)) {
+        this.addSupportBaseComment(5, "Ref17p306p16");
+      }
+      if (this.hasAllStars(TuViStarHelper.KHOCRIEU)) {
+        this.addSupportBaseComment(3, "Ref17p306p17");
+      }
+      if (this.hasStar(TuViStar.PHILIEM)) {
+        this.addSupportBaseComment(8, "Ref17p306p18");
+      }
+      if (this.hasStar(TuViStar.TAUTHU)) {
+        this.addSupportBaseComment(8, "Ref17p306p19");
+      }
     }
-}
+  }
 
-genLonnTriPhuongCacPeriod( star: TuViStar) {
+  genLonnTriPhuongCacPeriod(star: TuViStar) {
     if (this.hasStar(star)) {
-        if (this.hasStar(TuViStar.THIENHY)) {
-            this.addSupportBaseComment(8, "Ref17p307p3");
-        }
-        if (this.hasStars(TuViStarHelper.MASINHVUONG, 2)) {
-            this.addSupportBaseComment(8, "Ref17p307p4");
-        }
-        if (this.hasStar(TuViStar.THAI)) {
-            this.addSupportBaseComment(8, "Ref17p307p5");
-        }
-        if (this.hasAllStars(TuViStarHelper.RIEUHY)) {
-            this.addSupportBaseComment(8, "Ref17p307p6");
-        }
-        if (this.hasOneStar(TuViStarHelper.THAIPHUJ)) {
-            this.addSupportBaseComment(8, "Ref17p307p7");
-        }
-        if (this.hasAllStars(TuViStarHelper.LONGKHONGKIEP)) {
-            this.addSupportBaseComment(3, "Ref17p307p8");
-        }
-        if (this.hasAllStars(TuViStarHelper.LONGDIEU)) {
-            this.addSupportBaseComment(4, "Ref17p307p9");
-        }
-        if (this.hasStars(TuViStarHelper.PHUONGKHONGKIEP, 2)) {
-            this.addSupportBaseComment(4, "Ref17p307p10");
-        }
+      if (this.hasStar(TuViStar.THIENHY)) {
+        this.addSupportBaseComment(8, "Ref17p307p3");
+      }
+      if (this.hasStars(TuViStarHelper.MASINHVUONG, 2)) {
+        this.addSupportBaseComment(8, "Ref17p307p4");
+      }
+      if (this.hasStar(TuViStar.THAI)) {
+        this.addSupportBaseComment(8, "Ref17p307p5");
+      }
+      if (this.hasAllStars(TuViStarHelper.RIEUHY)) {
+        this.addSupportBaseComment(8, "Ref17p307p6");
+      }
+      if (this.hasOneStar(TuViStarHelper.THAIPHUJ)) {
+        this.addSupportBaseComment(8, "Ref17p307p7");
+      }
+      if (this.hasAllStars(TuViStarHelper.LONGKHONGKIEP)) {
+        this.addSupportBaseComment(3, "Ref17p307p8");
+      }
+      if (this.hasAllStars(TuViStarHelper.LONGDIEU)) {
+        this.addSupportBaseComment(4, "Ref17p307p9");
+      }
+      if (this.hasStars(TuViStarHelper.PHUONGKHONGKIEP, 2)) {
+        this.addSupportBaseComment(4, "Ref17p307p10");
+      }
     }
-}
+  }
 
-genDaoHoaPeriod() {
+  genDaoHoaPeriod() {
     if (this.hasStar(TuViStar.DAOHOA)) {
-        if (TuViStar.DAOHOA.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p307p11");
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(3, "Ref17p307p12");
-            }
+      if (TuViStar.DAOHOA.isFavorable()) {
+        if (this.isFavorable()) {
+          this.addSupportBaseComment(8, "Ref17p307p11");
         }
-        if (this.hasStars(TuViStarHelper.TUPHUTUONGHONG, 2)) {
-            this.addSupportBaseComment(8, "Ref17p307p13");
+      } else {
+        if (this.hasHostileStars()) {
+          this.addSupportBaseComment(3, "Ref17p307p12");
         }
-        if (this.hasStars(TuViStarHelper.SATPHALIEMTHAMHONG, 3)) {
-            this.addSupportBaseComment(8, "Ref17p307p14");
-        }
-         if (this.hasStars(TuViStarHelper.COCUTAHUUTUE, 3)) {
-            this.addSupportBaseComment(3, "Ref17p307p15");
-        }
-        const phummau = this.getObservations(TuViRing.PhuMau);
-        if (phummau.hasStar(TuViStar.TANGMON) && this.palace.isMenh()) {
-            this.addSupportBaseComment(5, "Ref17p307p16");
-        }
-        if (this.hasAllStars(TuViStarHelper.HONGHYRIEU)) {
-            this.addSupportBaseComment(4, "Ref17p308p1");
-        }
+      }
+      if (this.hasStars(TuViStarHelper.TUPHUTUONGHONG, 2)) {
+        this.addSupportBaseComment(8, "Ref17p307p13");
+      }
+      if (this.hasStars(TuViStarHelper.SATPHALIEMTHAMHONG, 3)) {
+        this.addSupportBaseComment(8, "Ref17p307p14");
+      }
+      if (this.hasStars(TuViStarHelper.COCUTAHUUTUE, 3)) {
+        this.addSupportBaseComment(3, "Ref17p307p15");
+      }
+      const phummau = this.getObservations(TuViRing.PhuMau);
+      if (phummau.hasStar(TuViStar.TANGMON) && this.palace.isMenh()) {
+        this.addSupportBaseComment(5, "Ref17p307p16");
+      }
+      if (this.hasAllStars(TuViStarHelper.HONGHYRIEU)) {
+        this.addSupportBaseComment(4, "Ref17p308p1");
+      }
     }
-}
+  }
 
-genHongLoanPeriod() {
+  genHongLoanPeriod() {
     if (this.hasStar(TuViStar.HONGLOAN)) {
-        if (TuViStar.HONGLOAN.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p308p2");
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(8, "Ref17p308p3");
-            }
+      if (TuViStar.HONGLOAN.isFavorable()) {
+        if (this.isFavorable()) {
+          this.addSupportBaseComment(8, "Ref17p308p2");
         }
-         if (this.hasStars(TuViStarHelper.TAHUULONGPHUONGRIEU, 3)) {
-            this.addSupportBaseComment(8, "Ref17p308p4");
-        }
-        if (this.hasStar(TuViStar.THANHLONG)) {
-            this.addSupportBaseComment(4, "Ref17p308p5");
-        }
-    }
-}
-
-genAnQuangThienQuyPeriod( star: TuViStar) {
-    if (this.hasStar(star)) {
-        if (star.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p308p6");
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(8, "Ref17p308p7");
-            }
-        }
-    }
-}
-
-genTuongQuanPeriod() {
-    if (this.hasStar(TuViStar.TUONGQUAN)) {
-        if (this.hasStar(TuViStar.THIENTUONG)) {
-            this.addSupportBaseComment(8, "Ref17p308p8");
-        }
-        if (this.hasAllStars(TuViStarHelper.HINHAN)) {
-            this.addSupportBaseComment(8, "Ref17p308p9");
-        }
-        if (this.hasTuanTrietKhong) {
-            this.addSupportBaseComment(3, "Ref17p308p10");
-        }
-    }
-
-}
-
-genPhucBinhPeriod() {
-    if (this.hasStar(TuViStar.PHUCBINH)) {
-        if (TuViStar.PHUCBINH.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p308p11");
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(4, "Ref17p308p12");
-            }
-        }
-        if (this.hasStar(TuViStar.TANGMON)) {
-            this.addSupportBaseComment(3, "Ref17p309p1");
-        }
-        if (this.hasStar(TuViStar.BACHHO)) {
-            this.addSupportBaseComment(3, "Ref17p309p2");
-        }
-        if (this.hasAllStars(TuViStarHelper.HINHKHONGKIEP)) {
-            this.addSupportBaseComment(4, "Ref17p309p3");
-        }
-        if (this.hasAllStars(TuViStarHelper.TUEKY)) {
-            this.addSupportBaseComment(4, "Ref17p309p4");
-        }
-        if (this.hasAllStars(TuViStarHelper.HONGTHAIDAO)) {
-            this.addSupportBaseComment(4, "Ref17p309p5");
-        }
-        if (this.hasAllStars(TuViStarHelper.HONGRIEUDAO)) {
-            this.addSupportBaseComment(4, "Ref17p309p6");
-        }
-    }
-}
-
-genQuocAnPeriod() {
-    if (this.hasStar(TuViStar.QUOCAN)) {
-        if (TuViStar.QUOCAN.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(8, "Ref17p309p7");
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(4, "Ref17p309p8");
-            }
-        }
-        if (this.hasTuanTrietKhong) {
-            this.addSupportBaseComment(4, "Ref17p309p9");
-        }
-    }
-}
-
-genDuongPhuPeriod() {
-    if (this.hasStar(TuViStar.DUONGPHU)) {
-        if (TuViStar.DUONGPHU.isFavorable()) {
-            if (this.hasFavorableStars()) {
-                this.addSupportBaseComment(8, "Ref17p309p10");
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(4, "Ref17p309p11");
-            }
-        }
-        if (this.hasOneStar(TuViStarHelper.LONGPHUONG)) {
-            this.addSupportBaseComment(7, "Ref17p309p12");
-        }
-        if (this.hasStar(TuViStar.BACHHO)) {
-            this.addSupportBaseComment(3, "Ref17p309p13");
-        }
-    }
-}
-
-genThienMaPeriod(daihanObs: TuViPalaceObservationBase) {
-    if (this.hasStar(TuViStar.THIENMA)) {
-        if (this.hasAllStars(TuViStarHelper.TUPHUR)) {
-            this.addSupportBaseComment(9, "Ref17p309p14");
-        }
-         if (this.hasAllStars(TuViStarHelper.TUEKHONGKIEP)) {
-            this.addSupportBaseComment(3, "Ref17p309p15a");
-            if (!daihanObs.isFavorable()) {
-                this.addSupportBaseComment(1, "Ref17p309p15b");
-            }
-        }
-        if (this.hasOneStar(TuViStarHelper.DATHAI)) {
-            this.addSupportBaseComment(3, "Ref17p309p16");
-        }
-        if (this.hasAllStars(TuViStarHelper.KHOCKHACH)) {
-            this.addSupportBaseComment(8, "Ref17p309p17");
-        }
-        if (this.hasStar(TuViStar.THIENHINH)) {
-            this.addSupportBaseComment(3, "Ref17p310p1");
-        }
-        if (this.hasStar(TuViStar.TUYET)) {
-            this.addSupportBaseComment(3, "Ref17p310p2");
-        }
-        if (this.hasTuanTrietKhong) {
-            this.addSupportBaseComment(3, "Ref17p310p3");
-        }
-    }
-}
-
-genGiaiThanPeriod(daihanObs: TuViPalaceObservationBase,yDaihanObs: TuViPalaceObservationBase) {
-    if (this.hasStar(TuViStar.GIAITHAN)) {
-        if (TuViStar.GIAITHAN.isFavorable()) {
-            if (this.isFavorable()) {
-                this.addSupportBaseComment(6, "Ref17p310p4");
-            }
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(6, "Ref17p310p5");
-            }
-        }
-        if (!daihanObs.isFavorable() && !yDaihanObs.isFavorable()) {
-            if (this.palace.isTieuHan()) {
-                this.addSupportBaseComment(1, "Ref17p310p6");
-            }
-        }
-    }
-}
-
-genThienKhongPeriod() {
-    if (this.hasStar(TuViStar.THIENKHONG)) {
-        if (this.hasTuanTrietKhong) {
-            this.addSupportBaseComment(1, "Ref17p310p7b");
-        } else {
-            this.addSupportBaseComment(8, "Ref17p310p7a");
-        }
-    }
-}
-
-genTuanKhongPeriod() {
-    if (this.hasStar(TuViStar.TUANKHONG)) {
-        if (this.hasManyGoodStars) {
-            this.addSupportBaseComment(3, "Ref17p310p8");
-        } else {
-            if (this.hasHostileStars()) {
-                this.addSupportBaseComment(5, "Ref17p311p1");
-            }
-        }
-    }
-}
-
-genTrietKhongPeriod( currAge: number) {
-    if (this.hasStar(TuViStar.TUANKHONG)) {
-        if (currAge <= 30) {
-            if (this.hasManyGoodStars) {
-                this.addSupportBaseComment(3, "Ref17p311p2");
-            } else {
-                if (this.hasHostileStars()) {
-                    this.addSupportBaseComment(7, "Ref17p311p3");
-                }
-            }
-        }
-    }
-}
-
-genLiemTrinhPeriod() {
-  if (this.hasStar(TuViStar.LIEMTRINH)) {
-      if (TuViStar.LIEMTRINH.isFavorable() && this.hasManyGoodSupportStars()) {
-          this.addSupportBaseComment(8, "Ref17p294p7");
-      }
-if (BrancheHelper.isSnakePig(this.palace.branche)) {
-          let points = 4;
-          if (this.hasTuanTrietKhong || this.hasStar(TuViStar.HOAKY)) {
-              points = 5;
-          }
-          this.addSupportBaseComment(points, "Ref17p294p8Ref20p162J1");
-          if (this.hasStar(TuViStar.THIENHINH)) {
-              this.addSupportBaseComment(points - 1, "Ref17p294p10");
-          }
-      }
-if (BrancheHelper.isSnakePigRabbitCock(this.palace.branche)) {
-          if (this.hasOneStar(TuViStarHelper.HOALINH)) {
-              this.addSupportBaseComment(3, "Ref17p294p9");
-          }
-      }
-
-      if (this.hasAllStars(TuViStarHelper.THAMSATPHA)) {
-          this.addSupportBaseComment(4, "Ref17p294p11Ref20p162J2");
-      }
-      if (this.hasStar(TuViStar.PHAQUAN) && this.hasAllStars(TuViStarHelper.KIEPKINH)) {
-          this.addSupportBaseComment(3, "Ref17p294p12Ref20p162J3");
-      }
-      if (this.hasOneStar(TuViStarHelper.KINHDA)) {
-          this.addSupportBaseComment(4, "Ref17p294p13Ref20p162J4");
-      }
-      if (this.hasAllStars(TuViStarHelper.KYHINH) && this.hasOneStar(TuViStarHelper.KINHDA)) {
-          this.addSupportBaseComment(2, "Ref17p294p14Ref20p162J5");
-      }
-  }
-}
-
-genThienDongPeriod() {
-  if (this.hasStar(TuViStar.THIENDONG)) {
-      this.addSupportBaseComment(6, "Ref17p294p15");
-      if (TuViStar.THIENDONG.isFavorable()) {
-          this.addSupportBaseComment(8, "Ref17p295p1");
       } else {
-          this.addSupportBaseComment(4, "Ref17p295p2");
+        if (this.hasHostileStars()) {
+          this.addSupportBaseComment(8, "Ref17p308p3");
+        }
       }
-      if (this.hasAllStars(TuViStarHelper.KINHLINH)) {
-          this.addSupportBaseComment(8, "Ref17p295p3");
-      }
-      if (this.hasStar(TuViStar.HOAKY)) {
-          this.addSupportBaseComment(5, "Ref17p295p4");
-      }
-  }
-}
-
-genVuKhucPeriod() {
-  if (this.hasStar(TuViStar.VUKHUC)) {
-      if (TuViStar.VUKHUC.isFavorable()) {
-          this.addSupportBaseComment(8, "Ref17p295p5");
-          if (this.hasAllStars(TuViStarHelper.TAHUUXUONGKHUC)) {
-              this.incPoints(9);
-          }
-      } else {
-          this.addSupportBaseComment(3, "Ref17p295p6");
-      }
-  }
-}
-
-genThaiDuongPeriod() {
-  if (this.hasStar(TuViStar.THAIDUONG)) {
-      if (TuViStar.THAIDUONG.isFavorable()) {
-          this.addSupportBaseComment(8, "Ref17p295p7");
-      } else {
-          this.addSupportBaseComment(4, "Ref17p295p8");
-          if (this.hasStars(TuViStarHelper.TANGKYDA, 2)) {
-              this.incPoints(1);
-          }
-      }
-      if (this.hasStar(TuViStar.LONGTRI)) {
-          this.addSupportBaseComment(5, "Ref17p295p9");
+      if (this.hasStars(TuViStarHelper.TAHUULONGPHUONGRIEU, 3)) {
+        this.addSupportBaseComment(8, "Ref17p308p4");
       }
       if (this.hasStar(TuViStar.THANHLONG)) {
-          this.addSupportBaseComment(4, "Ref17p295p10");
+        this.addSupportBaseComment(4, "Ref17p308p5");
       }
-      if (this.hasAllStars(TuViStarHelper.RIEUKYDA)) {
-          this.addSupportBaseComment(4, "Ref17p295p11");
-      }
-      if (this.hasAllStars(TuViStarHelper.KINHDAHOALINH)) {
-          this.addSupportBaseComment(3, "Ref17p295p12");
-      }
+    }
   }
-}
 
-genThienCoPeriod(daihanObs: TuViPalaceObservationBase) {
-  if (this.hasStar(TuViStar.THIENCO)) {
-      if (TuViStar.THIENCO.isFavorable()) {
-
-          if (this.hasAllStars(TuViStarHelper.LOCTONHOALOC)) {
-              this.addSupportBaseComment(9, "Ref17p295p13");
-          } else {
-              this.addSupportBaseComment(8, "Ref17p295p13");
-          }
+  genAnQuangThienQuyPeriod(star: TuViStar) {
+    if (this.hasStar(star)) {
+      if (star.isFavorable()) {
+        if (this.isFavorable()) {
+          this.addSupportBaseComment(8, "Ref17p308p6");
+        }
       } else {
-          this.addSupportBaseComment(3, "Ref17p296p1a");
-          if (this.hasSupportStars0(TuViStarHelper.CUKINHDA)) {
-              this.incPoints(2);
-              if (daihanObs.hasHostileStars()) {
-                  this.addSupportBaseComment(1, "Ref17p296p1b");
-              }
-          }
+        if (this.hasHostileStars()) {
+          this.addSupportBaseComment(8, "Ref17p308p7");
+        }
       }
-      if (this.hasStars(TuViStarHelper.NGUYETDONGLUONGTAHUU, 2) && this.hasCombinedSatTinh) {
-          this.addSupportBaseComment(7, "Ref17p296p2");
-      }
-      if (this.hasAllStars(TuViStarHelper.TANGTUELUONG)) {
-          this.addSupportBaseComment(3, "Ref17p296p3");
-      }
-      if (this.hasOneStar(TuViStarHelper.THUONGSU)) {
-          if (this.hasStar(TuViStar.KINHDUONG)) {
-              this.addSupportBaseComment(4, "Ref17p296p6");
-              if (this.hasStar(TuViStar.CUMON)) {
-                  this.addSupportBaseComment(4, "Ref17p296p4");
-              }
-              if (this.hasStar(TuViStar.HOAKY)) {
-                  this.addSupportBaseComment(2, "Ref17p296p5");
-              }
-          }
-      }
-      if (this.hasAllStars(TuViStarHelper.TANGKHOC)) {
-          this.addSupportBaseComment(4, "Ref17p296p7");
-      }
-      if (this.hasAllStars(TuViStarHelper.KHOCHOAKINH)) {
-          this.addSupportBaseComment(5, "Ref17p296p8");
-      }
-      if (this.hasAllStars(TuViStarHelper.KHOCHU)) {
-          this.addSupportBaseComment(5, "Ref17p296p9");
-      }
-      if (this.hasStar(TuViStar.QUATU)) {
-          this.addSupportBaseComment(4, "Ref17p296p10a");
-          if (this.tuviHoroscope.getTuViMenhPalace().palaceObservation.hasHaoStar()) {
-              this.addSupportBaseComment(2, "Ref17p296p10b");
-          }
-      }
+    }
   }
-}
 
-genThienPhuRPeriod() {
-  if (this.hasStar(TuViStar.THIENPHUR)) {
-      if (this.hasStars(TuViStarHelper.TAMKHONG, 2)) {
-          if (TuViStarHelper.isHamDia(TuViStar.THIENPHUR,this.palace.branche)) {
-            this.addSupportBaseComment(4, "Ref17p296p11");
-          } else {
-            this.addSupportBaseComment(2, "Ref17p296p11");
-          }
+  genTuongQuanPeriod() {
+    if (this.hasStar(TuViStar.TUONGQUAN)) {
+      if (this.hasStar(TuViStar.THIENTUONG)) {
+        this.addSupportBaseComment(8, "Ref17p308p8");
+      }
+      if (this.hasAllStars(TuViStarHelper.HINHAN)) {
+        this.addSupportBaseComment(8, "Ref17p308p9");
+      }
+      if (this.hasTuanTrietKhong) {
+        this.addSupportBaseComment(3, "Ref17p308p10");
+      }
+    }
+  }
+
+  genPhucBinhPeriod() {
+    if (this.hasStar(TuViStar.PHUCBINH)) {
+      if (TuViStar.PHUCBINH.isFavorable()) {
+        if (this.isFavorable()) {
+          this.addSupportBaseComment(8, "Ref17p308p11");
+        }
       } else {
-          if (! this.hasOneStar(TuViStarHelper.TAMKHONG)) {
-            this.addSupportBaseComment(8, "Ref17p296p12a");
-               if (this.hasAllStars(TuViStarHelper.KHOAQUYENLOC)) {
-                this.addSupportBaseComment(8, "Ref17p296p12b");
-               }
-          }
+        if (this.hasHostileStars()) {
+          this.addSupportBaseComment(4, "Ref17p308p12");
+        }
       }
+      if (this.hasStar(TuViStar.TANGMON)) {
+        this.addSupportBaseComment(3, "Ref17p309p1");
+      }
+      if (this.hasStar(TuViStar.BACHHO)) {
+        this.addSupportBaseComment(3, "Ref17p309p2");
+      }
+      if (this.hasAllStars(TuViStarHelper.HINHKHONGKIEP)) {
+        this.addSupportBaseComment(4, "Ref17p309p3");
+      }
+      if (this.hasAllStars(TuViStarHelper.TUEKY)) {
+        this.addSupportBaseComment(4, "Ref17p309p4");
+      }
+      if (this.hasAllStars(TuViStarHelper.HONGTHAIDAO)) {
+        this.addSupportBaseComment(4, "Ref17p309p5");
+      }
+      if (this.hasAllStars(TuViStarHelper.HONGRIEUDAO)) {
+        this.addSupportBaseComment(4, "Ref17p309p6");
+      }
+    }
   }
-}
+
+  genQuocAnPeriod() {
+    if (this.hasStar(TuViStar.QUOCAN)) {
+      if (TuViStar.QUOCAN.isFavorable()) {
+        if (this.isFavorable()) {
+          this.addSupportBaseComment(8, "Ref17p309p7");
+        }
+      } else {
+        if (this.hasHostileStars()) {
+          this.addSupportBaseComment(4, "Ref17p309p8");
+        }
+      }
+      if (this.hasTuanTrietKhong) {
+        this.addSupportBaseComment(4, "Ref17p309p9");
+      }
+    }
+  }
+
+  genDuongPhuPeriod() {
+    if (this.hasStar(TuViStar.DUONGPHU)) {
+      if (TuViStar.DUONGPHU.isFavorable()) {
+        if (this.hasFavorableStars()) {
+          this.addSupportBaseComment(8, "Ref17p309p10");
+        }
+      } else {
+        if (this.hasHostileStars()) {
+          this.addSupportBaseComment(4, "Ref17p309p11");
+        }
+      }
+      if (this.hasOneStar(TuViStarHelper.LONGPHUONG)) {
+        this.addSupportBaseComment(7, "Ref17p309p12");
+      }
+      if (this.hasStar(TuViStar.BACHHO)) {
+        this.addSupportBaseComment(3, "Ref17p309p13");
+      }
+    }
+  }
+
+  genThienMaPeriod(daihanObs: TuViPalaceObservationBase) {
+    if (this.hasStar(TuViStar.THIENMA)) {
+      if (this.hasAllStars(TuViStarHelper.TUPHUR)) {
+        this.addSupportBaseComment(9, "Ref17p309p14");
+      }
+      if (this.hasAllStars(TuViStarHelper.TUEKHONGKIEP)) {
+        this.addSupportBaseComment(3, "Ref17p309p15a");
+        if (!daihanObs.isFavorable()) {
+          this.addSupportBaseComment(1, "Ref17p309p15b");
+        }
+      }
+      if (this.hasOneStar(TuViStarHelper.DATHAI)) {
+        this.addSupportBaseComment(3, "Ref17p309p16");
+      }
+      if (this.hasAllStars(TuViStarHelper.KHOCKHACH)) {
+        this.addSupportBaseComment(8, "Ref17p309p17");
+      }
+      if (this.hasStar(TuViStar.THIENHINH)) {
+        this.addSupportBaseComment(3, "Ref17p310p1");
+      }
+      if (this.hasStar(TuViStar.TUYET)) {
+        this.addSupportBaseComment(3, "Ref17p310p2");
+      }
+      if (this.hasTuanTrietKhong) {
+        this.addSupportBaseComment(3, "Ref17p310p3");
+      }
+    }
+  }
+
+  genGiaiThanPeriod(
+    daihanObs: TuViPalaceObservationBase,
+    yDaihanObs: TuViPalaceObservationBase
+  ) {
+    if (this.hasStar(TuViStar.GIAITHAN)) {
+      if (TuViStar.GIAITHAN.isFavorable()) {
+        if (this.isFavorable()) {
+          this.addSupportBaseComment(6, "Ref17p310p4");
+        }
+      } else {
+        if (this.hasHostileStars()) {
+          this.addSupportBaseComment(6, "Ref17p310p5");
+        }
+      }
+      if (!daihanObs.isFavorable() && !yDaihanObs.isFavorable()) {
+        if (this.palace.isTieuHan()) {
+          this.addSupportBaseComment(1, "Ref17p310p6");
+        }
+      }
+    }
+  }
+
+  genThienKhongPeriod() {
+    if (this.hasStar(TuViStar.THIENKHONG)) {
+      if (this.hasTuanTrietKhong) {
+        this.addSupportBaseComment(1, "Ref17p310p7b");
+      } else {
+        this.addSupportBaseComment(8, "Ref17p310p7a");
+      }
+    }
+  }
+
+  genTuanKhongPeriod() {
+    if (this.hasStar(TuViStar.TUANKHONG)) {
+      if (this.hasManyGoodStars) {
+        this.addSupportBaseComment(3, "Ref17p310p8");
+      } else {
+        if (this.hasHostileStars()) {
+          this.addSupportBaseComment(5, "Ref17p311p1");
+        }
+      }
+    }
+  }
+
+  genTrietKhongPeriod(currAge: number) {
+    if (this.hasStar(TuViStar.TUANKHONG)) {
+      if (currAge <= 30) {
+        if (this.hasManyGoodStars) {
+          this.addSupportBaseComment(3, "Ref17p311p2");
+        } else {
+          if (this.hasHostileStars()) {
+            this.addSupportBaseComment(7, "Ref17p311p3");
+          }
+        }
+      }
+    }
+  }
 
 
-getThanPalace() {
-  let res: TuViPalace = this.palace;
-  let count = 0;
-  while ((!res.isThan) && count < 13) {
+
+  getThanPalace() {
+    let res: TuViPalace = this.palace;
+    let count = 0;
+    while (!res.isThan && count < 13) {
       res = res.prev;
       count++;
-  }
-  return res;
-}
-
-getThanObservations() {
-  return this.getThanPalace().palaceObservation;
-}
-
-adjustPalaceNotes () {
-  if ( ObjectHelper.isNaN(this.getNote())) {
-      console.log('Palace Observation NAN Note  ', this.palace.getName());
-  } else {
-  this.palace.incPoints(this.getNote() / 10);
-  }
-}
-
-hasNoGoodChinhTinh() {
-  return this.palace.goodActiveChinhTinhCount <= 0;
-}
- // Return the first main star with relation searchRelation to toElement
- getMainStarWithElementRelation4( searchRelation1:ElementRelation,  toElement1:Element,  searchRelation2:ElementRelation,  toElement2:Element) {
-  let resTuViStar = null;
-  const starSet = this.palace.starSet;
-  for (let index = 0; index < starSet.length; index++) {
-    const tuViStar = starSet[index];
-      if (tuViStar.isChinhTinh()) {
-          const element = tuViStar.getElement();
-          if (BaziHelper.getRelation(element,toElement1) === searchRelation1 &&
-          BaziHelper.getRelation(element,toElement2) == searchRelation2) {
-              resTuViStar = tuViStar;
-              break;
-          }
-      }
-  }
-  return resTuViStar;
-}
-
-// Return the first main star with relation searchRelation to toElement
-getMainStarWithElementRelation2( searchRelation:ElementRelation, toElement:Element) {
-let resTuViStar = null;
-const starSet = this.palace.starSet;
-for (let index = 0; index < starSet.length; index++) {
-  const tuViStar = starSet[index];
-    if (tuViStar.isChinhTinh()) {
-        if (BaziHelper.getRelation(tuViStar.getElement(),toElement) == searchRelation) {
-            resTuViStar = tuViStar;
-            break;
-        }
     }
-}
-return resTuViStar;
-}
+    return res;
+  }
 
+  getThanObservations() {
+    return this.getThanPalace().palaceObservation;
+  }
+
+  adjustPalaceNotes() {
+    if (ObjectHelper.isNaN(this.getNote())) {
+      console.log("Palace Observation NAN Note  ", this.palace.getName());
+    } else {
+      this.palace.incPoints(this.getNote() / 10);
+    }
+  }
+
+  hasNoGoodChinhTinh() {
+    return this.palace.goodActiveChinhTinhCount <= 0;
+  }
+  // Return the first main star with relation searchRelation to toElement
+  getMainStarWithElementRelation4(
+    searchRelation1: ElementRelation,
+    toElement1: Element,
+    searchRelation2: ElementRelation,
+    toElement2: Element
+  ) {
+    let resTuViStar = null;
+    const starSet = this.palace.starSet;
+    for (let index = 0; index < starSet.length; index++) {
+      const tuViStar = starSet[index];
+      if (tuViStar.isChinhTinh()) {
+        const element = tuViStar.getElement();
+        if (
+          BaziHelper.getRelation(element, toElement1) === searchRelation1 &&
+          BaziHelper.getRelation(element, toElement2) == searchRelation2
+        ) {
+          resTuViStar = tuViStar;
+          break;
+        }
+      }
+    }
+    return resTuViStar;
+  }
+
+  // Return the first main star with relation searchRelation to toElement
+  getMainStarWithElementRelation2(
+    searchRelation: ElementRelation,
+    toElement: Element
+  ) {
+    let resTuViStar = null;
+    const starSet = this.palace.starSet;
+    for (let index = 0; index < starSet.length; index++) {
+      const tuViStar = starSet[index];
+      if (tuViStar.isChinhTinh()) {
+        if (
+          BaziHelper.getRelation(tuViStar.getElement(), toElement) ==
+          searchRelation
+        ) {
+          resTuViStar = tuViStar;
+          break;
+        }
+      }
+    }
+    return resTuViStar;
+  }
 
   // Ref22p218p1
-  evalMenhStarElementEnergyCompatibility () {
+  evalMenhStarElementEnergyCompatibility() {
     const palaceEnergy = this.palace.getEnergy();
     const menhElement = this.getTuViElement();
-    let relation: ElementRelation ;
+    let relation: ElementRelation;
     const palaceElement = this.palace.getElement();
-    this.hasMajorStarWithFavorableElement = false ;
-    this.palace.starSet.forEach(tuViStar => {
-        let point = 0;
-        if ( tuViStar.isChinhTinh() ) {
-            if (palaceEnergy===tuViStar.elementNEnergy.getEnergy()) {
-                point = 10;
-                this.palace.incPoints(point);
-            }
-            point = this.getMenhCucPalaceNStarElement(palaceElement,tuViStar.getElement(),menhElement);
-            this.palace.incPoints(point);
-        } else  if ( tuViStar.isTrungTinh() ) {
-
-            if (palaceEnergy===tuViStar.elementNEnergy.getEnergy()) {
-                point = 8;
-                this.palace.incPoints(point);
-            }
-
-            relation = BaziHelper.getRelation(tuViStar.getElement(),menhElement);
-            if (relation.isFavorable()) {
-                point = 7;
-                // Ref17p60CasB
-                this.palace.incPoints(point);
-                this.hasMajorStarWithFavorableElement = true ;
-            }
+    this.hasMajorStarWithFavorableElement = false;
+    this.palace.starSet.forEach((tuViStar) => {
+      let point = 0;
+      if (tuViStar.isChinhTinh()) {
+        if (palaceEnergy === tuViStar.elementNEnergy.getEnergy()) {
+          point = 10;
+          this.palace.incPoints(point);
         }
-    })
-}
+        point = this.getMenhCucPalaceNStarElement(
+          palaceElement,
+          tuViStar.getElement(),
+          menhElement
+        );
+        this.palace.incPoints(point);
+      } else if (tuViStar.isTrungTinh()) {
+        if (palaceEnergy === tuViStar.elementNEnergy.getEnergy()) {
+          point = 8;
+          this.palace.incPoints(point);
+        }
 
-override initPoint() {
-  super.initPoint();
-  this.evalSupportPalaceStar();
-}
-
-
-override adjustDegree(degree: number) {
-  return degree + Math.round((10 - degree) * this.currPeriodComplementForceFactor);
-}
-
-override getLunar() {
-  return this.tuviHoroscope.birthLunar
-}
-
-override getStudyDate() {
-  return this.tuviHoroscope.studyDate
-}
-
-// Usage LunarTrunk°PilarNameList,TrunkList
-checkLunarTrunk(params: string[]): boolean {
-  const pilarNames = params[0].split("/");
-  const checkTrunks = this.checkEnumList(params[1],Trunk.JIA)
-  for (let index = 0; index < pilarNames.length; index++) {
-    const pilarName = pilarNames[index];
-    const pilar = this.getPilar(pilarName);
-    if ( checkTrunks.indexOf(pilar.trunk.getName()) >= 0) return true
+        relation = BaziHelper.getRelation(tuViStar.getElement(), menhElement);
+        if (relation.isFavorable()) {
+          point = 7;
+          // Ref17p60CasB
+          this.palace.incPoints(point);
+          this.hasMajorStarWithFavorableElement = true;
+        }
+      }
+    });
   }
-  return false;
-}
 
-
-// Usage PalaceBranche°BrancheList
-checkPalaceBranche(params: string[]): boolean {
-  const checkBranches = this.checkEnumList(params[0],Branche.COCK)
-  return checkBranches.indexOf(this.palace.branche.getName()) >= 0
-}
-
-// Usage PalaceTuMo
-checkPalaceTuMo(): boolean {
-  return this.isPartOfTuMo
-}
-
-// Usage PalaceTuSinh
-checkPalaceTuSinh(): boolean {
-  return BrancheHelper.isTuSinh(this.palace.branche)
-}
-
-// Usage HanStatus°+-
-// Usage Status°+-
-checkPalaceStatus(palace:TuViPalace, params: string[]): boolean {
-  const checkStatus = params[0]
-  return palace.isFavorable()===(checkStatus==='+')
-}
-
-
-// Usage HanStatus°+-
-checkHanStatus(params: string[]): boolean {
-  return this.checkPalaceStatus(this.tuviHoroscope.yDaihan,params)
-}
-
-
-
-// Usage MeetHostileStars
-checkMeetHostileStars(): boolean {
-  return this.hasHostileStars() ||this.hasCombinedSatTinh
-}
-
-// Usage HasHostileStar
-checkHasStatTinh(params: string[]): boolean {
-  let chechCount=1
-  if( params.length>1 ) chechCount = +params[0]
-  return this.palace.satTinhCount >= chechCount;
-}
-
-
-// Usage HasGoodtars
-checkHasGoodStars(): boolean {
-  return this.hasManyGoodSupportStars()
-}
-
-
-
-// Usage StarGiapCungr°Count,StarList
-checkStarGiapCung(params: string[]): boolean {
-  let {count, checkStars} = this.getStarList(params)
-  for (let index = 0; index < checkStars.length; index++) {
-    const star = checkStars[index]
-    if ( this.hasPrevNextStar(star) )  {
-      count--;
-      if ( count<=0 ) return true
-    }
+  override initPoint() {
+    super.initPoint();
+    this.evalSupportPalaceStar();
   }
-  return false;
-}
 
-
-
-// Usage Star°Number,StarList
-checkStars(params: string[]): boolean {
-  let {count, starList} = this.toStarList(params)
- starList = this.checkEnumList(starList,TuViStar.ANQUANG)
-  const starSet =this.palace.starSet;
-  if (count > starList.length) {count = starList.length;}
-  for (let index = 0; index < starSet.length; index++) {
-    const tuViStar = starSet[index];
-    if (starList.indexOf(tuViStar.getName())>=0 ) {
-      count--;
-      if ( count<=0 ) return true
-    }
+  override adjustDegree(degree: number) {
+    return (
+      degree + Math.round((10 - degree) * this.currPeriodComplementForceFactor)
+    );
   }
-  return false
-}
 
-// Usage StarXungChieu°Number,StarList
-checkXungChieuStars(params: string[]): boolean {
-  const cungXungChieu = this.getCungXungChieu();
-  if ( null!== cungXungChieu ){
-    return cungXungChieu.palaceObservation.checkStars(params)
+  override getLunar() {
+    return this.tuviHoroscope.birthLunar;
   }
-  return false
-}
 
-// Usage StarXungChieuGrp°Number,StarList
-checkXungChieuStarsGrp(params: string[]): boolean {
-  const cungXungChieu = this.getCungXungChieu();
-  if ( null!== cungXungChieu ){
-    const starGrp = TuViStarHelper.toStarGroupList(params[1])
-    return cungXungChieu.palaceObservation.checkStars([params[0],starGrp])
+  override getStudyDate() {
+    return this.tuviHoroscope.studyDate;
   }
-  return false
-}
-// Usage StarHoiHop°Number,StarList
-checkHoiHopStars(params: string[]): boolean {
-  if ( params.length !==2 ) {
-    console.log("Invalid param ", params, this.checkMethod, this.checkKey, this.prevKey)
+
+  // Usage PalaceBranche°BrancheList
+  checkPalaceBranche(params: string[]): boolean {
+    const checkBranches = this.checkEnumList(params[0], Branche.COCK);
+    return checkBranches.indexOf(this.palace.branche.getName()) >= 0;
   }
-  const count=+params[0]
-  const checkStars = TuViStarHelper.findStarGroupName(params[1])
-  return this.hasSupportStars(checkStars,count)
-}
 
-// Usage StarTamHop°Number,StarList
-checkTamHopStars(params: string[]): boolean {
-  let {count, checkStars} = this.getStarList(params)
-  if (count > checkStars.length) {count = checkStars.length;}
-  for (let index = 0; index < checkStars.length; index++) {
-    const star = checkStars[index];
-    if ( this.hasRelationPalaceStar(star, BrancheRelation.COMBINATION)  ) {
-      count--;
-      if (count<=0) return true
-    }
+  //Usage PalaceElement°ElementName
+  checkPalaceElement(params: string[]): boolean {
+    const checkElementList = this.checkEnumList(params[0], Element.EARTH);
+    return checkElementList.indexOf(this.palace.branche.getElement().getName()) >= 0;
   }
-  return false
-}
 
 
-// Usage StarAnNguOne°Star
-checkAnNguOneStar(params: string[]): boolean {
-  const checkStars = this.checkGetEnumList(params[0],TuViStar.ANQUANG) as TuViStar[]
-  const checkStar = checkStars[0];
-  const checkStarName=params[0]
-  if ( checkStar === TuViStar.TUANKHONG || checkStar === TuViStar.TRIETKHONG ) {
-    if (this.hasTuanTrietKhong ) return true
+  //Usage PalaceEnergy°+/-
+  checkPalaceEnergy(params: string[]): boolean {
+    const branche =this.palace.branche;
+    return (params[0]==='+')==branche.getEnergy().isYang()
   }
-  const checkParams = ["1",checkStarName]
-  if ( this.checkXungChieuStars(checkParams)) return true
-  if ( this.checkStars(checkParams)) return true ;
-  if ( this.checkTamHopStars(checkParams)) return true ;
-  return false
-}
 
-// Usage StarsAnNgu°Count,StarList
-checkAnNguStars(params: string[]): boolean {
-  let {count, starList} = this.toStarList(params)
-  const checkStars = this.checkEnumListSplit(starList,TuViStar.ANQUANG)
-  if (count > checkStars.length) {count = checkStars.length;}
-  for (let index = 0; index < checkStars.length; index++) {
-    const checkStar = checkStars[index];
-    if ( this.checkAnNguOneStar([checkStar]) ) {
-      count--;
-      if (count<=0) return true
-    }
-
+  // Usage PalaceTuMo
+  checkPalaceTuMo(): boolean {
+    return this.isPartOfTuMo;
   }
-  return false
-}
 
-
-// Usage TuanTriet
-checkTuanTriet(): boolean {
-  return this.checkAnNguOneStar(["TUANKHONG"]) || this.checkAnNguOneStar(["TRIETKHONG"])
-}
-
-
-// Usage StarNhiHop°Number,StarList
-checkNhiHopStars(params: string[]): boolean {
-  let {count, checkStars} = this.getStarList(params)
-  if (count > checkStars.length) {count = checkStars.length;}
-  for (let index = 0; index < checkStars.length; index++) {
-    const star = checkStars[index];
-    if ( this.hasSupportStarWithTransform(star)) {
-      count--;
-      if (count<=0) return true
-    }
-  }
-  return false
-}
-
-// Usage StarHopSinh°Number,StarList
-// Usage StarHopKhac°Number,StarList
-checkHopSinhKhacStars(params: string[], checkCompatibleElement: boolean): boolean {
-  let {count, checkStars} = this.getStarList(params)
-  const tuviStarMap = this.tuviHoroscope.tuviPalaceStarMap
-  const palaceBranche = this.palace.branche
-  const palaceBrancheElement = palaceBranche.getElement()
-  if (count > checkStars.length) {count = checkStars.length;}
-  for (let index = 0; index < checkStars.length; index++) {
-    const star = checkStars[index];
-    const checkBranche = tuviStarMap.getStarBranche(star);
-    if ( BrancheRelation.isRelationPresent(this.palace.branche,checkBranche,BrancheRelation.TRANSFORMPLUS)) {
-      if ( checkCompatibleElement===palaceBrancheElement.isFavorable(checkBranche.getElement())) {
+   // Usage PalaceXKhong°Count
+   checkPalaceXKhong(params: string[]): boolean {
+    let count = +params[0]
+    const tuKhong = TuViStarHelper.TUKHONG
+    for (let index = 0; index < tuKhong.length; index++) {
+      const star = tuKhong[index];
+      if (ObjectHelper.hasItem(this.palace.starSet,star)) {
         count--;
-        if (count<=0) return true
+        if ( count<=0 ) return true ;
       }
-    }
-  }
-  return false
-}
 
-toStarList( params: string[]) {
-  let count=1
-  let starList = params[0]
-  if ( params.length>=2 ) {
-    count = +params[0]
-    starList = params[1]
-  }
-  return {count, starList}
-}
-
-getStarList (params: string[]) {
-  let {count, starList} = this.toStarList(params)
-  const checkStars = this.checkGetEnumList(starList,TuViStar.ANQUANG) as TuViStar[]
-  if ( count>checkStars.length ) count = checkStars.length
-  return {count, checkStars}
-}
-
-// Usage StarHamDia°Count,StarList
-// Do not check Star in Palace star list if count < 0
-// ....
-checkStarsStatus(params: string[],status:number, checkFunc: any): boolean {
-  let {count, checkStars} = this.getStarList(params)
-  let starSet =this.palace.starSet;
-  if ( count<0 ) {
-    count=-count;
-    starSet = checkStars
-  }
-  if (count > checkStars.length) {count = checkStars.length;}
-  for (let index = 0; index < checkStars.length; index++) {
-    const star = checkStars[index];
-    if ( ObjectHelper.hasItem(starSet,star) && checkFunc(star.diaStatus, status)) {
-      count--;
-      if (count<=0) return true
-    }
-  }
-  return false
-}
-
-// Usage StarDiaStatus°Count,StarList,DiaStatusNameList
-checkStarsDiaStatus(params: string[], checkFunc: any): boolean {
-  const diaStatusList = params[2].split("/")
-  for (let index = 0; index < diaStatusList.length; index++) {
-    const diaStatus = TuViStar.getDiaStatusByName(diaStatusList[index]);
-    if ( this.checkStarsStatus(params, diaStatus,checkFunc) ) return true
-  }
-  return false
-}
-
-// Usage StarGEDacDia°count,StarList
-checkDiaStatus(params: string[],diaStatus:number, checkFunc: any): boolean {
-  return this.checkStarsStatus(params, diaStatus,checkFunc)
-}
-
-checkEqual(param1: number,param2: number) {
-  return param1===param2
-}
-
-checkGT(param1: number,param2: number) {
-  return param1>param2
-}
-
-checkLT(param1: number,param2: number) {
-  return param1<param2
-}
-
-checkGE(param1: number,param2: number) {
-  return param1>=param2
-}
-
-checkLE(param1: number,param2: number) {
-  return param1<=param2
-}
-
-
-// usage Genre°(f,m)(+,-))
-checkGenreWEnergy(params: string[]) {
-  const param0 = params[0]
-  let res = this.checkGenreOnly(params);
-  if ( ! res ) return res ;
-  if (param0.length===1 ) return res;
-  const brancheEnergy = this.getLunar().getyBranche().getEnergy()
-  return brancheEnergy.isYin() && param0[1] === "-";
-}
-
-  // Usage StarForce°(+,-),StarList
-  override checkStarForce(params:string[]) {
-    const checkFavorable = params[0]=="+"
-    const starList = this.checkGetEnumList(params[1],TuViStar.ANQUANG) as TuViStar[]
-    for (let index = 0; index < starList.length; index++) {
-      const star = starList[index];
-      if ( checkFavorable!=star.isFavorable() ) {
-        return false
-      }
-    }
-
-    return true;
-  }
-
-
-  // Usage StarBranche°Star,BrancheList
-  checkStarBranches(params: string[]): boolean {
-    const checkStars = this.checkGetEnumList(params[0],TuViStar.ANQUANG) as TuViStar[];
-    const checkBranches = this.checkGetEnumList(params[1],Branche.COCK) as Branche[];
-    const checkStar=checkStars[0]
-    const tuviStarMap = this.tuviHoroscope.tuviPalaceStarMap
-    const checkStarBranche = tuviStarMap.getStarBranche(checkStar);
-    for (let index = 0; index < checkBranches.length; index++) {
-      const checkBranche = checkBranches[index];
-      if ( checkStarBranche===checkBranche) return true
-    }
-    return false
-  }
-
-    // Usage StarPrincipalCount°CheckNumber
-    // If CheckNumber<=0 then checkLE abs(CheckNumber)
-     // If CheckNumber>0 then checkGE
-     // chinhTinhCount
-    checkPrincipalStarCount(params: string[]): boolean {
-      const fromCount = +params[0]
-      const chinhTinhCount=this.palace.chinhTinhCount
-      if ( fromCount>0 ) {
-        return chinhTinhCount>fromCount
-      } else {
-        return chinhTinhCount<=-fromCount
-      }
-    }
-
-override isAttrPresent( attrKey: string, params: string[]): boolean {
-  switch (attrKey) {
-    case "LunarTrunk":
-      return this.checkLunarTrunk(params);
-    case "PalaceBranche":
-        return this.checkPalaceBranche(params);
-    case "PalaceTuMo":
-        return this.checkPalaceTuMo();
-    case "PalaceTuSinh":
-        return this.checkPalaceTuSinh();
-    case "Star":
-        return this.checkStars(params);
-    case "StarOpposite":
-          return this.checkXungChieuStars(params);
-    case "StarHamDia":
-          return this.checkStarsStatus(params,TuViStar.HAMDIA,this.checkEqual);
-   case "StarDacDia":
-            return this.checkStarsStatus(params,TuViStar.DACDIA,this.checkEqual);
-    case "StarVuongDia":
-              return this.checkStarsStatus(params,TuViStar.VUONGDIA,this.checkEqual);
-    case "StarMieuDia":
-            return this.checkStarsStatus(params,TuViStar.MIEUDIA,this.checkEqual);
-    case "StarEQDiaStatus":
-              return this.checkStarsDiaStatus(params,this.checkEqual);
-    case "StarGEDacDia":
-          return this.checkDiaStatus(["1",params[0]],TuViStar.DACDIA,this.checkGE);
-    case "StarGEVuongDia":
-            return this.checkDiaStatus(["1",params[0]],TuViStar.VUONGDIA,this.checkGE);
-
-    case "StarGEDiaStatus":
-        return this.checkStarsDiaStatus(params,this.checkGE);
-    case "StarAnNgu":
-      return this.checkAnNguStars(params);
-      case "StarAnNguOne":
-        return this.checkAnNguOneStar([params[0]]);
-
-
-    case "StarTamHop":
-        return this.checkTamHopStars(params);
-    case "StarHoiChieu":
-      return this.checkTamHopStars(params)||this.checkXungChieuStars(params);
-    case "StarHoiHop":
-        return this.checkHoiHopStars(params);
-    case "StarNhiHop":
-        return this.checkNhiHopStars(params);
-    case "StarHopKhac":
-        return this.checkHopSinhKhacStars(params,false);
-    case "StarHopSinh":
-        return this.checkHopSinhKhacStars(params,true);
-    case "StarXungChieuGrp":
-          return this.checkXungChieuStarsGrp(params);
-
-    case "StarToaChieu":
-     return this.checkStars(params)||this.checkXungChieuStars(params);
-    case "StarXungChieu":
-        return this.checkXungChieuStars(params);
-    case "MeetHostileStars":
-          return this.checkMeetHostileStars();
-    case "HasHostileStars":
-            return this.checkHasStatTinh(params);
-    case "MeetGoodStars":
-            return this.hasManyGoodSupportStars();
-    case "StarGiapCung":
-        return this.checkStarGiapCung(params);
-    case "PalaceStatus":
-          return this.checkPalaceStatus(this.palace,params);
-    case "HanStatus":
-      return this.checkHanStatus(params);
-    case "TuanTriet":
-        return this.checkTuanTriet();
-    case "Genre":
-        return this.checkGenreWEnergy(params);
-    case "StarGoodNb":
-        return this.goodStarsCount==(+params[0]);
-    case "StarBranche":
-        return this.checkStarBranches(params);
-    case "StarPrincipalCount":
-          return this.checkPrincipalStarCount(params);
-    default:
-        return super.isAttrPresent(attrKey,params)
     }
     return false;
   }
 
 
+  // Usage PalaceTuSinh
+  checkPalaceTuSinh(): boolean {
+    return BrancheHelper.isTuSinh(this.palace.branche);
+  }
+
+  // Usage PalaceStatus°+-
+  // Usage Status°+-
+  checkPalaceStatus(palace: TuViPalace, params: string[]): boolean {
+    const checkStatus = params[0];
+    return palace.isFavorable() === (checkStatus === "+");
+  }
+
+  // Usage HanStatus°+-
+  checkHanStatus(params: string[]): boolean {
+    return this.checkPalaceStatus(this.tuviHoroscope.yDaihan, params);
+  }
+
+  // Usage MeetHostileStars
+  checkMeetHostileStars(): boolean {
+    return this.hasHostileStars() || this.hasCombinedSatTinh;
+  }
+
+
+  // Usage StarGiapCungr°Count,StarList
+  checkStarGiapCung(params: string[]): boolean {
+    let { count, checkStars } = this.getStarList(params);
+    for (let index = 0; index < checkStars.length; index++) {
+      const star = checkStars[index];
+      if (this.hasPrevNextStar(star)) {
+        count--;
+        if (count <= 0) return true;
+      }
+    }
+    return false;
+  }
+
+  // Usage Star°Number,StarList
+  checkStars(params: string[]): boolean {
+    let { count, checkStars } = this.getStarList(params)
+
+    const starSet = this.palace.starSet;
+    if (count > checkStars.length) {
+      count = checkStars.length;
+    }
+    for (let index = 0; index < starSet.length; index++) {
+      const tuViStar = starSet[index];
+      if (checkStars.indexOf(tuViStar) >= 0) {
+        count--;
+        if (count <= 0) return true;
+      }
+    }
+    return false;
+  }
+
+  // Usage StarXungChieu°Number,StarList
+  checkXungChieuStars(params: string[]): boolean {
+    const cungXungChieu = this.getCungXungChieu();
+    if (null !== cungXungChieu) {
+      return cungXungChieu.palaceObservation.checkStars(params);
+    }
+    return false;
+  }
+
+  // Usage StarXungChieuGrp°Number,StarList
+  checkXungChieuStarsGrp(params: string[]): boolean {
+    const cungXungChieu = this.getCungXungChieu();
+    if (null !== cungXungChieu) {
+      const starGrp = TuViStarHelper.toStarGroupList(params[1]);
+      return cungXungChieu.palaceObservation.checkStars([params[0], starGrp]);
+    }
+    return false;
+  }
+  // Usage StarHoiHop°Number,StarList
+  checkHoiHopStars(params: string[]): boolean {
+    if (params.length !== 2) {
+      console.log(
+        "Invalid param ",
+        params,
+        this.checkMethod,
+        this.checkKey,
+        this.prevKey
+      );
+    }
+    const count = +params[0];
+    const checkStars = TuViStarHelper.findStarGroupName(params[1]);
+    return this.hasSupportStars(checkStars, count);
+  }
+
+  // Usage StarTamHop°Number,StarList
+  checkTamHopStars(params: string[]): boolean {
+    let { count, checkStars } = this.getStarList(params);
+    if (count > checkStars.length) {
+      count = checkStars.length;
+    }
+    for (let index = 0; index < checkStars.length; index++) {
+      const star = checkStars[index];
+      if (this.hasRelationPalaceStar(star, BrancheRelation.COMBINATION)) {
+        count--;
+        if (count <= 0) return true;
+      }
+    }
+    return false;
+  }
+
+  // Usage StarAnNguOne°Star
+  checkAnNguOneStar(params: string[]): boolean {
+    const checkStars = this.checkGetEnumList(
+      params[0],
+      TuViStar.ANQUANG
+    ) as TuViStar[];
+    const checkStar = checkStars[0];
+    const checkStarName = params[0];
+    if (checkStar === TuViStar.TUANKHONG || checkStar === TuViStar.TRIETKHONG) {
+      if (this.hasTuanTrietKhong) return true;
+    }
+    const checkParams = ["1", checkStarName];
+    if (this.checkXungChieuStars(checkParams)) return true;
+    if (this.checkStars(checkParams)) return true;
+    if (this.checkTamHopStars(checkParams)) return true;
+    return false;
+  }
+
+
+    // Usage ThanAnNgu
+    checkThanAnNgu(): boolean {
+      const thanPalace = this.getThanPalace()
+      return this.checkPalaceAnNgu(thanPalace)
+      return false;
+    }
+
+    checkPalaceAnNgu(checkPalace: TuViPalace): boolean {
+      if ( checkPalace===this.palace ) return true;
+      const cungXungChieu = this.getCungXungChieu();
+      if ( checkPalace===cungXungChieu ) return true;
+      const cungTamHop=this.palace.getPalaceWithBrancheRelation(BrancheRelation.COMBINATION);
+      if ( cungTamHop.indexOf(checkPalace)>=0 ) return true;
+      return false;
+    }
+
+  // Usage StarsAnNgu°Count,StarList
+  checkAnNguStars(params: string[]): boolean {
+    let { count, starList } = this.toStarList(params);
+    const checkStars = this.checkEnumListSplit(starList, TuViStar.ANQUANG);
+    if (count > checkStars.length) {
+      count = checkStars.length;
+    }
+    for (let index = 0; index < checkStars.length; index++) {
+      const checkStar = checkStars[index];
+      if (this.checkAnNguOneStar([checkStar])) {
+        count--;
+        if (count <= 0) return true;
+      }
+    }
+    return false;
+  }
+
+
+  // Usage TuanTriet
+  checkTuanTriet(): boolean {
+    return (
+      this.checkAnNguOneStar(["TUANKHONG"]) ||
+      this.checkAnNguOneStar(["TRIETKHONG"])
+    );
+  }
+
+  // Usage StarNhiHop°Number,StarList
+  checkNhiHopStars(params: string[]): boolean {
+    let { count, checkStars } = this.getStarList(params);
+    if (count > checkStars.length) {
+      count = checkStars.length;
+    }
+    for (let index = 0; index < checkStars.length; index++) {
+      const star = checkStars[index];
+      if (this.hasSupportStarWithTransform(star)) {
+        count--;
+        if (count <= 0) return true;
+      }
+    }
+    return false;
+  }
+
+  // Usage StarHopSinh°Number,StarList
+  // Usage StarHopKhac°Number,StarList
+  checkHopSinhKhacStars(
+    params: string[],
+    checkCompatibleElement: boolean
+  ): boolean {
+    let { count, checkStars } = this.getStarList(params);
+    const tuviStarMap = this.tuviHoroscope.tuviPalaceStarMap;
+    const palaceBranche = this.palace.branche;
+    const palaceBrancheElement = palaceBranche.getElement();
+    if (count > checkStars.length) {
+      count = checkStars.length;
+    }
+    for (let index = 0; index < checkStars.length; index++) {
+      const star = checkStars[index];
+      const checkBranche = tuviStarMap.getStarBranche(star);
+      if (
+        BrancheRelation.isRelationPresent(
+          this.palace.branche,
+          checkBranche,
+          BrancheRelation.TRANSFORMPLUS
+        )
+      ) {
+        if (
+          checkCompatibleElement ===
+          palaceBrancheElement.isFavorable(checkBranche.getElement())
+        ) {
+          count--;
+          if (count <= 0) return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  toStarList(params: string[]) {
+    let count = 1;
+    let starList = params[0];
+    if (params.length >= 2) {
+      count = +params[0];
+      starList = params[1];
+    }
+    return { count, starList };
+  }
+
+  getStarList(params: string[]) {
+    let { count, starList } = this.toStarList(params);
+    let checkStars: TuViStar[] = []
+    if ( starList.indexOf("/")===-1 ) {
+      // MayBe a predefined group
+      checkStars = TuViStarHelper.findStarGroupName(starList);
+
+    } else {
+      checkStars = this.checkGetEnumList(
+        starList,
+        TuViStar.ANQUANG
+      ) as TuViStar[];
+    }
+
+    if (count > checkStars.length) count = checkStars.length;
+    return { count, checkStars };
+  }
+
+  // Usage StarHamDia°Count,StarList
+  // Do not check Star in Palace star list if count < 0
+  // ....
+  checkStarsStatus(params: string[], status: number, checkFunc: any): boolean {
+    let { count, checkStars } = this.getStarList(params);
+    let starSet = this.palace.starSet;
+    if (count < 0) {
+      count = -count;
+      starSet = checkStars;
+    }
+    if (count > checkStars.length) {
+      count = checkStars.length;
+    }
+    for (let index = 0; index < checkStars.length; index++) {
+      const star = checkStars[index];
+      if (
+        ObjectHelper.hasItem(starSet, star) &&
+        checkFunc(star.diaStatus, status)
+      ) {
+        count--;
+        if (count <= 0) return true;
+      }
+    }
+    return false;
+  }
+
+  // Usage StarDiaStatus°Count,StarList,DiaStatusNameList
+  checkStarsDiaStatus(params: string[], checkFunc: any): boolean {
+    const diaStatusList = params[2].split("/");
+    for (let index = 0; index < diaStatusList.length; index++) {
+      const diaStatus = TuViStar.getDiaStatusByName(diaStatusList[index]);
+      if (this.checkStarsStatus(params, diaStatus, checkFunc)) return true;
+    }
+    return false;
+  }
+
+  // Usage StarGEDacDia°count,StarList
+  checkDiaStatus(params: string[], diaStatus: number, checkFunc: any): boolean {
+    return this.checkStarsStatus(params, diaStatus, checkFunc);
+  }
+
+  checkEqual(param1: number, param2: number) {
+    return param1 === param2;
+  }
+
+  checkGT(param1: number, param2: number) {
+    return param1 > param2;
+  }
+
+  checkLT(param1: number, param2: number) {
+    return param1 < param2;
+  }
+
+  checkGE(param1: number, param2: number) {
+    return param1 >= param2;
+  }
+
+  checkLE(param1: number, param2: number) {
+    return param1 <= param2;
+  }
+
+  // usage Genre°(f,m)(+,-))
+  checkGenreWEnergy(params: string[]) {
+    const param0 = params[0];
+    let res = this.checkGenreOnly(params);
+    if (!res) return res;
+    if (param0.length === 1) return res;
+    const brancheEnergy = this.getLunar().getyBranche().getEnergy();
+    return brancheEnergy.isYin() && param0[1] === "-";
+  }
+
+  // Usage StarForce°(+,-),StarList
+  override checkStarForce(params: string[]) {
+    const checkFavorable = params[0] == "+";
+    const starList = this.checkGetEnumList(
+      params[1],
+      TuViStar.ANQUANG
+    ) as TuViStar[];
+    for (let index = 0; index < starList.length; index++) {
+      const star = starList[index];
+      if (checkFavorable != star.isFavorable()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  checkStarForceCountBase(
+    checkFavorable: boolean,
+    count: number,
+    starList: TuViStar[]
+  ) {
+    const starSet = this.palace.starSet;
+    for (let index = 0; index < starList.length; index++) {
+      const star = starList[index];
+      if (
+        ObjectHelper.hasItem(starSet, star) &&
+        checkFavorable == star.isFavorable()
+      ) {
+        count--;
+        if (count <= 0) return true;
+      }
+    }
+    return false;
+  }
+
+  // Usage StarForceCount°(+,-),Count,StarList
+  override checkStarForceCount(params: string[]) {
+    const checkFavorable = params[0] == "+";
+    let count = +params[1];
+    const starList = TuViStarHelper.findStarGroupName(params[2]);
+    return this.checkStarForceCountBase(checkFavorable, count, starList);
+  }
+
+  // Usage StarBranche°Star,BrancheList
+  checkStarBranches(params: string[]): boolean {
+    const checkStars = this.checkGetEnumList(
+      params[0],
+      TuViStar.ANQUANG
+    ) as TuViStar[];
+    const checkBranches = this.checkGetEnumList(
+      params[1],
+      Branche.COCK
+    ) as Branche[];
+    const checkStar = checkStars[0];
+    const tuviStarMap = this.tuviHoroscope.tuviPalaceStarMap;
+    const checkStarBranche = tuviStarMap.getStarBranche(checkStar);
+    for (let index = 0; index < checkBranches.length; index++) {
+      const checkBranche = checkBranches[index];
+      if (checkStarBranche === checkBranche) return true;
+    }
+    return false;
+  }
+
+  // Usage StarPrincipalCount°CheckNumber
+  // If CheckNumber<=0 then checkLE abs(CheckNumber)
+  // If CheckNumber>0 then checkGE
+  // chinhTinhCount
+  checkPrincipalStarCount(params: string[]): boolean {
+    const fromCount = +params[0];
+    const chinhTinhCount = this.goodStarsCount;
+    if (fromCount > 0) {
+      return chinhTinhCount >= fromCount;
+    } else {
+      return chinhTinhCount <= -fromCount;
+    }
+  }
+
+    // Usage StarHostileCount°CheckNumber
+  // If CheckNumber<=0 then checkLE abs(CheckNumber)
+  // If CheckNumber>0 then checkGE
+  // chinhTinhCount
+  checkStarHostileCount(params: string[]): boolean {
+    let fromCount=1
+    if ( params.length===1 ) fromCount = +params[0];
+    const hostileStarsCount = this.goodStarsCount;
+    if (fromCount > 0) {
+      return hostileStarsCount >= fromCount;
+    } else {
+      return hostileStarsCount <= -fromCount;
+    }
+  }
+
+     // Usage StarGoodCount°CheckNumber
+  // If CheckNumber<=0 then checkLE abs(CheckNumber)
+  // If CheckNumber>0 then checkGE
+  // chinhTinhCount
+  checkStarGoodCount(params: string[]): boolean {
+    let fromCount=1
+    if ( params.length===1 ) fromCount = +params[0];
+    const goodStarsCount = this.goodStarsCount;
+    if (fromCount > 0) {
+      return goodStarsCount >= fromCount;
+    } else {
+      return goodStarsCount <= -fromCount;
+    }
+  }
+
+  // Usage HourKimSa°Type
+  checkHourKimSa(params: string[]): boolean {
+    const type = +params[0];
+    const iRes = DateHelper.kimSaHourType(this.getLunar(), this.isMan());
+    return iRes == type;
+  }
+
+  // Usage HourQuanSat
+  checkHourQuanSat(): boolean {
+    return DateHelper.isQuanSatHour(this.getLunar());
+  }
+
+  // Usage HourTuongQuan
+  checkHourTuongQuan(): boolean {
+    return DateHelper.isTuongQuanHour(this.getLunar());
+  }
+
+  // Usage HourDiemVuong
+  checkHourDiemVuong(): boolean {
+    return DateHelper.isDiemVuongHour(this.getLunar());
+  }
+  // Usage HourSeasonCompatible
+  checkHourSeasonCompatible(): boolean {
+    return DateHelper.isHourSeasonCompatible(this.getLunar());
+  }
+
+  checkPalaceFavorable() {
+    return this.hasManyGoodSupportStars();
+  }
+
+  checkMenhFavorable() {
+    const tuviMenhObservation = this.getObservations(TuViRing.Menh);
+    return tuviMenhObservation.hasManyGoodSupportStars();
+  }
+
+  checkThanFavorable() {
+    const tuviThanObservation = this.getThanObservations();
+    return tuviThanObservation.hasManyGoodSupportStars();
+  }
+
+  checkMenhStarForceCount(params: string[]) {
+    const tuviMenhObservation = this.getObservations(TuViRing.Menh);
+    if (tuviMenhObservation != null) {
+      return tuviMenhObservation.checkStarForceCount(params);
+    }
+    return false;
+  }
+
+  checkThanStarForceCount(params: string[]) {
+    const tuviThanObservation = this.getThanObservations();
+    if (tuviThanObservation != null) {
+      return tuviThanObservation.checkStarForceCount(params);
+    }
+    return false;
+  }
+
+  checkSatTinhForceCount(params: string[]) {
+    const checkFavorable = params[0] == "+";
+    let count = +params[1];
+    return this.checkStarForceCountBase(
+      checkFavorable,
+      count,
+      this.palace.satTinhStars
+    );
+  }
+
+  checkMenh(params: string[]) {
+    const tuviMenhObservation = this.getObservations(TuViRing.Menh);
+    return tuviMenhObservation.processFuncSuite(params.toString(),"§","$",false);
+  }
+
+  checkIsMenh() {
+    const tuviMenhObservation = this.getObservations(TuViRing.Menh);
+    return tuviMenhObservation.palace===this.palace
+  }
+
+  checkThan(params: string[]) {
+    const tuviThanObservation = this.getThanObservations();
+    return tuviThanObservation.processFuncSuite(params.toString(),"§","$",false);
+  }
+
+  checkHan(params: string[]) {
+    const daiHan = this.tuviHoroscope.daihan;
+    if ( daiHan===null ) return false ;
+    if (  daiHan.palaceObservation===null ) return false ;
+    return daiHan.palaceObservation.processFuncSuite(params.toString(),"§","$",false);
+  }
+
+  checkIsCuoiHan() {
+    const daiHan = this.tuviHoroscope.daihan as TuViPalace;
+    if ( daiHan===null ) return false ;
+    if (  daiHan.palaceObservation===null ) return false ;
+    return daiHan.cuoiHan
+  }
+  checkIsDaiHan() {
+    const daiHan = this.tuviHoroscope.daihan;
+    if ( daiHan===null ) return false ;
+    if (  daiHan.palaceObservation===null ) return false ;
+    return daiHan===this.palace;
+  }
+
+  checkIsTieuHan() {
+    const yDaihan = this.tuviHoroscope.yDaihan;
+    if ( yDaihan===null ) return false ;
+    if (  yDaihan.palaceObservation===null ) return false ;
+    return yDaihan===this.palace;
+  }
+
+  // Check if the pilar branche name is among the branche List
+  // Usage: Branche°Period/Year/Y/M/D/H,BranceList
+  //
+  checkTuViBranche(params: string[]): boolean {
+    const hanLunar = this.palace.hanLunar;
+    if ( hanLunar===null ) {
+      console.log("HanDate not init ");
+      return false ;
+    }
+    if (params.length !== 2) return false;
+    const pilarName = params[0];
+    const brancheList = this.checkEnumList(params[1],Branche.RAT)
+    const pilar = hanLunar.getPilarByName(pilarName)
+    const brancheName = pilar.branche.getName();
+
+    return brancheList.indexOf(brancheName) >= 0;
+  }
+
+
+  override isAttrPresent(attrKey: string, params: string[]): boolean {
+    switch (attrKey) {
+      case "Menh":
+        return this.checkMenh(params);
+        case "IsMenh":
+          return this.checkIsMenh();
+       case "Than":
+        return this.checkThan(params);
+        case "Han":
+          return this.checkHan(params);
+          case "IsCuoiHan":
+            return this.checkIsCuoiHan();
+        case "IsThan":
+          return this.palace.isThan;
+          case "IsDaiHan":
+            return this.checkIsDaiHan();
+            case "IsTieuHan":
+              return this.checkIsTieuHan();
+        case "ThanAnNgu":
+          return this.checkThanAnNgu();
+          case "PalaceAnNgu":
+            return this.checkPalaceAnNgu(this.palace);
+      case "MenhFavorable":
+        return this.checkMenhFavorable();
+      case "ThanFavorable":
+        return this.checkThanFavorable();
+      case "PalaceFavorable":
+          return this.checkPalaceFavorable();
+      case "PalaceThan":
+        return this.palace.isThan;
+      case "MenhStarForceCount":
+        return this.checkMenhStarForceCount(params);
+
+      case "ThanStarForceCount":
+        return this.checkThanStarForceCount(params);
+
+      case "SatTinhForceCount":
+        return this.checkSatTinhForceCount(params);
+      case "HourKimSa":
+        return this.checkHourKimSa(params);
+      case "HourQuanSat":
+        return this.checkHourQuanSat();
+      case "HourTuongQuan":
+        return this.checkHourTuongQuan();
+      case "HourDiemVuong":
+        return this.checkHourDiemVuong();
+      case "HourSeasonCompatible":
+        return this.checkHourSeasonCompatible();
+      case "PalaceBranche":
+        return this.checkPalaceBranche(params);
+      case "PalaceElement":
+          return this.checkPalaceElement(params);
+     case "PalaceEnergy":
+            return this.checkPalaceEnergy(params);
+      case "PalaceTuMo":
+        return this.checkPalaceTuMo();
+      case "PalaceXKhong":
+          return this.checkPalaceXKhong(params);
+      case "PalaceTuSinh":
+        return this.checkPalaceTuSinh();
+      case "Star":
+        return this.checkStars(params);
+        case "StarMieuDia":
+          return this.checkStarsStatus(params, TuViStar.MIEUDIA, this.checkEqual);
+      case "StarBinhDia":
+          return this.checkStarsStatus(params, TuViStar.BINHDIA, this.checkEqual);
+      case "StarHamDia":
+        return this.checkStarsStatus(params, TuViStar.HAMDIA, this.checkEqual);
+      case "StarDacDia":
+        return this.checkStarsStatus(params, TuViStar.DACDIA, this.checkEqual);
+      case "StarVuongDia":
+        return this.checkStarsStatus(
+          params,
+          TuViStar.VUONGDIA,
+          this.checkEqual
+        );
+      case "StarMieuDia":
+        return this.checkStarsStatus(params, TuViStar.MIEUDIA, this.checkEqual);
+      case "StarEQDiaStatus":
+        return this.checkStarsDiaStatus(params, this.checkEqual);
+      case "StarGEDacDia":
+        if (params.length==1 ) {
+          params.unshift("1")
+        }
+        return this.checkDiaStatus(
+          params,
+          TuViStar.DACDIA,
+          this.checkGE
+        );
+      case "StarGEVuongDia":
+        if (params.length==1 ) {
+          params.unshift("1")
+        }
+        return this.checkDiaStatus(
+          params,
+          TuViStar.VUONGDIA,
+          this.checkGE
+        );
+     case "StarAnNgu":
+        return this.checkAnNguStars(params);
+      case "StarAnNgu":
+        return this.checkAnNguStars(params);
+      case "StarAnNguOne":
+        return this.checkAnNguOneStar([params[0]]);
+
+      case "StarTamHop":
+        return this.checkTamHopStars(params);
+      case "StarHoiChieu":
+        return (
+          this.checkTamHopStars(params) || this.checkXungChieuStars(params)
+        );
+      case "StarHoiHop":
+        return this.checkHoiHopStars(params);
+      case "StarNhiHop":
+        return this.checkNhiHopStars(params);
+      case "StarHopKhac":
+        return this.checkHopSinhKhacStars(params, false);
+      case "StarHopSinh":
+        return this.checkHopSinhKhacStars(params, true);
+      case "StarXungChieuGrp":
+        return this.checkXungChieuStarsGrp(params);
+
+      case "StarToaChieu":
+        return this.checkStars(params) || this.checkXungChieuStars(params);
+      case "StarXungChieu":
+        return this.checkXungChieuStars(params);
+      case "MeetHostileStars":
+        return this.checkMeetHostileStars();
+      case "StarHostileCount":
+        return this.checkStarHostileCount(params);
+      case "MeetGoodStars":
+        return this.hasManyGoodSupportStars();
+      case "StarGiapCung":
+        return this.checkStarGiapCung(params);
+      case "PalaceStatus":
+        return this.checkPalaceStatus(this.palace, params);
+      case "HanStatus":
+        return this.checkHanStatus(params);
+      case "TuanTriet":
+        return this.checkTuanTriet();
+      case "Genre":
+        return this.checkGenreWEnergy(params);
+
+      case "StarGoodCount":
+        return this.checkStarGoodCount(params);
+      case "StarBranche":
+        return this.checkStarBranches(params);
+      case "StarPrincipalCount": // VoChinhDieu == StarPrincipalCount°0
+        return this.checkPrincipalStarCount(params);
+      case "VoChinhDieu":
+        return this.checkPrincipalStarCount(["0"]);
+      case "TuViBranche":
+        return this.checkTuViBranche(params);
+      default:
+        return super.isAttrPresent(attrKey, params);
+    }
+    return false;
+  }
 
   abstract getHeaderSuffix(): string;
 
   getTuViDestinHeader(): string {
-    return "TuVi."+this.getHeaderSuffix()
+    return "TuVi." + this.getHeaderSuffix();
   }
 
-  getTuViPeriodHeader(): string  {
-    return "TuViPeriod."+this.getHeaderSuffix()
+  getTuViPeriodHeader(): string {
+    return "TuViPeriod." + this.getHeaderSuffix();
   }
 
-  getTuViYearHeader(): string  {
-    return "TuViYear."+this.getHeaderSuffix()
+  getTuViPeriodXHeader(): string {
+    return "TuViPeriod.X"
+  }
+
+  getTuViPeriodYearXHeader(): string {
+    return "TuViPY.X"
+  }
+
+  getTuViYearHeader(): string {
+    return "TuViYear." + this.getHeaderSuffix();
+  }
+
+  getTuViYearXHeader(): string {
+    return "TuViYear.X" ;
   }
 
   override filterObservation(header: string, genPeriodOrYear: boolean) {
     this.filterOnHeader(header);
   }
 
-override comment() {
-  super.comment();
-  this.commentOnThan();
-  this.checkThuongCach();
-  this.checkTrungCach();
-  if (this.palace.isThan) {
-    this.filterObservation("TuVi.Than", false);
+  override comment() {
+    super.comment();
+    this.commentOnThan();
+    if (this.palace.isThan) {
+      this.filterObservation("TuVi.Than", false);
+    }
+    this.filterObservation(this.getTuViDestinHeader(), false);
   }
-  this.filterObservation(this.getTuViDestinHeader(), false);
-
-}
-
-
 }

@@ -11,10 +11,12 @@ import { TuViStarHelper } from '../../helper/tuviStarHelper';
 import { Branche } from '../bazi/branche';
 import { Lunar } from '../bazi/lunar';
 import { Trunk } from '../bazi/trunk';
+import { MyCalendar } from '../date/mycalendar';
 import { Element } from '../feng-shui/element';
 import { TuViPalace } from './tuviPalace';
 import { TuViRing } from './tuviRing';
 import { TuViStar } from './tuviStar';
+import { Temporal } from "temporal-polyfill";
 
 export class TuViStarMap {
   static SecPerStartBranche = [
@@ -585,9 +587,17 @@ export class TuViStarMap {
         !observation.hasTuanTrietKhong && TuViStar.THAIAM.force >= 0;
   }
 
-  getDaiVanPalaceForAge(age: number): TuViPalace {
+  getDaiVanPalaceForAge(age: number, ageDate:MyCalendar): TuViPalace {
     let res = null;
     const bValues = Branche.getValues();
+    let hanAge = age
+    for (let index = 0; index < bValues.length; index++) {
+      const branche = bValues[index];
+      const palace = this.getBranchePalace(branche);
+      palace.han=TuViPalace.NOHAN;
+      palace.hanLunar=null;
+      palace.cuoiHan=false;
+    }
     for (let index = 0; index < bValues.length; index++) {
       const branche = bValues[index];
       const palace = this.getBranchePalace(branche);
@@ -596,6 +606,7 @@ export class TuViStarMap {
         palace.bigPeriodFromYear <= age &&
         age <= palace.bigPeriodToYear
       ) {
+        hanAge =  palace.bigPeriodFromYear
         res = palace;
         break;
       }
@@ -605,6 +616,11 @@ export class TuViStarMap {
     }
 
     res.han=TuViPalace.DAIHAN;
+    const hanDate = ageDate.getCopy();
+    hanDate.add(Temporal.Duration.from({ years: hanAge-age }));
+    console.log("HanAge ",hanAge, age , hanDate)
+    res.hanLunar=new Lunar(hanDate,true);
+    res.cuoiHan=res.bigPeriodFromYear+5>=age
     return res;
 
   }
@@ -654,11 +670,19 @@ export class TuViStarMap {
 }
 
     // Ref17 p26
-    getTuViStudyYearBrancheDaiHan( age: number,  daihan: TuViPalace) {
+    getTuViStudyYearBrancheDaiHan( age: number,  daihan: TuViPalace, currDate: MyCalendar) {
 
       let res;
       let diffAge = -1 ;
       let inc = 0 ;
+      // Reset Han Info
+      res = daihan;
+      const bValues = Branche.getValues();
+      for (let index = 0; index < bValues.length-1; index++) {
+        res = res.getNextPalace(1)
+        res.han=TuViPalace.NOHAN;
+        res.hanLunar=null;
+      }
       if (age >= 13) {
           // The start palace
           res = daihan;
@@ -674,6 +698,7 @@ export class TuViStarMap {
           res = this.getChildPalace(age);
       }
       res.han=TuViPalace.DAIHANNAM;
+      res.hanLunar=new Lunar(currDate,true);
       return res ;
   }
 

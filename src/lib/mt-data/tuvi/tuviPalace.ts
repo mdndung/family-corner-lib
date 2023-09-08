@@ -13,6 +13,7 @@ import { TuViPalaceObservationBase } from './tuviPalaceObservationBase';
 import { BaziHelper } from '../../helper/baziHelper';
 import { BrancheHelper } from '../../helper/brancheHelper';
 import { StringHelper } from '../../helper/stringHelper';
+import { MyCalendar } from '../date/mycalendar';
 
 export class TuViPalace {
 
@@ -48,6 +49,7 @@ export class TuViPalace {
   starSet: TuViStar[]= null;
   baiTinhCount: number= null;
   satTinhCount: number= null;
+  satTinhStars: TuViStar[]= null;
   chinhTinhCount: number= null;
   secondaryPeriodBranche?: Branche= null;
 
@@ -76,7 +78,8 @@ export class TuViPalace {
   periodMaxPoints: number= null;
   chinhTinhForce: number= null;
   trungTinhForce: number= null;
-
+  cuoiHan:boolean;
+  hanLunar: Lunar;
 
   constructor(branche: Branche, prev: TuViPalace) {
     this.branche = branche;
@@ -84,8 +87,10 @@ export class TuViPalace {
     this.starSet = [];
     this.baiTinhCount = 0;
     this.satTinhCount = 0;
+    this.satTinhStars = [];
     this.chinhTinhCount = 0;
     this.han=TuViPalace.NOHAN;
+    this.hanLunar=null;
   }
 
   getName() {
@@ -123,7 +128,7 @@ export class TuViPalace {
     if (this.containsStar(star)) {return;}
     this.starSet.push(star);
     if (star.isBaiTinh()) {this.baiTinhCount++;}
-    if (star.isSatTinh()) {this.satTinhCount++;}
+    if (star.isSatTinh()) {this.satTinhCount++; this.satTinhStars.push(star) }
     if (star.isChinhTinh()) {this.chinhTinhCount++;}
   }
 

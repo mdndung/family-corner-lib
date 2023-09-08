@@ -113,7 +113,7 @@ export class HoroscopeHelper {
     if (keyAttr.isBase()) {
         keyAttr.getOriginKeysArr().forEach(originAttr => {
 
-            const originBaseKeyList = PropertyHelper.findBaseKeys(originAttr);
+            const originBaseKeyList = PropertyHelper.prepareBaseKeys(originAttr);
             let isAllBaseKeyDisplayed = true;
             let currOriginDisplayedKeys : string [] = [];
             const originKey = originAttr.key;

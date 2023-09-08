@@ -74,11 +74,23 @@ export class PropertyHelper {
       PropertyHelper.catKeys["TuVi.Menh"] = keys.filter(value => /^TuVi\.Menh\./.test(value));
       PropertyHelper.catKeys["TuViPeriod.Menh"] = keys.filter(value => /^TuViPeriod\.Menh\./.test(value));
       PropertyHelper.catKeys["TuViYear.Menh"] = keys.filter(value => /^TuViYear\.Menh\./.test(value));
-
+      PropertyHelper.catKeys["TuViYear.X"] = keys.filter(value => /^TuViYear\.X\./.test(value));
+      PropertyHelper.catKeys["TuViPeriod.X"] = keys.filter(value => /^TuViPeriod\.X\./.test(value));
+      PropertyHelper.catKeys["TuViPY.X"] = keys.filter(value => /^TuViPY\.X\./.test(value));
       PropertyHelper.catKeys["TuVi.Than"] = keys.filter(value => /^TuVi\.Than\./.test(value));
 
       PropertyHelper.catKeys["TuVi.PhuMau"] = keys.filter(value => /^TuVi\.PhuMau\./.test(value));
       PropertyHelper.catKeys["TuVi.PhucDuc"] = keys.filter(value => /^TuVi\.PhuDuc\./.test(value));
+      PropertyHelper.catKeys["TuVi.DienTrach"] = keys.filter(value => /^TuVi\.DienTrach\./.test(value));
+      PropertyHelper.catKeys["TuVi.TaiBach"] = keys.filter(value => /^TuVi\.TaiBach\./.test(value));
+      PropertyHelper.catKeys["TuVi.QuanLoc"] = keys.filter(value => /^TuVi\.QuanLoc\./.test(value));
+      PropertyHelper.catKeys["TuVi.TatAch"] = keys.filter(value => /^TuVi\.TatAch\./.test(value));
+      PropertyHelper.catKeys["TuVi.ThienDi"] = keys.filter(value => /^TuVi\.ThienDi\./.test(value));
+      PropertyHelper.catKeys["TuVi.NoBoc"] = keys.filter(value => /^TuVi\.NoBoc\./.test(value));
+      PropertyHelper.catKeys["TuVi.TuTuc"] = keys.filter(value => /^TuVi\.TuTuc\./.test(value));
+      PropertyHelper.catKeys["TuVi.PhuThe"] = keys.filter(value => /^TuVi\.PhuThe\./.test(value));
+      PropertyHelper.catKeys["TuVi.HuynhDe"] = keys.filter(value => /^TuVi\.HuynhDe\./.test(value));
+
    }
   }
 
@@ -459,7 +471,7 @@ export class PropertyHelper {
     }
   }
 
-  static findBaseKeys(keyAttr: PropertyAttr) {
+  static prepareBaseKeys(keyAttr: PropertyAttr) {
     if (keyAttr.isUndef()) return [];
     let baseKeyAttrArr: PropertyAttr[] = [];
     const isDefinedOrIndirect = keyAttr.isDefinedOrIndirect();
@@ -503,7 +515,7 @@ export class PropertyHelper {
   static addCommentLabel(key: string) {
     // find and insert base key message
     const keyAttr = PropertyHelper.getPropertyAttr(key);
-    PropertyHelper.findBaseKeys(keyAttr);
+    PropertyHelper.prepareBaseKeys(keyAttr);
   }
 
   static getMeanPropForceContribution(
@@ -545,7 +557,7 @@ export class PropertyHelper {
     const currSessionOrd = PropertyHelper.currObsSession.ordinal() - 1;
     oppositeKeyArr.forEach((oppositeAttr) => {
       const originOppositeKeyForce = oppositeAttr.force;
-      const keyBaseArr = PropertyHelper.findBaseKeys(oppositeAttr);
+      const keyBaseArr = PropertyHelper.prepareBaseKeys(oppositeAttr);
       keyBaseArr.forEach((baseKey) => {
         res +=
           originOppositeKeyForce + // Force of the source opposite base key
@@ -565,7 +577,7 @@ export class PropertyHelper {
     keyList.forEach((keyAttr) => {
       // Current session property attributes
       const originForce = keyAttr.force;
-      const keyBaseArr = PropertyHelper.findBaseKeys(keyAttr);
+      const keyBaseArr = PropertyHelper.prepareBaseKeys(keyAttr);
       keyBaseArr.forEach((baseKey) => {
         if (!ObjectHelper.hasItem(originKeyBaseArr, baseKey)) {
           res +=

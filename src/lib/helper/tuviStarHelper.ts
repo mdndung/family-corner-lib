@@ -865,6 +865,7 @@ export class TuViStarHelper {
   static THAIPHUJ = [TuViStar.THAI, TuViStar.TUPHUF, TuViStar.TRUCPHUF];
   static LONGDIEU = [TuViStar.THANHLONG, TuViStar.DIEUKHACH];
   static LONGPHUONG = [TuViStar.THANHLONG, TuViStar.PHUONGCAC];
+  static TUONGANLONGPHUONGPHU = [TuViStar.THIENTUONG, TuViStar.ANQUANG,TuViStar.THANHLONG, TuViStar.PHUONGCAC,TuViStar.THIENPHUR];
   static LONGPHUONGTAU = [TuViStar.THANHLONG, TuViStar.PHUONGCAC,TuViStar.TAUTHU];
   static TUEKY = [TuViStar.THAITUE, TuViStar.HOAKY];
   static TUEVIET = [TuViStar.THAITUE, TuViStar.THIENVIET];
@@ -896,10 +897,11 @@ export class TuViStarHelper {
   static QUANPHUC = [TuViStar.THIENQUAN, TuViStar.THIENPHUC];
   static HINHHO = [TuViStar.THIENHINH, TuViStar.BACHHO];
   static QUANPHURF = [TuViStar.QUANPHUF, TuViStar.QUANPHUR];
-  static VONGHINHKHOI = [
+  static VONGHINHKHOIDAKY = [
     TuViStar.THIENHINH,
     TuViStar.THIENKHOI,
     TuViStar.DIAVONG,
+    TuViStar.DALA, TuViStar.HOAKY
   ];
   static TUEKHOIVIET = [
     TuViStar.THAITUE,
@@ -1349,8 +1351,17 @@ export class TuViStarHelper {
     TuViStar.THIENCO,
     TuViStar.THAIAM,
     TuViStar.THIENDONG,
-    TuViStar.THIENLUONG,
+    TuViStar.THIENLUONG
+  ];
+  static CONGUYETDONGLUONGHUKINHTUEKHACH = [
+    TuViStar.THIENCO,
     TuViStar.THAIAM,
+    TuViStar.THIENDONG,
+    TuViStar.THIENLUONG,
+    TuViStar.THIENHU,
+    TuViStar.KINHDUONG,
+    TuViStar.THAITUE,
+    TuViStar.DIEUKHACH,
   ];
   static TUPHUVUTUONG = [
     TuViStar.TUVI,
@@ -1404,6 +1415,10 @@ export class TuViStarHelper {
     TuViStar.THIENKHOI,
     TuViStar.HONGLOAN,
   ];
+  static TAHUUMOQUYENKHOIVIETXUONGKHUCTHU = [
+    TuViStar.TAPHU, TuViStar.HUUBAT, TuViStar.MO, TuViStar.HOAQUYEN, TuViStar.THIENKHOI,
+    TuViStar.THIENVIET, TuViStar.VANXUONG, TuViStar.VANKHUC, TuViStar.TAUTHU];
+
   static PHUONGLONGCAIHO = [
     TuViStar.PHUONGCAC,
     TuViStar.LONGDUC,
@@ -1449,6 +1464,13 @@ export class TuViStarHelper {
     TuViStar.THIENHINH,
     TuViStar.KIEPSAT,
     TuViStar.HOAKY,
+  ];
+  static SATHINHKIEPKYMA = [
+    TuViStar.THATSAT,
+    TuViStar.THIENHINH,
+    TuViStar.KIEPSAT,
+    TuViStar.HOAKY,
+    TuViStar.THIENMA,
   ];
   static XUONGKHUCKHOIVIET = [
     TuViStar.VANXUONG,
@@ -1706,6 +1728,13 @@ export class TuViStarHelper {
     TuViStar.THIENKHOI,
     TuViStar.THIENVIET,
   ];
+  static LATUTUYETCUDONG= [
+    TuViStar.THIENLA,
+    TuViStar.TUVI,
+    TuViStar.TUYET,
+    TuViStar.CUMON,
+    TuViStar.THIENDONG
+  ];
   static LAVONGTHAMLINHDA = [
     TuViStar.THIENLA,
     TuViStar.DIAVONG,
@@ -1746,6 +1775,15 @@ export class TuViStarHelper {
   static TUPHURCONGUYETDONGLUONG = [
     TuViStar.TUVI,
     TuViStar.THIENPHUR,
+    TuViStar.THIENCO,
+    TuViStar.THIENDONG,
+    TuViStar.THIENLUONG,
+    TuViStar.THAIAM,
+  ];
+  static TUPHURNHATCONGUYETDONGLUONG = [
+    TuViStar.TUVI,
+    TuViStar.THIENPHUR,
+    TuViStar.THAIDUONG,
     TuViStar.THIENCO,
     TuViStar.THIENDONG,
     TuViStar.THIENLUONG,
@@ -1794,6 +1832,15 @@ export class TuViStarHelper {
   ];
   static TUPHURKHOAQUYENHINHANHONGKHOI = [
     TuViStar.TUVI,
+    TuViStar.THIENPHUR,
+    TuViStar.HOAKHOA,
+    TuViStar.HOAQUYEN,
+    TuViStar.THIENHINH,
+    TuViStar.ANQUANG,
+    TuViStar.HONGLOAN,
+    TuViStar.THIENKHOI,
+  ];
+  static PHURKHOAQUYENHINHANHONGKHOI = [
     TuViStar.THIENPHUR,
     TuViStar.HOAKHOA,
     TuViStar.HOAQUYEN,
@@ -1986,6 +2033,15 @@ export class TuViStarHelper {
     TuViStar.THIENKHOI,
     TuViStar.THIENVIET
   ];
+  static XUONGKHUCKHOIVIETLONGPHUONG = [
+    TuViStar.VANXUONG,
+    TuViStar.VANKHUC,
+    TuViStar.THIENKHOI,
+    TuViStar.LONGTRI,
+    TuViStar.LONGDUC,
+    TuViStar.PHUONGCAC,
+    TuViStar.THIENVIET
+  ];
   static PHUVUTUONGTAHUUKHOAQUYENLOC = [
     TuViStar.THIENPHUR,
     TuViStar.VUKHUC,
@@ -1995,6 +2051,22 @@ export class TuViStarHelper {
     TuViStar.HOAKHOA,
     TuViStar.HOAQUYEN,
     TuViStar.HOALOC,
+  ];
+  static PHUVUTUONGXUONGKHUCKHOIVIETTAHUUKHOAQUYENLOCLONGPHUONG = [
+   TuViStar.THIENPHUR,
+    TuViStar.VUKHUC,
+    TuViStar.THIENTUONG,
+    TuViStar.VANXUONG,
+    TuViStar.VANKHUC,
+    TuViStar.THIENKHOI,
+    TuViStar.THIENVIET,
+    TuViStar.TAPHU,
+    TuViStar.HUUBAT,
+    TuViStar.HOAKHOA,
+    TuViStar.HOAQUYEN,
+    TuViStar.HOALOC,
+    TuViStar.THANHLONG,
+    TuViStar.PHUONGCAC
   ];
   static TUPHUVUTUONGTAHUULONGPHUONGKHOAQUYENLOCAN = [
     TuViStar.TUVI,
@@ -2098,6 +2170,13 @@ export class TuViStarHelper {
     TuViStar.MO,
     TuViStar.PHUCBINH,
     TuViStar.BACHHO,
+  ];
+  static LONGPHUONGTAHUUHINH = [
+    TuViStar.TAPHU,
+    TuViStar.HUUBAT,
+    TuViStar.THANHLONG,
+    TuViStar.PHUONGCAC,
+    TuViStar.THIENHINH
   ];
   static TAHUULONGPHUONGHONGDAOHYRIEU = [
     TuViStar.TAPHU,
@@ -2303,14 +2382,97 @@ export class TuViStarHelper {
     ["CUVU",TuViStarHelper.CUVU],
     ["TUKHUC",TuViStarHelper.TUKHUC],
     ["COLUONG",TuViStarHelper.COLUONG],
+    ["NHATNGUYET",TuViStarHelper.NHATNGUYET],
+    ["HONGTHU",TuViStarHelper.HONGTHU],
+    ["VUTUONG",TuViStarHelper.VUTUONG],
+    ["TUONGANLONGPHUONGPHU",TuViStarHelper.TUONGANLONGPHUONGPHU],
+    ["TAHUUXUONGKHUC",TuViStarHelper.TAHUUXUONGKHUC],
+    ["HONGDAOTHUDUCCAC",TuViStarHelper.HONGDAOTHUDUCCAC],
+    ["HONGRIEUDAOTHU",TuViStarHelper.HONGRIEUDAOTHU],
+    ["TUPHUVUTUONG",TuViStarHelper.TUPHUVUTUONG],
+    ["LOCMA",TuViStarHelper.LOCMA],
+    ["HOAKINH",TuViStarHelper.HOAKINH],
+    ["TUPHUVUTUONGTAHUULONGPHUONGKHOAQUYENLOCAN",TuViStarHelper.TUPHUVUTUONGTAHUULONGPHUONGKHOAQUYENLOCAN],
+    ["PHUVUTUONGXUONGKHUCKHOIVIETTAHUUKHOAQUYENLOCLONGPHUONG",TuViStarHelper.PHUVUTUONGXUONGKHUCKHOIVIETTAHUUKHOAQUYENLOCLONGPHUONG],
+    ["TAHUUQUYENLOCNHATNGUYET",TuViStarHelper.TAHUUQUYENLOCNHATNGUYET],
+    ["TAHUUMOQUYENKHOIVIETXUONGKHUCTHU",TuViStarHelper.TAHUUMOQUYENKHOIVIETXUONGKHUCTHU],
+   ["TUPHUCUNHATCONGUYETDONGLUONG",TuViStarHelper.TUPHUCUNHATCONGUYETDONGLUONG],
+    ["TUPHURNHATCONGUYETDONGLUONG",TuViStarHelper.TUPHURNHATCONGUYETDONGLUONG],
+    ["XUONGKHUCKHOIVIETLONGPHUONG",TuViStarHelper.XUONGKHUCKHOIVIETLONGPHUONG],
+    ["LONGPHUONGTAHUUHINH",TuViStarHelper.LONGPHUONGTAHUUHINH],
+    ["KINHPHUC",TuViStarHelper.KINHPHUC],
+    ["MONHO",TuViStarHelper.MONHO],
+    ["LATUTUYETCUDONG",TuViStarHelper.LATUTUYETCUDONG],
+    ["LUUKIEP",TuViStarHelper.LUUKIEP],
+    ["HONGLOCKHOA",TuViStarHelper.HONGLOCKHOA],
+    ["CONGUYETDONGLUONGHUKINHTUEKHACH",TuViStarHelper.CONGUYETDONGLUONGHUKINHTUEKHACH],
+    ["HUKINHTUEKHACH",TuViStarHelper.HUKINHTUEKHACH],
+    ["KIEPHOAKY",TuViStarHelper.KIEPHOAKY],
+    ["VONGHINHKHOIDAKY",TuViStarHelper.VONGHINHKHOIDAKY],
+    ["KINHVUONG",TuViStarHelper.KINHVUONG],
+    ["SATHINHKIEPKYMA",TuViStarHelper.SATHINHKIEPKYMA],
+    ["SATHINHKIEPKY",TuViStarHelper.SATHINHKIEPKY],
+    ["LAVONGTHAMLINHDA",TuViStarHelper.LAVONGTHAMLINHDA],
+    ["MATUYET",TuViStarHelper.MATUYET],
+    ["KIEPKHONGTHUONGSU",TuViStarHelper.KIEPKHONGTHUONGSU],
+    ["KHOASINH",TuViStarHelper.KHOASINH],
+    ["PHUVUTUONGTAHUUKHOAQUYENLOC",TuViStarHelper.PHUVUTUONGTAHUUKHOAQUYENLOC],
+    ["TUONGBINHAN",TuViStarHelper.TUONGBINHAN],
+    ["KINHDAKIEPKY",TuViStarHelper.KINHDAKIEPKY],
+    ["HONGXUONGTAUKINH",TuViStarHelper.HONGXUONGTAUKINH],
+    ["HAOQUYENLOCKIEPHOA",TuViStarHelper.HAOQUYENLOCKIEPHOA],
+    ["KHOAQUYENLOCHINHANXUONGKHOIHONGBAT",TuViStarHelper.KHOAQUYENLOCHINHANXUONGKHOIHONGBAT],
+    ["CUSATDALINH",TuViStarHelper.CUSATDALINH],
+    ["CUKINHDA",TuViStarHelper.CUKINHDA],
+    ["THUONGSU",TuViStarHelper.THUONGSU],
+    ["TANGKHOC",TuViStarHelper.TANGKHOC],
+    ["DATUEHO",TuViStarHelper.DATUEHO],
+    ["PHAHINH",TuViStarHelper.PHAHINH],
+    ["LIEMTHAMPHUONG",TuViStarHelper.LIEMTHAMPHUONG],
+    ["KYRIEU",TuViStarHelper.KYRIEU],
+    ["KHOCHOAKINH",TuViStarHelper.KHOCHOAKINH],
+    ["TANGTUELUONG",TuViStarHelper.TANGTUELUONG],
+    ["VULOCMA",TuViStarHelper.VULOCMA],
+    ["DAKY",TuViStarHelper.DAKY],
+    ["THAMSATPHA",TuViStarHelper.THAMSATPHA],
+    ["PHAHAOMOCKY",TuViStarHelper.PHAHAOMOCKY],
+    ["HINHLINHVIET",TuViStarHelper.HINHLINHVIET],
+    ["LIEMHOA",TuViStarHelper.LIEMHOA],
+    ["SATLINH",TuViStarHelper.SATLINH],
+    ["TUEKY",TuViStarHelper.TUEKY],
+    ["KHOCHU",TuViStarHelper.KHOCHU],
+    ["KIEPCAI",TuViStarHelper.KIEPCAI],
+    ["DAKHONGKIEP",TuViStarHelper.DAKHONGKIEP],
+    ["TRISAT",TuViStarHelper.TRISAT],
+    ["DACAI",TuViStarHelper.DACAI],
+    ["DAMA",TuViStarHelper.DAMA],
+    ["HOKY",TuViStarHelper.HOKY],
+    ["KIEPHA",TuViStarHelper.KIEPHA],
+    ["KHOAQUYENTAHUU",TuViStarHelper.KHOAQUYENTAHUU],
+    ["XUONGPHUDA",TuViStarHelper.XUONGPHUDA],
+    ["KIEPHA",TuViStarHelper.KIEPHA],
+    ["SATTUEKHONGPHUCKINHHAO",TuViStarHelper.SATTUEKHONGPHUCKINHHAO],
+    ["TUPHUKHOIVIET",TuViStarHelper.TUPHUKHOIVIET],
+    ["SATPHA",TuViStarHelper.SATPHA],
+    ["KHOAQUYENLOC",TuViStarHelper.KHOAQUYENLOC],
+    ["LINHMOC",TuViStarHelper.LINHMOC],
+    ["KYLUONG",TuViStarHelper.KYLUONG],
+    ["TUPHURXUONGKHUCKHOIVIET",TuViStarHelper.TUPHURXUONGKHUCKHOIVIET],
+    ["LIEMKINHDA",TuViStarHelper.LIEMKINHDA],
+    ["KHOIHINH",TuViStarHelper.KHOIHINH],
+    ["KINHPHUCKHONGHAOHOA",TuViStarHelper.KINHPHUCKHONGHAOHOA],
+    ["PHURKHOAQUYENHINHANHONGKHOI",TuViStarHelper.PHURKHOAQUYENHINHANHONGKHOI],
     ["KINHDAKHONGKIEP",TuViStarHelper.KINHDAKHONGKIEP] /*,
 
 HERE
 
+
+
+            ["",TuViStarHelper.],
     ["",TuViStarHelper.],
     ["",TuViStarHelper.],
     ["",TuViStarHelper.],
-    ["",TuViStarHelper.],
+        ["",TuViStarHelper.],
     ["",TuViStarHelper.],
     ["",TuViStarHelper.],
     ["",TuViStarHelper.],
@@ -2318,9 +2480,13 @@ HERE
   ];
 
   static findStarGroupName (name: string) : TuViStar[] {
-    const found = TuViStarHelper.starGroupArray.find((element) => element[0]===name) ;
-    if ( found ) {
-      return found[1] as TuViStar[]
+    // Name can be a star name
+    const tuviStar = TuViStar.ANQUANG.getEnumByName(name,false) as TuViStar;
+    if ( tuviStar!==null ) return [tuviStar];
+     // Name can be a Group star name
+    const foundGroup= TuViStarHelper.starGroupArray.find((element) => element[0]===name) ;
+    if ( foundGroup ) {
+      return foundGroup[1] as TuViStar[]
     } else{
       console.log("findStarGroupName not found",name)
     }

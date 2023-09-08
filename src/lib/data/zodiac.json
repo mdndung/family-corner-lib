@@ -4207,7 +4207,7 @@
   ],
   "Ref28bp101p5": [
     0,
-    "=Careera.1023==Persona.404==Personb.23==Halac.Positive.78"
+    "=RefGiaoTiepThongTinBaoChi==Persona.404==Personb.23==Halac.Positive.78"
   ],
   "Ref28bp102p1": [
     0,
@@ -4227,7 +4227,7 @@
   ],
   "Ref28bp103p1": [
     0,
-    "=Fortunea.1036"
+    "=RefCanCanBangTienRaVo"
   ],
   "Ref28bp103p2": [
     0,
@@ -4251,7 +4251,7 @@
   ],
   "Ref28bp103p7": [
     0,
-    "=Fortunea.1042"
+    "=RefKinhDoanhBaoTay"
   ],
   "Ref28bp104p1": [
     0,
@@ -4271,7 +4271,7 @@
   ],
   "Ref28bp106p1": [
     0,
-    "=Personb.2071==Personc.65==Lifea.2==Personb.2072"
+    "=Personb.2071==Personc.65==RefDoiDauKhoKhan==Personb.2072"
   ],
   "Ref28bp106p2": [
     0,
@@ -4299,11 +4299,11 @@
   ],
   "Ref28bp106p8": [
     0,
-    "=Personc.293==Lifeb.141==Healthb.2018"
+    "=Personc.293==Lifeb.141==RefTuSat"
   ],
   "Ref28bp106p9": [
     0,
-    "=Personc.305==Personc.30==Careerb.2014"
+    "=Personc.305==Personc.30==RefLamViecHayDiXa"
   ],
   "Ref28bp107p1": [
     0,
@@ -4331,7 +4331,7 @@
   ],
   "Ref28bp107p7": [
     0,
-    "=Childb.2010"
+    "=RefConKhacChaMe"
   ],
   "Ref28bp107p8": [
     0,
@@ -4347,7 +4347,7 @@
   ],
   "Ref28bp108p2": [
     0,
-    "=Personc.204==Healthb.2018"
+    "=Personc.204==RefTuSat"
   ],
   "Ref28bp108p3": [
     0,
@@ -4387,7 +4387,7 @@
   ],
   "Ref28bp110p3": [
     0,
-    "=Lifea.111==Careera.1023"
+    "=Lifea.111==RefGiaoTiepThongTinBaoChi"
   ],
   "Ref28bp110p4": [
     0,
@@ -4411,7 +4411,7 @@
   ],
   "Ref28bp110p9": [
     0,
-    "=Careera.47==Careera.10==Careerb.2014"
+    "=Careera.47==Careera.10==RefLamViecHayDiXa"
   ],
   "Ref28bp111p1": [
     1,
@@ -4419,7 +4419,7 @@
   ],
   "Ref28bp111p2": [
     -1,
-    "=Personb.23==Personb.111==Personc.66==Personc.67==Personc.68==Personc.69"
+    "=Personb.23==RefNongNay==Personc.66==Personc.67==Personc.68==Personc.69"
   ],
   "Ref28bp112p1": [
     1,
@@ -4427,11 +4427,11 @@
   ],
   "Ref28bp112p2": [
     -1,
-    "=Personb.111==Personc.73==Personb.31b==Personb.31b==Personb.2019"
+    "=RefNongNay==Personc.73==Personb.31b==Personb.31b==Personb.2019"
   ],
   "Ref28bp112p3": [
     1,
-    "=Personc.74==Personc.75==Personc.76==Personc.77==Personc.21==Persona.170==Persona.170==Careera.94"
+    "=Personc.74==Personc.75==Personc.76==Personc.77==Personc.21==Persona.170==Persona.170==RefThuongMai"
   ],
   "Ref28bp112p4": [
     -1,
@@ -4451,7 +4451,7 @@
   ],
   "Ref28bp113p2": [
     -1,
-    "=Personb.35a==Personb.111==Personb.71==Personc.69"
+    "=Personb.35a==RefNongNay==Personb.71==Personc.69"
   ],
   "Ref28bp113p3": [
     1,
@@ -4467,7 +4467,7 @@
   ],
   "Ref28bp113p6": [
     -1,
-    "=Personc.78==Personb.78==Personc.44==Personc.89==Personc.90==Personc.91==Personc.92==Personc.93==Personc.94"
+    "=Personc.78==Personb.78==Personc.44==Personc.89==RefDeTien==Personc.91==Personc.92==Personc.93==Personc.94"
   ],
   "Ref28bp114p1": [
     1,
@@ -4479,7 +4479,7 @@
   ],
   "Ref28bp114p3": [
     1,
-    "=Careerb.2014==Lifea.293==Persona.49==Persona.40a==Persona.275==Personc.72"
+    "=RefLamViecHayDiXa==Lifea.293==Persona.49==Persona.40a==Persona.275==Personc.72"
   ],
   "Ref28bp114p4": [
     -1,
@@ -4503,7 +4503,7 @@
   ],
   "Ref28bp115p3": [
     1,
-    "=Personc.79==Personc.38==Persona.247==Personc.84==Lifea.45a==Personb.152"
+    "=Personc.79==Personc.38==Persona.247==Personc.84==RefTuHanhTriThuc==Personb.152"
   ],
   "Ref28bp115p4": [
     -1,
@@ -4551,7 +4551,7 @@
   ],
   "Ref28bp323p4": [
     0,
-    "=Personc.251==Fortuneb.22a==Persona.254a==Careera.1053==Lifea.125==CareerGooda.11"
+    "=Personc.251==RefTieuSai==Persona.254a==Careera.1053==Lifea.125==CareerGooda.11"
   ],
   "Ref28bp324p1": [
     0,
@@ -4683,15 +4683,15 @@
   ],
   "Ref28bp334px4": [
     0,
-    "=Healthb.2010"
+    "=RefBenhTieuHoa"
   ],
   "Ref28bp334px5": [
     0,
-    "=Healthb.2020"
+    "=RefBenhTamKhi"
   ],
   "Ref28bp334px6": [
     0,
-    "=Healthb.60==Healthb.119"
+    "=RefBenhRuot==Healthb.119"
   ],
   "Ref28bp38p1": [
     0,
@@ -4719,7 +4719,7 @@
   ],
   "Ref28bp41p1": [
     0,
-    "=Personc.32==Persona.212==Relationa.3==Lifeb.137==Careera.1023==Careera.1049"
+    "=Personc.32==Persona.212==Relationa.3==Lifeb.137==RefGiaoTiepThongTinBaoChi==Careera.1049"
   ],
   "Ref28bp41p1a": [
     0,
@@ -4727,7 +4727,7 @@
   ],
   "Ref28bp41p1b": [
     0,
-    "=Personc.30==Personb.2040==Personc.35==Personc.36==Personc.37==Careera.1023"
+    "=Personc.30==Personb.2040==Personc.35==Personc.36==Personc.37==RefGiaoTiepThongTinBaoChi"
   ],
   "Ref28bp43p1": [
     0,
@@ -4771,11 +4771,11 @@
   ],
   "Ref28bp47p1a": [
     1,
-    "=Ref28bp47p1==Relationa.6==Persona.7a==Relationa.10==Careera.10==Persona.1008"
+    "=Ref28bp47p1==Relationa.6==Persona.7a==Relationa.10==Careera.10==RefOcToChuc"
   ],
   "Ref28bp47p1b": [
     -1,
-    "=Personc.55==Personc.42==Personb.31==Lifeb.29"
+    "=Personc.55==Personc.42==Personb.31==Ref0HangHai"
   ],
   "Ref28bp49p1": [
     0,
@@ -4827,7 +4827,7 @@
   ],
   "Ref28bp54p1": [
     0,
-    "=Careera.1025==Persona.247==Persona.19a==Relationa.15"
+    "=RefTieuCongNghe==Persona.247==Persona.19a==Relationa.15"
   ],
   "Ref28bp54p1a": [
     1,
@@ -4835,7 +4835,7 @@
   ],
   "Ref28bp54p1ab": [
     -1,
-    "=Careera.1028==Personc.59==Personb.78==Personc.42"
+    "=RefAoThuat==Personc.59==Personb.78==Personc.42"
   ],
   "Ref28p100p1": [
     0,
@@ -4899,7 +4899,7 @@
   ],
   "Ref28p104p3": [
     0,
-    "=Personc.187==Persona.163==Persona.139==Personb.111==Personc.175"
+    "=Personc.187==Persona.163==Persona.139==RefNongNay==Personc.175"
   ],
   "Ref28p104p4": [
     0,
@@ -4907,7 +4907,7 @@
   ],
   "Ref28p105p1": [
     0,
-    "=Persona.1039==Personc.27==Persona.43b==Relationa.15==Personc.71==Persona.16a"
+    "=RefThuCong==Personc.27==RefTriTue==Relationa.15==Personc.71==Persona.16a"
   ],
   "Ref28p105p2": [
     0,
@@ -4915,7 +4915,7 @@
   ],
   "Ref28p105p3": [
     0,
-    "=Persona.163==Persona.124==Personc.253==Careera.45"
+    "=Persona.163==Persona.124==Personc.253==RefUyQuyen"
   ],
   "Ref28p105p4": [
     0,
@@ -4943,7 +4943,7 @@
   ],
   "Ref28p107p1": [
     0,
-    "=Personc.64==Personc.260==Mariagea.4"
+    "=Personc.64==Personc.260==RefKetHonSom"
   ],
   "Ref28p107p2": [
     0,
@@ -4959,7 +4959,7 @@
   ],
   "Ref28p107p5": [
     0,
-    "=Personb.111==Personc.67==Healthb.33"
+    "=RefNongNay==Personc.67==Healthb.33"
   ],
   "Ref28p108p1": [
     0,
@@ -4991,7 +4991,7 @@
   ],
   "Ref28p110p2": [
     0,
-    "=Personb.23==Personb.111"
+    "=Personb.23==RefNongNay"
   ],
   "Ref28p110p3": [
     0,
@@ -5019,7 +5019,7 @@
   ],
   "Ref28p112p1": [
     0,
-    "=Persona.1008==Careera.1053==Careera.1031==Careera.49"
+    "=RefOcToChuc==Careera.1053==RefMuuSuThanhCongMauChong==Careera.49"
   ],
   "Ref28p112p2": [
     0,
@@ -5039,7 +5039,7 @@
   ],
   "Ref28p113p1": [
     0,
-    "=Lifeb.2045"
+    "=RefThiPhiQuanSu"
   ],
   "Ref28p113p2": [
     0,
@@ -5047,11 +5047,11 @@
   ],
   "Ref28p113p3": [
     0,
-    "=Personc.68==Personc.204==Careerb.64c==Careerb.62"
+    "=Personc.68==Personc.204==RefLamAnKhoPhat==Careerb.62"
   ],
   "Ref28p113p4": [
     0,
-    "=Persona.127==Persona.247==Persona.1016==Careera.162==Careera.124==Careera.1046==Persona.1008"
+    "=Persona.127==Persona.247==Persona.1016==Careera.162==Careera.124==Careera.1046==RefOcToChuc"
   ],
   "Ref28p114p1": [
     0,
@@ -5119,7 +5119,7 @@
   ],
   "Ref28p118p2": [
     0,
-    "=Personb.35a==Personc.232==Personb.39==Lifeb.224==Personb.156==Personc.284"
+    "=Personb.35a==Personc.232==Personb.39==Lifeb.224==RefCoBac==Personc.284"
   ],
   "Ref28p118p3": [
     0,
@@ -5131,15 +5131,15 @@
   ],
   "Ref28p118p5": [
     0,
-    "=Personc.135==Personc.285==Careera.1021==Mariagec.1==Personc.283"
+    "=Personc.135==Personc.285==RefMyThuat==Mariagec.1==Personc.283"
   ],
   "Ref28p119p1": [
     0,
-    "=Personc.283==Mariageb.24==Lifeb.2045"
+    "=Personc.283==Mariageb.24==RefThiPhiQuanSu"
   ],
   "Ref28p119p2": [
     0,
-    "=Persona.43b==Careera.1053==Lifec.42"
+    "=RefTriTue==Careera.1053==Lifec.42"
   ],
   "Ref28p119p3": [
     0,
@@ -5191,11 +5191,11 @@
   ],
   "Ref28p122p4": [
     0,
-    "=Fortuneb.2016a"
+    "=RefTienTaiThatThuong"
   ],
   "Ref28p122p5": [
     0,
-    "=Persona.1016==Persona.164==Persona.43b==Lifec.225==Personc.218==Careera.1041"
+    "=Persona.1016==RefVanTai==RefTriTue==Lifec.225==Personc.218==Careera.1041"
   ],
   "Ref28p123p1": [
     0,
@@ -5243,7 +5243,7 @@
   ],
   "Ref28p124p6": [
     0,
-    "=Persona.3==Personc.6==Persona.1008==Persona.284==Careera.86==Careera.124==Careera.162"
+    "=Persona.3==Personc.6==RefOcToChuc==Persona.284==Careera.86==Careera.124==Careera.162"
   ],
   "Ref28p125p1": [
     0,
@@ -5283,11 +5283,11 @@
   ],
   "Ref28p127p3": [
     0,
-    "=Relationa.3==Personc.16==Persona.174d==Persona.164"
+    "=Relationa.3==Personc.16==Persona.174d==RefVanTai"
   ],
   "Ref28p127p4": [
     0,
-    "=Personc.108==Fortuneb.2036"
+    "=Personc.108==RefMacThiPhiViTien"
   ],
   "Ref28p127p5": [
     0,
@@ -5311,11 +5311,11 @@
   ],
   "Ref28p128p4": [
     0,
-    "=Personc.30==Personb.156==Personc.123"
+    "=Personc.30==RefCoBac==Personc.123"
   ],
   "Ref28p128p5": [
     0,
-    "=Persona.44==Persona.43b"
+    "=Persona.44==RefTriTue"
   ],
   "Ref28p128p6": [
     0,
@@ -5351,7 +5351,7 @@
   ],
   "Ref28p130p2": [
     0,
-    "=Personb.2001==Personc.295"
+    "=RefBiQuan==Personc.295"
   ],
   "Ref28p130p3": [
     0,
@@ -5363,7 +5363,7 @@
   ],
   "Ref28p130p5": [
     0,
-    "=Personc.298==Personc.16==Lifea.45a"
+    "=Personc.298==Personc.16==RefTuHanhTriThuc"
   ],
   "Ref28p130p6": [
     0,
@@ -5423,7 +5423,7 @@
   ],
   "Ref28p84p2": [
     0,
-    "=Personc.65==Personb.111==Personc.30==Personc.178==Personc.95==Personc.60"
+    "=Personc.65==RefNongNay==Personc.30==Personc.178==Personc.95==Personc.60"
   ],
   "Ref28p84p3": [
     0,
@@ -5435,7 +5435,7 @@
   ],
   "Ref28p85p1": [
     0,
-    "=Relationa.7==Persona.43b==Personc.140==Persona.1016==Personc.74==Careera.11==Persona.170==Personc.180"
+    "=Relationa.7==RefTriTue==Personc.140==Persona.1016==Personc.74==Careera.11==Persona.170==Personc.180"
   ],
   "Ref28p85p2": [
     0,
@@ -5443,7 +5443,7 @@
   ],
   "Ref28p85p3": [
     0,
-    "=Persona.90==Relationa.3==Relationa.7=Personc.108==Mothera.1==Personc.83==Personc.84"
+    "=RefHienLanh==Relationa.3==Relationa.7=Personc.108==Mothera.1==Personc.83==Personc.84"
   ],
   "Ref28p85p4": [
     0,
@@ -5455,7 +5455,7 @@
   ],
   "Ref28p86p2": [
     0,
-    "=Personb.156==Personc.94==Personc.165==Personb.2051==Fortuneb.2029==Lifeb.264==Personc.44==Personb.198"
+    "=RefCoBac==Personc.94==Personc.165==Personb.2051==RefCoPhaTanHaoTai==Lifeb.264==Personc.44==Personb.198"
   ],
   "Ref28p86p3": [
     0,
@@ -5475,7 +5475,7 @@
   ],
   "Ref28p87p3": [
     0,
-    "=Personc.143==Personc.60==Personc.22==Careera.86==Personb.2000a==Persona.85"
+    "=Personc.143==Personc.60==Personc.22==Careera.86==RefMuuTri==Persona.85"
   ],
   "Ref28p87p4": [
     0,
@@ -5551,7 +5551,7 @@
   ],
   "Ref28p93p3": [
     0,
-    "=Personb.156==Personc.195==Personb.2019==Personc.216==Personc.217"
+    "=RefCoBac==Personc.195==Personb.2019==Personc.216==Personc.217"
   ],
   "Ref28p93p4": [
     0,
@@ -5611,7 +5611,7 @@
   ],
   "Ref28p97p1": [
     0,
-    "=Personc.229==Personc.230==Persona.166==Careera.1002"
+    "=Personc.229==Personc.230==Persona.166==RefCoKhi"
   ],
   "Ref28p97p2": [
     0,
@@ -5655,7 +5655,7 @@
   ],
   "Ref29p402p1": [
     0,
-    "=Healthb.2066==Healthb.2064"
+    "=RefLucNhoDauYeu==Healthb.2064"
   ],
   "Ref29p402p2": [
     0,
@@ -5761,7 +5761,7 @@
   ],
   "Ref29p406p4": [
     0,
-    "=Persona.43b==Relationa.16==Personb.34==Lifec.144==Healthb.22"
+    "=RefTriTue==Relationa.16==Personb.34==Lifec.144==RefXeCoMayMoc"
   ],
   "Ref29p407p1": [
     0,
@@ -5777,7 +5777,7 @@
   ],
   "Ref29p407p3a": [
     0,
-    "=Personc.115==Persona.43b=Careera.1040"
+    "=Personc.115==RefTriTue=Careera.1040"
   ],
   "Ref29p407p3b": [
     0,
@@ -5805,7 +5805,7 @@
   ],
   "Ref29p409p2": [
     0,
-    "=Personb.114==Personc.121==Lifea.80==Mariagea.8"
+    "=Personb.114==Personc.121==RefOnDinh==Mariagea.8"
   ],
   "Ref29p409p3": [
     0,
@@ -5813,7 +5813,7 @@
   ],
   "Ref29p409p4": [
     0,
-    "=Careera.145==Persona.91==Personc.111==Personc.130"
+    "=RefVanChuongCaVuNhac==Persona.91==Personc.111==Personc.130"
   ],
   "Ref29p410p1": [
     0,
@@ -5829,7 +5829,7 @@
   ],
   "Ref29p411p1": [
     0,
-    "=Personc.76==Personc.65==Personc.131==Healthb.2004"
+    "=Personc.76==Personc.65==Personc.131==RefTaiNanDienHaySet"
   ],
   "Ref29p411p2": [
     0,
@@ -5861,7 +5861,7 @@
   ],
   "Ref29p414p2": [
     0,
-    "=Persona.166==Persona.254a==Lifea.175==Careera.1031"
+    "=Persona.166==Persona.254a==Lifea.175==RefMuuSuThanhCongMauChong"
   ],
   "Ref29p414p3": [
     0,
@@ -5896,7 +5896,7 @@
   ],
   "Ref29p419p2": [
     0,
-    "=Relationa.15==Personc.70==Personc.71==Personc.70==BroSisa.8"
+    "=Relationa.15==Personc.70==Personc.71==Personc.70==RefBSHoaThuan"
   ],
   "Ref29p419p3": [
     0,
@@ -5904,7 +5904,7 @@
   ],
   "Ref29p420p1": [
     0,
-    "=Personc.27==Persona.85==Personc.67==Persona.8==Careera.120==Careera.1052"
+    "=Personc.27==Persona.85==Personc.67==Persona.8==RefVoNghiep==Careera.1052"
   ],
   "Ref29p420p2": [
     0,
@@ -5940,7 +5940,7 @@
   ],
   "Ref29p423p1": [
     0,
-    "=Persona.275==Persona.247==Healtha.3==Relationa.1017"
+    "=Persona.275==Persona.247==Healtha.3==RefQuyMen"
   ],
   "Ref29p423p2": [
     0,
@@ -5960,11 +5960,11 @@
   ],
   "Ref29p424p4": [
     0,
-    "=Relationa.6==Personc.140==Careera.1021==Careera.1023"
+    "=Relationa.6==Personc.140==RefMyThuat==RefGiaoTiepThongTinBaoChi"
   ],
   "Ref29p425p1": [
     0,
-    "=Persona.43b==Persona.170==Careera.6"
+    "=RefTriTue==Persona.170==Careera.6"
   ],
   "Ref29p425p2": [
     0,
@@ -5976,7 +5976,7 @@
   ],
   "Ref29p426p2": [
     0,
-    "=Persona.2a==Personc.115==Personc.75==Careera.1023==Careera.143"
+    "=RefTaiTri==Personc.115==Personc.75==RefGiaoTiepThongTinBaoChi==Careera.143"
   ],
   "Ref29p427p1": [
     0,
@@ -5988,7 +5988,7 @@
   ],
   "Ref29p427p3": [
     0,
-    "=Personc.6==Careera.10==Relationa.6==Persona.16b"
+    "=Personc.6==Careera.10==Relationa.6==RefThuyetPhuc"
   ],
   "Ref29p428p1": [
     0,
@@ -6008,7 +6008,7 @@
   ],
   "Ref29p429p2": [
     0,
-    "=Persona.50==Careera.145"
+    "=Persona.50==RefVanChuongCaVuNhac"
   ],
   "Ref29p429p3": [
     0,
@@ -6040,7 +6040,7 @@
   ],
   "Ref29p431p3x": [
     1,
-    "=Healtha.1002==Careera.17==Personc.139"
+    "=RefTrangKien==Careera.17==Personc.139"
   ],
   "Ref29p433p1": [
     0,
@@ -6084,7 +6084,7 @@
   ],
   "Ref29p439p2": [
     0,
-    "=Parentb.32b==Personc.65==Relationb.2039==Healthb.2043==Lifeb.2126"
+    "=Parentb.32b==Personc.65==Relationb.2039==RefBenhVungDau==Lifeb.2126"
   ],
   "Ref29p440p1a": [
     0,
@@ -6132,11 +6132,11 @@
   ],
   "Ref29p443p2": [
     0,
-    "=Personb.152==Personc.121==Personc.154==Personc.122==Personb.193==Healthb.2010"
+    "=Personb.152==Personc.121==Personc.154==Personc.122==Personb.193==RefBenhTieuHoa"
   ],
   "Ref29p444p1": [
     0,
-    "=Personc.155==Personc.85==Healthb.2010"
+    "=Personc.155==Personc.85==RefBenhTieuHoa"
   ],
   "Ref29p444p2": [
     0,
@@ -6144,15 +6144,15 @@
   ],
   "Ref29p445p1": [
     0,
-    "=Lifeb.2128==Originb.20==Childb.24==Mariageb.2006"
+    "=Lifeb.2128==Originb.20==RefHiemMuon==Mariageb.2006"
   ],
   "Ref29p445p2": [
     0,
-    "=Personc.81==Lifeb.2068==Personb.34==Healthb.2044"
+    "=Personc.81==Lifeb.2068==Personb.34==RefTaiNanDau"
   ],
   "Ref29p446p1": [
     0,
-    "=Personc.157==Personb.2040==Personb.115==Personc.157==Personb.115"
+    "=Personc.157==Personb.2040==Ref0TrungThuc==Personc.157==Ref0TrungThuc"
   ],
   "Ref29p446p2": [
     0,
@@ -6196,7 +6196,7 @@
   ],
   "Ref29p450p2": [
     0,
-    "=Personc.95==Fortuneb.22a==Careerb.62==Lifea.232"
+    "=Personc.95==RefTieuSai==Careerb.62==Lifea.232"
   ],
   "Ref29p451p1": [
     0,
@@ -6216,7 +6216,7 @@
   ],
   "Ref29p454p1": [
     0,
-    "=Lifeb.2000==Lifea.1025"
+    "=Lifeb.2000==RefVeGiaToaiY"
   ],
   "Ref29p455p1": [
     0,
@@ -6240,7 +6240,7 @@
   ],
   "Ref29p457p3": [
     0,
-    "=Healthb.2019==Healthb.2039==Lifec.68"
+    "=RefNgoDoc==Healthb.2039==Lifec.68"
   ],
   "Ref29p459p1": [
     0,
@@ -6260,11 +6260,11 @@
   ],
   "Ref29p462p2": [
     0,
-    "=BroSisa.8==Persona.43b==Careerb.2014==Personc.70==Personc.71"
+    "=RefBSHoaThuan==RefTriTue==RefLamViecHayDiXa==Personc.70==Personc.71"
   ],
   "Ref29p462p3": [
     0,
-    "=Mothera.1==Mariagea.1031==Lifea.1024"
+    "=Mothera.1==Mariagea.1031==RefTrungNienToaiY"
   ],
   "Ref29p462p4": [
     0,
@@ -6292,15 +6292,15 @@
   ],
   "Ref29p463p3": [
     0,
-    "=Careera.49==Relationa.1==Relationa.1000==Relationa.1023"
+    "=Careera.49==Relationa.1==RefGiupViecDacLuc==Relationa.1023"
   ],
   "Ref29p463p4": [
     0,
-    "=Personc.80==Lifec.161==Lifec.229==Careera.50a==Lifec.230"
+    "=Personc.80==Lifec.161==Lifec.229==RefYDuoc==Lifec.230"
   ],
   "Ref29p463p5": [
     0,
-    "=Persona.43b==Personc.71==Relationa.15==Careerb.2014"
+    "=RefTriTue==Personc.71==Relationa.15==RefLamViecHayDiXa"
   ],
   "Ref29p463p6": [
     0,
@@ -6308,11 +6308,11 @@
   ],
   "Ref29p463p7": [
     0,
-    "=Careera.3"
+    "=RefMayManBatNgo"
   ],
   "Ref29p464p1": [
     0,
-    "=Careera.50a==Careera.2b"
+    "=RefYDuoc==Careera.2b"
   ],
   "Ref29p464p2": [
     0,
@@ -6320,7 +6320,7 @@
   ],
   "Ref29p464p3": [
     0,
-    "=Careera.52c==Parenta.1027"
+    "=Careera.52c==RefHuongGiaTai"
   ],
   "Ref29p464p4": [
     0,
@@ -6328,15 +6328,15 @@
   ],
   "Ref29p464p5": [
     0,
-    "=Careera.7==Parenta.1028"
+    "=RefDanhLoi==Parenta.1028"
   ],
   "Ref29p464p6": [
     0,
-    "=Parenta.1028==Relationa.1001==Careera.1053"
+    "=Parenta.1028==RefBanBeKhaGia==Careera.1053"
   ],
   "Ref29p464p7": [
     0,
-    "=Careera.52b==Parenta.1008"
+    "=RefGioiKiemTien==Parenta.1008"
   ],
   "Ref29p465p1": [
     0,
@@ -6348,11 +6348,11 @@
   ],
   "Ref29p465p3": [
     0,
-    "=Personc.170==Careera.50a==Persona.1016"
+    "=Personc.170==RefYDuoc==Persona.1016"
   ],
   "Ref29p465p4": [
     0,
-    "=Mariagea.11==Persona.260==Careerb.2014==Personc.70==Personc.71"
+    "=RefVoChongHopY==Persona.260==RefLamViecHayDiXa==Personc.70==Personc.71"
   ],
   "Ref29p465p5": [
     0,
@@ -6360,11 +6360,11 @@
   ],
   "Ref29p465p6": [
     0,
-    "=Careera.1018==Lifec.228==Studya.3"
+    "=RefOcLuat==Lifec.228==Studya.3"
   ],
   "Ref29p465p7": [
     0,
-    "=Personb.2032==Personc.48==Parenta.1029==Careera.1023"
+    "=Personb.2032==Personc.48==Parenta.1029==RefGiaoTiepThongTinBaoChi"
   ],
   "Ref29p466p1": [
     0,
@@ -6384,7 +6384,7 @@
   ],
   "Ref29p466p5": [
     0,
-    "=Mariagea.1001==Mariagea.11"
+    "=RefVoChongHoaHop==RefVoChongHopY"
   ],
   "Ref29p466p6": [
     0,
@@ -6412,7 +6412,7 @@
   ],
   "Ref29p467p5": [
     0,
-    "=Lifea.6==Mariagea.11==Mariagea.1033"
+    "=Lifea.6==RefVoChongHopY==Mariagea.1033"
   ],
   "Ref29p467p6": [
     0,
@@ -6424,7 +6424,7 @@
   ],
   "Ref29p468p1": [
     0,
-    "=Lifea.1015==Careera.1021==Careera.2a"
+    "=Lifea.1015==RefMyThuat==RefGioiKiemTien"
   ],
   "Ref29p468p2": [
     0,
@@ -6444,7 +6444,7 @@
   ],
   "Ref29p468p6": [
     0,
-    "=Careera.1046==Careera.97==Careera.1018==Careera.162"
+    "=Careera.1046==Careera.97==RefOcLuat==Careera.162"
   ],
   "Ref29p468p7": [
     0,
@@ -6456,7 +6456,7 @@
   ],
   "Ref29p469p2": [
     0,
-    "=Careera.50a==Persona.4b"
+    "=RefYDuoc==Persona.4b"
   ],
   "Ref29p469p3": [
     0,
@@ -6496,11 +6496,11 @@
   ],
   "Ref29p470p5": [
     0,
-    "=Studya.5==Careera.1046==Careera.122==Careera.1045"
+    "=Studya.5==Careera.1046==RefLamViecHayDiXa==Careera.1045"
   ],
   "Ref29p470p6": [
     0,
-    "=Relationa.1000==Relationa.1027"
+    "=RefGiupViecDacLuc==Relationa.1027"
   ],
   "Ref29p471p1": [
     0,
@@ -6520,7 +6520,7 @@
   ],
   "Ref29p472p1": [
     0,
-    "=Fortuneb.2017==Fortuneb.2020"
+    "=RefTienBacVaTaiUong==RefTaiHoaViTien"
   ],
   "Ref29p472p2": [
     0,
@@ -6532,7 +6532,7 @@
   ],
   "Ref29p472p4": [
     0,
-    "=Personc.172==Lifeb.2031==Lifeb.2049==Childb.23==Childb.38"
+    "=Personc.172==Lifeb.2031==RefBiLuaViTinh==Childb.23==Ref0LoiChoCon"
   ],
   "Ref29p472p5": [
     0,
@@ -6564,19 +6564,19 @@
   ],
   "Ref29p473p5": [
     0,
-    "=Lifec.231==Fortuneb.2020"
+    "=Lifec.231==RefTaiHoaViTien"
   ],
   "Ref29p473p6": [
     0,
-    "=Fortuneb.2028"
+    "=RefBuonBucViTien"
   ],
   "Ref29p473p7": [
     0,
-    "=Personc.176==Personb.2041==Fortuneb.2017"
+    "=Personc.176==Personb.2041==RefTienBacVaTaiUong"
   ],
   "Ref29p474p1": [
     0,
-    "=Fortuneb.2039==Lifeb.2091==Healthb.72==Careerb.2005==Careerb.2025"
+    "=RefCoPhaTanHaoSanNghiep==Lifeb.2091==Healthb.72==Careerb.2005==Careerb.2025"
   ],
   "Ref29p474p2": [
     0,
@@ -6588,15 +6588,15 @@
   ],
   "Ref29p474p4": [
     0,
-    "=Lifeb.2045==Fortuneb.2042"
+    "=RefThiPhiQuanSu==Fortuneb.2042"
   ],
   "Ref29p474p5": [
     0,
-    "=Personb.2032==Personb.27b==Fortuneb.2018"
+    "=Personb.2032==Personb.27b==RefTungThieu"
   ],
   "Ref29p474p6": [
     0,
-    "=Relationb.2011==Relationb.2020==Lifeb.283"
+    "=RefBanBeHayNho==Relationb.2020==Lifeb.283"
   ],
   "Ref29p474p7": [
     0,
@@ -6608,7 +6608,7 @@
   ],
   "Ref29p475p2": [
     0,
-    "=Studyb.24==Personb.189==Childb.38==Lifec.233"
+    "=Studyb.24==Personb.189==Ref0LoiChoCon==Lifec.233"
   ],
   "Ref29p475p3": [
     0,
@@ -6644,7 +6644,7 @@
   ],
   "Ref29p476p4": [
     0,
-    "=Healthb.1999==Careera.122"
+    "=Healthb.1999==RefLamViecHayDiXa"
   ],
   "Ref29p476p5": [
     0,
@@ -6652,7 +6652,7 @@
   ],
   "Ref29p476p6": [
     0,
-    "=Fortuneb.2016a==Fortuneb.2016a"
+    "=RefTienTaiThatThuong==RefTienTaiThatThuong"
   ],
   "Ref29p476p7": [
     0,
@@ -6728,11 +6728,11 @@
   ],
   "Ref29p479p5": [
     0,
-    "=Mariageb.2021"
+    "=RefVoChong0HopTinh"
   ],
   "Ref29p479p6": [
     0,
-    "=Mariageb.2021"
+    "=RefVoChong0HopTinh"
   ],
   "Ref29p479p7": [
     0,
@@ -6740,7 +6740,7 @@
   ],
   "Ref29p480p1": [
     0,
-    "=Mariagea.1012==Mariageb.2022"
+    "=RefVoChongDoiKhiBatHoa==Mariageb.2022"
   ],
   "Ref29p480p2": [
     0,
@@ -6808,11 +6808,11 @@
   ],
   "Ref32p123p7": [
     0,
-    "=Fortunea.10==Careera.122"
+    "=RefTaiLocDoiDao==RefLamViecHayDiXa"
   ],
   "Ref32p123p8": [
     0,
-    "=Relationa.1034==Mariageb.28"
+    "=Relationa.1034==RefVoChongDeBietLy"
   ],
   "Ref32p123p9": [
     0,
@@ -6872,7 +6872,7 @@
   ],
   "Ref32p125p5": [
     0,
-    "=Lifeb.2052==Relationb.2044"
+    "=RefCongViecTracTro==Relationb.2044"
   ],
   "Ref32p125p6a": [
     0,
@@ -6880,7 +6880,7 @@
   ],
   "Ref32p125p6b": [
     0,
-    "=Relationa.1058==Mariageb.28"
+    "=Relationa.1058==RefVoChongDeBietLy"
   ],
   "Ref32p125p7": [
     0,
@@ -6895,7 +6895,7 @@
   ],
   "Ref32p126p1": [
     0,
-    "=Lifea.1503==Healthb.2020"
+    "=Lifea.1503==RefBenhTamKhi"
   ],
   "Ref32p126p10": [
     0,
@@ -6903,7 +6903,7 @@
   ],
   "Ref32p126p11": [
     0,
-    "=Careera.122==Personc.309"
+    "=RefLamViecHayDiXa==Personc.309"
   ],
   "Ref32p126p12": [
     0
@@ -6946,7 +6946,7 @@
   ],
   "Ref32p127p10a": [
     0,
-    "=Careera.41==Fortunea.1055"
+    "=RefDanhChucOnDinh==Fortunea.1055"
   ],
   "Ref32p127p10b": [
     0,
@@ -6958,7 +6958,7 @@
   ],
   "Ref32p127p12": [
     0,
-    "=Personb.302"
+    "=RefOcChinhTri"
   ],
   "Ref32p127p13": [
     0
@@ -6977,7 +6977,7 @@
   ],
   "Ref32p127p6": [
     0,
-    "=Healthb.67"
+    "=RefDePhongTatBenh"
   ],
   "Ref32p127p7": [
     0,
@@ -7005,7 +7005,7 @@
   ],
   "Ref32p186p3": [
     0,
-    "=Healthb.79==Healthb.2504"
+    "=RefBenhGanMat==Healthb.2504"
   ],
   "Ref32p186p4": [
     0,
@@ -7013,7 +7013,7 @@
   ],
   "Ref32p186p5": [
     0,
-    "=Healthb.27==Healthb.2077"
+    "=RefMatKem==Healthb.2077"
   ],
   "Ref32p186p6": [
     0,
@@ -7045,7 +7045,7 @@
   ],
   "Ref32p188p1": [
     0,
-    "=Lifeb.310==Healthb.2007==Healthb.2028==Healthb.35"
+    "=Lifeb.310==RefBenhVungDau==Healthb.2028==RefBenhCanGhep"
   ],
   "Ref32p188p2": [
     0,
@@ -7053,7 +7053,7 @@
   ],
   "Ref32p188p3": [
     0,
-    "=Healthb.2012==Healthb.2004"
+    "=Healthb.2012==RefTaiNanDienHaySet"
   ],
   "Ref32p188p4": [
     0,
@@ -7069,7 +7069,7 @@
   ],
   "Ref32p189p1": [
     0,
-    "=Healthb.2001==Personc.175"
+    "=RefBenhThanKinh==Personc.175"
   ],
   "Ref32p189p2": [
     0,
@@ -7113,7 +7113,7 @@
   ],
   "Ref32p191p2": [
     0,
-    "=Lifea.267==Lifea.48a==CareerGooda.13"
+    "=Lifea.267==RefDuocGiupDo==CareerGooda.13"
   ],
   "Ref32p191p3": [
     0,
@@ -7137,7 +7137,7 @@
   ],
   "Ref32p192p1": [
     0,
-    "=Lifea.1064==Careera.3"
+    "=Lifea.1064==RefMayManBatNgo"
   ],
   "Ref32p192p2": [
     0,
@@ -7145,7 +7145,7 @@
   ],
   "Ref32p192p3": [
     0,
-    "=Lifec.224==Fortunea.10==Fortunea.1055"
+    "=Lifec.224==RefTaiLocDoiDao==Fortunea.1055"
   ],
   "Ref32p192p4": [
     0,
@@ -7177,7 +7177,7 @@
   ],
   "Ref32p193p4": [
     0,
-    "=Persona.135==Careera.1021==Persona.51"
+    "=Persona.135==RefMyThuat==Persona.51"
   ],
   "Ref32p193p5": [
     0,
@@ -7189,7 +7189,7 @@
   ],
   "Ref32p193p7": [
     0,
-    "=Healthb.22==Healthb.2005==Personb.2045==Personc.178"
+    "=RefXeCoMayMoc==Healthb.2005==Personb.2045==Personc.178"
   ],
   "Ref32p194p1": [
     0,
@@ -7197,11 +7197,11 @@
   ],
   "Ref32p194p2": [
     0,
-    "=Lifeb.64b==Lifeb.2517==Healthb.79==Healthb.2503"
+    "=Lifeb.64b==Lifeb.2517==RefBenhGanMat==Healthb.2503"
   ],
   "Ref32p194p3": [
     0,
-    "=Lifea.285==Careera.1032==Fortunea.1017"
+    "=Lifea.285==RefThangDanhChuc==Fortunea.1017"
   ],
   "Ref32p194p4": [
     0,
@@ -7221,7 +7221,7 @@
   ],
   "Ref32p195p3": [
     0,
-    "=Careerb.2514==Lifeb.2135==Personc.281==Lifeb.2066"
+    "=Careerb.2514==Lifeb.2135==Personc.281==RefBiLuaDao"
   ],
   "Ref32p195p4": [
     0,
@@ -7253,19 +7253,19 @@
   ],
   "Ref32p196p6": [
     0,
-    "=Healthb.74b==Healthb.35==Healthb.27"
+    "=Healthb.74b==RefBenhCanGhep==RefMatKem"
   ],
   "Ref32p197p1": [
     0,
-    "=Careera.122==Mariagea.1036==Fortunea.1060==CareerGooda.13==Relationa.1038"
+    "=RefLamViecHayDiXa==Mariagea.1036==Fortunea.1060==CareerGooda.13==Relationa.1038"
   ],
   "Ref32p197p2": [
     0,
-    "=Careerb.62==Healthb.79==Lifeb.64b==Fortuneb.2046"
+    "=Careerb.62==RefBenhGanMat==Lifeb.64b==Fortuneb.2046"
   ],
   "Ref32p197p3": [
     0,
-    "=Careera.1032==Careera.47"
+    "=RefThangDanhChuc==Careera.47"
   ],
   "Ref32p197p4": [
     0,
@@ -7277,7 +7277,7 @@
   ],
   "Ref32p197p6": [
     0,
-    "=Relationb.25==Mariageb.28==Personc.131"
+    "=Relationb.25==RefVoChongDeBietLy==Personc.131"
   ],
   "Ref32p198p1": [
     0,
@@ -7317,7 +7317,7 @@
   ],
   "Ref32p199p4": [
     0,
-    "=Lifeb.64b==Fortuneb.2047==Healthb.79"
+    "=Lifeb.64b==Fortuneb.2047==RefBenhGanMat"
   ],
   "Ref32p199p5": [
     0,
@@ -7333,7 +7333,7 @@
   ],
   "Ref32p200p2": [
     0,
-    "=Relationb.2070==Careerb.23==Healthb.22==Healthb.83"
+    "=Relationb.2070==Careerb.23==RefXeCoMayMoc==Healthb.83"
   ],
   "Ref32p200p3": [
     0,
@@ -7349,7 +7349,7 @@
   ],
   "Ref32p200p6": [
     0,
-    "=Relationb.2072==Relationb.2059==Healthb.60==Healthb.29==Healthb.2025"
+    "=Relationb.2072==Relationb.2059==RefBenhRuot==Healthb.29==Healthb.2025"
   ],
   "Ref32p201p1": [
     0,
@@ -7361,7 +7361,7 @@
   ],
   "Ref32p201p3": [
     0,
-    "=Period.Good==Lifea.1503==Lifea.1035b==Lifea.1063"
+    "=Period.Good==Lifea.1503==RefLapGiaThat==Lifea.1063"
   ],
   "Ref32p201p4": [
     0,
@@ -7373,7 +7373,7 @@
   ],
   "Ref32p201p6": [
     0,
-    "=Relationb.2044==Lifeb.2003==Lifec.65"
+    "=Relationb.2044==RefVuiItBuonNhieu==Lifec.65"
   ],
   "Ref32p202p1": [
     0,
@@ -7381,19 +7381,19 @@
   ],
   "Ref32p202p2": [
     0,
-    "=Lifeb.229==Healthb.20==Healthb.35"
+    "=Lifeb.229==Healthb.20==RefBenhCanGhep"
   ],
   "Ref32p202p3": [
     0,
-    "=Personc.22==Careera.145"
+    "=Personc.22==RefVanChuongCaVuNhac"
   ],
   "Ref32p202p4": [
     0,
-    "=Relationb.2073==Healthb.70==Healthb.2107"
+    "=Relationb.2073==RefBenhThan==Healthb.2107"
   ],
   "Ref32p202p5": [
     0,
-    "=Relationa.1050==Persona.1040==Healthb.70==Healthb.2107==Healthb.35"
+    "=Relationa.1050==Persona.1040==RefBenhThan==Healthb.2107==RefBenhCanGhep"
   ],
   "Ref32p202p6": [
     0,
@@ -7405,11 +7405,11 @@
   ],
   "Ref32p203p2": [
     0,
-    "=Healthb.79==Lifeb.310"
+    "=RefBenhGanMat==Lifeb.310"
   ],
   "Ref32p203p3": [
     0,
-    "=Careera.1032==Halac.Positive.131==Halac.Positive.151==Healthb.2007"
+    "=RefThangDanhChuc==Halac.Positive.131==Halac.Positive.151==RefBenhVungDau"
   ],
   "Ref32p203p4": [
     0,
@@ -7421,7 +7421,7 @@
   ],
   "Ref32p204p1": [
     0,
-    "=Period.VeryBad==Personc.65==Lifec.218==Healthb.22"
+    "=Period.VeryBad==Personc.65==Lifec.218==RefXeCoMayMoc"
   ],
   "Ref32p204p2": [
     0,
@@ -7441,7 +7441,7 @@
   ],
   "Ref32p205p1": [
     0,
-    "=Careera.47==Healthb.79==Healthb.2020"
+    "=Careera.47==RefBenhGanMat==RefBenhTamKhi"
   ],
   "Ref32p205p2": [
     0,
@@ -7449,7 +7449,7 @@
   ],
   "Ref32p205p3": [
     0,
-    "=Healthb.35==Healthb.2078==Healthb.80==Childb.38"
+    "=RefBenhCanGhep==Healthb.2078==Healthb.80==Ref0LoiChoCon"
   ],
   "Ref32p205p4": [
     0,
@@ -7457,7 +7457,7 @@
   ],
   "Ref32p205p5": [
     0,
-    "=Healthb.2504==Lifeb.64b==Childb.38"
+    "=Healthb.2504==Lifeb.64b==Ref0LoiChoCon"
   ],
   "Ref32p205p6": [
     0,
@@ -7465,7 +7465,7 @@
   ],
   "Ref32p38p1": [
     0,
-    "=Fortuneb.2024==Fortuneb.2045"
+    "=RefThuItRaNhieu==Fortuneb.2045"
   ],
   "Ref32p38p2": [
     0,
@@ -7477,7 +7477,7 @@
   ],
   "Ref32p39p1b": [
     0,
-    "=Lifeb.2062"
+    "=RefCoTang"
   ],
   "Ref32p39p2": [
     0,
@@ -7493,7 +7493,7 @@
   ],
   "Ref32p39p5": [
     0,
-    "=Fatherb.2002==Lifeb.111b==Healthb.35"
+    "=Fatherb.2002==Lifeb.111b==RefBenhCanGhep"
   ],
   "Ref32p40p1": [
     0,
@@ -7512,7 +7512,7 @@
   ],
   "Ref32p40p4": [
     0,
-    "=Personb.196==Lifeb.2086"
+    "=Personb.196==RefGiamUyQuyen"
   ],
   "Ref32p41p1": [
     0,
@@ -7520,7 +7520,7 @@
   ],
   "Ref32p41p2a": [
     0,
-    "=Fortuneb.2016b==Fortunea.1028==Parenta.47"
+    "=RefTienTaiThatThuong0Het==RefKiemTienNhanh==Parenta.47"
   ],
   "Ref32p41p2b": [
     0,
@@ -7528,7 +7528,7 @@
   ],
   "Ref32p41p3": [
     0,
-    "=BusinessVeryGood.1==Careera.122"
+    "=BusinessVeryGood.1==RefLamViecHayDiXa"
   ],
   "Ref32p41p4": [
     0,
@@ -7540,7 +7540,7 @@
   ],
   "Ref32p42p2a": [
     0,
-    "=Relationa.1033==Careera.1014"
+    "=Relationa.1033==RefThanhTich"
   ],
   "Ref32p42p2b": [
     0,
@@ -7572,7 +7572,7 @@
   ],
   "Ref32p43p4": [
     0,
-    "=Mariageb.2016"
+    "=RefNgoaiTinh"
   ],
   "Ref32p44p1": [
     0,
@@ -7615,7 +7615,7 @@
   ],
   "Ref32p46p1": [
     0,
-    "=Healthb.76==Healthb.2102==BroSisb.2020"
+    "=Healthb.76==Healthb.2102==RefBSCoTat"
   ],
   "Ref32p46p3": [
     0,
@@ -7635,7 +7635,7 @@
   ],
   "Ref32p47p3": [
     0,
-    "=Healthb.2103==Healthb.2019==Relationb.2050"
+    "=Healthb.2103==RefNgoDoc==Relationb.2050"
   ],
   "Ref32p47p4": [
     0,
@@ -7667,11 +7667,11 @@
   ],
   "Ref32p49p3": [
     0,
-    "=Healthb.22==BroSisb.29==Lifea.1067"
+    "=RefXeCoMayMoc==RefKhacBS==Lifea.1067"
   ],
   "Ref32p49p4": [
     0,
-    "=Lifeb.2082==Relationb.2052"
+    "=RefChayNha==Relationb.2052"
   ],
   "Ref32p50p1": [
     0,
@@ -7687,7 +7687,7 @@
   ],
   "Ref32p50p4": [
     0,
-    "=Lifeb.111b==Healthb.35==Relationb.2054"
+    "=Lifeb.111b==RefBenhCanGhep==Relationb.2054"
   ],
   "Ref32p50p5": [
     0,
@@ -7699,7 +7699,7 @@
   ],
   "Ref32p51p2": [
     0,
-    "=Healthb.22==Relationb.2055==Lifea.143==Personc.65==Lifeb.310"
+    "=RefXeCoMayMoc==Relationb.2055==Lifea.143==Personc.65==Lifeb.310"
   ],
   "Ref32p51p3": [
     0,
@@ -7707,7 +7707,7 @@
   ],
   "Ref32p51p4": [
     0,
-    "=Parenta.1027==Fortunea.10"
+    "=RefHuongGiaTai==RefTaiLocDoiDao"
   ],
   "Ref32p52p1a": [
     0,
@@ -7731,7 +7731,7 @@
   ],
   "Ref32p52p4b": [
     0,
-    "=Fortuneb.2502==Healthb.79==Healthb.80"
+    "=Fortuneb.2502==RefBenhGanMat==Healthb.80"
   ],
   "Ref32p52p5": [
     0,
@@ -7739,7 +7739,7 @@
   ],
   "Ref32p53p1": [
     0,
-    "=Fortunea.10==Lifea.1068==Fortuneb.2503==Fortuneb.2504"
+    "=RefTaiLocDoiDao==Lifea.1068==Fortuneb.2503==Fortuneb.2504"
   ],
   "Ref32p53p2": [
     0,
@@ -7755,7 +7755,7 @@
   ],
   "Ref32p53p4": [
     0,
-    "=Lifea.48a==Healthb.117"
+    "=RefDuocGiupDo==Healthb.117"
   ],
   "Ref32p54p1": [
     0,
@@ -7789,15 +7789,15 @@
   ],
   "Ref32p56p1": [
     0,
-    "=Parentb.36==Healthb.35==Healthb.81"
+    "=Parentb.36==RefBenhCanGhep==Healthb.81"
   ],
   "Ref32p56p2": [
     0,
-    "=Personc.30==Relationb.2056==Childb.38"
+    "=Personc.30==Relationb.2056==Ref0LoiChoCon"
   ],
   "Ref32p56p3": [
     0,
-    "=Childb.38==Healthb.117"
+    "=Ref0LoiChoCon==Healthb.117"
   ],
   "Ref32p57p1": [
     0,
@@ -7809,7 +7809,7 @@
   ],
   "Ref32p58p1": [
     0,
-    "=Fortunea.1056==Lifea.83"
+    "=Fortunea.1056==RefGapTienQuyNhan"
   ],
   "Ref32p58p2": [
     0,
@@ -7817,7 +7817,7 @@
   ],
   "Ref32p58p3": [
     0,
-    "=Mariageb.28==Lifeb.240"
+    "=RefVoChongDeBietLy==Lifeb.240"
   ],
   "Ref32p58p4": [
     0,
@@ -7876,7 +7876,7 @@
   ],
   "Ref32p61p6": [
     0,
-    "=Lifeb.2066==Mariageb.23==Healthb.2103"
+    "=RefBiLuaDao==RefVoChongXaCach==Healthb.2103"
   ],
   "Ref32p62p1": [
     0,
@@ -7900,7 +7900,7 @@
   ],
   "Ref32p63p1": [
     0,
-    "=Personc.286==Healthb.2018"
+    "=Personc.286==RefTuSat"
   ],
   "Ref32p63p2": [
     0,
@@ -7908,7 +7908,7 @@
   ],
   "Ref32p64p1": [
     0,
-    "=Personc.151==Relationb.2059==Healthb.2018"
+    "=Personc.151==Relationb.2059==RefTuSat"
   ],
   "Ref32p64p2": [
     0,
@@ -7916,7 +7916,7 @@
   ],
   "Ref32p64p3": [
     0,
-    "=Healthb.117==Healthb.35==Relationb.2059"
+    "=Healthb.117==RefBenhCanGhep==Relationb.2059"
   ],
   "Ref32p64p4": [
     0,
@@ -7932,7 +7932,7 @@
   ],
   "Ref32p65p3": [
     0,
-    "=Healthb.80==Healthb.35==Lifea.1501"
+    "=Healthb.80==RefBenhCanGhep==Lifea.1501"
   ],
   "Ref32p65p4": [
     0,
@@ -7984,7 +7984,7 @@
   ],
   "Ref32p69p1": [
     0,
-    "=Lifea.1038"
+    "=RefCoHoiTotTinVui"
   ],
   "Ref32p69p2": [
     0,
@@ -8004,7 +8004,7 @@
   ],
   "Ref32p70p5": [
     0,
-    "=Halac.Positive.89==Relationa.1006"
+    "=Halac.Positive.89==RefBanBeGiupDo"
   ],
   "Ref32p70p6": [
     0,
@@ -8036,7 +8036,7 @@
   ],
   "Ref32p74p1": [
     0,
-    "=Relationb.2059==Healthb.35"
+    "=Relationb.2059==RefBenhCanGhep"
   ],
   "Ref32p74p2": [
     0,
@@ -8052,7 +8052,7 @@
   ],
   "Ref32p74p5": [
     0,
-    "=Healthb.67==Healthb.2101==Personc.110"
+    "=RefDePhongTatBenh==Healthb.2101==Personc.110"
   ],
   "Ref32p75p1": [
     0,
@@ -8076,7 +8076,7 @@
   ],
   "Ref32p76p1": [
     0,
-    "=Healthb.67==Careerb.83"
+    "=RefDePhongTatBenh==Careerb.83"
   ],
   "Ref32p76p3": [
     0,
@@ -8084,7 +8084,7 @@
   ],
   "Ref32p76p4": [
     0,
-    "=StudyGooda.12==Lifea.48a"
+    "=StudyGooda.12==RefDuocGiupDo"
   ],
   "Ref32p76p5": [
     0,
@@ -8229,11 +8229,11 @@
   ],
   "SP.Careera.Religeous.+&": [
     1,
-    "=Lifea.45b==Persona.8==Persona.203==Persona.130==Persona.279"
+    "=Lifea.45b==Persona.8==RefHocRong==Persona.130==Persona.279"
   ],
   "SP.Careera.Religeous.-&": [
     1,
-    "=Lifea.45a==Persona.89==Persona.211==Persona.206==Relationa.5==Childb.24"
+    "=RefTuHanhTriThuc==Persona.89==Persona.211==Persona.206==RefDuocKinhPhuc==RefHiemMuon"
   ],
 
 
@@ -9206,7 +9206,7 @@
 
 "Ref34p356p3a": [ -2 , "=Lifeb.2068==Lifeb.256==Lifeb.2145" ],
 "Ref34p356p3b": [ -2 , "=Lifeb.2068==Lifeb.64b" ],
-"Ref34p356p3c": [ -2 , "=Ref34p356p3b==Lifeb.2073" ],
+"Ref34p356p3c": [ -2 , "=Ref34p356p3b==RefCoTangLon" ],
 
 "Ref34p394p5":[ 1 , "=Relationa.1064==Relationa.1065==Lifea.285" ],
 "Ref34p394p6":[ 1 , "=Lifec.231==Relationb.2075" ],
@@ -9228,12 +9228,12 @@
 "Ref34p396p2":[ 1 , "=Lifec.1000==Lifec.1001" ],
 "Ref34p396p3":[ 1 , "=Relationa.1055" ],
 "Ref34p396p4":[ 1 , "=Careera.1060==Lifea.1054" ],
-"Ref34p396p5":[ 1 , "=Relationa.1068==Relationa.1069==Relationa.1070==Careera.129"],
+"Ref34p396p5":[ 1 , "=Relationa.1068==Relationa.1069==Relationa.1070==RefCoNghiepPhatTrienTot"],
 "Ref34p396p6":[ 1 , "=Lifea.207==Lifea.266==Relationa.1071" ],
 "Ref34p396p7a":[ 1 , "=Lifeb.64b" ],
 "Ref34p396p7b":[ 1 , "=Lifea.239" ],
 "Ref34p396p8":[ 1 , "=Careera.2000==Halac.Positive.44b" ],
-"Ref34p396p9":[ 1 , "=Careerb.2018==Lifec.57==Relationa.1035" ],
+"Ref34p396p9":[ 1 , "=RefCoTheThayDoiCongViec==Lifec.57==Relationa.1035" ],
 
 "Ref34p397p1":[ 1 , "=Lifea.165" ],
 "Ref34p397p2":[ 1 , "=Lifec.144" ],
@@ -9243,5 +9243,5 @@
 "Ref34p397p6":[ 1 , "=Lifec.81" ],
 "Ref34p397p7":[ 1 , "=Lifea.1048==Lifea.139" ],
 "Ref34p397p8":[ 1 , "=Careera.49" ],
-"Ref34p406p3": [ -2 , "=Relationa.12==Lifec.107" ]
+"Ref34p406p3": [ -2 , "=RefTamLinhThanPhat==Lifec.107" ]
 }

@@ -11,7 +11,7 @@ import { BrancheRelation } from '../mt-data/bazi/brancheRelation';
 import { TuViPalace } from '../mt-data/tuvi/tuviPalace';
 import { BaziHelper } from '../helper/baziHelper';
 import { TuViRing } from '../mt-data/tuvi/tuviRing';
-import { PropertyHelper } from '../helper/PropertyHelper';
+import { Temporal } from 'temporal-polyfill';
 
 export class TuViHoroscope extends HoroscopeContributor {
   birthLunar: Lunar;
@@ -198,9 +198,9 @@ export class TuViHoroscope extends HoroscopeContributor {
 }
 
 
-  initHanPalace(currAge:number) {
-    this.daihan = this.tuviPalaceStarMap.getDaiVanPalaceForAge(currAge);
-    this.yDaihan = this.tuviPalaceStarMap.getTuViStudyYearBrancheDaiHan(currAge,this.daihan);
+  initHanPalace(currAge:number, currDate:MyCalendar) {
+    this.daihan = this.tuviPalaceStarMap.getDaiVanPalaceForAge(currAge,currDate);
+    this.yDaihan = this.tuviPalaceStarMap.getTuViStudyYearBrancheDaiHan(currAge,this.daihan,currDate);
   }
 
   genPeriodTheme(currAge: number,currDate: MyCalendar): void {
@@ -208,13 +208,11 @@ export class TuViHoroscope extends HoroscopeContributor {
 
 
    genYearTheme(currAge:number,currDate: MyCalendar): void {
-    this.initHanPalace(currAge);
+    this.initHanPalace(currAge,currDate);
     const isDaihanEndPeriod = this.daihan.bigPeriodFromYear+5>currAge;
     const isydaiHanEndPeriod = this.studyLunar.birthDate.getChineseMonth()>6;
 
     const yTieuHan = this.tuviPalaceStarMap.getTuViStudyYearBrancheTieuHan(this.studyLunar.getyBranche(), currAge);
-
-    yTieuHan.palaceObservation.commentTuViElementNTieuHan();
     // Year
     this.daihan.palaceObservation.commentOnYearPeriod(currAge, this.studyLunar,isDaihanEndPeriod);
     this.yDaihan.palaceObservation.commentOnYearPeriod(currAge, this.studyLunar,isydaiHanEndPeriod);
@@ -234,7 +232,7 @@ export class TuViHoroscope extends HoroscopeContributor {
 
 
    genDayTheme(currAge:number): void{
-    const daihan = this.tuviPalaceStarMap.getDaiVanPalaceForAge(currAge);
+    const daihan = this.tuviPalaceStarMap.getDaiVanPalaceForAge(currAge,this.studyDate);
     const dayHan = this.tuviPalaceStarMap.getTuViStudyDayPalace(this.monthHan, this.studyDate.getDay());
     dayHan.incPoints(this.getPeriodFavorablePoint(this.monthHan));
     dayHan.palaceObservation.commentOnStarPeriod(currAge, this.studyLunar,false,true);

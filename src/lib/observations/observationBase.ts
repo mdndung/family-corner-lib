@@ -300,7 +300,7 @@ getStudyDate() : MyCalendar {
     for (let index = 0; index < params.length; index++) {
       const element = params[index];
       if ( null===model.getEnumByName(element) ) {
-        console.log("Could not find ", element, "in ", param, "for model ", model.getName())
+        console.log("Could not find  1", element, "in ", param, "for model ", model.getName())
         console.log(this.checkMethod, this.checkKey)
       }
     }
@@ -322,7 +322,7 @@ getStudyDate() : MyCalendar {
       const element = params[index];
       const enumElement = model.getEnumByName(element)
       if ( null===enumElement ) {
-        console.log("Could not find ", element, "in ", param, "for model ", model.getName())
+        console.log("Could not find 2 ", element, "in ", param, "for model ", model.getName())
         console.log(this.checkMethod, this.checkKey)
       } else {
         res.push(enumElement)
@@ -350,6 +350,12 @@ getStudyDate() : MyCalendar {
     console.log("checkStarForce Must Be override in sub class ")
     return false;
   }
+
+    /// Usage StarForceCount°(+,-),StarList
+    checkStarForceCount(params:string[]) {
+      console.log("checkHasStarForce Must Be override in sub class ")
+      return false;
+    }
 
   getStudyAge() {
     const birthYear=this.getLunar().birthDate.getYear()
@@ -474,7 +480,6 @@ getStudyDate() : MyCalendar {
     // Put Here common check function
     switch (attrKey) {
       case "TraceOn":
-        console.log("TraceOn", this.checkKey)
         this.traceOn = true;
         return true;
      case "Child":
@@ -497,6 +502,8 @@ getStudyDate() : MyCalendar {
           return this.checkBirthNight();
       case "StarForce":
             return this.checkStarForce(params);
+      case "StarForceCount":
+              return this.checkStarForceCount(params);
       case "OR":
         return this.processFuncSuite(params.toString(),"||","$",true);
     default:
@@ -508,13 +515,16 @@ getStudyDate() : MyCalendar {
   processFuncSuite(funcList:string,funcSep:string,paramSep:string,exitOnTrue:boolean) {
     const keyArr = funcList.split(funcSep);
     const len = keyArr.length - 1;
-    const startKeyIdx = 2;
+    let startKeyIdx = 2;
     const idx = keyArr[len].indexOf("&");
     if (idx >=0 ) {
       keyArr[len] = keyArr[len].substring(0, idx);
     }
     let res =true ;
     const CHECKALL = true; // break on first check is false
+    if ( exitOnTrue&&this.traceOn ) {
+      startKeyIdx = 0 ;
+    }
     for (let index = startKeyIdx; index <= len; index++) {
       let currAttrkey = keyArr[index];
       const paramIdx = currAttrkey.indexOf(paramSep);
@@ -532,12 +542,8 @@ getStudyDate() : MyCalendar {
         isPositive = false;
         currAttrkey = currAttrkey.substring(1);
       }
-
       this.checkMethod=currAttrkey + " ("+ currAttrVal+")"
       const isChecked =  this.isAttrPresent(currAttrkey, currAttrVal.split(","))
-      if ( this.traceOn ) {
-        console.log("TRACE", this.checkMethod, " Checked ", isChecked )
-      }
       if (isPositive !== isChecked ) {
         res = false;
         if (!CHECKALL) break;
@@ -556,11 +562,11 @@ getStudyDate() : MyCalendar {
       return
     }
     const logMe = false;
-    this.traceOn=false
     this.prevKey=header
     if (logMe) console.log(header, selectHeaders);
     for (let index = 0; index < selectHeaders.length; index++) {
       let key = selectHeaders[index];
+      this.traceOn=false
       this.checkKey=key
       let res = true;
       const idx = key.indexOf("&");
