@@ -1246,7 +1246,7 @@
   "Ref3p478p2f": [0, "=RefChaChong0Tho"],
   "Ref3p501p2f": [0,"=Childa.4==,==Childb.34" ],
   "Ref3p503p8m": [0,"=Childa.10"],
-  "Ref7_2ap11af": [0,"=RefPhucTho==Persona.3==RefTriTue==RefHocRong==Lifea.15==Persona.293==RefDanhLoi==RefDuocGiupDo==Studya.4b"],
+  "Ref7_2ap11af": [0,"=RefPhucTho==Persona.3==RefTriTue==RefHocRong==Lifea.15==RefGiaiTruTaiHoa==RefDanhLoi==RefDuocGiupDo==Studya.4b"],
   "Ref7_2ap11df": [ 0,"=Origina.2"  ],
   "Ref7_2ap14df": [0, "=RefVoDep==Husbandb.26==RefChaChong0Tho" ],
   "Ref7_2ap17if": [0,"=Personb.140==Personb.141"],
@@ -1763,7 +1763,7 @@
     0,
     "=Ref7_2ap10p6"
   ],
-  "Ref7_2ap11a": [ 0, "=Persona.3==RefHienLanh==Persona.4b==RefTriTue==RefHocRong==Lifea.15==Persona.293"],
+  "Ref7_2ap11a": [ 0, "=Persona.3==RefHienLanh==Persona.4b==RefTriTue==RefHocRong==Lifea.15==RefGiaiTruTaiHoa"],
   "Ref7_2ap11b": [0,"=RefDanhLoi==RefDuocGiupDo==Lifea.48b==Studya.4b==Persona.4c==Persona.202==Lifea.7"],
   "Ref7_2ap11d": [0,"=Persona.297==RefCongThanDanhToai==RefPhucTho==Studya.2a" ],
   "Ref7_2ap12": [ 0, "=Persona.96==Persona.298"],
@@ -1881,7 +1881,7 @@
   "Ref7_2ap8p2c": [0, "=Careera.146==Persona.178==Persona.285==Careera.42==RefVanTai"],
   "Ref7_2ap8p2d": [ 0, "=Persona.3==RefTriTue"],
   "Ref7_2ap8p2e": [0,"=Studya.4a==Persona.179==RefDuocKinhPhuc"],
-  "Ref7_2ap8p7": [0, "=Persona.3==Persona.10b==Persona.293==RefDuocGiupDo==Persona.4b"],
+  "Ref7_2ap8p7": [0, "=Persona.3==Persona.10b==RefGiaiTruTaiHoa==RefDuocGiupDo==Persona.4b"],
   "Ref8p100p1": [0, "=Fortuneb.30==Lifeb.62"],
   "Ref8p101p1": [
     0,
@@ -1890,7 +1890,7 @@
   "Ref8p102p1": [0, "=RefBenhCanGhep" ],
   "Ref8p102p2": [ 0,"=Healtha.4"],
 
-  "Ref8p103p2": [0,"=Persona.293"],
+  "Ref8p103p2": [0,"=RefGiaiTruTaiHoa"],
   "Ref8p103p4": [0,"=Lifea.1505"],
   "Ref8p103p5": [0, "=RefPhucTho==RefSungTuc"],
   "Ref8p103p6": [0,"=Persona.211==Persona.89==Persona.260==Relationa.4==RefDuocKinhPhuc"],
@@ -1909,7 +1909,7 @@
   ],
   "Ref8p124p3": [
     0,
-    "=Persona.293==RefThoatKhoKhan"
+    "=RefGiaiTruTaiHoa==RefThoatKhoKhan"
   ],
 
   "Ref8p127p1a": [0, "=RefVanTai"],
@@ -2169,7 +2169,7 @@
   "Ref8p200p7": [0,"=Lifeb.26" ],
   "Ref8p200p8": [0, "=Careerb.26"],
   "Ref8p201p1": [0, "=Persona.207a"],
-  "Ref8p203p2": [0,"=Relationb.22==Personb.197"],
+  "Ref8p203p2": [0,"=RefLamOnMacOan==Personb.197"],
   "Ref8p203p3a": [0,"=Lifeb.36"],
   "Ref8p203p3b": [0, "=Lifea.15==Lifea.58"],
   "Ref8p203p5": [0,"=Careerb.21==Careerb.22==Careerb.37"],
@@ -2230,7 +2230,7 @@
   "Ref8p219p5": [ 0, "=Ref8p216p2" ],
   "Ref8p219p6": [
     0,
-    "=Fortuneb.29"
+    "=RefTaiSanDeMat"
   ],
   "Ref8p219p7a": [0, "=Parentb.23==Careerb.20==Fortuneb.26==Careerb.36"],
   "Ref8p219p7b": [ 0,"=Parentb.23==Careerb.36==RefCoDanhChuc" ],
@@ -2379,7 +2379,7 @@
   "Ref8p255p2a": [0,"=Parentb.21"],
   "Ref8p255p2b": [ 0, "=Parentb.32b"],
   "Ref8p255p3": [0,"=Persona.6a==Persona.268" ],
-  "Ref8p255p4": [ 0, "=Relationb.38==Personb.34==Relationb.22==Relationb.23"],
+  "Ref8p255p4": [ 0, "=Relationb.38==Personb.34==RefLamOnMacOan==Relationb.23"],
   "Ref8p255p5": [ 0, "=Mariageb.20==Careerb.37==Fortuneb.28"],
   "Ref8p255p6": [0, "=Parentb.32b==,==Parentb.21==Mariageb.32"],
   "Ref8p258p10": [0,"=Mariageb.20"],
@@ -2429,7 +2429,7 @@
   "Ref8p30p1m": [0, "=RefUyQuyen==Personb.77"],
   "Ref8p30p2m": [0,"=Personb.78==RefXeCoMayMoc" ],
   "Ref8p332p8a": [0, "=Studyb.22"],
-  "Ref8p332p8b": [0, "=Lifea.1042"],
+  "Ref8p332p8b": [0, "=RefThiDo"],
   "Ref8p333p8": [0, "=Studyb.22"],
   "Ref8p333p9": [0, "=Studyb.22"],
   "Ref8p354p4a": [0,"=Careera.1501"],
@@ -2439,7 +2439,7 @@
   "Ref8p354p6a": [0,"=Careera.1503" ],
   "Ref8p354p6b": [0, "=Careerb.2500"],
   "Ref8p354p7a": [ 0, "=Careera.1504==Careera.1505"],
-  "Ref8p354p7b": [ 0, "=Fortuneb.2500===Fortuneb.2501==Careerb.23"],
+  "Ref8p354p7b": [ 0, "=Fortuneb.2500===RefThuaLoHaoTai==Careerb.23"],
   "Ref8p378p2": [ 0, "=Careera.4==Careera.6==RefGioiKiemTien==RefHaoPhong" ],
   "Ref8p378p3": [0,"=Persona.172a"],
   "Ref8p378p4": [ 0,"=Fortunea.19"],
@@ -2583,7 +2583,7 @@
   "Ref8p93p1": [0,"=Personb.317==Lifeb.62==Personb.74==Personb.75"],
   "Ref8p93p2a": [0, "=Persona.3==RefTaiTri==RefSacSao"],
   "Ref8p93p2b": [0,"=Personb.20a==Ref0TrungThuc" ],
-  "Ref8p95p1": [0,"=Persona.293"],
+  "Ref8p95p1": [0,"=RefGiaiTruTaiHoa"],
   "Ref8p96p1": [0, "=Careera.52a==RefGioiKiemTien==RefKhaGia==Careera.52c" ],
   "Ref8p97p1": [0,"=Persona.294"],
   "Ref8p98p1": [ 0,"=Healthb.34" ],

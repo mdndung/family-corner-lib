@@ -2,17 +2,15 @@
 
 import { DateHelper } from '../helper/dateHelper';
 import { MessageHelper } from '../helper/messageHelper';
-import { ObjectHelper } from '../helper/objectHelper';
 import { PropertyHelper } from '../helper/PropertyHelper';
-import { QiHelper } from '../helper/qiHelper';
 import { StringHelper } from '../helper/stringHelper';
 import { Lunar } from '../mt-data/bazi/lunar';
 import { MyCalendar } from '../mt-data/date/mycalendar';
 import { PropertyAttr } from '../mt-data/property/propertyAttr';
-import { QiTypeDataRec } from '../mt-data/qi/qi-type-data-rec';
 import { HalacThemeIterator } from '../mt-data/yi-jing/halac-theme-iterator';
 import { HalacTheme } from '../mt-data/yi-jing/halacTheme';
 import { YiJing } from '../mt-data/yi-jing/yijing';
+import { HalacObservation } from '../observations/halacObservation';
 import { HoroscopeContributor } from './horoscopeContributor';
 import { YiJingAttr } from './yi-jing-attr';
 
@@ -25,6 +23,7 @@ export class HalacHoroscope extends HoroscopeContributor {
 
     birthLunar: Lunar;
     birthTheme: HalacTheme;
+    observation: HalacObservation;
 
     constructor(
         birthDate: MyCalendar,
@@ -35,6 +34,7 @@ export class HalacHoroscope extends HoroscopeContributor {
         this.birthLunar = new Lunar(birthDate, isMan);
         this.birthTheme = new HalacTheme(this.birthLunar);
         this.initBaseQiType(this.birthLunar);
+        this.observation=new HalacObservation(this.birthLunar.getGenrePrefix())
     }
 
 
@@ -48,6 +48,10 @@ export class HalacHoroscope extends HoroscopeContributor {
         return yiJingObs;
     }
 
+    logAddCommentLabel(comment:string) {
+        PropertyHelper.addCommentLabel(comment)
+    }
+
     genYiYingTheme(theme: YiJing, basePeriodIdx: number) {
         // Base addTheme
         const prefix = "Halac." + theme.getHexaOrdinal();
@@ -55,7 +59,7 @@ export class HalacHoroscope extends HoroscopeContributor {
         const yiJingObs = this.getYiJingAttr(theme, basePeriodIdx);
 
         const postFix = '&' + StringHelper.bool2Str(yiJingObs.isFavorable);
-        PropertyHelper.addCommentLabel(
+        this.logAddCommentLabel(
             prefix + PropertyAttr.DOT + yaoPos + postFix
         );
         PropertyHelper.addCommentLabel(
@@ -133,10 +137,8 @@ export class HalacHoroscope extends HoroscopeContributor {
         isFirstGroup: boolean
     ) {
         let fromIndex = 0;
-        let incYearCount = 1;
         if (!isFirstGroup) {
             fromIndex = 1;
-            incYearCount = 7;
         }
         for (let index = fromIndex; index < periodArr.length; index++) {
             const startPeriodAge = periodArr[index];

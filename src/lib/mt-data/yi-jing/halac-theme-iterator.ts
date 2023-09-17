@@ -289,7 +289,7 @@ export class HalacThemeIterator {
         }
       }
     }
-    //this.logCurrHexagram('INIT ' + currAge + ' result ');
+    //this.logCurrHexagram('initAgeHexagramIterator ' + currAge + ' result ');
   }
 
   private transform(title: string) {

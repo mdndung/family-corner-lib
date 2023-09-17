@@ -505,26 +505,23 @@ getStudyDate() : MyCalendar {
       case "StarForceCount":
               return this.checkStarForceCount(params);
       case "OR":
-        return this.processFuncSuite(params.toString(),"||","$",true);
+        return this.processFuncSuite(params.toString(),"||","$",true,0);
     default:
-      console.log("UNKNOWN CASE ", attrKey, this.checkKey);
+      console.log("UNKNOWN CASE ", attrKey, this.checkMethod);
     }
     return false;
   }
 
-  processFuncSuite(funcList:string,funcSep:string,paramSep:string,exitOnTrue:boolean) {
+  processFuncSuite(funcList:string,funcSep:string,paramSep:string,exitOnTrue:boolean, startKeyIdx = 2) {
     const keyArr = funcList.split(funcSep);
     const len = keyArr.length - 1;
-    let startKeyIdx = 2;
     const idx = keyArr[len].indexOf("&");
     if (idx >=0 ) {
       keyArr[len] = keyArr[len].substring(0, idx);
     }
     let res =true ;
     const CHECKALL = true; // break on first check is false
-    if ( exitOnTrue&&this.traceOn ) {
-      startKeyIdx = 0 ;
-    }
+
     for (let index = startKeyIdx; index <= len; index++) {
       let currAttrkey = keyArr[index];
       const paramIdx = currAttrkey.indexOf(paramSep);
@@ -533,8 +530,6 @@ getStudyDate() : MyCalendar {
       if (paramIdx > 0) {
         currAttrVal = currAttrkey.substring(paramIdx + 1);
         currAttrkey = currAttrkey.substring(0, paramIdx);
-      } else {
-        currAttrkey=currAttrkey
       }
       let isPositive = true;
 
@@ -558,26 +553,29 @@ getStudyDate() : MyCalendar {
   filterOnHeader(header: string) {
     const selectHeaders = PropertyHelper.getHeaderKeys(header);
     if ( ObjectHelper.isNaN(selectHeaders)) {
-      console.log("No Header found ", header);
+      //console.log("No Header found ", header);
       return
     }
-    const logMe = false;
     this.prevKey=header
-    if (logMe) console.log(header, selectHeaders);
+    let logMe =header==="TuVi.Menh"
     for (let index = 0; index < selectHeaders.length; index++) {
+
       let key = selectHeaders[index];
+
       this.traceOn=false
       this.checkKey=key
       let res = true;
       const idx = key.indexOf("&");
+
       if (idx === -1) {
         console.log("MISSING &", key);
       }
-      res = this.processFuncSuite(key,".","°",false);
+
+      res = this.processFuncSuite(key,".","°",false,2);
       if (res) {
         res = this.addBaseComment0(key, true);
         if ( res ) {
-          console.log("Added KEY", res, key);
+          //console.log("Added KEY", key);
         }
       }
     }

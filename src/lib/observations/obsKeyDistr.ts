@@ -35,6 +35,7 @@ export class ObsKeyDistr {
       this.distr[pOrd] = new AssocArray();
     }
     this.distr[pOrd].put(key, data);
+    //console.log("PUT key ", key,  atPeriod, data, this.distr[pOrd].get(key) )
   }
 
   get(atPeriod: ObsPeriod, key: string) {

@@ -4,6 +4,7 @@ import baseKeysJson from "../data/baseKeys.json";
 import definedKeysJson from "../data/definedKeys.json";
 import baziKeysJson from "../data/bazi.json";
 import ref17KeysJson from "../data/ref17.json";
+import HalacJson from "../data/Halac.json";
 import zodiacKeysJson from "../data/zodiac.json";
 import { ObjectHelper } from "../helper/objectHelper";
 import { MyCalendar } from "../mt-data/date/mycalendar";
@@ -11,6 +12,7 @@ import { PropertyAttr } from "../mt-data/property/propertyAttr";
 import { PropertyType } from "../mt-data/property/propertyType";
 import { ObsKeyDistr } from "../observations/obsKeyDistr";
 import { ObsPeriod } from "../observations/obsPeriod";
+import { AssocArray } from "../data/assoc-array";
 
 export class PropertyHelper {
   // Cache of all properties attributes handled by the session
@@ -57,6 +59,9 @@ export class PropertyHelper {
 
   static addHalacPropFile() {
    // Nothing to add. Halac properties are in base
+   PropertyHelper.addPropFileIfNotExist(HalacJson)
+   PropertyHelper.setHalacProp()
+
   }
 
   static initHelper(session: ObsPeriod, sessionDate: MyCalendar) {
@@ -118,6 +123,16 @@ export class PropertyHelper {
     }
   }
 
+  static setHalacProp () {
+
+    let keys = Object.keys(HalacJson);
+
+    if ( ObjectHelper.isNaN(PropertyHelper.getHeaderKeys("Halac."))) {
+      PropertyHelper.catKeys["Halac"] = keys.filter(value => /^Halac\./.test(value));
+
+   }
+  }
+
   static getHeaderKeys(header:string) : string []{
     return PropertyHelper.catKeys[header]
   }
@@ -177,23 +192,18 @@ export class PropertyHelper {
     return res;
   }
 
-  static getSessionProperties(session: ObsPeriod): PropertyAttr[] {
-    const obsDistr = PropertyHelper.gCache.getObsKeys(session);
-    let res = [];
-    if (!ObjectHelper.isNaN(obsDistr)) {
-      res = obsDistr.dataArr;
-    }
-    return res;
+  static getSessionProperties(session: ObsPeriod): AssocArray {
+    return PropertyHelper.gCache.getObsKeys(session);
   }
 
   static finalizeSession() {
-    const attrList = PropertyHelper.getSessionProperties(
+    const sessionAssocArray = PropertyHelper.getSessionProperties(
       PropertyHelper.currObsSession
     );
     PropertyHelper.disableCache();
-    for (const key in attrList) {
-      const keyAttr = attrList[key];
-      if (keyAttr.isBase()) {
+    for (var key in sessionAssocArray.getDataArr() ) {
+      const keyAttr = sessionAssocArray.get(key);
+      if (!ObjectHelper.isNaN(keyAttr) && keyAttr.isBase()) {
         keyAttr.setOppositeForce(
           PropertyHelper.getSumOppositeCachedForce(keyAttr)
         );
@@ -207,7 +217,10 @@ export class PropertyHelper {
     if (!ObjectHelper.isNaN(attr)) {
       if (PropertyHelper.save2GCache && !attr.isUndef()) {
         PropertyHelper.initOppositeAttr(attr);
+        //console.log("addPropertyAttr",PropertyHelper.currObsSession,attr)
         PropertyHelper.gCache.put(PropertyHelper.currObsSession, attr.key, attr);
+        //console.log("gCache after put ",PropertyHelper.gCache.getObsKeys(PropertyHelper.currObsSession))
+
       }
     }
   }
@@ -399,19 +412,19 @@ export class PropertyHelper {
   }
 
   static isFCachePresent(key: string) {
-    return PropertyHelper.isArrayElementPresent(this.recursiveFindcache, key);
+    return this.recursiveFindcache.indexOf(key)>=0;
   }
 
   static findNAddBaseKeys(
     baseKeyArr: PropertyAttr[],
     originKeyAttr: PropertyAttr,
-    keyAttr: PropertyAttr
+    keyAttr: PropertyAttr,count=0
   ) {
     if (keyAttr.isUndef()) return;
     const key = keyAttr.key;
     if (!PropertyHelper.isFCachePresent(key)) {
       // use to avoid recursive loop definition
-      PropertyHelper.recursiveFindcache.push(keyAttr);
+      PropertyHelper.recursiveFindcache.push(key);
       if (keyAttr.isBase()) {
         ObjectHelper.pushIfNotExist(baseKeyArr, keyAttr);
         if (PropertyHelper.save2GCache) {
@@ -452,7 +465,7 @@ export class PropertyHelper {
             if (endSubMsgPos - starSubMsgPos > 1) {
               if (isComposedMsg) {
                 const keyAttr1 = PropertyHelper.getPropertyAttr(currMessage);
-                this.findNAddBaseKeys(baseKeyArr, originKeyAttr, keyAttr1);
+                this.findNAddBaseKeys(baseKeyArr, originKeyAttr, keyAttr1,count++);
               } else {
                 console.log("TBD check currMessage not handle", keyAttr, currMessage);
               }
@@ -466,7 +479,7 @@ export class PropertyHelper {
       //
       if (PropertyHelper.isPropertyExist(sKey)) {
         const genreAttr = PropertyHelper.getPropertyAttr(sKey);
-        PropertyHelper.findNAddBaseKeys(baseKeyArr, originKeyAttr, genreAttr);
+        PropertyHelper.findNAddBaseKeys(baseKeyArr, originKeyAttr, genreAttr,count++);
       }
     }
   }
@@ -515,7 +528,7 @@ export class PropertyHelper {
   static addCommentLabel(key: string) {
     // find and insert base key message
     const keyAttr = PropertyHelper.getPropertyAttr(key);
-    PropertyHelper.prepareBaseKeys(keyAttr);
+    return PropertyHelper.prepareBaseKeys(keyAttr);
   }
 
   static getMeanPropForceContribution(

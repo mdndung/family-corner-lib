@@ -10,17 +10,12 @@ import { Bazi } from "./bazi";
 import { LunarBase } from "./lunarBase";
 import { SecondaryDeity } from "./secondaryDeity";
 import { Element } from "../feng-shui/element";
-import { BaziStructureHelper } from "../../helper/bazi-structureHelper";
 import { CombAttr, CombinationList } from "./combinationList";
-import { DataWithLog } from "../qi/dataWithLog";
 import { BaziStructure } from "./bazi-structure";
-import { Lunar } from "./lunar";
-import { PropertyHelper } from "../../helper/PropertyHelper";
 import { BrancheHelper } from "../../helper/brancheHelper";
 import { DeityHelper } from "../../helper/deityHelper";
-import { EnumBaseClass } from "../enumBaseClass";
-import { Branche } from "./branche";
 import { Trunk } from "./trunk";
+import { Branche } from "./branche";
 
 export class BaziObservationBase extends ObservationBase {
   // See to update it for each period
@@ -1615,14 +1610,12 @@ export class BaziObservationBase extends ObservationBase {
 
   //
   override filterObservation(header: string, genPeriodOrYear: boolean) {
-    const dayForce = this.baseAttr.dayForce;
     if (genPeriodOrYear) {
       this.filterObservation("PY.",false);
     }
     this.filterOnHeader(header + "0"); // For common dayForce
     this.filterOnHeader(header +"+"); // Testing purpose
     this.filterOnHeader(header+ "-"); // Testing purpose
-    //this.filterOnHeader(header,dayForce);
   }
 
   override comment() {

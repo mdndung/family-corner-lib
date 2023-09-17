@@ -76,6 +76,10 @@ export class YiJingAttr {
 
   //Ref4 p23,24
    getYearTrigramStatus(baseTrigram: Trigram) {
+    if ( baseTrigram===null ) {
+      console.log("getYearTrigramStatus baseTrigram null")
+      return 0 
+    }
     const trigram = this.lunar.getyTrunk().trigram;
     let force = 0;
     if (baseTrigram.isEqual(trigram)) {

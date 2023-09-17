@@ -618,7 +618,6 @@ export class TuViStarMap {
     res.han=TuViPalace.DAIHAN;
     const hanDate = ageDate.getCopy();
     hanDate.add(Temporal.Duration.from({ years: hanAge-age }));
-    console.log("HanAge ",hanAge, age , hanDate)
     res.hanLunar=new Lunar(hanDate,true);
     res.cuoiHan=res.bigPeriodFromYear+5>=age
     return res;

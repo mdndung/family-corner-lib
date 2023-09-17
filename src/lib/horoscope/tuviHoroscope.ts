@@ -204,6 +204,9 @@ export class TuViHoroscope extends HoroscopeContributor {
   }
 
   genPeriodTheme(currAge: number,currDate: MyCalendar): void {
+    this.initHanPalace(currAge,currDate);
+    const isDaihanEndPeriod = this.daihan.bigPeriodFromYear+5>currAge;
+    this.daihan.palaceObservation.commentOnYearPeriod(currAge, this.studyLunar,isDaihanEndPeriod);
   }
 
 
@@ -232,6 +235,7 @@ export class TuViHoroscope extends HoroscopeContributor {
 
 
    genDayTheme(currAge:number): void{
+    console.log("genDayTheme",currAge,this.studyDate)
     const daihan = this.tuviPalaceStarMap.getDaiVanPalaceForAge(currAge,this.studyDate);
     const dayHan = this.tuviPalaceStarMap.getTuViStudyDayPalace(this.monthHan, this.studyDate.getDay());
     dayHan.incPoints(this.getPeriodFavorablePoint(this.monthHan));

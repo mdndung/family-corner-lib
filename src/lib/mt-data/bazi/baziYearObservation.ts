@@ -1,17 +1,11 @@
-import { BaziStructureHelper } from "../../helper/bazi-structureHelper";
-import { BrancheHelper } from "../../helper/brancheHelper";
+
 import { NagiaHelper } from "../../helper/nagiaHelper";
 import { ObjectHelper } from "../../helper/objectHelper";
 import { QiHelper } from "../../helper/qiHelper";
-import { StringHelper } from "../../helper/stringHelper";
-import { ElementLifeCycle } from "../feng-shui/elementLifeCycle";
-import { ElementNEnergyRelation } from "../feng-shui/elementNEnergyRelation";
-import { DataWithLog } from "../qi/dataWithLog";
 import { QiType } from "../qi/qi-type";
 import { HalacTheme } from "../yi-jing/halacTheme";
 import { YiJing } from "../yi-jing/yijing";
 import { Bazi } from "./bazi";
-import { BaziStructure } from "./bazi-structure";
 import { BaziPeriodObservation } from "./baziPeriodObservation";
 import { LunarBase } from "./lunarBase";
 import { SecondaryDeity } from "./secondaryDeity";
@@ -95,7 +89,6 @@ export class BaziYearObservation extends BaziPeriodObservation {
     const periodPilar = this.periodAttr.pilar;
     const pilarsAttr = this.lunar.pilarsAttr;
     const DOT = ".";
-    const secDeiTies = this.lunar.pilarsAttr.secondaryDeityPilars;
     let temp="";
     for (
       let branchePilarIdx = 0;
@@ -169,7 +162,6 @@ export class BaziYearObservation extends BaziPeriodObservation {
 
 
   commentOnYear(currStudyYear: Bazi) {
-
     this.studyYear=currStudyYear;
     this.lunar.evalPeriodData();
     this.evalBaseYearPoint(currStudyYear);

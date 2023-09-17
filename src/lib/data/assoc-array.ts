@@ -3,12 +3,18 @@ import { ObjectHelper } from '../helper/objectHelper';
 
 export class AssocArray {
 
-    dataArr: any[] ;
+    private dataArr: any[string] ;
+    len: number ;
 
     constructor() {
       this.dataArr = [];
+      this.len=0;
     }
 
+    getDataArr(){
+      return this.dataArr
+    }
+    
     get(key: string) {
         type keyType = keyof typeof this.dataArr;
         const attr = this.dataArr[key as keyType];
@@ -16,14 +22,16 @@ export class AssocArray {
     }
 
     put(key: string, data: any): void {
-        type keyType = keyof typeof this.dataArr;
-        this.dataArr[key as keyType]=data;
+        this.dataArr[key]=data;
+        this.len++
     }
 
 
     pop(key: string): void {
-      type keyType = keyof typeof this.dataArr;
-      this.dataArr[key as keyType]=[];
+      delete this.dataArr[key]
+      // type keyType = keyof typeof this.dataArr;
+      // Other solution this.dataArr[key as keyType]=undefined;
+      this.len--
   }
 
     exist(key: string){

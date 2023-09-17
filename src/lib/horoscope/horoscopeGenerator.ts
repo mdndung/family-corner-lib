@@ -67,6 +67,7 @@ export class HoroscopeGenerator {
   }
 
   genPeriodTheme() {
+    console.log("GENPERIODTHEME 0")
     PropertyHelper.initHelper(ObsPeriod.PERIODTHEME, this.studyDate);
     this.contributors.forEach((contrib) => {
       contrib.genPeriodTheme(this.studyAge, this.studyDate);

@@ -123,6 +123,10 @@ export class YiJing {
   }
 
   getHexaOrdinal() {
+    if ( this.skyTrigram==null ) {
+      console.log("SkyTriGram ",this)
+      return 10
+    }
     return YiJing.hexaOrder[this.skyTrigram.ordinal()][this.earthTrigram.ordinal()];
   }
 

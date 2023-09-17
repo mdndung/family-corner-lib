@@ -1,21 +1,9 @@
-import { BrancheHelper } from "../../helper/brancheHelper";
+
 import { PilarHelper } from "../../helper/pilarHelper";
 import { QiHelper } from "../../helper/qiHelper";
-import { StringHelper } from "../../helper/stringHelper";
-import { ElementLifeCycle } from "../feng-shui/elementLifeCycle";
-import { Element } from "../feng-shui/element";
-
-import { ElementNEnergyRelation } from "../feng-shui/elementNEnergyRelation";
 import { QiType } from "../qi/qi-type";
 import { Bazi } from "./bazi";
 import { BaziObservationBase } from "./baziObservationBase";
-import { LunarBase } from "./lunarBase";
-import { BaziStructureHelper } from "../../helper/bazi-structureHelper";
-import { PropertyHelper } from "../../helper/PropertyHelper";
-import { DeityHelper } from "../../helper/deityHelper";
-import { ObjectHelper } from "../../helper/objectHelper";
-import { BaziStructure } from "./bazi-structure";
-import { PilarBase } from "./pilarBase";
 
 
 export class BaziPeriodObservation extends BaziObservationBase {
