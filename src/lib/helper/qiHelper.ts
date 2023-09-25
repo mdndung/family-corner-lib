@@ -197,6 +197,20 @@ export class QiHelper {
     ],
   ];
 
+  //Ref9 p134
+  static SeasonForce = [
+    // Wood,Fire/Earth/Metal/Water
+    [QiForce.VERYSTRONG,QiForce.PROSPEROUS,QiForce.NONE,QiForce.MEDIUM,QiForce.FAVORABLE], // Spring element force (Wood,Fire,Water,Metal, Earth)
+    [QiForce.FAVORABLE,QiForce.VERYSTRONG,QiForce.PROSPEROUS,QiForce.NONE,QiForce.MEDIUM], // Summer element force (Fire,Earth,Wood,Water,Metal)
+    [QiForce.NONE,QiForce.MEDIUM,QiForce.FAVORABLE,QiForce.VERYSTRONG,QiForce.PROSPEROUS], // Autumn
+    [QiForce.PROSPEROUS,QiForce.NONE,QiForce.MEDIUM,QiForce.FAVORABLE,QiForce.VERYSTRONG]  // Winter
+  ]
+
+    //Ref9 p134
+    static Reservoir = [
+      // Wood,Fire/Earth/Metal/Water
+      Branche.GOAT, Branche.DOG, , Branche.OX, Branche.DRAGON
+    ]
 
   static getBirthMonthTrigram(lunar: Lunar) {
     let trigram: Trigram;
@@ -258,6 +272,57 @@ export class QiHelper {
     return (
       trigram.isEqual(yiJing.skyTrigram) || trigram.isEqual(yiJing.earthTrigram)
     );
+  }
+
+  //Selon Luc
+  //Propablement Ref9p147
+  static getSeasonForce (element: Element, monthBranche: Branche) {
+    const season = monthBranche.season
+    return QiHelper.SeasonForce[season.ordinal()][element.ordinal()]
+  }
+
+
+  static getBrancheCombTypeElement (lunar: Lunar, type: number): Element {
+    const pilarsAttr = lunar.pilarsAttr
+    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
+      let foundCombAttr = pilarsAttr.combList.getCombTypeAttrList(
+        type,
+        pilarIdx
+      );
+      if ( foundCombAttr.length>0 ) return foundCombAttr[0].resultData as Element
+    }
+    return null
+  }
+
+  static getSanHuiElement (lunar: Lunar): Element {
+    return QiHelper.getBrancheCombTypeElement(lunar,CombAttr.BRANCHESEASONCOMBTYPE);
+  }
+
+  static getSanHeElement (lunar: Lunar): Element {
+    return QiHelper.getBrancheCombTypeElement(lunar,CombAttr.BRANCHESEASONCOMBTRANSFORMABLETYPE);
+  }
+
+
+  // Selon Luc + Ref9p150 + Ref9p151
+  static getDayMasterEarthSupport(bazi: Bazi) {
+    const dayMasterElement = bazi.getDayMasterElement()
+    if ( dayMasterElement===bazi.getdBranche().getElement() ) {
+      return QiForce.PROSPEROUS
+    }
+    if ( dayMasterElement===bazi.gethBranche().getElement() ) {
+      return QiForce.FAVORABLE
+    }
+    if ( dayMasterElement===bazi.getyBranche().getElement() ) {
+      return QiForce.MEDIUM
+    }
+    if ( dayMasterElement!==Element.EARTH ) {
+      const reservoir = QiHelper.Reservoir[dayMasterElement.ordinal()];
+      if ( reservoir===bazi.getdBranche() ) return QiForce.PROSPEROUS
+      if ( reservoir===bazi.gethBranche() ) return QiForce.PROSPEROUS
+      if ( reservoir===bazi.getmBranche() ) return QiForce.PROSPEROUS
+      if ( reservoir===bazi.getyBranche() ) return QiForce.MEDIUM
+    }
+    return QiForce.NONE
   }
 
   // Ref2 p350: BIRTHSEASONENERGY

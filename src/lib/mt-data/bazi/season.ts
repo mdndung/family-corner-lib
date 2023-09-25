@@ -28,6 +28,7 @@ export class Season extends EnumBaseClass {
 		this.element=element;
   }
 
+
   override getClassName() {return 'Season';}
 
   isYin(count: number) {
@@ -41,5 +42,6 @@ export class Season extends EnumBaseClass {
   override getViewColorName() {
     return this.element.getViewColorName();
   }
+
 
 }

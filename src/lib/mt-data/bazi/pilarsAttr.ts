@@ -28,6 +28,7 @@ import { StringHelper } from "../../helper/stringHelper";
 import { DeityAttr } from "./deityAttr";
 import { BaziStructure } from "./bazi-structure";
 import { SecDeityAttr } from "./SecDeityAttr";
+import { Bazi } from "./bazi";
 
 
 export class PilarsAttr {
@@ -52,6 +53,7 @@ export class PilarsAttr {
 
   elementNEnergyForce: DataWithLog[] = null;
   elementForce: DataWithLog[] = null;
+  elementBaseForce: DataWithLog[] = null;
   majorElement: Element = null;
   sumElementForce: number = null;
   averageElementForce: number = null;
@@ -1004,12 +1006,41 @@ export class PilarsAttr {
     this.elementForce[ee.getElement().ordinal()].addData(force, detail);
   }
 
+
+  evalBaseElementForce(lunar: Lunar) {
+    const elementValues = Element.getValues();
+    this.elementBaseForce = DataWithLog.newDataArray(elementValues.length);
+    // Force by season
+    const mBranche = lunar.getmBranche()
+    const pilars = lunar.getPilars( )
+    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
+      let element = pilars[pilarIdx].trunk.getElement();
+      let qiForce = QiHelper.getSeasonForce(element,mBranche)
+      this.elementBaseForce[element.ordinal()].setValue(qiForce.force,"Season base Force");
+      element = pilars[pilarIdx].branche.getElement();
+      qiForce = QiHelper.getSeasonForce(element,mBranche)
+      this.elementBaseForce[element.ordinal()].setValue(qiForce.force,"Season base Force");
+    }
+    const sanhuiElement=QiHelper.getSanHuiElement(lunar)
+    if ( sanhuiElement!==null ) {
+      this.elementBaseForce[sanhuiElement.ordinal()].setValue(QiForce.VERYSTRONG.force,"Season San Hui Element");
+    }
+    const sanheElement=QiHelper.getSanHuiElement(lunar)
+    if ( sanhuiElement!==null ) {
+      this.elementBaseForce[sanhuiElement.ordinal()].setValue(QiForce.VERYSTRONG.force,"Season San Hui Element");
+    }
+  }
+
+
   evalElementForce(lunar: Lunar) {
+    this.evalBaseElementForce(lunar);
+
     const len = ElementNEnergy.getValues().length;
     const pilars = lunar.pilars;
     this.elementNEnergyForce = DataWithLog.newDataArray(len);
     const elementValues = Element.getValues();
     this.elementForce = DataWithLog.newDataArray(elementValues.length);
+
     for (let index = 0; index < len; index++) {
       this.elementNEnergyForce[index].addData(0);
     }

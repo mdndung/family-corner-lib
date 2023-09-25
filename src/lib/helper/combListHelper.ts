@@ -441,6 +441,7 @@ export class CombListHelper {
     }
   }
 
+  //Ref9 p136 San Hui
   static getSeasonCombination(lunar: Lunar, checkPilarIdx: number) {
     const checkSeason = lunar.pilars[checkPilarIdx].branche.season;
     const branchesIdx: number[] = [checkPilarIdx];
@@ -471,6 +472,7 @@ export class CombListHelper {
         pilarIdx
       );
       if (combSeasonBranches !== null) {
+        const seasonElement = lunar.pilars[pilarIdx].branche.season.element
         let transformElement =
           BrancheRelation.getTransformableSeasonCombination(
             lunar.pilars[pilarIdx].branche
@@ -478,7 +480,7 @@ export class CombListHelper {
         lunar.pilarsAttr.combList.addBranchComb(
           CombAttr.BRANCHESEASONCOMBTYPE,
           combSeasonBranches,
-          null,
+          seasonElement,
           "Transformable under some conditions"
         );
         if (BaziHelper.isBrancheElementAppearInTrunk(lunar, transformElement)) {
@@ -488,8 +490,6 @@ export class CombListHelper {
             transformElement
           );
         }
-
-        // Seems to have only one case break;
       }
     }
   }
@@ -656,11 +656,11 @@ export class CombListHelper {
     const pilars = lunar.pilars;
     const pilarsAttr = lunar.pilarsAttr;
     const combList = pilarsAttr.combList;
-    const checkBrancheIdxArr = combList.getBrancheNonContributor(combType);
+    const checkBrancheIdxArr = combList.getPilarsIdxWithNoBrancheRelationType(combType);
     const checkBranches: Branche[] = [];
     for (let index = 0; index < checkBrancheIdxArr.length; index++) {
-      const element = checkBrancheIdxArr[index];
-      checkBranches.push(pilars[element].branche);
+      const pilarIdx = checkBrancheIdxArr[index];
+      checkBranches.push(pilars[pilarIdx].branche);
     }
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
       const pilarElement = pilars[pilarIdx].trunk.getElement();

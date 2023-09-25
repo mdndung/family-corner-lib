@@ -48,7 +48,6 @@ export class BaziHelper {
     [0, 64, 35, 21, 50, -5, 14, 38, 56, 30],
   ];
 
-
 static existsecDeity( secondaryDeityPilar: SecDeityAttr[], deity: SecondaryDeity) {
   for (let i = 0; i < LunarBase.PILARS_LEN; i++) {
     const rec=secondaryDeityPilar[i].findRec(deity);

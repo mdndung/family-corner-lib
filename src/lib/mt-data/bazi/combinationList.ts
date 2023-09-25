@@ -13,7 +13,7 @@ export class CombAttr {
   static BRANCHECOMB3TYPE = 7;
   static BRANCHECOMB3WITHTRANSFORMTYPE = 8;
   static MIDBRANCHECOMB3TYPE = 9;
-  static BRANCHESEASONCOMBTYPE = 10;
+  static BRANCHESEASONCOMBTYPE = 10; // Ref9 p136 San Hui
   static BRANCHECOMB6TYPE = 11;
   static BRANCHECOMB6WITHTRANSFORMTYPE = 12;
   static BRANCHECLASHTYPE = 13; // Generic with detail in additional type from 14 to 19
@@ -310,7 +310,7 @@ export class CombinationList {
   }
 
   // Get the branches which do not contribute to the type type
-  getBrancheNonContributor(type: number) {
+  getPilarsIdxWithNoBrancheRelationType(type: number) {
     const res = [];
     for (let pilarIdx = 0; pilarIdx < LunarBase.LINDEX; pilarIdx++) {
       if (!this.existBrancheRelationType(type, pilarIdx)) {
