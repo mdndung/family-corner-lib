@@ -91,7 +91,7 @@ export class DataWithLog {
     return sign+force;
   }
 
-  addValue(force: number, detail: string, subDetail?: string) {
+  addValue(force: number, detail: string, subDetail?: string, maxValue:number=-1) {
     if (typeof subDetail === "undefined") {
       subDetail = "";
     } else {
@@ -103,6 +103,7 @@ export class DataWithLog {
     if (force !== 0) {
       const currValue = this.getValue();
       this.value += force;
+      if ( maxValue>0 && this.value<maxValue ) this.value= maxValue
       if ( currValue===0  ) {
         if ( this.isFirst) this.detail = '' ;
       } else {

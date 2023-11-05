@@ -1012,23 +1012,37 @@ export class PilarsAttr {
     this.elementBaseForce = DataWithLog.newDataArray(elementValues.length);
     // Force by season
     const mBranche = lunar.getmBranche()
-    const pilars = lunar.getPilars( )
-    for (let pilarIdx = 0; pilarIdx < LunarBase.PILARS_LEN; pilarIdx++) {
-      let element = pilars[pilarIdx].trunk.getElement();
-      let qiForce = QiHelper.getSeasonForce(element,mBranche)
-      this.elementBaseForce[element.ordinal()].setValue(qiForce.force,"Season base Force");
-      element = pilars[pilarIdx].branche.getElement();
+    let qiForce = null
+    for (let elementIdx = 0; elementIdx < elementValues.length; elementIdx++) {
+      let element = elementValues[elementIdx]
       qiForce = QiHelper.getSeasonForce(element,mBranche)
-      this.elementBaseForce[element.ordinal()].setValue(qiForce.force,"Season base Force");
+      this.elementBaseForce[element.ordinal()].setValue(qiForce.force,"Season base Element Force");
     }
-    const sanhuiElement=QiHelper.getSanHuiElement(lunar)
-    if ( sanhuiElement!==null ) {
-      this.elementBaseForce[sanhuiElement.ordinal()].setValue(QiForce.VERYSTRONG.force,"Season San Hui Element");
+    // Alignement sur le temps
+    const dayMasterElement = lunar.getDayMasterElement()
+    qiForce = QiHelper.getSeasonForce(dayMasterElement,mBranche)
+    const combinationForce = 10/8 ;
+    if ( qiForce===QiForce.VERYSTRONG ) {
+      this.elementBaseForce[dayMasterElement.ordinal()].addValue(combinationForce,"Season alignment","",QiForce.TOOSTRONG.force);
+      this.elementBaseForce[dayMasterElement.ordinal()].addValue(
+        combinationForce,"Season alignment");
+   
     }
-    const sanheElement=QiHelper.getSanHuiElement(lunar)
-    if ( sanhuiElement!==null ) {
-      this.elementBaseForce[sanhuiElement.ordinal()].setValue(QiForce.VERYSTRONG.force,"Season San Hui Element");
+    /*
+    qiForce = QiHelper.getDayMasterEarthSupport(lunar)
+    if (  qiForce.force>=QiForce.PROSPEROUS.force) {
+      this.elementBaseForce[dayMasterElement.ordinal()].addValue
+          (combinationForce,"Earth Support");
     }
+    const sanheElement=QiHelper.getSanHeElement(lunar)
+    if ( sanheElement!==null ) {
+      this.elementBaseForce[sanheElement.ordinal()].addValue(QiForce.VERYSTRONG.force,"Season San He Element");
+    }
+    const sanHuiElement=QiHelper.getSanHuiElement(lunar)
+    if ( sanheElement!==null ) {
+       this.elementBaseForce[sanHuiElement.ordinal()].addValue(QiForce.VERYSTRONG.force,"Season San He Element");
+    }
+    */
   }
 
 

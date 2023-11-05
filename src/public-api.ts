@@ -19,6 +19,7 @@ export * from './lib/helper/nagiaHelper';
 export * from './lib/helper/objectHelper';
 export * from './lib/helper/PropertyHelper';
 export * from './lib/helper/qiHelper';
+export * from './lib/helper/starHelper';
 export * from './lib/helper/stringHelper';
 export * from './lib/helper/trigramHelper';
 export * from './lib/helper/trunkHelper';
@@ -68,6 +69,8 @@ export * from './lib/mt-data/feng-shui/energy';
 export * from './lib/mt-data/feng-shui/gua';
 export * from './lib/mt-data/feng-shui/omen';
 export * from './lib/mt-data/feng-shui/trigram';
+export * from './lib/mt-data/feng-shui/mountain';
+export * from './lib/mt-data/feng-shui/star';
 
 export * from './lib/mt-data/property/propertyAttr';
 export * from './lib/mt-data/property/propertyType';
@@ -76,6 +79,10 @@ export * from './lib/mt-data/qi/dataWithLog';
 export * from './lib/mt-data/qi/qi-force';
 export * from './lib/mt-data/qi/qi-type-data-rec';
 export * from './lib/mt-data/qi/qi-type';
+
+export * from './lib/mt-data/graphic/point';
+export * from './lib/mt-data/graphic/paint-attr';
+export * from './lib/mt-data/graphic/canvas-attr';
 
 export * from './lib/mt-data/tuvi/tuviDienTrachObservation';
 export * from './lib/mt-data/tuvi/tuviHuynhDeObservation';

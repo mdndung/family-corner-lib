@@ -2,9 +2,7 @@
 import { XcelDocInterface } from '../interface/xcelDocInterface';
 import { Lunar } from '../mt-data/bazi/lunar';
 import { MyCalendar } from '../mt-data/date/mycalendar';
-import { TranslateService } from '@ngx-translate/core';
 import { HoroscopeHelper } from '../helper/horoscopeHelper';
-import { MessageHelper } from '../helper/messageHelper';
 import { ObsPeriod } from '../observations/obsPeriod';
 import { HalacHoroscope } from './halacHoroscope';
 import { HoroscopeGenerator } from './horoscopeGenerator';

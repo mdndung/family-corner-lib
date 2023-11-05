@@ -304,7 +304,7 @@ export class QiHelper {
 
 
   // Selon Luc + Ref9p150 + Ref9p151
-  static getDayMasterEarthSupport(bazi: Bazi) {
+  static getDayMasterEarthSupport(bazi: Lunar) {
     const dayMasterElement = bazi.getDayMasterElement()
     if ( dayMasterElement===bazi.getdBranche().getElement() ) {
       return QiForce.PROSPEROUS

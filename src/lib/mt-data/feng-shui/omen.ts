@@ -75,4 +75,22 @@ export class Omen extends EnumBaseClass {
   override getViewColorName() {
     return this.element.getViewColorName();
   }
+  
+  public static  getOmen( degree: number) : Omen{
+	let omen = Omen.F1 ;
+	switch (degree) {
+	case 90: omen = Omen.F1 ; break;
+	case 80: omen = Omen.F2 ; break;
+	case 70: omen = Omen.F3 ; break;
+	case 60: omen = Omen.F4 ; break;
+	
+	case -90: omen = Omen.D4 ; break;
+	case -80: omen = Omen.D3 ; break;
+	case -70: omen = Omen.D2; break;
+	case -60: omen = Omen.D1; break;
+	}
+	return omen;
+}
+
+
 }
